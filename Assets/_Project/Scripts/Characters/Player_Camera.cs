@@ -3,15 +3,11 @@ using UnityEngine;
 public class Player_Camera : MonoBehaviour
 {
     [Header("Camera Settings")]
-    [SerializeField] [Range(0,100)] private float SensitivityX;
-    [SerializeField] [Range(0, 100)] private float SensitivityY;
+    [SerializeField] private float SensitivityX = 175;
+    [SerializeField] private float SensitivityY = 175;
+    [SerializeField] Transform orientation;
     float xRotation;
     float yRotation;
-    Transform orientation;
-    private void Awake()
-    {
-        orientation = transform.parent.Find("Orientation");
-    }
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
