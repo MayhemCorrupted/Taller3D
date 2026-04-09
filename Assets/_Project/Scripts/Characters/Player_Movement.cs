@@ -26,8 +26,8 @@ public class Player_Movement : MonoBehaviour
 
         movement.y += gravity * Time.deltaTime;
 
-        Vector3 direction = orientation.forward * movement.z + orientation.right * movement.y;
+        Vector3 direction = orientation.forward * movement.z + orientation.right * movement.x;
 
-        controller.Move((movement.normalized * walkSpeed + Vector3.up * movement.y) * Time.deltaTime);
+        controller.Move((direction.normalized * walkSpeed + Vector3.up * direction.y) * Time.deltaTime);
     }
 }
