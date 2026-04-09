@@ -7,6 +7,7 @@ public class Player_Movement : MonoBehaviour
     [SerializeField] float walkSpeed = 15;
     [SerializeField] float gravity = -10;
     [SerializeField] Transform orientation;
+    [SerializeField] bool flyMode = false;
     CharacterController controller;
     Vector3 movement;
     private void Awake()
@@ -27,6 +28,12 @@ public class Player_Movement : MonoBehaviour
 
         Vector3 direction = orientation.forward * movement.z + orientation.right * movement.x;
 
+        if (flyMode)
+        {
+            Vector3 dirY = direction + orientation.up * movement.y;
+        }
+
         controller.Move((direction.normalized * walkSpeed + Vector3.up * movement.y) * Time.deltaTime);
+
     }
 }

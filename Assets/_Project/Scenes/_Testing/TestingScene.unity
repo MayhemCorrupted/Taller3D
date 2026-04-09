@@ -869,8 +869,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player_Movement
   walkSpeed: 5
-  gravity: -10
+  gravity: 0
   orientation: {fileID: 313825841}
+  flyMode: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
