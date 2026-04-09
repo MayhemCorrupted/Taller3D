@@ -19,15 +19,14 @@ public class Player_Movement : MonoBehaviour
     }
     void Move()
     {
-        movement.x = Input.GetAxis("Horizontal");
-        movement.z = Input.GetAxis("Vertical");
+        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.z = Input.GetAxisRaw("Vertical");
 
-        if (controller.isGrounded && movement.y < 0) movement.y = -2f;
-
-        movement.y += gravity * Time.deltaTime;
+        if (controller.isGrounded) movement.y = -2f;
+        else movement.y += gravity * Time.deltaTime;
 
         Vector3 direction = orientation.forward * movement.z + orientation.right * movement.x;
 
-        controller.Move((direction.normalized * walkSpeed + Vector3.up * direction.y) * Time.deltaTime);
+        controller.Move((direction.normalized * walkSpeed + Vector3.up * movement.y) * Time.deltaTime);
     }
 }
