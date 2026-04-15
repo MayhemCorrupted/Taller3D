@@ -2,15 +2,25 @@ using UnityEngine;
 
 public class Player_Interaction : MonoBehaviour
 {
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
+    [Header("Interaction Settings")]
+    [SerializeField] float interactRange = 3f;
+    [SerializeField] LayerMask interactLayer;
+    [SerializeField] Transform interactPoint;
     void Update()
     {
-        
+        InteractDetector();
+    }
+
+    void InteractDetector()
+    {
+        Vector3 rayOrigin = interactPoint.position;
+        Vector3 direction = interactPoint.forward;
+        if (Physics.Raycast(rayOrigin, direction, out RaycastHit hit, interactRange, interactLayer))
+        {
+            if (Input.GetKeyDown(KeyCode.E))
+            {
+               Debug.Log("Interacted with " + hit.collider.name);
+            }
+        }
     }
 }

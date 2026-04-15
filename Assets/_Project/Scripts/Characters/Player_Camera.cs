@@ -1,13 +1,18 @@
+using UnityEditor;
 using UnityEngine;
 
 public class Player_Camera : MonoBehaviour
 {
     [Header("Camera Settings")]
-    [SerializeField] private float SensitivityX = 175;
-    [SerializeField] private float SensitivityY = 175;
+    [SerializeField] float mouseSensitivity = 5f;
     [SerializeField] Transform orientation;
     float xRotation;
     float yRotation;
+    Vector2 sensitivity;
+    private void Awake()
+    {
+        sensitivity = Vector2.one * mouseSensitivity;
+    }
     void Start()
     {
         Cursor.lockState = CursorLockMode.Locked;
@@ -20,8 +25,8 @@ public class Player_Camera : MonoBehaviour
     }
     void Orientation()
     {
-        float MouseX = Input.GetAxis("Mouse X") * SensitivityX * Time.deltaTime;
-        float MouseY = Input.GetAxis("Mouse Y") * SensitivityY * Time.deltaTime;
+        float MouseX = Input.GetAxis("Mouse X") * (sensitivity.x * 10) * Time.deltaTime;
+        float MouseY = Input.GetAxis("Mouse Y") * (sensitivity.y * 10) * Time.deltaTime;
 
         yRotation += MouseX;
         xRotation -= MouseY;
