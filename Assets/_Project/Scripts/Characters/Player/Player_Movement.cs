@@ -8,6 +8,11 @@ public class Player_Movement : MonoBehaviour
     [SerializeField] float gravity = -10;
     [SerializeField] Transform orientation;
     CharacterController controller;
+    [Header("FlyMode Settings")]
+    [SerializeField] Transform cameraTransform;
+    [SerializeField] KeyCode flyModeKey = KeyCode.Space;
+    [SerializeField] float flySpeed = 10f;
+    bool flying;
     Vector3 movement;
     private void Awake()
     {
@@ -15,9 +20,20 @@ public class Player_Movement : MonoBehaviour
     }
     void Update()
     {
-        Move();
+        if(Input.GetKeyDown(flyModeKey)) flying = !flying;
+        if (flying) Fly();
+        else Move();
     }
-    void Move()
+    void Fly()
+    {
+        movement.x = Input.GetAxisRaw("Horizontal");
+        movement.z = Input.GetAxisRaw("Vertical");
+
+        Vector3 direction = cameraTransform.forward * movement.z + cameraTransform.right * movement.x;
+        controller.Move((direction.normalized * flySpeed) * Time.deltaTime);
+
+    }
+        void Move()
     {
         movement.x = Input.GetAxisRaw("Horizontal");
         movement.z = Input.GetAxisRaw("Vertical");
