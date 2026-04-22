@@ -1,27 +1,27 @@
+using Unity.Cinemachine;
 using UnityEngine;
-
+[RequireComponent(typeof(CharacterController))]
 public class Player_Camera : MonoBehaviour
 {
     [Header("Camera Settings")]
-    [SerializeField] float mouseSensitivity = 5;
-    [SerializeField] Transform orientation;
-    float xRotation;
-    float yRotation;
-    Vector2 sensitivity;
-
+    [SerializeField] float mouseSensitivity = 10;
+    CinemachineCamera playerCamera;
+    float currrentSensibility;
+    CinemachineInputAxisController controller;
     [Header("Head Bob Settings")]
-    [SerializeField] CharacterController playerMovement;
     [SerializeField] float bobSpeed = 6;
     [SerializeField] float bobAmountY = 0.05f;
     [SerializeField] float bobAmountX = 0.02f;
     [SerializeField] float minBobSpeed = 0.5f;
+    CharacterController playerMovement;
     Vector3 originalPos;
     float bobTimer = 0;
 
     private void Awake()
     {
-        originalPos = transform.localPosition; 
-        sensitivity = Vector2.one * mouseSensitivity;
+        if (playerCamera == null) playerCamera = GetComponentInChildren<CinemachineCamera>();
+        originalPos = playerCamera.transform.localPosition;
+        currrentSensibility = mouseSensitivity;
     }
     void Start()
     {
@@ -31,22 +31,12 @@ public class Player_Camera : MonoBehaviour
 
     void Update()
     {
-        Orientation();
-        HeadBobbing();
+        //HeadBobbing();
     }
-    void Orientation()
+    void SensibilityUpdate()
     {
-        float MouseX = Input.GetAxis("Mouse X") * (sensitivity.x * 10) * Time.deltaTime;
-        float MouseY = Input.GetAxis("Mouse Y") * (sensitivity.y * 10) * Time.deltaTime;
-
-        yRotation += MouseX;
-        xRotation -= MouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
-
-        transform.rotation = Quaternion.Euler(xRotation, yRotation, 0);
-        orientation.rotation = Quaternion.Euler(0, yRotation, 0);
-    }
-    void HeadBobbing()
+    }   
+    /*void HeadBobbing()
     {
         float speed = playerMovement.velocity.magnitude;
 
@@ -64,5 +54,5 @@ public class Player_Camera : MonoBehaviour
             bobTimer = 0;
             transform.localPosition = Vector3.Lerp(transform.localPosition, originalPos, Time.deltaTime * 5f);
         }
-    }
+    }*/
 }
