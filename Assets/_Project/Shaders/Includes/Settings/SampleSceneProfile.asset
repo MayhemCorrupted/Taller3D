@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b2db86121404754db890f4c8dfe81b2, type: 3}
   m_Name: Bloom
   m_EditorClassIdentifier: 
-  active: 0
+  active: 1
   skipIterations:
     m_OverrideState: 1
     m_Value: 0
@@ -93,22 +93,22 @@ MonoBehaviour:
   active: 1
   shadows:
     m_OverrideState: 1
-    m_Value: {x: 0.9100355, y: 1, z: 0.8122779, w: -0.69745517}
+    m_Value: {x: 0.75593764, y: 0.88631827, z: 1, w: -0.5477226}
   midtones:
     m_OverrideState: 1
-    m_Value: {x: 0.8228614, y: 0.8864727, z: 1, w: -0.07540057}
+    m_Value: {x: 0.5523414, y: 0.84324056, z: 1, w: -0.37433153}
   highlights:
     m_OverrideState: 1
-    m_Value: {x: 0.77738863, y: 0.24856526, z: 1, w: 0.16965128}
+    m_Value: {x: 0.67562044, y: 1, z: 0.95820326, w: 0.010695194}
   shadowsStart:
     m_OverrideState: 0
-    m_Value: 0
+    m_Value: 0.12
   shadowsEnd:
     m_OverrideState: 0
-    m_Value: 0.3
+    m_Value: 0.39
   highlightsStart:
     m_OverrideState: 0
-    m_Value: 0.55
+    m_Value: 0.42
   highlightsEnd:
     m_OverrideState: 0
     m_Value: 1
