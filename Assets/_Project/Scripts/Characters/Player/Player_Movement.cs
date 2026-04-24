@@ -5,9 +5,9 @@ using UnityEngine;
 public class Player_Movement : MonoBehaviour
 {
     CharacterController playerCtrl;
-    Transform orientation;
     Transform cameraTransform;
     [Header("Movement Settings")]
+    [SerializeField] Transform orientation;
     [SerializeField] float walkSpeed = 15;
     [SerializeField] float gravity = -10;
     [Header("FlyMode Settings")]
@@ -21,7 +21,6 @@ public class Player_Movement : MonoBehaviour
     {
         playerCtrl = GetComponent<CharacterController>();
         cameraTransform = GetComponentInChildren<CinemachineCamera>().transform;
-        orientation = GameObject.Find("Orientation").transform;
     }
     void Update()
     {

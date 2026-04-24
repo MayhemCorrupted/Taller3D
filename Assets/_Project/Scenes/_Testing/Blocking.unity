@@ -41239,10 +41239,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dee61a4ade352014d85397ce0264a940, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player_Movement
-  walkSpeed: 4
+  orientation: {fileID: 313825841}
+  walkSpeed: 2
   gravity: -9
   flyModeKey: 32
-  flySpeed: 10
+  flySpeed: 3
   flyImpulse: 5
 --- !u!114 &1794430721
 MonoBehaviour:
@@ -41274,6 +41275,20 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player_Camera
   mouseSensitivity: 100
+  cameraTarget: {fileID: 313825841}
+  minBobSpeed: 0.18
+  returnSpeed: 0.2
+  idleReturnSpeed: 0.1
+  walkBobSpeed: 12
+  walkBobAmountX: 2
+  walkBobAmountY: 3
+  stairBobSpeed: 10
+  stairBobAmountX: 1
+  stairBobAmountY: 3
+  stairDetectThreshold: 0.1
+  flyDampingSpeed: 3
+  flyBobAmount: 2
+  flyBobSpeed: 2
 --- !u!43 &1832429791
 Mesh:
   m_ObjectHideFlags: 0
@@ -48159,7 +48174,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2054259339}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
