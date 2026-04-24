@@ -4,15 +4,9 @@ using UnityEngine;
 public class Player_Camera : MonoBehaviour
 {
     [Header("Camera Settings")]
-    [SerializeField] float mouseSensitivity = 10;
+    [SerializeField] int mouseSensitivity = 100;
     CinemachineCamera playerCamera;
     float currrentSensibility;
-    CinemachineInputAxisController controller;
-    [Header("Head Bob Settings")]
-    [SerializeField] float bobSpeed = 6;
-    [SerializeField] float bobAmountY = 0.05f;
-    [SerializeField] float bobAmountX = 0.02f;
-    [SerializeField] float minBobSpeed = 0.5f;
     CharacterController playerMovement;
     Vector3 originalPos;
     float bobTimer = 0;
@@ -28,31 +22,19 @@ public class Player_Camera : MonoBehaviour
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
-
     void Update()
     {
-        //HeadBobbing();
+        GetSensibility();
     }
-    void SensibilityUpdate()
+    void GetSensibility()
     {
-    }   
-    /*void HeadBobbing()
-    {
-        float speed = playerMovement.velocity.magnitude;
-
-        if (speed > minBobSpeed)
+        var axisController = GetComponentInChildren<CinemachineInputAxisController>();
+        
+        foreach (var c in axisController.Controllers)
         {
-            bobTimer += Time.deltaTime * bobSpeed;
-
-            float bobX = Mathf.Sin(bobTimer * 0.5f) * bobAmountX;
-            float bobY = Mathf.Sin(bobTimer) * bobAmountY;
-
-            transform.localPosition = new Vector3(originalPos.x + bobX, originalPos.y + bobY, originalPos.z);
+            if (c.Name == "Look X (Pan)") c.Input.LegacyGain = mouseSensitivity;
+            if (c.Name == "Look Y (Tilt)") c.Input.LegacyGain = -mouseSensitivity;    
         }
-        else
-        {
-            bobTimer = 0;
-            transform.localPosition = Vector3.Lerp(transform.localPosition, originalPos, Time.deltaTime * 5f);
-        }
-    }*/
+
+    }
 }
