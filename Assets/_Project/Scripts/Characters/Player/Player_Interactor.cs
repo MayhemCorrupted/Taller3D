@@ -1,4 +1,5 @@
 using UnityEngine;
+using TMPro;
 
 public class Player_Interaction : MonoBehaviour
 {
@@ -6,6 +7,14 @@ public class Player_Interaction : MonoBehaviour
     [SerializeField] float interactRange = 3f;
     [SerializeField] LayerMask interactLayer;
     [SerializeField] Transform interactPoint;
+
+
+    [Header("Interaction UI")]
+    [SerializeField] GameObject interactPrompt;
+    [SerializeField] TextMeshProUGUI promptText;
+
+    Item currentItemInRange;
+
     void Update()
     {
         InteractDetector();
@@ -17,10 +26,59 @@ public class Player_Interaction : MonoBehaviour
         Vector3 direction = interactPoint.forward;
         if (Physics.Raycast(rayOrigin, direction, out RaycastHit hit, interactRange, interactLayer))
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            Item item = hit.collider.GetComponent<Item>();
+            if (item != null)
+
             {
-               Debug.Log("Interacted with " + hit.collider.name);
+                currentItemInRange = item;
+                Showpromt(item.itemData.itemName);
+
+                if(Input.GetKeyDown(KeyCode.E))
+                    TryPickUp(item);
+
+                return;
+            }
+
+            currentItemInRange = null;
+            HidePrompt();
+        }
+    }
+
+    void TryPickUp(Item item)
+    {
+        bool added = InventoryManager.Instance.AddItem(item.itemData);
+
+        if (added)
+        {
+            item.PickUp();
+            HidePrompt();
+            Debug.Log($"Picked up: {item.itemData.itemName}");
+        }
+
+        else
+        {
+            Debug.Log("Inventory is full.");
+
+            if (promptText != null)
+            {
+                promptText.text = "Inventario lleno";
             }
         }
+
+    }
+
+    void Showpromt(string itemName)
+    {
+        if (interactPrompt != null)
+            interactPrompt.SetActive(true);
+
+        if (promptText != null)
+            promptText.text = $"[E] Recoger {itemName}";
+    }
+
+    void HidePrompt()
+    {
+        if (interactPrompt  != null)
+            interactPrompt.SetActive(false);
     }
 }
