@@ -5,7 +5,7 @@ public class InventoryManager : MonoBehaviour
 {
     public static InventoryManager Instance { get; private set; }
     [SerializeField] int MaxSlots = 5;
-    List<ItemData> items = new List<ItemData>();
+    List<ItemData> items = new();
     public event System.Action OnInventoryChanged;
     void Awake()
     {
