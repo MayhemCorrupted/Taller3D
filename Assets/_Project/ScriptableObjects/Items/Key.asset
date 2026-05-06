@@ -17,3 +17,4 @@ MonoBehaviour:
   description: A key to open a door
   sprite: {fileID: 10911, guid: 0000000000000000f000000000000000, type: 0}
   itemType: 0
+  itemModelPrefab: {fileID: 8406068503256781236, guid: 3a81fbe4080e5af439f02d8b6359e941, type: 3}

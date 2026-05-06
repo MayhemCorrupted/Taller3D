@@ -14,31 +14,36 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] GameObject inventoryPanel;
     [SerializeField] TextMeshProUGUI itemNameText;
     [SerializeField] TextMeshProUGUI itemDescriptionText;
-    [Header("Inventory Slots")]
-    [SerializeField] Image[] inventoryIcons = new Image[MAX_SLOTS];
-    [SerializeField] Image[] inventoryBackground = new Image[MAX_SLOTS];
     [Header("Note Settings")]
     [SerializeField] Image noteDisplayImage;
     [SerializeField] TextMeshProUGUI noteDescription;
     [SerializeField] Button nextNoteButton, prevNoteButton;
+    [Header("Equip Prompt")]
+    [SerializeField] GameObject equipPromptPanel;
+    [SerializeField] Button equipConfirmButton;
+    [Header("Inventory Slots")]
+    [SerializeField] Image[] inventoryIcons = new Image[MAX_SLOTS];
+    [SerializeField] Image[] inventoryBackground = new Image[MAX_SLOTS];
 
     int currentNoteIndex = 0;
+    int slotSelectedToEquip;
     bool isOpen = false;
 
     void Awake()
     {
         inventoryPanel.SetActive(false);        
-        ClearInfo();
+        ClearAllInfo();
 
         if(InventoryManager.Instance != null)
             InventoryManager.Instance.OnInventoryChanged += RechargeUI;
         if(NotesManager.Instance != null)
             NotesManager.Instance.OnNoteCollected += RefreshNotesUI;
 
-        for (int i = 0; i < MAX_SLOTS; i++)
-        {
-           if(inventoryIcons[i] != null) inventoryIcons[i].enabled = false;
-        }
+        for (int i = 0; i < MAX_SLOTS; i++) 
+            if (inventoryIcons[i] != null) inventoryIcons[i].enabled = false;
+
+        if (equipPromptPanel != null) equipPromptPanel.SetActive(false);
+        if (equipConfirmButton != null) equipConfirmButton.onClick.AddListener(() => EquipFromSlot(slotSelectedToEquip));
         if (nextNoteButton != null) nextNoteButton.onClick.AddListener(NextNote);
         if (prevNoteButton != null) prevNoteButton.onClick.AddListener(PrevNote);
         #region Validation
@@ -48,13 +53,11 @@ public class InventoryUI : MonoBehaviour
 #endif
         #endregion
     }
-
     void Update()
     {
-        if (Input.GetKeyDown(toggleKey)) ToggleInventory();
+        if (Input.GetKeyDown(toggleKey)) TogglePanel();
     }
-
-    void ToggleInventory()
+    void TogglePanel()
     {
         isOpen = !isOpen;
         inventoryPanel.SetActive(isOpen);
@@ -68,18 +71,48 @@ public class InventoryUI : MonoBehaviour
             RefreshNotesUI();
             RechargeUI();
         }
-        else ClearInfo(); 
+        else ClearAllInfo(); 
     }
-    public void ClearInfo()
+   public void ClearItemInfo()
     {
-        itemNameText.text = "--";
-        itemDescriptionText.text = "";
-
+        if (itemNameText != null) itemNameText.text = "--";
+        if (itemDescriptionText != null) itemDescriptionText.text = "";
+    }
+    public void HideEquipPrompt()
+    {
+        if (equipPromptPanel != null) equipPromptPanel.SetActive(false);
+    }
+    public void ClearAllInfo()
+    {
+        ClearItemInfo();
+        HideEquipPrompt();
         for (int i = 0; i < MAX_SLOTS; i++)
         {
             inventoryBackground[i].color = Color.white;
         }
     }
+    #region Equipment_Logic
+    public void ShowEquipPrompt(int slotIndex, Vector2 mousePos)
+    {
+        ItemData itemData = InventoryManager.Instance.GetItem(slotIndex);
+        if(itemData == null) return;
+        
+        slotSelectedToEquip = slotIndex;
+        equipPromptPanel.SetActive(true);
+        equipPromptPanel.transform.position = mousePos + new Vector2(40, -40);
+    }
+    public void EquipFromSlot(int slotIndex)
+    {
+        ItemData item = InventoryManager.Instance.GetItem(slotIndex);
+        if(item!= null)
+        {
+            EquipmentManager.Instance.EquipItem(item);
+            equipPromptPanel.SetActive(false);
+            TogglePanel();
+        }
+    }
+    #endregion
+    #region Inventory_Logic
     void RechargeUI()
     {
         if (InventoryManager.Instance == null) return;
@@ -114,10 +147,10 @@ public class InventoryUI : MonoBehaviour
         {
             itemNameText.text = item.itemName;
             itemDescriptionText.text = item.description;
-
-            inventoryBackground[slotIndex].color = Color.yellow;
         }
     }
+#endregion
+    #region Note_Logic
     void UpdateNoteDisplay(List<NoteData> notes)
     {
         if (notes == null || notes.Count == 0) return;
@@ -157,6 +190,8 @@ public class InventoryUI : MonoBehaviour
         currentNoteIndex--;
         RefreshNotesUI();
     }
+    #endregion
+
     void OnDestroy()
     {
         if (InventoryManager.Instance != null)

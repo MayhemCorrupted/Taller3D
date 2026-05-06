@@ -8,5 +8,6 @@ public class ItemData : ScriptableObject
     [TextArea] public string description;
     public Sprite sprite;
     public ItemType itemType;
+    public GameObject itemModelPrefab;
     public enum ItemType { Interactable, Notes }
 }
