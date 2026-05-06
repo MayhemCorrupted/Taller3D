@@ -3,6 +3,11 @@ using TMPro;
 
 public class Player_Interactor : MonoBehaviour
 {
+    [Header("Prompt Formats")]
+    [SerializeField] string itemPromptFormat = "[E] Recoger {0}";
+    [SerializeField] string doorPromptFormat = "[E] Abrir / Cerrar";
+    [SerializeField] string lockedDoorFormat = "Cerrado";
+
     [Header("Interaction Settings")]
     [SerializeField] float interactRange = 3f;
     [SerializeField] LayerMask interactLayer;
@@ -13,7 +18,7 @@ public class Player_Interactor : MonoBehaviour
     [SerializeField] TextMeshProUGUI promptText;
 
     Item currentItem;
-    PuzzleDoorInteractable currentDoor;
+    DoorController currentDoor;
 
     void Update()
     {
@@ -31,19 +36,21 @@ public class Player_Interactor : MonoBehaviour
             {
                 currentItem = item;
                 currentDoor = null;
-                ShowPrompt($"[E] Recoger {item.itemData.itemName}");
+                string fullText = string.Format(itemPromptFormat, item.itemData.itemName);
+                ShowPrompt(fullText);
                 return;
             }
 
-            if (hit.collider.TryGetComponent(out PuzzleDoorInteractable door))
+            if (hit.collider.TryGetComponent(out DoorController door))
             {
                 currentDoor = door;
                 currentItem = null;
-                ShowPrompt("[E] Interactuar");
+
+                string text = door.isLocked ? lockedDoorFormat : doorPromptFormat;
+                ShowPrompt(text);
                 return;
             }
         }
-
         currentItem = null;
         currentDoor = null;
         HidePrompt();
@@ -64,7 +71,7 @@ public class Player_Interactor : MonoBehaviour
 
         if (currentDoor != null)
         {
-            currentDoor.Interact();
+            currentDoor.Interact(transform.position);
         }
     }
 

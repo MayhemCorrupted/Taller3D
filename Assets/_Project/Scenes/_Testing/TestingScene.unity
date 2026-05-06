@@ -1209,7 +1209,6 @@ GameObject:
   - component: {fileID: 403692536}
   - component: {fileID: 403692533}
   - component: {fileID: 403692532}
-  - component: {fileID: 403692537}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1317,37 +1316,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ShowFPS
   text: {fileID: 650051795}
---- !u!114 &403692537
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 403692531}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 1d847cc574f61554ea0ac3060ca1b299, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InventoryUI
-  playerCamera: {fileID: 2113595669}
-  toggleKey: 9
-  inventoryPanel: {fileID: 2013413016}
-  itemNameText: {fileID: 586780073}
-  itemDescriptionText: {fileID: 588761098}
-  noteDisplayImage: {fileID: 0}
-  noteDescription: {fileID: 0}
-  nextNoteButton: {fileID: 0}
-  prevNoteButton: {fileID: 0}
-  equipPromptPanel: {fileID: 0}
-  equipConfirmButton: {fileID: 0}
-  inventoryIcons:
-  - {fileID: 666399446}
-  - {fileID: 821815359}
-  - {fileID: 1057641128}
-  inventoryBackground:
-  - {fileID: 789238495}
-  - {fileID: 2032880090}
-  - {fileID: 2052706551}
 --- !u!114 &403692538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2546,8 +2514,8 @@ GameObject:
   - component: {fileID: 722332690}
   - component: {fileID: 722332689}
   - component: {fileID: 722332688}
-  - component: {fileID: 722332687}
   - component: {fileID: 722332686}
+  - component: {fileID: 722332687}
   m_Layer: 3
   m_Name: Door
   m_TagString: Untagged
@@ -7444,7 +7412,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2013413017
 RectTransform:
   m_ObjectHideFlags: 0
