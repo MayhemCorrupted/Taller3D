@@ -17,3 +17,4 @@ MonoBehaviour:
   description: Item fusible
   sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   itemType: 0
+  itemModelPrefab: {fileID: 199447308673310797, guid: a6c52e7cfdae75e418faad1d9efeff1b, type: 3}

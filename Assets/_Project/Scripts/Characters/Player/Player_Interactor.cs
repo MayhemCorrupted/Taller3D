@@ -16,6 +16,7 @@ public class Player_Interactor : MonoBehaviour
 
     void Update()
     {
+        if (Cursor.visible) return;
         InteractDetector();
         InteractInput();
     }
