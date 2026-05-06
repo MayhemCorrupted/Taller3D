@@ -18,27 +18,28 @@ public class Player_Interaction : MonoBehaviour
     void Update()
     {
         InteractDetector();
+        InteractInput();
     }
 
     void InteractDetector()
     {
         Vector3 rayOrigin = interactPoint.position;
         Vector3 direction = interactPoint.forward;
+
+        Item itemInRange = null;
+
         if (Physics.Raycast(rayOrigin, direction, out RaycastHit hit, interactRange, interactLayer))
         {
-            Item item = hit.collider.GetComponent<Item>();
-            if (item != null)
+            itemInRange = hit.collider.GetComponent<Item>();
+        }
+        if (itemInRange != null)
 
-            {
-                currentItemInRange = item;
-                Showpromt(item.itemData.itemName);
-
-                if(Input.GetKeyDown(KeyCode.E))
-                    TryPickUp(item);
-
-                return;
-            }
-
+        {
+            currentItemInRange = itemInRange;
+            Showpromt(itemInRange.itemData.itemName);
+        }
+        else
+        {
             currentItemInRange = null;
             HidePrompt();
         }
@@ -54,7 +55,6 @@ public class Player_Interaction : MonoBehaviour
             HidePrompt();
             Debug.Log($"Picked up: {item.itemData.itemName}");
         }
-
         else
         {
             Debug.Log("Inventory is full.");
@@ -66,7 +66,10 @@ public class Player_Interaction : MonoBehaviour
         }
 
     }
-
+    void InteractInput()
+    {
+        if (Input.GetKeyDown(KeyCode.E) && currentItemInRange != null) TryPickUp(currentItemInRange);
+    }
     void Showpromt(string itemName)
     {
         if (interactPrompt != null)

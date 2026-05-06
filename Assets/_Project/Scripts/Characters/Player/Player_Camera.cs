@@ -41,6 +41,7 @@ public class Player_Camera : MonoBehaviour
     Vector3 targetBobPos;
     Vector3 lastPosition;
     Vector3 smoothVelocity;
+    bool canMove;
 
     enum MovementState { idle, walking, stairs, flying }
     MovementState currentState;
@@ -157,13 +158,17 @@ public class Player_Camera : MonoBehaviour
             idleReturnSpeed
         );
     }
-
     void SensibilityCinemachine()
     {
         foreach (var c in axisController.Controllers)
         {
-            if (c.Name == "Look X (Pan)") c.Input.LegacyGain = mouseSensitivity;
-            if (c.Name == "Look Y (Tilt)") c.Input.LegacyGain = -mouseSensitivity;
+            if (canMove) c.Input.LegacyGain = 0;
+            else
+            {
+                  if (c.Name == "Look X (Pan)") c.Input.LegacyGain = mouseSensitivity;
+                  if (c.Name == "Look Y (Tilt)") c.Input.LegacyGain = -mouseSensitivity;
+            }
         }
     }
+    public void CameraMovement(bool canMoveCam) => canMove = canMoveCam;
 }

@@ -27,16 +27,17 @@ public class NoteUI : MonoBehaviour
 
     public void OpenNote(NoteData note)
     {
-        notePanel.SetActive(true);
+      /*  notePanel.SetActive(true);
         noteTitle.text = note.name;
         noteText.text = note.NoteDescription;
 
-        if (note.images != null && note.images.Length > 0)
+        if (note.image != null && note.image.Length > 0)
         {
             noteImage.gameObject.SetActive(true);
-            noteImage.sprite = note.images[0];
+            noteImage.sprite = note.image[0];
         }
         else noteImage.gameObject.SetActive(false);
+      */
     }
 
     public void CloseNote()

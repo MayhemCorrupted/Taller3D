@@ -1,12 +1,14 @@
-using System.Collections.Generic;
 using UnityEngine;
 
 public class InventoryManager : MonoBehaviour
 {
     public static InventoryManager Instance { get; private set; }
-    [SerializeField] int MaxSlots = 5;
-    List<ItemData> items = new();
+    private const int MAX_SLOTS = 3;
+    private ItemData[] dataItem = new ItemData[MAX_SLOTS];
+    private int itemCount = 0;
     public event System.Action OnInventoryChanged;
+    public int MaxSlots => MAX_SLOTS;
+    public int ItemCount => itemCount;
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -18,17 +20,43 @@ public class InventoryManager : MonoBehaviour
     }
     public bool AddItem(ItemData item)
     {
-        if (items.Count >= MaxSlots) return false;
-        items.Add(item);
+        if (dataItem == null || itemCount >= MAX_SLOTS) return false;
+        dataItem[itemCount] = item;
+        itemCount++;
         OnInventoryChanged?.Invoke();
         return true;
     }
     public void RemoveItem(ItemData item)
     {
-        if (items.Remove(item))
+        for (int i = 0; i < itemCount; i++)
         {
-            OnInventoryChanged?.Invoke();
+            if (dataItem[i] == item)
+            {
+                for (int j = i; j < itemCount - 1; j++) dataItem[j] = dataItem[j + 1]; 
+
+                dataItem[itemCount - 1] = null;
+                itemCount--;
+                OnInventoryChanged?.Invoke();
+                return;
+            }
+
         }
     }
-    public List<ItemData> GetItems() => items;
+    public ItemData GetItem(int index)
+    {
+        return (index >= 0 && index < itemCount) ? dataItem[index] : null;
+    }
+    public ItemData[] GetAllItems()
+    {
+        System.Array.Copy(dataItem, 0, dataItem, 0, itemCount);
+        return dataItem;
+    }
+    public void ClearInventory()
+    {
+        System.Array.Clear(dataItem, 0, MAX_SLOTS);
+        itemCount = 0;
+        OnInventoryChanged?.Invoke();
+    }
+    public bool IsFull() => itemCount >= MAX_SLOTS;
+    public bool IsEmpty() => itemCount == 0;
 }
