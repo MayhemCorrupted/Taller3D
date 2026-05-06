@@ -1,38 +1,46 @@
 using TMPro;
+using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
 {
     private const int MAX_SLOTS = 3;
 
+    [Header("Camera Player")]
+    [SerializeField] Player_Camera playerCamera;
     [Header("Inventory Settings")]
     [SerializeField] KeyCode toggleKey = KeyCode.Tab;
     [SerializeField] GameObject inventoryPanel;
-    [SerializeField] Image[] inventoryIcons = new Image[MAX_SLOTS];
-    [SerializeField] Image[] inventoryBackground = new Image[MAX_SLOTS];
     [SerializeField] TextMeshProUGUI itemNameText;
     [SerializeField] TextMeshProUGUI itemDescriptionText;
+    [Header("Inventory Slots")]
+    [SerializeField] Image[] inventoryIcons = new Image[MAX_SLOTS];
+    [SerializeField] Image[] inventoryBackground = new Image[MAX_SLOTS];
+    [Header("Note Settings")]
+    [SerializeField] Image noteDisplayImage;
+    [SerializeField] TextMeshProUGUI noteDescription;
+    [SerializeField] Button nextNoteButton, prevNoteButton;
 
-    [Header("Camera Player")]
-    [SerializeField] Player_Camera playerCamera;
+    int currentNoteIndex = 0;
+    bool isOpen = false;
 
-    private bool isOpen = false;
-    private InventoryManager inventoryManager;
-
-    void Start()
+    void Awake()
     {
-        inventoryManager = InventoryManager.Instance;
-        inventoryPanel.SetActive(false);
+        inventoryPanel.SetActive(false);        
         ClearInfo();
 
-        InventoryManager.Instance.OnInventoryChanged += RechargeUI;
+        if(InventoryManager.Instance != null)
+            InventoryManager.Instance.OnInventoryChanged += RechargeUI;
+        if(NotesManager.Instance != null)
+            NotesManager.Instance.OnNoteCollected += RefreshNotesUI;
 
         for (int i = 0; i < MAX_SLOTS; i++)
         {
-            inventoryIcons[i].enabled = false;
+           if(inventoryIcons[i] != null) inventoryIcons[i].enabled = false;
         }
+        if (nextNoteButton != null) nextNoteButton.onClick.AddListener(NextNote);
+        if (prevNoteButton != null) prevNoteButton.onClick.AddListener(PrevNote);
         #region Validation
 #if UNITY_EDITOR
         if (inventoryBackground.Length != MAX_SLOTS || inventoryIcons.Length != MAX_SLOTS)
@@ -55,20 +63,33 @@ public class InventoryUI : MonoBehaviour
         Cursor.lockState = isOpen ? CursorLockMode.None : CursorLockMode.Locked;
         Cursor.visible = isOpen;
 
-        if (isOpen) RechargeUI();
+        if (isOpen)
+        {
+            RefreshNotesUI();
+            RechargeUI();
+        }
         else ClearInfo(); 
     }
+    public void ClearInfo()
+    {
+        itemNameText.text = "--";
+        itemDescriptionText.text = "";
 
+        for (int i = 0; i < MAX_SLOTS; i++)
+        {
+            inventoryBackground[i].color = Color.white;
+        }
+    }
     void RechargeUI()
     {
-        int itemCount = inventoryManager.ItemCount;
-
+        if (InventoryManager.Instance == null) return;
+        int itemCount = InventoryManager.Instance.ItemCount;
         for (int i = 0; i < MAX_SLOTS; i++)
         {
             if (i < itemCount)
             {
-                ItemData item = inventoryManager.GetItem(i);
-                if (item != null)
+                ItemData item = InventoryManager.Instance.GetItem(i);
+                if (item != null && item.itemType == ItemData.ItemType.Interactable)
                 {
                     inventoryIcons[i].sprite = item.sprite;
                     inventoryIcons[i].enabled = true;
@@ -87,7 +108,8 @@ public class InventoryUI : MonoBehaviour
     }
     public void ShowItemDetails(int slotIndex)
     {
-        ItemData item = inventoryManager.GetItem(slotIndex);
+        if (InventoryManager.Instance == null) return;
+        ItemData item = InventoryManager.Instance.GetItem(slotIndex);
         if (item != null)
         {
             itemNameText.text = item.itemName;
@@ -96,18 +118,45 @@ public class InventoryUI : MonoBehaviour
             inventoryBackground[slotIndex].color = Color.yellow;
         }
     }
-
-    public void ClearInfo()
+    void UpdateNoteDisplay(List<NoteData> notes)
     {
-        itemNameText.text = "--";
-        itemDescriptionText.text = "";
-
-        for (int i = 0; i < MAX_SLOTS; i++)
+        if (notes == null || notes.Count == 0) return;
+        currentNoteIndex = Mathf.Clamp(currentNoteIndex, 0, notes.Count - 1);
+        NoteData currentNote = notes[currentNoteIndex];
+        if (currentNote != null)
         {
-            inventoryBackground[i].color = Color.white;
+            if(noteDisplayImage != null) noteDisplayImage.sprite = currentNote.image;
+            if(noteDescription != null) noteDescription.text = currentNote.NoteDescription;
         }
+        if (prevNoteButton != null) prevNoteButton.interactable = currentNoteIndex > 0;
+        if (nextNoteButton != null) nextNoteButton.interactable = currentNoteIndex < notes.Count - 1;
     }
-
+    public void RefreshNotesUI()
+    {
+        if (NotesManager.Instance == null) return;
+        var notes = NotesManager.Instance.GetCollectedNotes();
+        if (notes.Count == 0 || notes == null) 
+        {
+            if (noteDisplayImage != null) noteDisplayImage.enabled = false;
+            if (noteDescription != null) noteDescription.text = "No cuentas con ninguna nota";
+            if (nextNoteButton != null) nextNoteButton.interactable = false;
+            if (prevNoteButton != null) prevNoteButton.interactable = false;
+            currentNoteIndex = 0;
+            return; 
+        }
+        if (noteDisplayImage != null) noteDisplayImage.enabled = true;
+        UpdateNoteDisplay(notes);
+    }
+    void NextNote()
+    {
+        currentNoteIndex++;
+        RefreshNotesUI();
+    }
+    void PrevNote()
+    {
+        currentNoteIndex--;
+        RefreshNotesUI();
+    }
     void OnDestroy()
     {
         if (InventoryManager.Instance != null)

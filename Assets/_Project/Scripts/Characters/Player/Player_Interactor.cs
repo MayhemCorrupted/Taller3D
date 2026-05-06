@@ -1,13 +1,12 @@
 using UnityEngine;
 using TMPro;
 
-public class Player_Interaction : MonoBehaviour
+public class Player_Interactor : MonoBehaviour
 {
     [Header("Interaction Settings")]
     [SerializeField] float interactRange = 3f;
     [SerializeField] LayerMask interactLayer;
     [SerializeField] Transform interactPoint;
-
 
     [Header("Interaction UI")]
     [SerializeField] GameObject interactPrompt;
@@ -26,51 +25,34 @@ public class Player_Interaction : MonoBehaviour
         Vector3 rayOrigin = interactPoint.position;
         Vector3 direction = interactPoint.forward;
 
-        Item itemInRange = null;
-
         if (Physics.Raycast(rayOrigin, direction, out RaycastHit hit, interactRange, interactLayer))
         {
-            itemInRange = hit.collider.GetComponent<Item>();
-        }
-        if (itemInRange != null)
-
-        {
-            currentItemInRange = itemInRange;
-            Showpromt(itemInRange.itemData.itemName);
-        }
-        else
-        {
-            currentItemInRange = null;
-            HidePrompt();
-        }
-    }
-
-    void TryPickUp(Item item)
-    {
-        bool added = InventoryManager.Instance.AddItem(item.itemData);
-
-        if (added)
-        {
-            item.PickUp();
-            HidePrompt();
-            Debug.Log($"Picked up: {item.itemData.itemName}");
-        }
-        else
-        {
-            Debug.Log("Inventory is full.");
-
-            if (promptText != null)
+            if (hit.collider.TryGetComponent<Item>(out var itemFound))
             {
-                promptText.text = "Inventario lleno";
+                currentItemInRange = itemFound;
+                ShowPrompt(itemFound.itemData.itemName);
+                return;
             }
         }
-
+        currentItemInRange = null;
+        HidePrompt();
     }
     void InteractInput()
     {
-        if (Input.GetKeyDown(KeyCode.E) && currentItemInRange != null) TryPickUp(currentItemInRange);
+        if (Input.GetKeyDown(KeyCode.E) && currentItemInRange != null)
+        {
+            TryPickUp(currentItemInRange);
+        }
     }
-    void Showpromt(string itemName)
+    void TryPickUp(Item item)
+    {
+        item.PickUp();
+
+        Debug.Log($"Interacción enviada a: {item.itemData.itemName}");
+        currentItemInRange = null;
+        HidePrompt();
+    }
+    void ShowPrompt(string itemName)
     {
         if (interactPrompt != null)
             interactPrompt.SetActive(true);
@@ -78,10 +60,9 @@ public class Player_Interaction : MonoBehaviour
         if (promptText != null)
             promptText.text = $"[E] Recoger {itemName}";
     }
-
     void HidePrompt()
     {
-        if (interactPrompt  != null)
+        if (interactPrompt != null)
             interactPrompt.SetActive(false);
     }
 }

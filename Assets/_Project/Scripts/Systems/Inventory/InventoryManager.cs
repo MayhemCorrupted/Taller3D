@@ -4,7 +4,7 @@ public class InventoryManager : MonoBehaviour
 {
     public static InventoryManager Instance { get; private set; }
     private const int MAX_SLOTS = 3;
-    private ItemData[] dataItem = new ItemData[MAX_SLOTS];
+    readonly ItemData[] dataItem = new ItemData[MAX_SLOTS];
     private int itemCount = 0;
     public event System.Action OnInventoryChanged;
     public int MaxSlots => MAX_SLOTS;
@@ -20,7 +20,8 @@ public class InventoryManager : MonoBehaviour
     }
     public bool AddItem(ItemData item)
     {
-        if (dataItem == null || itemCount >= MAX_SLOTS) return false;
+        if (item.itemType != ItemData.ItemType.Interactable) return false;
+        if (itemCount >= MAX_SLOTS) return false;
         dataItem[itemCount] = item;
         itemCount++;
         OnInventoryChanged?.Invoke();
