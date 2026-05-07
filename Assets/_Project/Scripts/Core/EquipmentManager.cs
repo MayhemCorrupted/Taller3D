@@ -19,7 +19,6 @@ public class EquipmentManager : MonoBehaviour
     {
         if (item.itemModelPrefab == null) return;
         Unequip();
-
         currentData = item;
         currentEquipedModel = Instantiate(item.itemModelPrefab, handPoint);
         currentEquipedModel.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);

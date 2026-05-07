@@ -15,6 +15,7 @@ public class Player_Movement : MonoBehaviour
     [SerializeField] float flySpeed = 10;
     [SerializeField] float flyImpulse = 15;
     bool flying;
+    bool canMove = true;
     Vector2 moveInput;
     float verticalVelocity;
     private void Awake()
@@ -25,13 +26,33 @@ public class Player_Movement : MonoBehaviour
     void Update()
     {
         Orientate();
+
+        if (!canMove)
+        {
+            return;
+        }
+        InputHandle();
+        if (flying) FlyingMovement();
+        else GroundMovement();
+    }
+    void InputHandle()
+    {
         if (Input.GetKeyDown(flyModeKey) && playerCtrl.isGrounded)
         {
             flying = !flying;
             if (flying) verticalVelocity = flyImpulse;
         }
-        if(flying) FlyingMovement();
-        else GroundMovement();
+        moveInput.x = Input.GetAxisRaw("Horizontal");
+        moveInput.y = Input.GetAxisRaw("Vertical");
+    }
+    public void SetMovement(bool state)
+    {
+        canMove = state;
+        if (!canMove)
+        {
+            moveInput = Vector2.zero;
+            verticalVelocity = 0;
+        }
     }
     void Orientate()
     {
@@ -40,9 +61,6 @@ public class Player_Movement : MonoBehaviour
     }
     void FlyingMovement()
     {
-        moveInput.x = Input.GetAxisRaw("Horizontal");
-        moveInput.y = Input.GetAxisRaw("Vertical");
-
         verticalVelocity = Mathf.Lerp(verticalVelocity, 0, Time.deltaTime * 5);
 
         Vector3 direction = cameraTransform.forward * moveInput.y + cameraTransform.right * moveInput.x;
@@ -50,11 +68,8 @@ public class Player_Movement : MonoBehaviour
 
         if (playerCtrl.isGrounded) flying = false;
     }
-        void GroundMovement()
+    void GroundMovement()
     {
-        moveInput.x = Input.GetAxisRaw("Horizontal");
-        moveInput.y = Input.GetAxisRaw("Vertical");
-
         if (playerCtrl.isGrounded) verticalVelocity = -2f;
         else verticalVelocity += gravity * Time.deltaTime;
 

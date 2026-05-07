@@ -46,7 +46,7 @@ public class Player_Interactor : MonoBehaviour
                 currentDoor = door;
                 currentItem = null;
 
-                string text = door.isLocked ? lockedDoorFormat : doorPromptFormat;
+                string text = door.IsLocked ? lockedDoorFormat : doorPromptFormat;
                 ShowPrompt(text);
                 return;
             }

@@ -7,8 +7,10 @@ public class InventoryUI : MonoBehaviour
 {
     private const int MAX_SLOTS = 3;
 
-    [Header("Camera Player")]
-    [SerializeField] Player_Camera playerCamera;
+    [Header("Player")]
+    [SerializeField] GameObject player;
+    Player_Camera playerCamera;
+    Player_Movement playerMovement;
 
     [Header("Inventory Settings")]
     [SerializeField] KeyCode toggleKey = KeyCode.Tab;
@@ -31,16 +33,20 @@ public class InventoryUI : MonoBehaviour
 
     int currentNoteIndex = 0;
     int slotSelectedToEquip = 0;
+    int equipedSlotIndex = -1;
     bool isOpen = false;
 
     void Awake()
     {
+
         inventoryPanel.SetActive(false);
         ClearAllInfo();
 
         for (int i = 0; i < MAX_SLOTS; i++)
             if (inventoryIcons[i] != null) inventoryIcons[i].enabled = false;
 
+        if (player != null) playerCamera = player.GetComponentInChildren<Player_Camera>();
+        if (player != null) playerMovement = player.GetComponent<Player_Movement>();
         if (equipPromptPanel != null) equipPromptPanel.SetActive(false);
         if (equipConfirmButton != null) equipConfirmButton.onClick.AddListener(() => EquipFromSlot(slotSelectedToEquip));
         if (nextNoteButton != null) nextNoteButton.onClick.AddListener(NextNote);
@@ -70,6 +76,7 @@ public class InventoryUI : MonoBehaviour
         isOpen = !isOpen;
         inventoryPanel.SetActive(isOpen);
         playerCamera.CameraMovement(isOpen);
+        playerMovement.SetMovement(!isOpen);
 
         Cursor.lockState = isOpen ? CursorLockMode.None : CursorLockMode.Locked;
         Cursor.visible = isOpen;
@@ -96,9 +103,15 @@ public class InventoryUI : MonoBehaviour
         for (int i = 0; i < MAX_SLOTS; i++)
             inventoryBackground[i].color = Color.white;
     }
-
+    #region Inventory_Display
     public void ShowEquipPrompt(int slotIndex, Vector2 mousePos)
     {
+        if (slotIndex == equipedSlotIndex) 
+        {
+            Debug.Log("Item equipado"); 
+            return;
+        } 
+
         ItemData item = InventoryManager.Instance.GetItem(slotIndex);
         if (item == null) return;
 
@@ -114,14 +127,17 @@ public class InventoryUI : MonoBehaviour
         {
             EquipmentManager.Instance.EquipItem(item);
             equipPromptPanel.SetActive(false);
+            equipedSlotIndex = slotIndex;
+
+            HideEquipPrompt();
+            RechargeUI();
             TogglePanel();
         }
     }
-
     void RechargeUI()
     {
         if (InventoryManager.Instance == null) return;
-        int itemCount = InventoryManager.Instance.ItemCount;
+        _ = InventoryManager.Instance.ItemCount;
 
         for (int i = 0; i < MAX_SLOTS; i++)
         {
@@ -138,12 +154,17 @@ public class InventoryUI : MonoBehaviour
                 inventoryIcons[i].sprite = null;
                 inventoryIcons[i].enabled = false;
                 inventoryIcons[i].raycastTarget = false;
+                if (equipedSlotIndex == i) equipedSlotIndex = -1; 
             }
-
-            inventoryBackground[i].color = Color.white;
         }
+        UpdateSlotVisuals();
     }
-
+    public bool IsSlotEquipped(int slotIndex) => slotIndex == equipedSlotIndex;
+    void UpdateSlotVisuals()
+    {
+        for (int i = 0; i < MAX_SLOTS; i++)
+            inventoryBackground[i].color = (i == equipedSlotIndex) ? Color.green : Color.white;
+    }
     public void ShowItemDetails(int slotIndex)
     {
         if (InventoryManager.Instance == null) return;
@@ -154,12 +175,10 @@ public class InventoryUI : MonoBehaviour
             itemNameText.text = item.itemName;
             itemDescriptionText.text = item.description;
         }
-        else
-        {
-            ClearItemInfo();
-        }
+        else ClearItemInfo();
     }
-
+    #endregion
+    #region Notes_Display
     void UpdateNoteDisplay(List<NoteData> notes)
     {
         if (notes == null || notes.Count == 0) return;
@@ -179,7 +198,6 @@ public class InventoryUI : MonoBehaviour
         if (prevNoteButton != null) prevNoteButton.interactable = currentNoteIndex > 0;
         if (nextNoteButton != null) nextNoteButton.interactable = currentNoteIndex < notes.Count - 1;
     }
-
     public void RefreshNotesUI()
     {
         if (NotesManager.Instance == null) return;
@@ -198,10 +216,9 @@ public class InventoryUI : MonoBehaviour
         if (noteDisplayImage != null) noteDisplayImage.enabled = true;
         UpdateNoteDisplay(notes);
     }
-
     void NextNote() { currentNoteIndex++; RefreshNotesUI(); }
     void PrevNote() { currentNoteIndex--; RefreshNotesUI(); }
-
+    #endregion
     void OnDestroy()
     {
         if (InventoryManager.Instance != null)
