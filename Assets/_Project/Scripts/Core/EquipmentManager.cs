@@ -6,6 +6,7 @@ public class EquipmentManager : MonoBehaviour
     [SerializeField] Transform handPoint;
     GameObject currentEquipedModel;
     ItemData currentData;
+    public ItemData CurrentEquippedItem => currentData;
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -19,7 +20,6 @@ public class EquipmentManager : MonoBehaviour
     {
         if (item.itemModelPrefab == null) return;
         Unequip();
-
         currentData = item;
         currentEquipedModel = Instantiate(item.itemModelPrefab, handPoint);
         currentEquipedModel.transform.SetLocalPositionAndRotation(Vector3.zero, Quaternion.identity);

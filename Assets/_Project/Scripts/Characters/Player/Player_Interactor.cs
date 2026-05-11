@@ -3,6 +3,11 @@ using TMPro;
 
 public class Player_Interactor : MonoBehaviour
 {
+    [Header("Prompt Formats")]
+    [SerializeField] string itemPromptFormat = "[E] Recoger {0}";
+    [SerializeField] string doorPromptFormat = "[E] Abrir / Cerrar";
+    [SerializeField] string lockedDoorFormat = "Cerrado";
+
     [Header("Interaction Settings")]
     [SerializeField] float interactRange = 3f;
     [SerializeField] LayerMask interactLayer;
@@ -12,7 +17,8 @@ public class Player_Interactor : MonoBehaviour
     [SerializeField] GameObject interactPrompt;
     [SerializeField] TextMeshProUGUI promptText;
 
-    Item currentItemInRange;
+    Item currentItem;
+    DoorController currentDoor;
 
     void Update()
     {
@@ -23,47 +29,65 @@ public class Player_Interactor : MonoBehaviour
 
     void InteractDetector()
     {
-        Vector3 rayOrigin = interactPoint.position;
-        Vector3 direction = interactPoint.forward;
-
-        if (Physics.Raycast(rayOrigin, direction, out RaycastHit hit, interactRange, interactLayer))
+        if (Physics.Raycast(interactPoint.position, interactPoint.forward,
+                            out RaycastHit hit, interactRange, interactLayer))
         {
-            if (hit.collider.TryGetComponent<Item>(out var itemFound))
+            if (hit.collider.TryGetComponent(out Item item))
             {
-                currentItemInRange = itemFound;
-                ShowPrompt(itemFound.itemData.itemName);
+                currentItem = item;
+                currentDoor = null;
+                string fullText = string.Format(itemPromptFormat, item.itemData.itemName);
+                ShowPrompt(fullText);
+                return;
+            }
+
+            if (hit.collider.TryGetComponent(out DoorController door))
+            {
+                currentDoor = door;
+                currentItem = null;
+
+                string text = door.IsLocked ? lockedDoorFormat : doorPromptFormat;
+                ShowPrompt(text);
                 return;
             }
         }
-        currentItemInRange = null;
+        currentItem = null;
+        currentDoor = null;
         HidePrompt();
     }
+
     void InteractInput()
     {
-        if (Input.GetKeyDown(KeyCode.E) && currentItemInRange != null)
+        if (!Input.GetKeyDown(KeyCode.E)) return;
+
+        if (currentItem != null)
         {
-            TryPickUp(currentItemInRange);
+            currentItem.PickUp();
+            Debug.Log($"[Interactor] Recogido: {currentItem.itemData.itemName}");
+            currentItem = null;
+            HidePrompt();
+            return;
+        }
+
+        if (currentDoor != null)
+        {
+            if (currentDoor.TryGetComponent(out KeyDoor keyDoor))
+            {
+                ItemData heldItem = EquipmentManager.Instance.CurrentEquippedItem;
+                keyDoor.TryUnlock(heldItem, transform.position);
+            }
+            else currentDoor.Interact(transform.position);
         }
     }
-    void TryPickUp(Item item)
-    {
-        item.PickUp();
 
-        Debug.Log($"Interacción enviada a: {item.itemData.itemName}");
-        currentItemInRange = null;
-        HidePrompt();
-    }
-    void ShowPrompt(string itemName)
+    void ShowPrompt(string text)
     {
-        if (interactPrompt != null)
-            interactPrompt.SetActive(true);
-
-        if (promptText != null)
-            promptText.text = $"[E] Recoger {itemName}";
+        if (interactPrompt != null) interactPrompt.SetActive(true);
+        if (promptText != null) promptText.text = text;
     }
+
     void HidePrompt()
     {
-        if (interactPrompt != null)
-            interactPrompt.SetActive(false);
+        if (interactPrompt != null) interactPrompt.SetActive(false);
     }
 }

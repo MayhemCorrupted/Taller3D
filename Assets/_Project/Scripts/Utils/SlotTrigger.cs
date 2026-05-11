@@ -14,7 +14,8 @@ public class SlotTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitHand
         uiController.ShowEquipPrompt(slotIndex, eventData.position);
 
         float timeLastClicked = Time.time - lastTimeClicked;
-        if (timeLastClicked <= doubleClickThreshold) uiController.EquipFromSlot(slotIndex);
+        if (timeLastClicked <= doubleClickThreshold && !uiController.IsSlotEquipped(slotIndex)) 
+            uiController.EquipFromSlot(slotIndex);
         else lastTimeClicked = Time.time;
     }
     public void OnPointerEnter(PointerEventData eventData) => uiController.ShowItemDetails(slotIndex);

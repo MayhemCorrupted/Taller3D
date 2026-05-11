@@ -13,9 +13,10 @@ MonoBehaviour:
   m_Name: NoteData
   m_EditorClassIdentifier: Assembly-CSharp::NoteData
   id: 2
-  itemName: Note2
-  description: 
+  itemName: Nota arrugada
+  description: Esta nota tiene algo apuntado...
   sprite: {fileID: 0}
   itemType: 1
-  NoteDescription: Oh no bro
+  itemModelPrefab: {fileID: 0}
+  NoteDescription: 1234
   image: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}

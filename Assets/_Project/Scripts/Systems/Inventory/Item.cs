@@ -1,13 +1,15 @@
 using UnityEngine;
+using TMPro;
 
 public class Item : MonoBehaviour
 {
+    [Header("Data")]
     public ItemData itemData;
     public void PickUp()
     {
         if (itemData == null)
         {
-            Debug.LogError("ItemData is not assigned for " + gameObject.name);
+            Debug.LogError($"[Item] ItemData no asignado en '{gameObject.name}'.");
             return;
         }
         bool pickedUp = false;
@@ -19,10 +21,8 @@ public class Item : MonoBehaviour
                 pickedUp = true;
             }
         }
-        else if (itemData.itemType == ItemData.ItemType.Interactable)
-        {
-            pickedUp = InventoryManager.Instance.AddItem(itemData);
-        }
+        else if (itemData.itemType == ItemData.ItemType.Interactable) pickedUp = InventoryManager.Instance.AddItem(itemData);
         if (pickedUp) gameObject.SetActive(false);
     }
+
 }
