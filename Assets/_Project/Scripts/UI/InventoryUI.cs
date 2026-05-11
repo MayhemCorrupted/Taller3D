@@ -1,5 +1,4 @@
 using TMPro;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -18,11 +17,6 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] TextMeshProUGUI itemNameText;
     [SerializeField] TextMeshProUGUI itemDescriptionText;
 
-    [Header("Note Settings")]
-    [SerializeField] Image noteDisplayImage;
-    [SerializeField] TextMeshProUGUI noteDescription;
-    [SerializeField] Button nextNoteButton, prevNoteButton;
-
     [Header("Equip Prompt")]
     [SerializeField] GameObject equipPromptPanel;
     [SerializeField] Button equipConfirmButton;
@@ -31,46 +25,34 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] Image[] inventoryIcons = new Image[MAX_SLOTS];
     [SerializeField] Image[] inventoryBackground = new Image[MAX_SLOTS];
 
-    int currentNoteIndex = 0;
     int slotSelectedToEquip = 0;
     int equipedSlotIndex = -1;
     bool isOpen = false;
 
     void Awake()
     {
-
         inventoryPanel.SetActive(false);
         ClearAllInfo();
 
         for (int i = 0; i < MAX_SLOTS; i++)
             if (inventoryIcons[i] != null) inventoryIcons[i].enabled = false;
 
-        if (player != null) playerCamera = player.GetComponentInChildren<Player_Camera>();
+        if (player != null) playerCamera = player.GetComponent<Player_Camera>();
         if (player != null) playerMovement = player.GetComponent<Player_Movement>();
         if (equipPromptPanel != null) equipPromptPanel.SetActive(false);
         if (equipConfirmButton != null) equipConfirmButton.onClick.AddListener(() => EquipFromSlot(slotSelectedToEquip));
-        if (nextNoteButton != null) nextNoteButton.onClick.AddListener(NextNote);
-        if (prevNoteButton != null) prevNoteButton.onClick.AddListener(PrevNote);
-
-#if UNITY_EDITOR
-        if (inventoryBackground.Length != MAX_SLOTS || inventoryIcons.Length != MAX_SLOTS)
-            Debug.LogError("[InventoryUI] Asigná exactamente 3 slots en el Inspector.");
-#endif
     }
 
     void Start()
     {
         if (InventoryManager.Instance != null)
             InventoryManager.Instance.OnInventoryChanged += RechargeUI;
-        if (NotesManager.Instance != null)
-            NotesManager.Instance.OnNoteCollected += RefreshNotesUI;
     }
 
     void Update()
     {
         if (Input.GetKeyDown(toggleKey)) TogglePanel();
     }
-
     void TogglePanel()
     {
         isOpen = !isOpen;
@@ -81,21 +63,21 @@ public class InventoryUI : MonoBehaviour
         Cursor.lockState = isOpen ? CursorLockMode.None : CursorLockMode.Locked;
         Cursor.visible = isOpen;
 
-        if (isOpen) { RefreshNotesUI(); RechargeUI(); }
+        if (isOpen)
+        {
+            RechargeUI();
+        }
         else ClearAllInfo();
     }
-
     public void ClearItemInfo()
     {
         if (itemNameText != null) itemNameText.text = "--";
         if (itemDescriptionText != null) itemDescriptionText.text = "";
     }
-
     public void HideEquipPrompt()
     {
         if (equipPromptPanel != null) equipPromptPanel.SetActive(false);
     }
-
     public void ClearAllInfo()
     {
         ClearItemInfo();
@@ -119,7 +101,6 @@ public class InventoryUI : MonoBehaviour
         equipPromptPanel.SetActive(true);
         equipPromptPanel.transform.position = mousePos + new Vector2(40, -40);
     }
-
     public void EquipFromSlot(int slotIndex)
     {
         ItemData item = InventoryManager.Instance.GetItem(slotIndex);
@@ -178,52 +159,9 @@ public class InventoryUI : MonoBehaviour
         else ClearItemInfo();
     }
     #endregion
-    #region Notes_Display
-    void UpdateNoteDisplay(List<NoteData> notes)
-    {
-        if (notes == null || notes.Count == 0) return;
-        currentNoteIndex = Mathf.Clamp(currentNoteIndex, 0, notes.Count - 1);
-        NoteData current = notes[currentNoteIndex];
-
-        if (current != null)
-        {
-            if (noteDisplayImage != null)
-            {
-                noteDisplayImage.sprite = current.image;
-                noteDisplayImage.enabled = current.image != null;
-            }
-            if (noteDescription != null) noteDescription.text = current.NoteDescription;
-        }
-
-        if (prevNoteButton != null) prevNoteButton.interactable = currentNoteIndex > 0;
-        if (nextNoteButton != null) nextNoteButton.interactable = currentNoteIndex < notes.Count - 1;
-    }
-    public void RefreshNotesUI()
-    {
-        if (NotesManager.Instance == null) return;
-        var notes = NotesManager.Instance.GetCollectedNotes();
-
-        if (notes == null || notes.Count == 0)
-        {
-            if (noteDisplayImage != null) noteDisplayImage.enabled = false;
-            if (noteDescription != null) noteDescription.text = "No tienes ninguna nota.";
-            if (nextNoteButton != null) nextNoteButton.interactable = false;
-            if (prevNoteButton != null) prevNoteButton.interactable = false;
-            currentNoteIndex = 0;
-            return;
-        }
-
-        if (noteDisplayImage != null) noteDisplayImage.enabled = true;
-        UpdateNoteDisplay(notes);
-    }
-    void NextNote() { currentNoteIndex++; RefreshNotesUI(); }
-    void PrevNote() { currentNoteIndex--; RefreshNotesUI(); }
-    #endregion
     void OnDestroy()
     {
         if (InventoryManager.Instance != null)
             InventoryManager.Instance.OnInventoryChanged -= RechargeUI;
-        if (NotesManager.Instance != null)
-            NotesManager.Instance.OnNoteCollected -= RefreshNotesUI;
     }
 }
