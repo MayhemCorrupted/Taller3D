@@ -44,7 +44,6 @@ public class Player_Camera : MonoBehaviour
     float bobTimer = 0;
     Vector3 targetBobPos;
     Vector3 lastPosition;
-    Vector3 smoothVelocity;
     bool isCameraLocked;
     enum MovementState { idle, walking, stairs, flying }
     MovementState currentState;
@@ -66,7 +65,7 @@ public class Player_Camera : MonoBehaviour
     void Update()
     {
         StateDetect();
-        HeadBobbing();
+        if (!isCameraLocked) HeadBobbing();
         SensibilityCinemachine();
         lastPosition = transform.position;
     }

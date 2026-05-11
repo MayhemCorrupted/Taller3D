@@ -5,98 +5,97 @@ using System.Collections;
 
 public class PuzzleKitchenDoor : MonoBehaviour
 {
-    [SerializeField] Player_Camera playerCamera;
-    [Header("Nota con el código")]
-    [SerializeField] GameObject[] notePossiblePositions;
-    [SerializeField] TextMeshPro[] noteTextUI;
+    [Header("References")]
+    [SerializeField] GameObject player;
+    [SerializeField] GameObject keynoteItem;
+    Player_Camera playerCamera;
+    Player_Movement playerMovement;
 
-    [Header("Configuración del Código")]
-    [SerializeField] int codeLength = 4;
-    [SerializeField] string saveKey = "KitchenPuzzleCode";
+    [Header("Code Config")]
+    [SerializeField] private int codeLength = 4;
+    [SerializeField] private string saveKey = "KitchenPuzzleCode";
 
-    [Header("UI Panel de código")]
-    [SerializeField] GameObject codeInputPanel;
-    [SerializeField] TextMeshProUGUI codeDisplayText;
+    [Header("UI Panel")]
+    [SerializeField] private GameObject keypadPanel;
+    [SerializeField] private TextMeshProUGUI displayField;
+    [SerializeField] private TextMeshProUGUI hintText;
+    [SerializeField] private float hintDuration = 2.5f;
 
-    [Header("Hint (pensamiento del personaje)")]
-    [SerializeField] TextMeshProUGUI hintText;
-    [SerializeField] float hintDuration = 3f;
+    [Header("Events")]
+    public UnityEvent OnCorrectCode;
 
-    [Header("Eventos")]
-    public UnityEvent OnPuzzleSolved;
-
-    private string correctCode = "";
+    private string correctCodeString;
     private string currentInput = "";
     private bool isSolved = false;
-    private bool uiOpen = false;
+    private bool isUIOpen = false;
 
+    private void Awake()
+    {
+        if (player != null)
+        {
+            playerCamera = player.GetComponent<Player_Camera>();
+            playerMovement = player.GetComponent<Player_Movement>();
+        }
+    }
     void Start()
     {
-        InitializePuzzle();
-        ActivateRandomNote();
-        if (codeInputPanel != null) codeInputPanel.SetActive(false);
+        SetupPuzzle();
+        if (keypadPanel != null) keypadPanel.SetActive(false);
         UpdateDisplay();
     }
-    void InitializePuzzle()
+
+    void SetupPuzzle()
     {
-        if (PlayerPrefs.HasKey(saveKey)) correctCode = PlayerPrefs.GetString(saveKey);
+        if (PlayerPrefs.HasKey(saveKey))
+        {
+            correctCodeString = PlayerPrefs.GetString(saveKey);
+        }
         else
         {
-            correctCode = GenerateRandomCode();
-            PlayerPrefs.SetString(saveKey, correctCode);
-            PlayerPrefs.Save();
+            correctCodeString = "";
+            for (int i = 0; i < codeLength; i++)
+                correctCodeString += Random.Range(0, 10).ToString();
         }
-        foreach (var txt in noteTextUI) if (txt != null) txt.text = correctCode;
-    }
-    string GenerateRandomCode()
-    {
-        string newCode = "";
-        for (int i = 0; i < codeLength; i++) newCode += Random.Range(0, 10).ToString();
-        return newCode;
-    }
-    void ActivateRandomNote()
-    {
-        if (notePossiblePositions == null || notePossiblePositions.Length == 0) return;
-
-        foreach (var go in notePossiblePositions)
-            if (go != null) go.SetActive(false);
-
-        int chosen = Random.Range(0, notePossiblePositions.Length);
-        if (notePossiblePositions[chosen] != null)
-            notePossiblePositions[chosen].SetActive(true);
     }
     public void OnPlayerInteract()
     {
         if (isSolved) return;
-        ToggleCodeUI(!uiOpen);
+        ToggleKeypad(!isUIOpen);
     }
     void Update()
     {
-        if (uiOpen && Input.GetKeyDown(KeyCode.Escape))
-            ToggleCodeUI(false);
+        if (isUIOpen && Input.GetKeyDown(KeyCode.Escape))
+            ToggleKeypad(false);
     }
-    public void ToggleCodeUI(bool state)
+    public void ToggleKeypad(bool state)
     {
-        uiOpen = state;
-        if (codeInputPanel != null) codeInputPanel.SetActive(state);
+        isUIOpen = state;
+        keypadPanel.SetActive(state);
 
-        if (playerCamera != null)
-            playerCamera.CameraMovement(state);
+        if (playerCamera != null) playerCamera.CameraMovement(state);
+        if (playerMovement != null) playerMovement.SetMovement(!state);
 
         Cursor.lockState = state ? CursorLockMode.None : CursorLockMode.Locked;
         Cursor.visible = state;
 
         if (state) ResetInput();
     }
-    public void OnNumberPressed(int number)
+
+    #region OnClick_UI
+    public void InputNumber(int number)
     {
-        if (!uiOpen || currentInput.Length >= codeLength) return;
+        if (!isUIOpen || currentInput.Length >= codeLength) return;
+
         currentInput += number.ToString();
         UpdateDisplay();
 
-        if (currentInput.Length == codeLength) CheckCode();
+        if (currentInput.Length == codeLength)
+        {
+            CheckCode();
+        }
     }
-    public void OnDeletePressed()
+
+    public void DeleteLastDigit()
     {
         if (currentInput.Length > 0)
         {
@@ -104,45 +103,47 @@ public class PuzzleKitchenDoor : MonoBehaviour
             UpdateDisplay();
         }
     }
-    void CheckCode()
+
+    #endregion
+    private void CheckCode()
     {
-        if (currentInput == correctCode)
-            SolvePuzzle();
+        if (currentInput == correctCodeString)
+        {
+            isSolved = true;
+            OnCorrectCode?.Invoke();
+            ShowMessage("*CLIC* La puerta se ha desbloqueado.");
+            ToggleKeypad(false);
+        }
         else
         {
-            ShowHint("Ese no es el código...");
-            ResetInput();
+            ShowMessage("Código Incorrecto...");
+            StartCoroutine(WaitAndReset());
         }
     }
-    void ResetInput()
+
+    private IEnumerator WaitAndReset()
+    {
+        WaitForSeconds resetDelay = new(0.5f);
+        yield return resetDelay;
+        ResetInput();
+    }
+    private void ResetInput()
     {
         currentInput = "";
         UpdateDisplay();
     }
-
-    void UpdateDisplay()
+    private void UpdateDisplay()
     {
-        if (codeDisplayText != null)
-            codeDisplayText.text = currentInput.PadRight(codeLength, '_');
+        if (displayField != null)
+            displayField.text = currentInput.PadRight(codeLength, '_');
     }
-
-    void SolvePuzzle()
-    {
-        isSolved = true;
-        ToggleCodeUI(false);
-
-        ShowHint("*clic* La puerta se abrió.");
-        OnPuzzleSolved?.Invoke();
-    }
-
-    void ShowHint(string msg)
+    private void ShowMessage(string msg)
     {
         if (hintText == null) return;
         StopAllCoroutines();
-        StartCoroutine(DisplayHint(msg));
+        StartCoroutine(DisplayHintRoutine(msg));
     }
-
-    IEnumerator DisplayHint(string msg)
+    private IEnumerator DisplayHintRoutine(string msg)
     {
         hintText.text = msg;
         hintText.gameObject.SetActive(true);

@@ -71,7 +71,12 @@ public class Player_Interactor : MonoBehaviour
 
         if (currentDoor != null)
         {
-            currentDoor.Interact(transform.position);
+            if (currentDoor.TryGetComponent(out KeyDoor keyDoor))
+            {
+                ItemData heldItem = EquipmentManager.Instance.CurrentEquippedItem;
+                keyDoor.TryUnlock(heldItem, transform.position);
+            }
+            else currentDoor.Interact(transform.position);
         }
     }
 

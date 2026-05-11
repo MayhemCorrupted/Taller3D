@@ -6,6 +6,7 @@ public class EquipmentManager : MonoBehaviour
     [SerializeField] Transform handPoint;
     GameObject currentEquipedModel;
     ItemData currentData;
+    public ItemData CurrentEquippedItem => currentData;
     void Awake()
     {
         if (Instance != null && Instance != this)
