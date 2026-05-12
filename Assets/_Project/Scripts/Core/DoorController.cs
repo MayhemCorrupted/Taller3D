@@ -2,8 +2,8 @@ using UnityEngine;
 using System.Collections;
 public class DoorController : MonoBehaviour
 {
+    Transform hinge;
     [Header("Door Settings")]
-    [SerializeField] Transform hinge;
     [SerializeField] float openAngle = 90;
     [SerializeField] float openDuration = 2;
     [Header("Direction restrictions")]
@@ -12,35 +12,41 @@ public class DoorController : MonoBehaviour
     [SerializeField][Range(-1,1)] int forcedDirection = 1;
     [Header("Lock Toggle")]
     [SerializeField] bool LockDoor = false;
-    public bool IsLocked => LockDoor;
     bool isOpen = false;    
     bool isMoving = false;
+    Quaternion closedRotation;
+    public bool IsLocked => LockDoor;
+    private void Awake()
+    {
+        hinge = transform.GetChild(0);
+        closedRotation = hinge.localRotation;
+    }
     public void Interact(Vector3 playerPosition)
     {
-        if (IsLocked) return;
-        if (isMoving) return;
+        if (IsLocked || isMoving) return;
         StopAllCoroutines();
         if (!isOpen)
         {
-            float target = CalculateTargetAngle(playerPosition);
-            StartCoroutine(MoveDoor(target));
+            float side = CalculateSide(playerPosition);
+            float targetAngle = side * openAngle;
+            StartCoroutine(MoveDoor(targetAngle));
         }
         else StartCoroutine(MoveDoor(0));
     }
-    float CalculateTargetAngle(Vector3 playerPosition)
+    float CalculateSide(Vector3 playerPosition)
     {
-        if (forcedDirection != 0) return openAngle * forcedDirection;
-        Vector3 doorToPlayer = (playerPosition - hinge.position).normalized;
-        float dot = Vector3.Dot(hinge.forward, doorToPlayer);
-        int side = dot >= 0 ? 1 : -1;
+        if (forcedDirection != 0) return forcedDirection;
+        Vector3 localPlayerPos = transform.InverseTransformPoint(playerPosition);
+        float side = localPlayerPos.z    >= 0 ? 1 : -1;
         if (revertDirection) side *= -1;
-        return openAngle * side;
+        return side;
+
     }
     IEnumerator MoveDoor(float targetAngle)
     {
         isMoving = true;
         Quaternion startRot = hinge.localRotation;
-        Quaternion endRot = Quaternion.Euler(0, targetAngle, 0);
+        Quaternion endRot = closedRotation * Quaternion.Euler(0, targetAngle, 0);
         float elapsed = 0;
         while (elapsed < openDuration)
         {
