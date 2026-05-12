@@ -17,11 +17,7 @@ public class DoorController : MonoBehaviour
     bool isMoving = false;
     public void Interact(Vector3 playerPosition)
     {
-        if (IsLocked)
-        {
-            Debug.Log("La puerta está cerrada.");
-            return;
-        } 
+        if (IsLocked) return;
         if (isMoving) return;
         StopAllCoroutines();
         if (!isOpen)

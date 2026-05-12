@@ -23,19 +23,18 @@ public class KeyDoor : MonoBehaviour
         }
         if (heldItem != null && heldItem == requiredKeyData)
         {
-            door.UnlockDoor();
             OnCorrectKey?.Invoke();
-            door.Interact(playerPos);
             if (noKeyOnUse)
             {
                 InventoryManager.Instance.RemoveItem(heldItem);
                 EquipmentManager.Instance.Unequip();
             }
         }
-        else
-        {
-            Debug.Log("Necesitas: " + requiredKeyData.name);
-            OnWrongKey?.Invoke();
-        }
+        else OnWrongKey?.Invoke();
+    }
+    public bool HasCorrectKey()
+    {
+        ItemData heldItem = EquipmentManager.Instance.CurrentEquippedItem;
+        return heldItem != null && heldItem == requiredKeyData;
     }
 }

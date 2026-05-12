@@ -3,7 +3,7 @@ using UnityEngine.Events;
 using TMPro;
 using System.Collections;
 
-public class PuzzleKitchenDoor : MonoBehaviour
+public class Puzzle_PanelCode : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] GameObject player;

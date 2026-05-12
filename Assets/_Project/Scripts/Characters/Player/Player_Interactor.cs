@@ -6,6 +6,7 @@ public class Player_Interactor : MonoBehaviour
     [Header("Prompt Formats")]
     [SerializeField] string itemPromptFormat = "[E] Recoger {0}";
     [SerializeField] string doorPromptFormat = "[E] Abrir / Cerrar";
+    [SerializeField] string useKeyFormat = "[E] Usar llave";
     [SerializeField] string lockedDoorFormat = "Cerrado";
 
     [Header("Interaction Settings")]
@@ -29,8 +30,7 @@ public class Player_Interactor : MonoBehaviour
 
     void InteractDetector()
     {
-        if (Physics.Raycast(interactPoint.position, interactPoint.forward,
-                            out RaycastHit hit, interactRange, interactLayer))
+        if (Physics.Raycast(interactPoint.position, interactPoint.forward, out RaycastHit hit, interactRange, interactLayer))
         {
             if (hit.collider.TryGetComponent(out Item item))
             {
@@ -45,8 +45,9 @@ public class Player_Interactor : MonoBehaviour
             {
                 currentDoor = door;
                 currentItem = null;
-
-                string text = door.IsLocked ? lockedDoorFormat : doorPromptFormat;
+                string text;
+                if (door.TryGetComponent(out KeyDoor keyDoor) && keyDoor.HasCorrectKey()) text = useKeyFormat;
+                else text = door.IsLocked ? lockedDoorFormat : doorPromptFormat;
                 ShowPrompt(text);
                 return;
             }
@@ -75,6 +76,10 @@ public class Player_Interactor : MonoBehaviour
             {
                 ItemData heldItem = EquipmentManager.Instance.CurrentEquippedItem;
                 keyDoor.TryUnlock(heldItem, transform.position);
+            }
+            else if (currentDoor.TryGetComponent(out Puzzle_Switch switchPuzzle))
+            {
+                switchPuzzle.Interact();
             }
             else currentDoor.Interact(transform.position);
         }
