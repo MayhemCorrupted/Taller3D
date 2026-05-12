@@ -7,6 +7,7 @@ public class Player_Interactor : MonoBehaviour
     [SerializeField] string itemPromptFormat = "[E] Recoger {0}";
     [SerializeField] string doorPromptFormat = "[E] Abrir / Cerrar";
     [SerializeField] string lockedDoorFormat = "Cerrado";
+    [SerializeField] string puzzlePromptFormat = "[E] Interactuar";
 
     [Header("Interaction Settings")]
     [SerializeField] float interactRange = 3f;
@@ -19,6 +20,7 @@ public class Player_Interactor : MonoBehaviour
 
     Item currentItem;
     DoorController currentDoor;
+    PuzzleBoxInteractable currentFuseBox;
 
     void Update()
     {
@@ -34,25 +36,27 @@ public class Player_Interactor : MonoBehaviour
         {
             if (hit.collider.TryGetComponent(out Item item))
             {
-                currentItem = item;
-                currentDoor = null;
-                string fullText = string.Format(itemPromptFormat, item.itemData.itemName);
-                ShowPrompt(fullText);
+                SetTarget(item, null, null);
+                ShowPrompt(string.Format(itemPromptFormat, item.itemData.itemName));
+                return;
+            }
+
+            if (hit.collider.TryGetComponent(out PuzzleBoxInteractable fuseBox))
+            {
+                SetTarget(null, null, fuseBox);
+                ShowPrompt(puzzlePromptFormat);
                 return;
             }
 
             if (hit.collider.TryGetComponent(out DoorController door))
             {
-                currentDoor = door;
-                currentItem = null;
-
-                string text = door.IsLocked ? lockedDoorFormat : doorPromptFormat;
-                ShowPrompt(text);
+                SetTarget(null, door, null);
+                ShowPrompt(door.IsLocked ? lockedDoorFormat : doorPromptFormat);
                 return;
             }
         }
-        currentItem = null;
-        currentDoor = null;
+
+        SetTarget(null, null, null);
         HidePrompt();
     }
 
@@ -63,9 +67,14 @@ public class Player_Interactor : MonoBehaviour
         if (currentItem != null)
         {
             currentItem.PickUp();
-            Debug.Log($"[Interactor] Recogido: {currentItem.itemData.itemName}");
             currentItem = null;
             HidePrompt();
+            return;
+        }
+
+        if (currentFuseBox != null)
+        {
+            currentFuseBox.Interact();
             return;
         }
 
@@ -73,11 +82,18 @@ public class Player_Interactor : MonoBehaviour
         {
             if (currentDoor.TryGetComponent(out KeyDoor keyDoor))
             {
-                ItemData heldItem = EquipmentManager.Instance.CurrentEquippedItem;
-                keyDoor.TryUnlock(heldItem, transform.position);
+                ItemData held = EquipmentManager.Instance.CurrentEquippedItem;
+                keyDoor.TryUnlock(held, transform.position);
             }
             else currentDoor.Interact(transform.position);
         }
+    }
+
+    void SetTarget(Item item, DoorController door, PuzzleBoxInteractable fuseBox)
+    {
+        currentItem = item;
+        currentDoor = door;
+        currentFuseBox = fuseBox;
     }
 
     void ShowPrompt(string text)
