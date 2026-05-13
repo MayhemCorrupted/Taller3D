@@ -45,7 +45,7 @@ public class Player_Movement : MonoBehaviour
         moveInput.x = Input.GetAxisRaw("Horizontal");
         moveInput.y = Input.GetAxisRaw("Vertical");
     }
-    public void SetMovement(bool state)
+    public void CanMove(bool state)
     {
         canMove = state;
         if (!canMove)

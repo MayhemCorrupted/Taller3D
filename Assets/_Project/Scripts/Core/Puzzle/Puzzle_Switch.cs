@@ -1,113 +1,134 @@
-using System.Threading.Tasks;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
 public class Puzzle_Switch : MonoBehaviour
 {
-    [Header("Player")]
-    [SerializeField] GameObject player;
+    [Header("Player References")]
+    [SerializeField] Player_Movement playerMove;
+    [SerializeField] Player_Camera playerCam;
+
     [Header("Item Requirements")]
     [SerializeField] ItemData requiredItem;
     [SerializeField] GameObject fuseVisual;
+
     [Header("Puzzle Configs")]
     [SerializeField] GameObject puzzlePanel;
-    [SerializeField] Scrollbar[] fuseScrollBars;
+    [SerializeField] Toggle[] fuseToggles;
+    [SerializeField] Scrollbar[] visualFuses;
     [SerializeField] Image[] feedbackLights;
     [SerializeField] Color lightColorOn = Color.green;
     [SerializeField] Color lightColorOff = Color.red;
-    [Header("Events")]
-    [SerializeField] UnityEvent OnPuzzleSolved;
 
-    private readonly int[][] solutions = new int[][]
-    {
-        new int[] { 1, 0, 1, 0 },
-        new int[] { 0, 1, 0, 1 }
-    };
-    int[] currentSolution;
-    bool isPlaced = false;
-    bool isSolved = false;
-    Player_Movement playerMove;
-    Player_Camera playerCam;
-    void Awake()
-    {
-        playerMove = player.GetComponent<Player_Movement>();
-        playerCam = player.GetComponent<Player_Camera>();
-    }
+    [Header("Events")]
+    public UnityEvent OnPuzzleSolved;
+
+    private bool isPlaced = false;
+    private bool isSolved = false;
+
     void Start()
     {
-        currentSolution = solutions[Random.Range(0, solutions.Length)];
-        if (puzzlePanel != null) puzzlePanel.SetActive(false);
-        UpdateLights();
+        puzzlePanel.SetActive(false);
+
+        for (int i = 0; i < fuseToggles.Length; i++)
+        {
+            int index = i;
+            fuseToggles[i].onValueChanged.AddListener((val) => OnToggleChanged(index, val));
+        }
+
+        GenerateProceduralStart();
     }
+
+    void GenerateProceduralStart()
+    {
+        bool allOn = true;
+
+        for (int i = 0; i < fuseToggles.Length; i++)
+        {
+            bool randomState = Random.value > 0.5f;
+            fuseToggles[i].SetIsOnWithoutNotify(randomState);
+
+            if (!randomState) allOn = false;
+        }
+
+        if (allOn)
+        {
+            int randomIndex = Random.Range(0, fuseToggles.Length);
+            fuseToggles[randomIndex].SetIsOnWithoutNotify(false);
+        }
+
+        SyncAllVisuals();
+    }
+
     public void Interact()
     {
         if (isSolved) return;
+
         if (!isPlaced)
         {
             if (EquipmentManager.Instance.CurrentEquippedItem == requiredItem) PlaceFuse();
-            else Debug.Log("Falta fusible");
+            return;
         }
-        else
-        {
-            puzzlePanel.SetActive(!puzzlePanel.activeSelf);
-            playerCam.CameraMovement(puzzlePanel.activeSelf);
-            playerMove.SetMovement(puzzlePanel.activeSelf);
-            Cursor.lockState = puzzlePanel.activeSelf ? CursorLockMode.None : CursorLockMode.Locked;
-            Cursor.visible = puzzlePanel.activeSelf;
-        }
+
+        TogglePanel(true);
     }
+
     void PlaceFuse()
     {
         isPlaced = true;
         if (fuseVisual != null) fuseVisual.SetActive(true);
         InventoryManager.Instance.RemoveItem(requiredItem);
         EquipmentManager.Instance.Unequip();
-        Debug.Log("Fusible colocado");
     }
-    public void OnFuseClicked(int index)
+
+    public void TogglePanel(bool state)
     {
-        float targetValue = fuseScrollBars[index].value < 0.5f ? 0 : 1;
-        fuseScrollBars[index].value = targetValue;
-        if (targetValue == 1) SetRules(index);
-        UpdateLights();
+        puzzlePanel.SetActive(state);
+        playerCam.LockCamera(state);
+        playerMove.CanMove(!state);
+
+        Cursor.lockState = state ? CursorLockMode.None : CursorLockMode.Locked;
+        Cursor.visible = state;
+    }
+
+    void OnToggleChanged(int index, bool value)
+    {
+        if (value) ApplyRules(index);
+
+        SyncAllVisuals();
         CheckWin();
     }
-    void SetRules(int index)
+
+    void ApplyRules(int index)
     {
         switch (index)
         {
-            case 0:
-                fuseScrollBars[2].value = 0;
-                break;
-            case 1:
-                fuseScrollBars[0].value = 0;
-                break;
-            case 2:
-                break;
-            case 3:
-                fuseScrollBars[1].value = 0;
-                break;
+            case 0: if (fuseToggles[2].isOn) fuseToggles[2].SetIsOnWithoutNotify(false); break;
+            case 1: if (fuseToggles[0].isOn) fuseToggles[0].SetIsOnWithoutNotify(false); break;
+            case 3: if (fuseToggles[1].isOn) fuseToggles[1].SetIsOnWithoutNotify(false); break;
         }
     }
-    void UpdateLights()
+
+    void SyncAllVisuals()
     {
-        for (int i = 0; i < feedbackLights.Length; i++)
+        for (int i = 0; i < fuseToggles.Length; i++)
         {
-            int currentValue = fuseScrollBars[i].value < 0.5f ? 0 : 1;
-            feedbackLights[i].color = (currentValue == currentSolution[i]) ? lightColorOn : lightColorOff;
+            bool state = fuseToggles[i].isOn;
+
+            if (visualFuses.Length > i && visualFuses[i] != null)
+                visualFuses[i].value = state ? 1f : 0f;
+
+            if (feedbackLights.Length > i && feedbackLights[i] != null)
+                feedbackLights[i].color = state ? lightColorOn : lightColorOff;
         }
     }
+
     void CheckWin()
     {
-        for (int i = 0; i < fuseScrollBars.Length; i++)
-        {
-            int currentValue = fuseScrollBars[i].value < 0.5f ? 0 : 1;
-            if (currentValue != currentSolution[i]) return;
-        }
+        foreach (Toggle t in fuseToggles) if (!t.isOn) return;
         isSolved = true;
-        puzzlePanel.SetActive(false);
+        playerCam.LockCamera(false);
         OnPuzzleSolved?.Invoke();
-        Debug.Log("Puzzle completado");
+        TogglePanel(false);
     }
 }   

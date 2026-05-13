@@ -72,8 +72,8 @@ public class Puzzle_PanelCode : MonoBehaviour
         isUIOpen = state;
         keypadPanel.SetActive(state);
 
-        if (playerCamera != null) playerCamera.CameraMovement(state);
-        if (playerMovement != null) playerMovement.SetMovement(!state);
+        if (playerCamera != null) playerCamera.LockCamera(state);
+        if (playerMovement != null) playerMovement.CanMove(!state);
 
         Cursor.lockState = state ? CursorLockMode.None : CursorLockMode.Locked;
         Cursor.visible = state;

@@ -16,7 +16,7 @@ public class PuzzleFuseBox : MonoBehaviour
     [Header("Puerta que se abre al resolver")]
     [Tooltip("Arrastrar el GameObject que tiene DoorController (el padre 'Door (Hinge)')")]
     [SerializeField] DoorController targetDoor;
-    [Tooltip("Posición desde donde se calcula la dirección de apertura")]
+    [Tooltip("Posiciï¿½n desde donde se calcula la direcciï¿½n de apertura")]
     [SerializeField] Transform doorOpenFromPoint;
 
     [Header("Slots (6 en orden)")]
@@ -70,8 +70,8 @@ public class PuzzleFuseBox : MonoBehaviour
         isPanelOpen = state;
         if (fuseBoxPanel != null) fuseBoxPanel.SetActive(state);
 
-        if (playerCamera != null) playerCamera.CameraMovement(state);
-        if (playerMovement != null) playerMovement.SetMovement(!state);
+        if (playerCamera != null) playerCamera.LockCamera(state);
+        if (playerMovement != null) playerMovement.CanMove(!state);
 
         Cursor.lockState = state ? CursorLockMode.None : CursorLockMode.Locked;
         Cursor.visible = state;
@@ -101,10 +101,10 @@ public class PuzzleFuseBox : MonoBehaviour
     void SolvePuzzle()
     {
         isSolved = true;
-        ShowFeedback("¡Las luces volvieron!");
+        ShowFeedback("ï¿½Las luces volvieron!");
         OnPuzzleSolved?.Invoke();
         StartCoroutine(SolveSequence());
-        Debug.Log("[PuzzleB] ¡Resuelto!");
+        Debug.Log("[PuzzleB] ï¿½Resuelto!");
     }
 
     IEnumerator SolveSequence()

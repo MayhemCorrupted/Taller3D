@@ -57,8 +57,8 @@ public class InventoryUI : MonoBehaviour
     {
         isOpen = !isOpen;
         inventoryPanel.SetActive(isOpen);
-        playerCamera.CameraMovement(isOpen);
-        playerMovement.SetMovement(!isOpen);
+        playerCamera.LockCamera(isOpen);
+        playerMovement.CanMove(!isOpen);
 
         Cursor.lockState = isOpen ? CursorLockMode.None : CursorLockMode.Locked;
         Cursor.visible = isOpen;

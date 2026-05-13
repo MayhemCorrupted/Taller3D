@@ -44,7 +44,7 @@ public class Player_Camera : MonoBehaviour
     float bobTimer = 0;
     Vector3 targetBobPos;
     Vector3 lastPosition;
-    bool isCameraLocked;
+    bool isCameraLocked = false;
     enum MovementState { idle, walking, stairs, flying }
     MovementState currentState;
     private void Awake()
@@ -151,5 +151,5 @@ public class Player_Camera : MonoBehaviour
             }
         }
     }
-    public void CameraMovement(bool lockCamera) => isCameraLocked = lockCamera;
+    public void LockCamera(bool lockCam) => isCameraLocked = lockCam;
 }

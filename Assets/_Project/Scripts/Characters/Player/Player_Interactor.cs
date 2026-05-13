@@ -6,6 +6,7 @@ public class Player_Interactor : MonoBehaviour
     [Header("Prompt Formats")]
     [SerializeField] string itemPromptFormat = "[E] Recoger {0}";
     [SerializeField] string doorPromptFormat = "[E] Abrir / Cerrar";
+    [SerializeField] string switchPromptFormat = "[E] Interactuar";
     [SerializeField] string useKeyFormat = "[E] Usar llave";
     [SerializeField] string lockedDoorFormat = "Cerrado";
 
@@ -18,8 +19,7 @@ public class Player_Interactor : MonoBehaviour
     [SerializeField] GameObject interactPrompt;
     [SerializeField] TextMeshProUGUI promptText;
 
-    Item currentItem;
-    DoorController currentDoor;
+    GameObject currentInteractable;
 
     void Update()
     {
@@ -32,68 +32,60 @@ public class Player_Interactor : MonoBehaviour
     {
         if (Physics.Raycast(interactPoint.position, interactPoint.forward, out RaycastHit hit, interactRange, interactLayer))
         {
-            if (hit.collider.TryGetComponent(out Item item))
+            GameObject hitObject = hit.collider.gameObject;
+
+            if (hitObject.TryGetComponent(out Item item) || hit.collider.GetComponentInParent<Item>())
             {
-                currentItem = item;
-                currentDoor = null;
-                string fullText = string.Format(itemPromptFormat, item.itemData.itemName);
-                ShowPrompt(fullText);
+                Item targetItem = item != null ? item : hit.collider.GetComponentInParent<Item>();
+                SetCurrentInteractable(targetItem.gameObject, string.Format(itemPromptFormat, targetItem.itemData.itemName));
                 return;
             }
 
+            if (hitObject.TryGetComponent(out Puzzle_Switch puzzle) || hit.collider.GetComponentInParent<Puzzle_Switch>())
+            {
+                SetCurrentInteractable((puzzle != null ? puzzle : hit.collider.GetComponentInParent<Puzzle_Switch>()).gameObject, switchPromptFormat);
+                return;
+            }
             DoorController door = hit.collider.GetComponentInParent<DoorController>();
             if (door != null)
             {
-                currentDoor = door;
-                currentItem = null;
                 string text;
                 if (door.TryGetComponent(out KeyDoor keyDoor) && keyDoor.HasCorrectKey()) text = useKeyFormat;
                 else text = door.IsLocked ? lockedDoorFormat : doorPromptFormat;
-                ShowPrompt(text);
+
+                SetCurrentInteractable(door.gameObject, text);
                 return;
             }
         }
-        currentItem = null;
-        currentDoor = null;
-        HidePrompt();
+        ClearInteractable();
     }
 
     void InteractInput()
     {
-        if (!Input.GetKeyDown(KeyCode.E)) return;
+        if (currentInteractable == null || !Input.GetKeyDown(KeyCode.E)) return;
 
-        if (currentItem != null)
+        if (currentInteractable.TryGetComponent(out Item item)) item.PickUp();
+        else if (currentInteractable.TryGetComponent(out Puzzle_Switch puzzle)) puzzle.Interact();
+        else if (currentInteractable.TryGetComponent(out DoorController door))
         {
-            currentItem.PickUp();
-            Debug.Log($"[Interactor] Recogido: {currentItem.itemData.itemName}");
-            currentItem = null;
-            HidePrompt();
-            return;
-        }
-
-        if (currentDoor != null)
-        {
-            if (currentDoor.TryGetComponent(out KeyDoor keyDoor))
+            if (door.TryGetComponent(out KeyDoor keyDoor))
             {
                 ItemData heldItem = EquipmentManager.Instance.CurrentEquippedItem;
                 keyDoor.TryUnlock(heldItem, transform.position);
             }
-            else if (currentDoor.TryGetComponent(out Puzzle_Switch switchPuzzle))
-            {
-                switchPuzzle.Interact();
-            }
-            else currentDoor.Interact(transform.position);
+            else door.Interact(transform.position);
         }
+        ClearInteractable();
     }
-
-    void ShowPrompt(string text)
+    void SetCurrentInteractable(GameObject obj, string prompt)
     {
+        currentInteractable = obj;
         if (interactPrompt != null) interactPrompt.SetActive(true);
-        if (promptText != null) promptText.text = text;
+        if (promptText != null) promptText.text = prompt;
     }
-
-    void HidePrompt()
+    void ClearInteractable()
     {
+        currentInteractable = null;
         if (interactPrompt != null) interactPrompt.SetActive(false);
     }
 }
