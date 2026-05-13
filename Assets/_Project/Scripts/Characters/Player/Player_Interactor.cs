@@ -41,7 +41,8 @@ public class Player_Interactor : MonoBehaviour
                 return;
             }
 
-            if (hit.collider.TryGetComponent(out DoorController door))
+            DoorController door = hit.collider.GetComponentInParent<DoorController>();
+            if (door != null)
             {
                 currentDoor = door;
                 currentItem = null;

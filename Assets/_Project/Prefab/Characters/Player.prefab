@@ -44,7 +44,7 @@ GameObject:
   - component: {fileID: 3887013124637349622}
   - component: {fileID: 5046730490837967598}
   - component: {fileID: 4126990510207932472}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: PlayerObj
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -134,8 +134,8 @@ Light:
   serializedVersion: 12
   m_Type: 2
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_Intensity: 2
-  m_Range: 15.18
+  m_Intensity: 0.02
+  m_Range: 5
   m_SpotAngle: 30
   m_InnerSpotAngle: 21.80208
   m_CookieSize2D: {x: 0.5, y: 0.5}
@@ -173,7 +173,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 2
+  m_Lightmapping: 4
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 18.34
@@ -320,7 +320,9 @@ MonoBehaviour:
   cameraTarget: {fileID: 7037224459366461833}
   minBobSpeed: 0.18
   returnSpeed: 0.2
-  idleReturnSpeed: 0.1
+  idleBobSpeed: 1
+  idleBobAmountX: 0.02
+  idleBobAmountY: 0.04
   walkBobSpeed: 12
   walkBobAmountX: 2
   walkBobAmountY: 3
@@ -328,9 +330,9 @@ MonoBehaviour:
   stairBobAmountX: 1
   stairBobAmountY: 3
   stairDetectThreshold: 0.1
-  flyDampingSpeed: 3
-  flyBobAmount: 2
   flyBobSpeed: 2
+  flyBobAmount: 2
+  flyInertiaMultiplier: 3
 --- !u!114 &9108686387308168580
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -363,6 +365,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player_Interaction
   itemPromptFormat: '[E] Recoger {0}'
   doorPromptFormat: '[E] Abrir / Cerrar'
+  useKeyFormat: '[E] Usar llave'
   lockedDoorFormat: Cerrado
   interactRange: 4
   interactLayer:
@@ -462,10 +465,10 @@ MonoBehaviour:
     LookAtTarget: {fileID: 0}
     CustomLookAtTarget: 0
   Lens:
-    FieldOfView: 55
+    FieldOfView: 60
     OrthographicSize: 10
     NearClipPlane: 0.01
-    FarClipPlane: 10
+    FarClipPlane: 50
     Dutch: 0
     ModeOverride: 0
     PhysicalProperties:
