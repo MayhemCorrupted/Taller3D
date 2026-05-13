@@ -365,9 +365,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Player_Interaction
   itemPromptFormat: '[E] Recoger {0}'
   doorPromptFormat: '[E] Abrir / Cerrar'
+  switchPromptFormat: '[E] Interactuar'
   useKeyFormat: '[E] Usar llave'
   lockedDoorFormat: Cerrado
-  interactRange: 4
+  interactRange: 2.2
   interactLayer:
     serializedVersion: 2
     m_Bits: 8
@@ -418,6 +419,7 @@ GameObject:
   - component: {fileID: 1329400139505062667}
   - component: {fileID: 4999991335465161487}
   - component: {fileID: 7154746780844185251}
+  - component: {fileID: 8206939594186192891}
   m_Layer: 0
   m_Name: PlayerCamera
   m_TagString: MainCamera
@@ -434,7 +436,7 @@ Transform:
   m_GameObject: {fileID: 6570145537968561914}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.6119999, z: -0.006000519}
+  m_LocalPosition: {x: 0, y: 0.612, z: -0.006000519}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -570,3 +572,19 @@ MonoBehaviour:
       Driver:
         AccelTime: 0
         DecelTime: 0
+--- !u!114 &8206939594186192891
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6570145537968561914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7362d5a2f8ea3347bfcc808a1e9290e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineAutoFocus
+  FocusTarget: 0
+  CustomTarget: {fileID: 0}
+  FocusDepthOffset: 0
+  Damping: 0.2

@@ -3,11 +3,10 @@ using UnityEngine.EventSystems;
 
 public class SlotTrigger : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler
 {
+    [SerializeField] InventoryUI uiController;
     [SerializeField] int slotIndex;
-    InventoryUI uiController;
     float lastTimeClicked;
     const float doubleClickThreshold = 0.3f;
-    void Awake() => uiController = GetComponentInParent<InventoryUI>();
     public void OnPointerClick(PointerEventData eventData)
     {
         uiController.ShowItemDetails(slotIndex);
