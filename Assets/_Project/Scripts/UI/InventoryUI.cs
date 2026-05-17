@@ -1,5 +1,6 @@
 using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 public class InventoryUI : MonoBehaviour
@@ -21,12 +22,16 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] GameObject equipPromptPanel;
     [SerializeField] Button equipConfirmButton;
 
-    [Header("Inventory Slots")]
+    [Tooltip("Asigna las referencias de manera ordenada (0 = primer slot, 1 = segundo slot, 2 = tercer slot)")]
+    [Header("Inventory Settings")]
+    [SerializeField] Button[] inventorySlots = new Button[MAX_SLOTS];
     [SerializeField] Image[] inventoryIcons = new Image[MAX_SLOTS];
     [SerializeField] Image[] inventoryBackground = new Image[MAX_SLOTS];
 
     int slotSelectedToEquip = 0;
     int equipedSlotIndex = -1;
+    readonly float[] lastClickTimes = new float[MAX_SLOTS];
+    const float doubleClickThreshold = 0.3f;
     bool isOpen = false;
 
     void Awake()
@@ -35,7 +40,11 @@ public class InventoryUI : MonoBehaviour
         ClearAllInfo();
 
         for (int i = 0; i < MAX_SLOTS; i++)
-            if (inventoryIcons[i] != null) inventoryIcons[i].enabled = false;
+            if (inventoryIcons[i] != null)
+            {
+                inventoryIcons[i].enabled = false;
+                SetSlotEvents(i);
+            }
 
         if (player != null) playerCamera = player.GetComponent<Player_Camera>();
         if (player != null) playerMovement = player.GetComponent<Player_Movement>();
@@ -53,6 +62,34 @@ public class InventoryUI : MonoBehaviour
     {
         if (Input.GetKeyDown(toggleKey)) TogglePanel();
     }
+    void SetSlotEvents(int index)
+    {
+        if (inventorySlots[index] == null) return;
+
+        if (!inventorySlots[index].gameObject.TryGetComponent<EventTrigger>(out var trigger)) trigger = inventorySlots[index].gameObject.AddComponent<EventTrigger>();
+
+        EventTrigger.Entry clickEntry = new() { eventID = EventTriggerType.PointerClick };
+        clickEntry.callback.AddListener((data) => { OnSlotPointerClick(index, (PointerEventData)data); });
+        trigger.triggers.Add(clickEntry);
+
+        EventTrigger.Entry enterEntry = new() { eventID = EventTriggerType.PointerEnter };
+        enterEntry.callback.AddListener((data) => { ShowItemDetails(index); });
+        trigger.triggers.Add(enterEntry);
+
+        EventTrigger.Entry exitEntry = new() { eventID = EventTriggerType.PointerExit };
+        exitEntry.callback.AddListener((data) => { ClearItemInfo(); });
+        trigger.triggers.Add(exitEntry);
+    }
+    void OnSlotPointerClick(int slotIndex, PointerEventData eventData)
+    {
+        ShowItemDetails(slotIndex);
+        ShowEquipPrompt(slotIndex, eventData.position);
+        float timeSinceLastClick = Time.time - lastClickTimes[slotIndex];
+        if (timeSinceLastClick <= doubleClickThreshold && !IsSlotEquipped(slotIndex))
+            EquipFromSlot(slotIndex);
+        else lastClickTimes[slotIndex] = Time.time;
+    }
+
     void TogglePanel()
     {
         isOpen = !isOpen;

@@ -419,7 +419,6 @@ GameObject:
   - component: {fileID: 1329400139505062667}
   - component: {fileID: 4999991335465161487}
   - component: {fileID: 7154746780844185251}
-  - component: {fileID: 8206939594186192891}
   m_Layer: 0
   m_Name: PlayerCamera
   m_TagString: MainCamera
@@ -572,19 +571,3 @@ MonoBehaviour:
       Driver:
         AccelTime: 0
         DecelTime: 0
---- !u!114 &8206939594186192891
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6570145537968561914}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7362d5a2f8ea3347bfcc808a1e9290e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineAutoFocus
-  FocusTarget: 0
-  CustomTarget: {fileID: 0}
-  FocusDepthOffset: 0
-  Damping: 0.2
