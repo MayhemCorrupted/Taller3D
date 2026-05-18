@@ -464,7 +464,7 @@ MonoBehaviour:
   Target:
     TrackingTarget: {fileID: 7037224459366461833}
     LookAtTarget: {fileID: 0}
-    CustomLookAtTarget: 0
+    CustomLookAtTarget: 1
   Lens:
     FieldOfView: 60
     OrthographicSize: 10
