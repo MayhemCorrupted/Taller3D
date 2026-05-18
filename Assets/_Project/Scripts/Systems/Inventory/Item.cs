@@ -1,16 +1,20 @@
+using System;
 using UnityEngine;
+using UnityEngine.Events;
 
 public class Item : MonoBehaviour
 {
     [Header("Data")]
     public ItemData itemData;
     [SerializeField] bool isPickable = true;
+    [SerializeField] UnityEvent onPicked;
+    [SerializeField] UnityEvent onUnpickabled;
     public bool IsPickable { set { isPickable = value; } }
     public void PickUp()
     {
         if (!isPickable)
         {
-            Debug.LogWarning($"[Item] El item '{gameObject.name}' no es recogible.");
+            onUnpickabled?.Invoke();
             return;
         }
         if (itemData == null)
@@ -28,6 +32,11 @@ public class Item : MonoBehaviour
             }
         }
         else if (itemData.itemType == ItemData.ItemType.Interactable) pickedUp = InventoryManager.Instance.AddItem(itemData);
-        if (pickedUp) gameObject.SetActive(false);
+        if (pickedUp)
+        {
+            gameObject.SetActive(false);
+            onPicked?.Invoke();
+        }
+
     }
 }

@@ -69,7 +69,7 @@ public class InventoryUI : MonoBehaviour
         if (!inventorySlots[index].gameObject.TryGetComponent<EventTrigger>(out var trigger)) trigger = inventorySlots[index].gameObject.AddComponent<EventTrigger>();
 
         EventTrigger.Entry clickEntry = new() { eventID = EventTriggerType.PointerClick };
-        clickEntry.callback.AddListener((data) => { OnSlotPointerClick(index, (PointerEventData)data); });
+        clickEntry.callback.AddListener((data) => { OnSlotPointerClick(index); });
         trigger.triggers.Add(clickEntry);
 
         EventTrigger.Entry enterEntry = new() { eventID = EventTriggerType.PointerEnter };
@@ -80,10 +80,10 @@ public class InventoryUI : MonoBehaviour
         exitEntry.callback.AddListener((data) => { ClearItemInfo(); });
         trigger.triggers.Add(exitEntry);
     }
-    void OnSlotPointerClick(int slotIndex, PointerEventData eventData)
+    void OnSlotPointerClick(int slotIndex)
     {
         ShowItemDetails(slotIndex);
-        ShowEquipPrompt(slotIndex, eventData.position);
+        ShowEquipPrompt(slotIndex);
         float timeSinceLastClick = Time.time - lastClickTimes[slotIndex];
         if (timeSinceLastClick <= doubleClickThreshold && !IsSlotEquipped(slotIndex))
             EquipFromSlot(slotIndex);
@@ -123,7 +123,7 @@ public class InventoryUI : MonoBehaviour
             inventoryBackground[i].color = Color.white;
     }
     #region Inventory_Display
-    public void ShowEquipPrompt(int slotIndex, Vector2 mousePos)
+    public void ShowEquipPrompt(int slotIndex)
     {
         if (slotIndex == equipedSlotIndex) 
         {
@@ -136,7 +136,26 @@ public class InventoryUI : MonoBehaviour
 
         slotSelectedToEquip = slotIndex;
         equipPromptPanel.SetActive(true);
-        equipPromptPanel.transform.position = mousePos + new Vector2(40, -40);
+
+        RectTransform slotRect = inventoryBackground[slotIndex].rectTransform;
+        RectTransform promptRect = equipPromptPanel.GetComponent<RectTransform>();
+
+        if (slotRect != null && promptRect != null)
+        {
+            promptRect.position = slotRect.position;
+
+            float slotHalfWidth = (slotRect.rect.width * slotRect.lossyScale.x) * 0.5f;
+            float promptHalfWidth = (promptRect.rect.width * promptRect.lossyScale.x) * 0.5f;
+
+            float slotHalfHeight = (slotRect.rect.height * slotRect.lossyScale.y) * 0.5f;
+            float promptHalfHeight = (promptRect.rect.height * promptRect.lossyScale.y) * 0.5f;
+
+            float offsetX = slotHalfWidth + promptHalfWidth;
+            float offsetY = slotHalfHeight - promptHalfHeight;
+
+            Vector3 offset = new(offsetX, -offsetY * 2.5f, 0);
+            promptRect.position += offset;
+        }
     }
     public void EquipFromSlot(int slotIndex)
     {

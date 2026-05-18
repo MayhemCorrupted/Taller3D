@@ -4,9 +4,12 @@ using UnityEngine.UI;
 
 public class Puzzle_Switch : MonoBehaviour
 {
-    [Header("Player References")]
-    [SerializeField] Player_Movement playerMove;
-    [SerializeField] Player_Camera playerCam;
+    [Header("References")]
+    [SerializeField] GameObject player;
+    [SerializeField] GameObject itemInWorld;
+    Item itemScript;
+    Player_Movement playerMove;
+    Player_Camera playerCam;
 
     [Header("Item Requirements")]
     [SerializeField] ItemData requiredItem;
@@ -21,11 +24,21 @@ public class Puzzle_Switch : MonoBehaviour
     [SerializeField] Color lightColorOff = Color.red;
 
     [Header("Events")]
-    public UnityEvent OnPuzzleSolved;
+    [SerializeField] UnityEvent OnCantInteract;
+    [SerializeField] UnityEvent OnNeedItem;
+    [SerializeField] UnityEvent OnPuzzleSolved;
 
-    private bool isPlaced = false;
-    private bool isSolved = false;
-
+    bool isPlaced = false;
+    bool isSolved = false;
+    void Awake()
+    {
+        if (itemInWorld != null) itemScript = itemInWorld.GetComponent<Item>();
+        if (player != null)
+        {
+            playerMove = player.GetComponent<Player_Movement>();
+            playerCam = player.GetComponent<Player_Camera>();
+        }
+    }
     void Start()
     {
         puzzlePanel.SetActive(false);
@@ -66,6 +79,8 @@ public class Puzzle_Switch : MonoBehaviour
 
         if (!isPlaced)
         {
+            if (EquipmentManager.Instance.CurrentEquippedItem != requiredItem && itemInWorld.activeSelf) OnCantInteract?.Invoke();
+            if (!itemInWorld.activeSelf) OnNeedItem?.Invoke();
             if (EquipmentManager.Instance.CurrentEquippedItem == requiredItem) PlaceFuse();
             return;
         }
