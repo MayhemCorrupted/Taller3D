@@ -54,14 +54,9 @@ public class Player_Camera : MonoBehaviour
         originalPos = cameraTarget.localPosition;
         targetBobPos = originalPos;
         lastPosition = transform.position;
-    }
-
-    void Start()
-    {
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
-
     void Update()
     {
         StateDetect();

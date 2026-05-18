@@ -17,4 +17,4 @@ MonoBehaviour:
   description: Es la llave para abrir la puerta de la cocina.
   sprite: {fileID: 21300000, guid: 9fd32e619fce19c4f9c67114c5128001, type: 3}
   itemType: 0
-  itemModelPrefab: {fileID: 8358395374896912414, guid: 16d20bb0447ebd44bb57274e7de56679, type: 3}
+  itemModelPrefab: {fileID: 4660505114910537706, guid: a070b0721f64e6b46870ecdead3ad61d, type: 3}

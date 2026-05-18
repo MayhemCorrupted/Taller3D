@@ -4,6 +4,7 @@ using UnityEngine.Events;
 
 public class DialogueActivator : MonoBehaviour
 {
+    Transform playerTransform;
     [Header("Dialogue Settings")]
     [SerializeField] TMP_Text uiTextComponent;
     [TextArea(3, 5)]
@@ -14,10 +15,46 @@ public class DialogueActivator : MonoBehaviour
     [SerializeField] Transform targetToLookAt;
     [SerializeField] float cameraLookAtSpeed = 2;
     [Header("Trigger Settings")]
-    [SerializeField] Collider triggerCollider;
-    [SerializeField] string playerTag = "Player";
+    [SerializeField] Transform triggerPoint;
+    [SerializeField] float activeRadius = 0.75f;
     [SerializeField] bool disableTriggerAfterUse = true;
+    bool triggered = false;
     public UnityEvent OnTriggered;
+    float dialogueTimer;
+    void Awake()
+    {
+        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+    }
+    void Update()
+    {
+        if (playerTransform == null || triggerPoint == null) return;
+       
+        if (triggered)
+        {
+            if (!disableTriggerAfterUse)
+            {
+                dialogueTimer += Time.deltaTime;
+
+                if (dialogueTimer >= dialogueDuration * 2f)
+                {
+                    triggered = false;     
+                    dialogueTimer = 0f;    
+                }
+            }
+            return; 
+        }
+        float currentDistance = Vector3.Distance(triggerPoint.position, playerTransform.position);
+        if (currentDistance <= activeRadius)
+        {
+            FireDialogue();
+            triggered = true;
+
+            if (disableTriggerAfterUse)
+            {
+                enabled = false;
+            }
+        }
+    }
     public void FireDialogue()
     {
         if (DialogueManager.Instance != null) 
@@ -27,12 +64,9 @@ public class DialogueActivator : MonoBehaviour
 
         OnTriggered?.Invoke();
     }
-    private void OnTriggerEnter(Collider other)
+    private void OnDrawGizmos()
     {
-        if (triggerCollider != null && other.CompareTag(playerTag))
-        {
-            FireDialogue();
-            if (disableTriggerAfterUse) triggerCollider.enabled = false;
-        }
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireSphere(triggerPoint.position, activeRadius);
     }
 }   
