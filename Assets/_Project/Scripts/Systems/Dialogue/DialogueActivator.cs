@@ -8,10 +8,11 @@ public class DialogueActivator : MonoBehaviour
     [SerializeField] TMP_Text uiTextComponent;
     [TextArea(3, 5)]
     [SerializeField] string dialogueText;
+    [SerializeField] float dialogueDuration;
     [Header("Camera Settings")]
     [SerializeField] bool moveCameraToTarget = true;
     [SerializeField] Transform targetToLookAt;
-    [SerializeField] float cameraLookDuration = 2;
+    [SerializeField] float cameraLookAtSpeed = 2;
     [Header("Trigger Settings")]
     [SerializeField] Collider triggerCollider;
     [SerializeField] string playerTag = "Player";
@@ -21,7 +22,7 @@ public class DialogueActivator : MonoBehaviour
     {
         if (DialogueManager.Instance != null) 
             DialogueManager.Instance.StartDialogue(uiTextComponent, 
-                targetToLookAt, dialogueText, cameraLookDuration, moveCameraToTarget);
+                targetToLookAt, dialogueText, cameraLookAtSpeed, moveCameraToTarget, dialogueDuration);
         else Debug.LogWarning("No DialogueManager instance encontrado.");
 
         OnTriggered?.Invoke();

@@ -1,8 +1,9 @@
 using UnityEngine;
 using System.Collections;
+using UnityEngine.Events;
 public class DoorController : MonoBehaviour
 {
-    private Transform hinge;
+    Transform hinge;
     [Header("Door Settings")]
     [SerializeField] float openAngle = 90f;
     [SerializeField] float openDuration = 2f;
@@ -11,14 +12,16 @@ public class DoorController : MonoBehaviour
     [SerializeField][Range(-1, 1)] int forcedDirection = 0;
     [Header("Lock Toggle")]
     [SerializeField] bool lockDoor = false;
-    private int lastOpenSide = 1;
-    private bool isOpen = false;
-    private bool isMoving = false;
-    private Quaternion closedRotation;
+    int lastOpenSide = 1;
+    bool isOpen = false;
+    bool isMoving = false;
+     Quaternion closedRotation;
+    [SerializeField] UnityEvent OnOpeningDoor;
+    [SerializeField] UnityEvent OnClosingDoor;
     public bool IsLocked => lockDoor;
     public bool IsOpen => isOpen;
     public bool IsMoving => isMoving;
-    private void Awake()
+    void Awake()
     {
         hinge = transform.GetChild(0);
         closedRotation = hinge.localRotation;
@@ -35,10 +38,12 @@ public class DoorController : MonoBehaviour
             lastOpenSide = side;
             float targetAngle = side * openAngle;
             StartCoroutine(MoveDoor(targetAngle));
+            OnOpeningDoor?.Invoke();
         }
         else
         {
             StartCoroutine(MoveDoor(0));
+            OnClosingDoor?.Invoke();
         }
     }
     int CalculateSide(Vector3 playerPosition)
