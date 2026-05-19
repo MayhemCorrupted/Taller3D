@@ -11,6 +11,9 @@ public class DoorController : MonoBehaviour
     [SerializeField][Range(-1, 1)] int forcedDirection = 0;
     [Header("Lock Toggle")]
     [SerializeField] bool lockDoor = false;
+
+    public enum DoorType { interactive, locked}
+
     private int lastOpenSide = 1;
     private bool isOpen = false;
     private bool isMoving = false;
@@ -18,11 +21,22 @@ public class DoorController : MonoBehaviour
     public bool IsLocked => lockDoor;
     public bool IsOpen => isOpen;
     public bool IsMoving => isMoving;
+
+    public DoorType Type { get; private set; }
+
+
     private void Awake()
     {
         hinge = transform.GetChild(0);
         closedRotation = hinge.localRotation;
     }
+
+    public void Setup(DoorType type)
+    {
+        Type = type;
+        lockDoor = (type == DoorType.locked);
+    }
+
     public void Interact(Vector3 playerPosition)
     {
         if (IsLocked || isMoving) return;
