@@ -905,6 +905,11 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
+--- !u!1 &110696616 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: ea5887b055a3d0d4a97cf6d9b8e5f05a, type: 3}
+  m_PrefabInstance: {fileID: 1364362157}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &127140027
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -40297,7 +40302,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogueActivator
   uiTextComponent: {fileID: 640296960}
-  dialogueText: 'Prueba de dialogo en el entorno
+  dialogueText: 'Si gordo
 
 '
   dialogueDuration: 1.6
@@ -40306,10 +40311,22 @@ MonoBehaviour:
   cameraLookAtSpeed: 0.8
   triggerPoint: {fileID: 660329348}
   activeRadius: 0.75
-  disableTriggerAfterUse: 0
+  disableTriggerAfterUse: 1
   OnTriggered:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 9147233302011583816}
+        m_TargetAssemblyTypeName: Item, Assembly-CSharp
+        m_MethodName: set_IsPickable
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
+        m_CallState: 2
 --- !u!1001 &1016618976
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -50824,7 +50841,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1147677456898064198, guid: 4c80ae67d7fe1de47bd75be51cc0984d, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 1147677456898064198, guid: 4c80ae67d7fe1de47bd75be51cc0984d, type: 3}
       propertyPath: m_LocalRotation.x
@@ -50832,7 +50849,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1147677456898064198, guid: 4c80ae67d7fe1de47bd75be51cc0984d, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 1147677456898064198, guid: 4c80ae67d7fe1de47bd75be51cc0984d, type: 3}
       propertyPath: m_LocalRotation.z
@@ -51580,13 +51597,38 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: ea5887b055a3d0d4a97cf6d9b8e5f05a, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1364362159}
   m_SourcePrefab: {fileID: 100100000, guid: ea5887b055a3d0d4a97cf6d9b8e5f05a, type: 3}
 --- !u!4 &1364362158 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ea5887b055a3d0d4a97cf6d9b8e5f05a, type: 3}
   m_PrefabInstance: {fileID: 1364362157}
   m_PrefabAsset: {fileID: 0}
+--- !u!64 &1364362159
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 110696616}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 1
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 664456749670281567, guid: ea5887b055a3d0d4a97cf6d9b8e5f05a, type: 3}
 --- !u!43 &1380851606
 Mesh:
   m_ObjectHideFlags: 0
@@ -64657,7 +64699,10 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 90ba05a84502a9248a56dab347de73f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1907979601}
   m_SourcePrefab: {fileID: 100100000, guid: 90ba05a84502a9248a56dab347de73f0, type: 3}
 --- !u!4 &1672623993 stripped
 Transform:
@@ -73099,6 +73144,33 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
+--- !u!1 &1907979600 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 90ba05a84502a9248a56dab347de73f0, type: 3}
+  m_PrefabInstance: {fileID: 1672623992}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1907979601
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1907979600}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!43 &1908303459
 Mesh:
   m_ObjectHideFlags: 0
@@ -83684,7 +83756,7 @@ PrefabInstance:
       objectReference: {fileID: 228763363}
     - target: {fileID: 5937964306115045, guid: 4695c90c40b8ac44695cccf4e0816c97, type: 3}
       propertyPath: interactRange
-      value: 2
+      value: 0.8
       objectReference: {fileID: 0}
     - target: {fileID: 5937964306115045, guid: 4695c90c40b8ac44695cccf4e0816c97, type: 3}
       propertyPath: interactPrompt
@@ -83748,19 +83820,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2974710425595466182, guid: 4695c90c40b8ac44695cccf4e0816c97, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 2974710425595466182, guid: 4695c90c40b8ac44695cccf4e0816c97, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: -0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 2974710425595466182, guid: 4695c90c40b8ac44695cccf4e0816c97, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0.06
+      value: -0.03
       objectReference: {fileID: 0}
     - target: {fileID: 3977607286526999876, guid: 4695c90c40b8ac44695cccf4e0816c97, type: 3}
       propertyPath: m_Name
       value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 4999991335465161487, guid: 4695c90c40b8ac44695cccf4e0816c97, type: 3}
+      propertyPath: PanAxis.Value
+      value: -90
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -83871,11 +83947,11 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Size: {x: 0.029042182, y: 0.06790737, z: 0.0036355017}
+  m_Size: {x: 0.04, y: 0.09, z: 0.01}
   m_Center: {x: 0, y: 0, z: 0}
 --- !u!23 &3864233462418760958
 MeshRenderer:
@@ -83970,7 +84046,7 @@ Transform:
   m_GameObject: {fileID: 4761865015290054744}
   serializedVersion: 2
   m_LocalRotation: {x: -0.0000004540741, y: -0.7071074, z: -0.7071062, w: 0.00000044703484}
-  m_LocalPosition: {x: -6.386, y: 5.3448, z: 4.213}
+  m_LocalPosition: {x: -5.704, y: 5.3448, z: 4.213}
   m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -85454,7 +85530,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Item
   itemData: {fileID: 11400000, guid: 61a7bcda0f8dc3246a242767098cdf73, type: 2}
-  isPickable: 1
+  isPickable: 0
   onPicked:
     m_PersistentCalls:
       m_Calls: []
