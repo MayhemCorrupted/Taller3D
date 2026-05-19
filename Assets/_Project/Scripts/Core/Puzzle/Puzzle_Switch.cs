@@ -12,10 +12,11 @@ public class Puzzle_Switch : MonoBehaviour
     Player_Camera playerCam;
 
     [Header("Item Requirements")]
-    [SerializeField] ItemData requiredItem;
-    [SerializeField] GameObject fuseVisual;
+    [SerializeField] ItemData requiredItemData;
+    [SerializeField] GameObject itemGameObject;
 
     [Header("Puzzle Configs")]
+    [SerializeField] string puzzlePrompt = "[E] Empezar Puzzle";
     [SerializeField] GameObject puzzlePanel;
     [SerializeField] Toggle[] fuseToggles;
     [SerializeField] Scrollbar[] visualFuses;
@@ -27,7 +28,7 @@ public class Puzzle_Switch : MonoBehaviour
     [SerializeField] UnityEvent OnCantInteract;
     [SerializeField] UnityEvent OnNeedItem;
     [SerializeField] UnityEvent OnPuzzleSolved;
-
+    public string PuzzlePrompt => puzzlePrompt;
     bool isPlaced = false;
     bool isSolved = false;
     void Awake()
@@ -79,9 +80,9 @@ public class Puzzle_Switch : MonoBehaviour
 
         if (!isPlaced)
         {
-            if (EquipmentManager.Instance.CurrentEquippedItem != requiredItem && itemInWorld.activeSelf) OnCantInteract?.Invoke();
+            if (EquipmentManager.Instance.CurrentEquippedItem != requiredItemData && itemInWorld.activeSelf) OnCantInteract?.Invoke();
             if (!itemInWorld.activeSelf) OnNeedItem?.Invoke();
-            if (EquipmentManager.Instance.CurrentEquippedItem == requiredItem) PlaceFuse();
+            if (EquipmentManager.Instance.CurrentEquippedItem == requiredItemData) PlaceFuse();
             return;
         }
 
@@ -91,8 +92,8 @@ public class Puzzle_Switch : MonoBehaviour
     void PlaceFuse()
     {
         isPlaced = true;
-        if (fuseVisual != null) fuseVisual.SetActive(true);
-        InventoryManager.Instance.RemoveItem(requiredItem);
+        if (itemGameObject != null) itemGameObject.SetActive(true);
+        InventoryManager.Instance.RemoveItem(requiredItemData);
         EquipmentManager.Instance.Unequip();
     }
 
@@ -144,6 +145,7 @@ public class Puzzle_Switch : MonoBehaviour
         isSolved = true;
         playerCam.LockCamera(false);
         OnPuzzleSolved?.Invoke();
+        puzzlePrompt = string.Empty;
         TogglePanel(false);
     }
 }   

@@ -6,7 +6,9 @@ public class DoorController : MonoBehaviour
     Transform hinge;
     [Header("Door Settings")]
     [SerializeField] float openAngle = 90f;
-    [SerializeField] float openDuration = 2f;
+    [SerializeField] float doorSpeed = 2f;
+    [SerializeField] string lockTextPrompt = "Closed";
+    [SerializeField] string interactablePrompt = "[E] interact";
     [Header("Direction Restrictions")]
     [SerializeField] bool revertDirection = false;
     [SerializeField][Range(-1, 1)] int forcedDirection = 0;
@@ -19,8 +21,11 @@ public class DoorController : MonoBehaviour
     [SerializeField] UnityEvent OnOpeningDoor;
     [SerializeField] UnityEvent OnClosingDoor;
     public bool IsLocked => lockDoor;
+    public string LockTextPrompt => lockTextPrompt;
+    public string InteractablePrompt => interactablePrompt;
     public bool IsOpen => isOpen;
     public bool IsMoving => isMoving;
+    public float DoorSpeed { set { doorSpeed = value; } }
     void Awake()
     {
         hinge = transform.GetChild(0);
@@ -64,10 +69,10 @@ public class DoorController : MonoBehaviour
         Quaternion endRot = closedRotation * Quaternion.Euler(0, targetAngle, 0);
         float elapsed = 0f;
 
-        while (elapsed < openDuration)
+        while (elapsed < doorSpeed)
         {
             elapsed += Time.deltaTime;
-            float t = Mathf.SmoothStep(0f, 1f, elapsed / openDuration);
+            float t = Mathf.SmoothStep(0f, 1f, elapsed / doorSpeed);
             hinge.localRotation = Quaternion.Slerp(startRot, endRot, t);
             yield return null;
         }

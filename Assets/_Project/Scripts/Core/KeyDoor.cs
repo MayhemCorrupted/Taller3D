@@ -6,10 +6,12 @@ public class KeyDoor : MonoBehaviour
     [Header("Key Settings")]
     [SerializeField] ItemData requiredKeyData;
     [SerializeField] bool noKeyOnUse = true;
+    [SerializeField] string keyTextPrompt = "[E] Usar llave"; 
     [Header("Events")]
     [SerializeField] UnityEvent OnCorrectKey;
     [SerializeField] UnityEvent OnWrongKey;  
     DoorController door;
+    public string KeyTextPrompt => keyTextPrompt;
     void Awake()
     {
         door = GetComponent<DoorController>();

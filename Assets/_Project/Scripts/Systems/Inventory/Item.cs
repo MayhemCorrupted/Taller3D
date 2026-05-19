@@ -9,6 +9,15 @@ public class Item : MonoBehaviour
     [SerializeField] bool isPickable = true;
     [SerializeField] UnityEvent onPicked;
     [SerializeField] UnityEvent onUnpickabled;
+    [SerializeField] string itemPrompt;
+    MeshRenderer mesh;
+    Collider colliderMesh;
+    private void Awake()
+    {
+        mesh = GetComponent<MeshRenderer>();
+        colliderMesh = GetComponent<Collider>();
+    }
+    public string ItemPrompt => itemPrompt;
     public bool IsPickable { set { isPickable = value; } }
     public void PickUp()
     {
@@ -34,8 +43,9 @@ public class Item : MonoBehaviour
         else if (itemData.itemType == ItemData.ItemType.Interactable) pickedUp = InventoryManager.Instance.AddItem(itemData);
         if (pickedUp)
         {
-            gameObject.SetActive(false);
             onPicked?.Invoke();
+            mesh.enabled = false;
+            colliderMesh.enabled = false;
         }
 
     }
