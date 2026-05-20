@@ -22465,7 +22465,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 90ba05a84502a9248a56dab347de73f0, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.10857
+      value: -3.482
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 90ba05a84502a9248a56dab347de73f0, type: 3}
       propertyPath: m_LocalPosition.y
@@ -73565,7 +73565,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 2617d4ac5de96d847822152577666c26, type: 2}
     - target: {fileID: -8679921383154817045, guid: cb22f8e2d5fd6264d854a30df7ce44ee, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3.56157
+      value: -4.148
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cb22f8e2d5fd6264d854a30df7ce44ee, type: 3}
       propertyPath: m_LocalPosition.y
@@ -92812,6 +92812,10 @@ PrefabInstance:
       propertyPath: interactPrompt
       value: 
       objectReference: {fileID: 228763362}
+    - target: {fileID: 5937964306115045, guid: 4695c90c40b8ac44695cccf4e0816c97, type: 3}
+      propertyPath: obstructLayer.m_Bits
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1934378160782403326, guid: 4695c90c40b8ac44695cccf4e0816c97, type: 3}
       propertyPath: m_LocalPosition.x
       value: -5.203
