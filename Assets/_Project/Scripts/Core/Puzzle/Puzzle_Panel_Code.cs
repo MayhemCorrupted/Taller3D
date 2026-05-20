@@ -1,72 +1,132 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
-using TMPro;
+using UnityEngine.UI;
 using System.Collections;
+using TMPro;
 
 public class Puzzle_PanelCode : MonoBehaviour
 {
+    [System.Serializable]
+    public class PuzzleSaveData
+    {
+        public string savedCode;
+        public bool isSolved;
+    }
+
+    const int NUMPAD = 10;
+
     [Header("References")]
     [SerializeField] GameObject player;
-    [SerializeField] GameObject keynoteItem;
     Player_Camera playerCamera;
     Player_Movement playerMovement;
 
     [Header("Code Config")]
-    [SerializeField] private int codeLength = 4;
-    [SerializeField] private string saveKey = "KitchenPuzzleCode";
+    [SerializeField] int codeLength = 4;
+    [SerializeField] string customCode = "";
+    [SerializeField] TMP_Text panelCode;
+    [SerializeField] NoteData linkedNote;
 
-    [Header("UI Panel")]
-    [SerializeField] private GameObject keypadPanel;
-    [SerializeField] private TextMeshProUGUI displayField;
-    [SerializeField] private TextMeshProUGUI hintText;
-    [SerializeField] private float hintDuration = 2.5f;
+    [Header("UI Panel & Buttons")]
+    [SerializeField] string interactPrompt = "[E] Abrir panel";
+    [SerializeField] GameObject keypadPanel;
+    [SerializeField] Button[] numberButtons = new Button[NUMPAD];
+    [SerializeField] Button deleteButton;
+    [SerializeField] Button exitButton;
+
+    [Header("Feedback Visual (Lights)")]
+    [SerializeField] Image[] indicatorLights;
+    [SerializeField] Color defaultColor = Color.grey;
+    [SerializeField] Color pressedColor = Color.white;
+    [SerializeField] Color correctColor = Color.green;
+    [SerializeField] Color incorrectColor = Color.red;
 
     [Header("Events")]
-    public UnityEvent OnCorrectCode;
+    [SerializeField] UnityEvent OnCorrectCode;
 
-    private string correctCodeString;
-    private string currentInput = "";
-    private bool isSolved = false;
-    private bool isUIOpen = false;
+    string currentInput = "";
+    bool isSolved = false;
+    bool isUIOpen = false;
+    WaitForSeconds resetDelay;
 
-    private void Awake()
+    public string TextPrompt => interactPrompt;
+    public bool IsUIOpen => isUIOpen;
+    public string CorrectCodeString { get; private set; } = "";
+
+    void Awake()
     {
+        resetDelay = new WaitForSeconds(0.6f);
+
         if (player != null)
         {
             playerCamera = player.GetComponent<Player_Camera>();
             playerMovement = player.GetComponent<Player_Movement>();
         }
+
+        SetupButtonListeners();
     }
+
     void Start()
     {
         SetupPuzzle();
         if (keypadPanel != null) keypadPanel.SetActive(false);
-        UpdateDisplay();
+        ResetLights();
+    }
+
+    void SetupButtonListeners()
+    {
+        for (int i = 0; i < numberButtons.Length; i++)
+        {
+            int index = i;
+            if (numberButtons[i] != null)
+            {
+                numberButtons[i].onClick.RemoveAllListeners();
+                numberButtons[i].onClick.AddListener(() => InputNumber(index));
+            }
+        }
+
+        if (deleteButton != null)
+        {
+            deleteButton.onClick.RemoveAllListeners();
+            deleteButton.onClick.AddListener(DeleteLastDigit);
+        }
+
+        if (exitButton != null)
+        {
+            exitButton.onClick.RemoveAllListeners();
+            exitButton.onClick.AddListener(() => ToggleKeypad(false));
+        }
     }
 
     void SetupPuzzle()
     {
-        if (PlayerPrefs.HasKey(saveKey))
+        if (string.IsNullOrEmpty(CorrectCodeString) || CorrectCodeString.Length != codeLength)
         {
-            correctCodeString = PlayerPrefs.GetString(saveKey);
+            if (!string.IsNullOrEmpty(customCode) && customCode.Length == codeLength)
+            {
+                CorrectCodeString = customCode;
+            }
+            else
+            {
+                CorrectCodeString = "";
+                for (int i = 0; i < codeLength; i++)
+                {
+                    CorrectCodeString += Random.Range(0, 10).ToString();
+                }
+            }
         }
-        else
+
+        if (linkedNote != null && linkedNote.isPuzzleNote)
         {
-            correctCodeString = "";
-            for (int i = 0; i < codeLength; i++)
-                correctCodeString += Random.Range(0, 10).ToString();
+            linkedNote.generatedCode = CorrectCodeString;
         }
     }
-    public void OnPlayerInteract()
+
+    public void Interact()
     {
         if (isSolved) return;
         ToggleKeypad(!isUIOpen);
     }
-    void Update()
-    {
-        if (isUIOpen && Input.GetKeyDown(KeyCode.Escape))
-            ToggleKeypad(false);
-    }
+
     public void ToggleKeypad(bool state)
     {
         isUIOpen = state;
@@ -81,73 +141,121 @@ public class Puzzle_PanelCode : MonoBehaviour
         if (state) ResetInput();
     }
 
-    #region OnClick_UI
     public void InputNumber(int number)
     {
-        if (!isUIOpen || currentInput.Length >= codeLength) return;
+        if (!isUIOpen || isSolved || currentInput.Length >= codeLength) return;
 
         currentInput += number.ToString();
         UpdateDisplay();
+        UpdateLights();
 
         if (currentInput.Length == codeLength)
         {
-            CheckCode();
+            StartCoroutine(CheckCodeRoutine());
         }
     }
 
     public void DeleteLastDigit()
     {
-        if (currentInput.Length > 0)
-        {
-            currentInput = currentInput[..^1];
-            UpdateDisplay();
-        }
+        if (isSolved || currentInput.Length == 0) return;
+
+        currentInput = currentInput[..^1];
+        UpdateDisplay();
+        UpdateLights();
     }
 
-    #endregion
-    private void CheckCode()
+    void UpdateDisplay()
     {
-        if (currentInput == correctCodeString)
+        if (panelCode != null)
+        {
+            panelCode.text = currentInput.PadRight(codeLength, '0');
+        }
+    }
+    void UpdateLights()
+    {
+        for (int i = 0; i < indicatorLights.Length; i++)
+        {
+            if (indicatorLights[i] == null) continue;
+
+            if (i < currentInput.Length)
+            {
+                indicatorLights[i].color = pressedColor;
+            }
+            else
+            {
+                indicatorLights[i].color = defaultColor;
+            }
+        }
+    }
+    IEnumerator CheckCodeRoutine()
+    {
+        bool isCodeCorrect = (currentInput == CorrectCodeString);
+        bool hasRequiredNote = true;
+
+        if (linkedNote != null && NotesManager.Instance != null)
+        {
+            hasRequiredNote = NotesManager.Instance.GetCollectedNotes().Contains(linkedNote);
+        }
+
+        bool codeMatch = isCodeCorrect && hasRequiredNote;
+
+        Color targetColor = codeMatch ? correctColor : incorrectColor;
+        SetAllLightsColor(targetColor);
+
+        yield return resetDelay;
+
+        if (codeMatch)
         {
             isSolved = true;
             OnCorrectCode?.Invoke();
-            ShowMessage("*CLIC* La puerta se ha desbloqueado.");
+            interactPrompt = string.Empty;
             ToggleKeypad(false);
         }
         else
         {
-            ShowMessage("Código Incorrecto...");
-            StartCoroutine(WaitAndReset());
+            ResetInput();
         }
     }
-
-    private IEnumerator WaitAndReset()
+    void SetAllLightsColor(Color color)
     {
-        WaitForSeconds resetDelay = new(0.5f);
-        yield return resetDelay;
-        ResetInput();
+        for (int i = 0; i < indicatorLights.Length; i++)
+        {
+            if (indicatorLights[i] != null) indicatorLights[i].color = color;
+        }
     }
-    private void ResetInput()
+    void ResetInput()
     {
         currentInput = "";
         UpdateDisplay();
+        ResetLights();
     }
-    private void UpdateDisplay()
+    void ResetLights()
     {
-        if (displayField != null)
-            displayField.text = currentInput.PadRight(codeLength, '_');
+        SetAllLightsColor(defaultColor);
     }
-    private void ShowMessage(string msg)
+
+    public PuzzleSaveData SavePuzzleState()
     {
-        if (hintText == null) return;
-        StopAllCoroutines();
-        StartCoroutine(DisplayHintRoutine(msg));
+        PuzzleSaveData data = new()
+        {
+            savedCode = this.CorrectCodeString,
+            isSolved = this.isSolved
+        };
+        return data;
     }
-    private IEnumerator DisplayHintRoutine(string msg)
+    public void LoadPuzzleState(PuzzleSaveData loadedData)
     {
-        hintText.text = msg;
-        hintText.gameObject.SetActive(true);
-        yield return new WaitForSeconds(hintDuration);
-        hintText.gameObject.SetActive(false);
+        if (loadedData == null) return;
+
+        this.CorrectCodeString = loadedData.savedCode;
+        this.isSolved = loadedData.isSolved;
+
+        SetupPuzzle();
+
+        if (isSolved)
+        {
+            ResetLights();
+            if (keypadPanel != null) keypadPanel.SetActive(false);
+        }
     }
 }

@@ -8,8 +8,8 @@ public class KeyDoor : MonoBehaviour
     [SerializeField] bool noKeyOnUse = true;
     [SerializeField] string keyTextPrompt = "[E] Usar llave"; 
     [Header("Events")]
-    [SerializeField] UnityEvent OnCorrectKey;
-    [SerializeField] UnityEvent OnWrongKey;  
+    [SerializeField] UnityEvent OnCorrectItem;
+    [SerializeField] UnityEvent OnWrongItem;  
     DoorController door;
     public string KeyTextPrompt => keyTextPrompt;
     void Awake()
@@ -25,14 +25,18 @@ public class KeyDoor : MonoBehaviour
         }
         if (heldItem != null && heldItem == requiredKeyData)
         {
-            OnCorrectKey?.Invoke();
+            OnCorrectItem?.Invoke();
             if (noKeyOnUse)
             {
                 InventoryManager.Instance.RemoveItem(heldItem);
                 EquipmentManager.Instance.Unequip();
             }
         }
-        else OnWrongKey?.Invoke();
+        else
+        {
+            door.Interact(playerPos);
+            OnWrongItem?.Invoke();
+        }
     }
     public bool HasCorrectKey()
     {

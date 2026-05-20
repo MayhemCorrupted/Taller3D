@@ -1,29 +1,20 @@
-using System;
 using UnityEngine;
 using UnityEngine.Events;
-
 public class Item : MonoBehaviour
 {
     [Header("Data")]
     public ItemData itemData;
     [SerializeField] bool isPickable = true;
-    [SerializeField] UnityEvent onPicked;
-    [SerializeField] UnityEvent onUnpickabled;
+    [SerializeField] UnityEvent OnPicked;
+    [SerializeField] UnityEvent OnUnpickable;
     [SerializeField] string itemPrompt;
-    MeshRenderer mesh;
-    Collider colliderMesh;
-    private void Awake()
-    {
-        mesh = GetComponent<MeshRenderer>();
-        colliderMesh = GetComponent<Collider>();
-    }
     public string ItemPrompt => itemPrompt;
     public bool IsPickable { set { isPickable = value; } }
     public void PickUp()
     {
         if (!isPickable)
         {
-            onUnpickabled?.Invoke();
+            OnUnpickable?.Invoke();
             return;
         }
         if (itemData == null)
@@ -41,11 +32,11 @@ public class Item : MonoBehaviour
             }
         }
         else if (itemData.itemType == ItemData.ItemType.Interactable) pickedUp = InventoryManager.Instance.AddItem(itemData);
+
         if (pickedUp)
         {
-            onPicked?.Invoke();
-            mesh.enabled = false;
-            colliderMesh.enabled = false;
+            OnPicked?.Invoke();
+            gameObject.SetActive(false);
         }
 
     }

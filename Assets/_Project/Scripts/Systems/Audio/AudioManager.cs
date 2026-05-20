@@ -4,12 +4,22 @@ using UnityEngine;
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance { get; private set; }
+
     readonly Dictionary<AudioRegister.AudioType, float> categoryVolumes = new();
     readonly List<AudioRegister> activeAudios = new();
+
     void Awake()
     {
-        if (Instance == null) Instance = this;
-        else Destroy(gameObject);
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+            return;
+        }
 
         foreach (AudioRegister.AudioType type in System.Enum.GetValues(typeof(AudioRegister.AudioType)))
         {
@@ -18,11 +28,7 @@ public class AudioManager : MonoBehaviour
     }
     public void SubscribeAudio(AudioRegister audio)
     {
-        if (!activeAudios.Contains(audio))
-        {
-            activeAudios.Add(audio);
-            audio.UpdateVolume(categoryVolumes[audio.Category]);
-        }
+        if (!activeAudios.Contains(audio)) activeAudios.Add(audio);
     }
     public void UnsubscribeAudio(AudioRegister audio)
     {
@@ -33,9 +39,12 @@ public class AudioManager : MonoBehaviour
         float clampedVolume = Mathf.Clamp01(volume);
         categoryVolumes[category] = clampedVolume;
 
-        foreach (var audio in activeAudios) audio.UpdateVolume(clampedVolume);
+        foreach (var audio in activeAudios)
+        {
+            audio.UpdateCategoryVolume(category, clampedVolume);
+        }
     }
-    public float GetCateVolume(AudioRegister.AudioType category)
+    public float GetCategoryVolume(AudioRegister.AudioType category)
     {
         return categoryVolumes.GetValueOrDefault(category, 1);
     }

@@ -13,14 +13,15 @@ public class DoorController : MonoBehaviour
     [SerializeField] bool revertDirection = false;
     [SerializeField][Range(-1, 1)] int forcedDirection = 0;
     [Header("Lock Toggle")]
-    [SerializeField] bool lockDoor = false;
+    [SerializeField] bool doorLocked = false;
     int lastOpenSide = 1;
     bool isOpen = false;
     bool isMoving = false;
      Quaternion closedRotation;
+    [SerializeField] UnityEvent OnLockedDoor;
     [SerializeField] UnityEvent OnOpeningDoor;
     [SerializeField] UnityEvent OnClosingDoor;
-    public bool IsLocked => lockDoor;
+    public bool IsLocked => doorLocked;
     public string LockTextPrompt => lockTextPrompt;
     public string InteractablePrompt => interactablePrompt;
     public bool IsOpen => isOpen;
@@ -33,7 +34,12 @@ public class DoorController : MonoBehaviour
     }
     public void Interact(Vector3 playerPosition)
     {
-        if (IsLocked || isMoving) return;
+        if (doorLocked)
+        {
+            OnLockedDoor?.Invoke();
+            return;
+        }
+        if (isMoving) return;
 
         StopAllCoroutines();
 
@@ -81,13 +87,14 @@ public class DoorController : MonoBehaviour
         isOpen = (targetAngle != 0f);
         isMoving = false;
     }
-    public void UnlockDoor() => lockDoor = false;
-    public void LockDoor() => lockDoor = true;
+    public void UnlockDoor() => doorLocked = false;
+    public void LockDoor() => doorLocked = true;
     public void ForceClose()
     {
         if (isMoving) return;
         StopAllCoroutines();
         StartCoroutine(MoveDoor(0));
+        OnClosingDoor?.Invoke();
     }
     public void ForceOpen(int side = 1)
     {
@@ -96,5 +103,6 @@ public class DoorController : MonoBehaviour
         lastOpenSide = side;
         float targetAngle = side * openAngle;
         StartCoroutine(MoveDoor(targetAngle));
+        OnOpeningDoor?.Invoke();
     }
 }

@@ -9,4 +9,11 @@ public class NoteData : ItemData
     [Header("Puzzle Note")]
     public bool isPuzzleNote;
     [HideInInspector] public string generatedCode;
+    public string GetParsedDescription()
+    {
+        if (isPuzzleNote && !string.IsNullOrEmpty(generatedCode))
+            return NoteDescription.Replace("{code}", generatedCode);
+        
+        return NoteDescription;
+    }
 }

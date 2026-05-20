@@ -92,7 +92,7 @@ public class NotesUI : MonoBehaviour
 
         if (noteImageFS != null) noteImageFS.sprite = current.image;
 
-        if (noteDescriptionFS != null) noteDescriptionFS.text = current.NoteDescription;
+        if (noteDescriptionFS != null) noteDescriptionFS.text = current.GetParsedDescription();
 
         HideTranscript();
 

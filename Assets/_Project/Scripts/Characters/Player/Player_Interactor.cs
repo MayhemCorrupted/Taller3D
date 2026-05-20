@@ -45,6 +45,12 @@ public class Player_Interactor : MonoBehaviour
                 SetCurrentInteractable(puzzle.gameObject, puzzle.PuzzlePrompt);
                 return;
             }
+            Puzzle_PanelCode puzzlePanel = hit.collider.GetComponentInParent<Puzzle_PanelCode>();
+            if (puzzlePanel != null)
+            {
+                SetCurrentInteractable(puzzlePanel.gameObject, puzzlePanel.TextPrompt);
+                return;
+            }
 
             DoorController door = hit.collider.GetComponentInParent<DoorController>();
             if (door != null)
@@ -69,13 +75,14 @@ public class Player_Interactor : MonoBehaviour
         }
         ClearInteractable();
     }
-
     void InteractInput()
     {
         if (currentInteractable == null || !Input.GetKeyDown(KeyCode.E)) return;
 
         if (currentInteractable.TryGetComponent(out Item item)) item.PickUp();
         else if (currentInteractable.TryGetComponent(out Puzzle_Switch puzzle)) puzzle.Interact();
+        else if (currentInteractable.TryGetComponent(out Puzzle_PanelCode puzzlePanel)) puzzlePanel.Interact();
+        else if (currentInteractable.TryGetComponent(out OpenObjects drawer)) drawer.Interact();
         else if (currentInteractable.TryGetComponent(out DoorController door))
         {
             if (door.TryGetComponent(out KeyDoor keyDoor))
@@ -84,10 +91,6 @@ public class Player_Interactor : MonoBehaviour
                 keyDoor.TryUnlock(heldItem, transform.position);
             }
             else door.Interact(transform.position);
-        }
-        else if (currentInteractable.TryGetComponent(out OpenObjects drawer))
-        {
-            drawer.Interact();
         }
         ClearInteractable();
     }

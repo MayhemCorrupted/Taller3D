@@ -59,8 +59,6 @@ public class Player_Camera : MonoBehaviour
     }
     void Update()
     {
-        StateDetect();
-        if (!isCameraLocked) HeadBobbing();
         SensibilityCinemachine();
         lastPosition = transform.position;
     }
