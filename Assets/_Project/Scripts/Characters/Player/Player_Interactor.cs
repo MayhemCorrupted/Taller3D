@@ -73,10 +73,9 @@ public class Player_Interactor : MonoBehaviour
                 return;
             }
 
-            OpenObjects drawer = hit.collider.GetComponentInParent<OpenObjects>();
-            if (drawer != null)
+            if (hit.collider.TryGetComponent(out OpenObjects currentDrawer))
             {
-                SetCurrentInteractable(drawer.gameObject, drawer.interactPrompt);
+                SetCurrentInteractable(currentDrawer.gameObject, currentDrawer.interactPrompt);
                 return;
             }
         }
