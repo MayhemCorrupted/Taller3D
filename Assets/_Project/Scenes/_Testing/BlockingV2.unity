@@ -13055,7 +13055,7 @@ PrefabInstance:
       objectReference: {fileID: 1891618045}
     - target: {fileID: 1121136704533154152, guid: 201ddda03566c554981abb051e08767a, type: 3}
       propertyPath: m_VersionIndex
-      value: 1391
+      value: 1394
       objectReference: {fileID: 0}
     - target: {fileID: 1648876720738890551, guid: 201ddda03566c554981abb051e08767a, type: 3}
       propertyPath: m_Mesh
@@ -17573,7 +17573,7 @@ PrefabInstance:
       objectReference: {fileID: 2042649029}
     - target: {fileID: 1121136704533154152, guid: 201ddda03566c554981abb051e08767a, type: 3}
       propertyPath: m_VersionIndex
-      value: 1391
+      value: 1394
       objectReference: {fileID: 0}
     - target: {fileID: 1648876720738890551, guid: 201ddda03566c554981abb051e08767a, type: 3}
       propertyPath: m_Mesh
@@ -30806,7 +30806,7 @@ PrefabInstance:
       objectReference: {fileID: 68189985}
     - target: {fileID: 1121136704533154152, guid: 201ddda03566c554981abb051e08767a, type: 3}
       propertyPath: m_VersionIndex
-      value: 1391
+      value: 1394
       objectReference: {fileID: 0}
     - target: {fileID: 1121136704533154152, guid: 201ddda03566c554981abb051e08767a, type: 3}
       propertyPath: m_SelectedEdges.Array.size
@@ -31828,7 +31828,7 @@ PrefabInstance:
       objectReference: {fileID: 528020278}
     - target: {fileID: 1121136704533154152, guid: 201ddda03566c554981abb051e08767a, type: 3}
       propertyPath: m_VersionIndex
-      value: 1271
+      value: 1274
       objectReference: {fileID: 0}
     - target: {fileID: 1648876720738890551, guid: 201ddda03566c554981abb051e08767a, type: 3}
       propertyPath: m_Mesh
@@ -32341,7 +32341,7 @@ PrefabInstance:
       objectReference: {fileID: 56904288}
     - target: {fileID: 1121136704533154152, guid: 201ddda03566c554981abb051e08767a, type: 3}
       propertyPath: m_VersionIndex
-      value: 1271
+      value: 1274
       objectReference: {fileID: 0}
     - target: {fileID: 1648876720738890551, guid: 201ddda03566c554981abb051e08767a, type: 3}
       propertyPath: m_Mesh
@@ -36134,7 +36134,7 @@ PrefabInstance:
       objectReference: {fileID: 2101489183}
     - target: {fileID: 1121136704533154152, guid: 201ddda03566c554981abb051e08767a, type: 3}
       propertyPath: m_VersionIndex
-      value: 1391
+      value: 1394
       objectReference: {fileID: 0}
     - target: {fileID: 1121136704533154152, guid: 201ddda03566c554981abb051e08767a, type: 3}
       propertyPath: m_SelectedEdges.Array.size
@@ -39674,7 +39674,7 @@ PrefabInstance:
       objectReference: {fileID: 1619413215}
     - target: {fileID: 1121136704533154152, guid: 201ddda03566c554981abb051e08767a, type: 3}
       propertyPath: m_VersionIndex
-      value: 1271
+      value: 1274
       objectReference: {fileID: 0}
     - target: {fileID: 1648876720738890551, guid: 201ddda03566c554981abb051e08767a, type: 3}
       propertyPath: m_Mesh
@@ -39752,7 +39752,7 @@ PrefabInstance:
       objectReference: {fileID: 2085043072}
     - target: {fileID: 1121136704533154152, guid: 201ddda03566c554981abb051e08767a, type: 3}
       propertyPath: m_VersionIndex
-      value: 1271
+      value: 1274
       objectReference: {fileID: 0}
     - target: {fileID: 1648876720738890551, guid: 201ddda03566c554981abb051e08767a, type: 3}
       propertyPath: m_Mesh
@@ -45915,7 +45915,7 @@ PrefabInstance:
       objectReference: {fileID: 80646508}
     - target: {fileID: 1121136704533154152, guid: 201ddda03566c554981abb051e08767a, type: 3}
       propertyPath: m_VersionIndex
-      value: 1271
+      value: 1274
       objectReference: {fileID: 0}
     - target: {fileID: 1648876720738890551, guid: 201ddda03566c554981abb051e08767a, type: 3}
       propertyPath: m_Mesh
@@ -50284,7 +50284,7 @@ PrefabInstance:
       objectReference: {fileID: 1099966949}
     - target: {fileID: 1121136704533154152, guid: 201ddda03566c554981abb051e08767a, type: 3}
       propertyPath: m_VersionIndex
-      value: 1271
+      value: 1274
       objectReference: {fileID: 0}
     - target: {fileID: 1648876720738890551, guid: 201ddda03566c554981abb051e08767a, type: 3}
       propertyPath: m_Mesh
@@ -83197,7 +83197,10 @@ MonoBehaviour:
   interactablePrompt: '[E] interact'
   revertDirection: 0
   forcedDirection: 0
-  lockDoor: 1
+  doorLocked: 0
+  OnLockedDoor:
+    m_PersistentCalls:
+      m_Calls: []
   OnOpeningDoor:
     m_PersistentCalls:
       m_Calls: []
@@ -84799,22 +84802,10 @@ MonoBehaviour:
   requiredKeyData: {fileID: 11400000, guid: 61a7bcda0f8dc3246a242767098cdf73, type: 2}
   noKeyOnUse: 1
   keyTextPrompt: '[E] Usar llave'
-  OnCorrectKey:
+  OnCorrectItem:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 2220037133629324292}
-        m_TargetAssemblyTypeName: DoorController, Assembly-CSharp
-        m_MethodName: UnlockDoor
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnWrongKey:
+      m_Calls: []
+  OnWrongItem:
     m_PersistentCalls:
       m_Calls: []
 --- !u!33 &9147233302011583815
@@ -84839,10 +84830,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Item
   itemData: {fileID: 11400000, guid: 61a7bcda0f8dc3246a242767098cdf73, type: 2}
   isPickable: 1
-  onPicked:
+  OnPicked:
     m_PersistentCalls:
       m_Calls: []
-  onUnpickabled:
+  OnUnpickable:
     m_PersistentCalls:
       m_Calls: []
   itemPrompt: 
