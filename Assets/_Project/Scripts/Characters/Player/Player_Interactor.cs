@@ -12,7 +12,14 @@ public class Player_Interactor : MonoBehaviour
     [SerializeField] GameObject interactPrompt;
     [SerializeField] TextMeshProUGUI promptText;
 
+    [Header("Gizmos Debug Settings")]
+    [SerializeField] private bool showGizmos = true;
+    [SerializeField] private Color noHitColor = Color.green;
+    [SerializeField] private Color hitColor = Color.red;
+    [SerializeField] private float hitIndicatorRadius = 0.1f;
+
     GameObject currentInteractable;
+    public float InteractRange => interactRange;
 
     void Update()
     {
@@ -106,5 +113,28 @@ public class Player_Interactor : MonoBehaviour
     {
         currentInteractable = null;
         if (interactPrompt != null) interactPrompt.SetActive(false);
+    }
+    private void OnDrawGizmos()
+    {
+        if (!showGizmos || interactPoint == null) return;
+
+        Vector3 origin = interactPoint.position;
+        Vector3 direction = interactPoint.forward;
+
+        bool isHitting = Physics.Raycast(origin, direction, out RaycastHit hit, interactRange, interactLayer);
+
+        Gizmos.color = isHitting ? hitColor : noHitColor;
+
+        if (isHitting)
+        {
+            Gizmos.DrawLine(origin, hit.point);
+            Gizmos.DrawWireSphere(hit.point, hitIndicatorRadius);
+        }
+        else
+        {
+            Vector3 endPoint = origin + (direction * interactRange);
+            Gizmos.DrawLine(origin, endPoint);
+            Gizmos.DrawWireSphere(endPoint, hitIndicatorRadius);
+        }
     }
 }

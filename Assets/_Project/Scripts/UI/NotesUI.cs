@@ -43,7 +43,6 @@ public class NotesUI : MonoBehaviour
         if (NotesManager.Instance != null) NotesManager.Instance.OnNoteCollected += RefreshNotesUI;
     }
     void OnEnable() => RefreshNotesUI();
-    void OnDisable() => CloseNoteFS();
     public void RefreshNotesUI()
     {
         if (NotesManager.Instance == null) return;
@@ -110,13 +109,11 @@ public class NotesUI : MonoBehaviour
         isTranscriptVisible = false;
         if (transcriptPanelFS != null) transcriptPanelFS.SetActive(false);
     }
-
-    void CloseNoteFS()
+    public void CloseNoteFS()
     {
         if (notePanelFS != null) notePanelFS.SetActive(false);
         HideTranscript();
     }
-
     void NextNote()
     {
         if (NotesManager.Instance == null) return;

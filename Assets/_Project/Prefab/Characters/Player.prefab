@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 1356413881995057292}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.5185003, y: -0.33499998, z: 0.75650024}
+  m_LocalPosition: {x: 0.248, y: -0.105, z: 0.405}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -317,22 +317,22 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player_Camera
   mouseSensitivity: 100
-  cameraTarget: {fileID: 7037224459366461833}
+  noiseComponent: {fileID: 9025110438068412343}
   minBobSpeed: 0.18
-  returnSpeed: 0.2
-  idleBobSpeed: 1
-  idleBobAmountX: 0.02
-  idleBobAmountY: 0.04
-  walkBobSpeed: 12
-  walkBobAmountX: 2
-  walkBobAmountY: 3
-  stairBobSpeed: 10
-  stairBobAmountX: 1
-  stairBobAmountY: 3
   stairDetectThreshold: 0.1
-  flyBobSpeed: 2
-  flyBobAmount: 2
-  flyInertiaMultiplier: 3
+  profileTransitionSpeed: 8
+  idleProfile:
+    amplitude: 1
+    frequency: 1
+  walkProfile:
+    amplitude: 1.8
+    frequency: 2
+  stairsProfile:
+    amplitude: 1
+    frequency: 2
+  flyingProfile:
+    amplitude: 1.5
+    frequency: 2.5
 --- !u!114 &9108686387308168580
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -363,18 +363,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b57213c301e3374eaa0fb3d74208c4b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Player_Interaction
-  itemPromptFormat: '[E] Recoger {0}'
-  doorPromptFormat: '[E] Abrir / Cerrar'
-  switchPromptFormat: '[E] Interactuar'
-  useKeyFormat: '[E] Usar llave'
-  lockedDoorFormat: Cerrado
-  interactRange: 2.2
+  interactRange: 1.2
   interactLayer:
     serializedVersion: 2
     m_Bits: 8
-  interactPoint: {fileID: 2974710425595466182}
+  interactPoint: {fileID: 7037224459366461833}
   interactPrompt: {fileID: 0}
   promptText: {fileID: 0}
+  showGizmos: 1
+  noHitColor: {r: 0, g: 1, b: 0, a: 1}
+  hitColor: {r: 1, g: 0, b: 0, a: 1}
+  hitIndicatorRadius: 0.1
 --- !u!1 &5975160844710203712
 GameObject:
   m_ObjectHideFlags: 0
@@ -401,7 +400,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0.612, z: -0.006}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.31, y: 0.16, z: 1.61}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1934378160782403326}
@@ -419,6 +418,7 @@ GameObject:
   - component: {fileID: 1329400139505062667}
   - component: {fileID: 4999991335465161487}
   - component: {fileID: 7154746780844185251}
+  - component: {fileID: 9025110438068412343}
   m_Layer: 0
   m_Name: PlayerCamera
   m_TagString: MainCamera
@@ -434,14 +434,14 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6570145537968561914}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.612, z: -0.006000519}
+  m_LocalRotation: {x: 0, y: -0.7071068, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 0, y: 0.6119995, z: -0.006000042}
   m_LocalScale: {x: 2, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2287276722474116524}
   m_Father: {fileID: 1934378160782403326}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -0.03, z: 0}
 --- !u!114 &2745105089882178751
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -464,12 +464,12 @@ MonoBehaviour:
   Target:
     TrackingTarget: {fileID: 7037224459366461833}
     LookAtTarget: {fileID: 0}
-    CustomLookAtTarget: 1
+    CustomLookAtTarget: 0
   Lens:
     FieldOfView: 60
     OrthographicSize: 10
     NearClipPlane: 0.01
-    FarClipPlane: 50
+    FarClipPlane: 24
     Dutch: 0
     ModeOverride: 0
     PhysicalProperties:
@@ -513,7 +513,7 @@ MonoBehaviour:
   ReferenceFrame: 0
   RecenterTarget: 0
   PanAxis:
-    Value: 0
+    Value: -90
     Center: 0
     Range: {x: -180, y: 180}
     Wrap: 1
@@ -571,3 +571,20 @@ MonoBehaviour:
       Driver:
         AccelTime: 0
         DecelTime: 0
+--- !u!114 &9025110438068412343
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6570145537968561914}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 68bb026fafb42b14791938953eaace77, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineBasicMultiChannelPerlin
+  NoiseProfile: {fileID: 11400000, guid: a3dacaec0287d7444b4bd276816e1666, type: 2}
+  PivotOffset: {x: 0, y: 0, z: 0}
+  AmplitudeGain: 1
+  FrequencyGain: 1
+  m_NoiseOffsets: {x: -41.57315, y: -629.8561, z: 821.22}

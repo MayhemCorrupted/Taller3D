@@ -54,26 +54,36 @@ public class Player_Movement : MonoBehaviour
             verticalVelocity = 0;
         }
     }
-    void Orientate()
+    private void Orientate()
     {
-        Vector3 cameraForward = new Vector3(cameraTransform.forward.x, 0, cameraTransform.forward.z).normalized;
-        if (cameraForward != Vector3.zero) orientation.rotation = Quaternion.LookRotation(cameraForward);
+        if (cameraTransform == null || orientation == null) return;
+
+        Vector3 cameraForward = cameraTransform.forward;
+
+        if (cameraForward != Vector3.zero)
+            orientation.rotation = Quaternion.LookRotation(cameraForward, cameraTransform.up);
     }
-    void FlyingMovement()
+
+    private void FlyingMovement()
     {
-        verticalVelocity = Mathf.Lerp(verticalVelocity, 0, Time.deltaTime * 5);
+        verticalVelocity = Mathf.Lerp(verticalVelocity, 0f, Time.deltaTime * 5f);
 
         Vector3 direction = cameraTransform.forward * moveInput.y + cameraTransform.right * moveInput.x;
         playerCtrl.Move((direction.normalized * flySpeed + Vector3.up * verticalVelocity) * Time.deltaTime);
 
         if (playerCtrl.isGrounded) flying = false;
     }
-    void GroundMovement()
+
+    private void GroundMovement()
     {
         if (playerCtrl.isGrounded) verticalVelocity = -2f;
         else verticalVelocity += gravity * Time.deltaTime;
 
-        Vector3 direction = orientation.forward * moveInput.y + orientation.right * moveInput.x;
+        Vector3 forwardOrientate = new Vector3(orientation.forward.x, 0f, orientation.forward.z).normalized;
+        Vector3 rightOrientate = new Vector3(orientation.right.x, 0f, orientation.right.z).normalized;
+
+        Vector3 direction = forwardOrientate * moveInput.y + rightOrientate * moveInput.x;
+
         playerCtrl.Move((direction.normalized * walkSpeed + Vector3.up * verticalVelocity) * Time.deltaTime);
     }
 }

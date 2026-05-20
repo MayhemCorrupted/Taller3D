@@ -3,6 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
+[RequireComponent(typeof(NotesUI))]
 public class InventoryUI : MonoBehaviour
 {
     private const int MAX_SLOTS = 3;
@@ -32,10 +33,12 @@ public class InventoryUI : MonoBehaviour
     int equipedSlotIndex = -1;
     readonly float[] lastClickTimes = new float[MAX_SLOTS];
     const float doubleClickThreshold = 0.3f;
-    bool isOpen = false;
-
+    bool isInventoryOpen = false;
+    NotesUI noteUI;
+    public bool IsInventoryOpen => isInventoryOpen;
     void Awake()
     {
+        noteUI = GetComponent<NotesUI>();
         inventoryPanel.SetActive(false);
         ClearAllInfo();
 
@@ -92,15 +95,15 @@ public class InventoryUI : MonoBehaviour
 
     void TogglePanel()
     {
-        isOpen = !isOpen;
-        inventoryPanel.SetActive(isOpen);
-        playerCamera.LockCamera(isOpen);
-        playerMovement.CanMove(!isOpen);
+        isInventoryOpen = !isInventoryOpen;
+        inventoryPanel.SetActive(isInventoryOpen);
+        playerCamera.LockCamera(isInventoryOpen);
+        playerMovement.CanMove(!isInventoryOpen);
+        if (noteUI != null && !IsInventoryOpen) noteUI.CloseNoteFS();
+        Cursor.lockState = isInventoryOpen ? CursorLockMode.None : CursorLockMode.Locked;
+        Cursor.visible = isInventoryOpen;
 
-        Cursor.lockState = isOpen ? CursorLockMode.None : CursorLockMode.Locked;
-        Cursor.visible = isOpen;
-
-        if (isOpen)
+        if (isInventoryOpen)
         {
             RechargeUI();
         }
