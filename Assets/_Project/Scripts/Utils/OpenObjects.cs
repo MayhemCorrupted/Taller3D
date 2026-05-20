@@ -12,7 +12,6 @@ public class OpenObjects : MonoBehaviour
 
     Vector3 closedPosition;
     Vector3 openPosition;
-
     bool isOpen;
     bool isMoving;
 
@@ -37,27 +36,19 @@ public class OpenObjects : MonoBehaviour
     IEnumerator MoveDrawer(Vector3 targetPosition)
     {
         isMoving = true;
-
         Vector3 startPosition = transform.localPosition;
-
         float moveTime = 0f;
 
         while (moveTime < speed)
         {
             moveTime += Time.deltaTime;
-
             float time = moveTime / speed;
-
-            transform.localPosition =
-                Vector3.Lerp(startPosition, targetPosition, time);
-
+            transform.localPosition = Vector3.Lerp(startPosition, targetPosition, time);
             yield return null;
         }
 
         transform.localPosition = targetPosition;
-
         isOpen = !isOpen;
-
         isMoving = false;
     }
 }
