@@ -50,10 +50,20 @@ public class Player_Interactor : MonoBehaviour
             if (door != null)
             {
                 string text;
-                if (door.TryGetComponent(out KeyDoor keyDoor) && keyDoor.HasCorrectKey()) text = keyDoor.KeyTextPrompt;
-                else text = door.IsLocked ? door.LockTextPrompt : door.InteractablePrompt;
+
+                if (door.TryGetComponent(out KeyDoor keyDoor) && keyDoor.HasCorrectKey())
+                    text = keyDoor.KeyTextPrompt;
+                else
+                    text = door.IsLocked ? door.LockTextPrompt : door.InteractablePrompt;
 
                 SetCurrentInteractable(door.gameObject, text);
+                return;
+            }
+
+            OpenObjects drawer = hit.collider.GetComponentInParent<OpenObjects>();
+            if (drawer != null)
+            {
+                SetCurrentInteractable(drawer.gameObject, drawer.interactPrompt);
                 return;
             }
         }
@@ -74,6 +84,10 @@ public class Player_Interactor : MonoBehaviour
                 keyDoor.TryUnlock(heldItem, transform.position);
             }
             else door.Interact(transform.position);
+        }
+        else if (currentInteractable.TryGetComponent(out OpenObjects drawer))
+        {
+            drawer.Interact();
         }
         ClearInteractable();
     }
