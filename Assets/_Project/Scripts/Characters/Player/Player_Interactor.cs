@@ -4,8 +4,8 @@ using TMPro;
 public class Player_Interactor : MonoBehaviour
 {
     [Header("Interaction Settings")]
-    [SerializeField] float interactRange = 3f;
-    [SerializeField] LayerMask interactLayer;
+    [SerializeField] float interactRange = 1;
+    [SerializeField] LayerMask interactLayer, obstructLayer;
     [SerializeField] Transform interactPoint;
 
     [Header("Interaction UI")]
@@ -36,7 +36,14 @@ public class Player_Interactor : MonoBehaviour
             return;
         }
 
-        if (Physics.Raycast(interactPoint.position, interactPoint.forward, out RaycastHit hit, interactRange, interactLayer))
+        float effectiveRange = interactRange;
+
+        if (Physics.Raycast(interactPoint.position, interactPoint.forward, out RaycastHit obstructionHit, interactRange, obstructLayer))
+        {
+            effectiveRange = obstructionHit.distance + 0.01f;
+        }
+
+        if (Physics.Raycast(interactPoint.position, interactPoint.forward, out RaycastHit hit, Mathf.Min(effectiveRange, interactRange), interactLayer))
         {
             Item targetItem = hit.collider.GetComponentInParent<Item>();
             if (targetItem != null)
@@ -52,6 +59,7 @@ public class Player_Interactor : MonoBehaviour
                 SetCurrentInteractable(puzzle.gameObject, puzzle.PuzzlePrompt);
                 return;
             }
+
             Puzzle_PanelCode puzzlePanel = hit.collider.GetComponentInParent<Puzzle_PanelCode>();
             if (puzzlePanel != null)
             {
@@ -79,9 +87,11 @@ public class Player_Interactor : MonoBehaviour
                 return;
             }
         }
+
         ClearInteractable();
     }
-    void InteractInput()
+
+    private void InteractInput()
     {
         if (currentInteractable == null || !Input.GetKeyDown(KeyCode.E)) return;
 
@@ -101,18 +111,19 @@ public class Player_Interactor : MonoBehaviour
         ClearInteractable();
     }
 
-    void SetCurrentInteractable(GameObject obj, string prompt)
+    private void SetCurrentInteractable(GameObject obj, string prompt)
     {
         currentInteractable = obj;
         if (interactPrompt != null) interactPrompt.SetActive(true);
         if (promptText != null) promptText.text = prompt;
     }
 
-    void ClearInteractable()
+    private void ClearInteractable()
     {
         currentInteractable = null;
         if (interactPrompt != null) interactPrompt.SetActive(false);
     }
+
     private void OnDrawGizmos()
     {
         if (!showGizmos || interactPoint == null) return;
@@ -120,20 +131,20 @@ public class Player_Interactor : MonoBehaviour
         Vector3 origin = interactPoint.position;
         Vector3 direction = interactPoint.forward;
 
-        bool isHitting = Physics.Raycast(origin, direction, out RaycastHit hit, interactRange, interactLayer);
-
-        Gizmos.color = isHitting ? hitColor : noHitColor;
-
-        if (isHitting)
+        float effectiveRange = interactRange;
+        if (Physics.Raycast(origin, direction, out RaycastHit obstructionHit, interactRange, obstructLayer))
         {
-            Gizmos.DrawLine(origin, hit.point);
-            Gizmos.DrawWireSphere(hit.point, hitIndicatorRadius);
+            effectiveRange = obstructionHit.distance;
         }
-        else
-        {
-            Vector3 endPoint = origin + (direction * interactRange);
-            Gizmos.DrawLine(origin, endPoint);
-            Gizmos.DrawWireSphere(endPoint, hitIndicatorRadius);
-        }
+
+        bool isHittingInteractable = Physics.Raycast(origin, direction, out RaycastHit hit, effectiveRange + 0.01f, interactLayer);
+
+        Gizmos.color = isHittingInteractable ? hitColor : noHitColor;
+
+        float finalGizmoDistance = isHittingInteractable ? hit.distance : effectiveRange;
+        Vector3 endPoint = origin + (direction * finalGizmoDistance);
+
+        Gizmos.DrawLine(origin, endPoint);
+        Gizmos.DrawWireSphere(endPoint, hitIndicatorRadius);
     }
 }
