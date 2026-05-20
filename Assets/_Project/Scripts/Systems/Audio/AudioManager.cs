@@ -10,16 +10,12 @@ public class AudioManager : MonoBehaviour
 
     void Awake()
     {
-        if (Instance == null)
-        {
-            Instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else
+        if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;
         }
+        Instance = this;
 
         foreach (AudioRegister.AudioType type in System.Enum.GetValues(typeof(AudioRegister.AudioType)))
         {
