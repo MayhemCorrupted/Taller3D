@@ -23,6 +23,12 @@ public class Player_Interactor : MonoBehaviour
 
     void Update()
     {
+        if (UImanager.Instance != null && UImanager.Instance.IsAnyPanelOpen())
+        {
+            ClearInteractable();
+            return;
+        }
+
         if (Cursor.visible) return;
         InteractDetector();
         InteractInput();

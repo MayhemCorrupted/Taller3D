@@ -18,7 +18,7 @@ public class Puzzle_Switch : MonoBehaviour
     [Header("Puzzle Configs")]
     [SerializeField] string puzzlePrompt = "[E] Empezar Puzzle";
     [SerializeField] GameObject puzzlePanel;
-    [SerializeField] Toggle[] fuseToggles;
+    [SerializeField] Toggle[] fuseButtons;
     [SerializeField] Scrollbar[] visualFuses;
     [SerializeField] Image[] feedbackLights;
     [SerializeField] Color lightColorOn = Color.green;
@@ -44,31 +44,48 @@ public class Puzzle_Switch : MonoBehaviour
     {
         puzzlePanel.SetActive(false);
 
-        for (int i = 0; i < fuseToggles.Length; i++)
+        for (int i = 0; i < fuseButtons.Length; i++)
         {
             int index = i;
-            fuseToggles[i].onValueChanged.AddListener((val) => OnToggleChanged(index, val));
+            fuseButtons[i].onValueChanged.AddListener((val) => OnToggleChanged(index, val));
         }
-
+        UImanager.Instance.RegisterPanel(UImanager.UIPanelType.Puzzle, () => TogglePanel(true));
         GenerateProceduralStart();
     }
 
-    void GenerateProceduralStart()
+    private void GenerateProceduralStart()
     {
-        bool allOn = true;
+        if (fuseButtons == null || fuseButtons.Length == 0) return;
 
-        for (int i = 0; i < fuseToggles.Length; i++)
+        float randomChance = Random.value;
+
+        if (randomChance < 0.5f)
         {
-            bool randomState = Random.value > 0.5f;
-            fuseToggles[i].SetIsOnWithoutNotify(randomState);
+            for (int i = 0; i < fuseButtons.Length; i++)
+            {
+                fuseButtons[i].SetIsOnWithoutNotify(true);
+            }
 
-            if (!randomState) allOn = false;
+            if (fuseButtons.Length >= 2)
+            {
+                int off = 0;
+                while (off < 2)
+                {
+                    int randomIndex = Random.Range(0, fuseButtons.Length);
+                    if (fuseButtons[randomIndex].isOn)
+                    {
+                        fuseButtons[randomIndex].SetIsOnWithoutNotify(false);
+                        off++;
+                    }
+                }
+            }
         }
-
-        if (allOn)
+        else
         {
-            int randomIndex = Random.Range(0, fuseToggles.Length);
-            fuseToggles[randomIndex].SetIsOnWithoutNotify(false);
+            for (int i = 0; i < fuseButtons.Length; i++)
+            {
+                fuseButtons[i].SetIsOnWithoutNotify(false);
+            }
         }
 
         SyncAllVisuals();
@@ -89,7 +106,7 @@ public class Puzzle_Switch : MonoBehaviour
         TogglePanel(true);
     }
 
-    void PlaceFuse()
+    private void PlaceFuse()
     {
         isPlaced = true;
         if (itemGameObject != null) itemGameObject.SetActive(true);
@@ -99,37 +116,57 @@ public class Puzzle_Switch : MonoBehaviour
 
     public void TogglePanel(bool state)
     {
-        puzzlePanel.SetActive(state);
-        playerCam.LockCamera(state);
-        playerMove.CanMove(!state);
+        if (state)
+        {
+            if (!UImanager.Instance.RequestOpen(UImanager.UIPanelType.Puzzle)) return;
+        }
+        else UImanager.Instance.ReportClose(UImanager.UIPanelType.Puzzle);
 
-        Cursor.lockState = state ? CursorLockMode.None : CursorLockMode.Locked;
-        Cursor.visible = state;
+        puzzlePanel.SetActive(state);
     }
 
-    void OnToggleChanged(int index, bool value)
+    private void OnToggleChanged(int index, bool value)
     {
-        if (value) ApplyRules(index);
+        if (!value)
+        {
+            fuseButtons[index].SetIsOnWithoutNotify(true);
+            return;
+        }
+
+        ApplySwitchRules(index);
 
         SyncAllVisuals();
         CheckWin();
     }
 
-    void ApplyRules(int index)
+    private void ApplySwitchRules(int pressedIndex)
     {
-        switch (index)
+        if (fuseButtons.Length < 4) return;
+
+        switch (pressedIndex)
         {
-            case 0: if (fuseToggles[2].isOn) fuseToggles[2].SetIsOnWithoutNotify(false); break;
-            case 1: if (fuseToggles[0].isOn) fuseToggles[0].SetIsOnWithoutNotify(false); break;
-            case 3: if (fuseToggles[1].isOn) fuseToggles[1].SetIsOnWithoutNotify(false); break;
+            case 0:
+                if (fuseButtons[2].isOn) fuseButtons[2].SetIsOnWithoutNotify(false);
+                break;
+
+            case 1: 
+                if (fuseButtons[0].isOn) fuseButtons[0].SetIsOnWithoutNotify(false);
+                break;
+
+            case 2:
+                break;
+
+            case 3:
+                if (fuseButtons[1].isOn) fuseButtons[1].SetIsOnWithoutNotify(false);
+                break;
         }
     }
 
-    void SyncAllVisuals()
+    private void SyncAllVisuals()
     {
-        for (int i = 0; i < fuseToggles.Length; i++)
+        for (int i = 0; i < fuseButtons.Length; i++)
         {
-            bool state = fuseToggles[i].isOn;
+            bool state = fuseButtons[i].isOn;
 
             if (visualFuses.Length > i && visualFuses[i] != null)
                 visualFuses[i].value = state ? 1f : 0f;
@@ -138,10 +175,9 @@ public class Puzzle_Switch : MonoBehaviour
                 feedbackLights[i].color = state ? lightColorOn : lightColorOff;
         }
     }
-
-    void CheckWin()
+    private void CheckWin()
     {
-        foreach (Toggle t in fuseToggles) if (!t.isOn) return;
+        foreach (Toggle t in fuseButtons) if (!t.isOn) return;
         isSolved = true;
         playerCam.LockCamera(false);
         OnPuzzleSolved?.Invoke();
