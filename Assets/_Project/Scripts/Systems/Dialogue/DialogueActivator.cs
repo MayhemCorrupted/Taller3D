@@ -5,48 +5,52 @@ using UnityEngine.Events;
 public class DialogueActivator : MonoBehaviour
 {
     Transform playerTransform;
-    [Header("Dialogue Settings")]
-    [SerializeField] TMP_Text uiTextComponent;
-    [TextArea(3, 5)]
-    [SerializeField] string dialogueText;
-    [SerializeField] float dialogueDuration;
-    [Header("Camera Settings")]
+
+    [Header("Library Reference")]
+    [Tooltip("La llave que buscará en el DialogueLibrary")]
+    [SerializeField] string dialogueKey;
+
+    [Header("Playback Settings")]
+    [SerializeField] float durationPerLine = 3f;
     [SerializeField] bool moveCameraToTarget = true;
-    [SerializeField] Transform targetToLookAt;
-    [SerializeField] float cameraLookAtSpeed = 2;
+    [SerializeField] float cameraLookAtSpeed = 2f;
+
     [Header("Trigger Settings")]
     [SerializeField] Transform triggerPoint;
     [SerializeField] float activeRadius = 0.75f;
     [SerializeField] bool disableTriggerAfterUse = true;
-    bool triggered = false;
+
     public UnityEvent OnTriggered;
+
+    bool triggered = false;
     float dialogueTimer;
+    float totalCalculatedDuration;
+
     void Awake()
     {
-        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null) playerTransform = player.transform;
     }
     void Update()
     {
         if (playerTransform == null || triggerPoint == null) return;
-       
         if (triggered)
         {
             if (!disableTriggerAfterUse)
             {
                 dialogueTimer += Time.deltaTime;
-
-                if (dialogueTimer >= dialogueDuration * 2f)
+                if (dialogueTimer >= totalCalculatedDuration)
                 {
-                    triggered = false;     
-                    dialogueTimer = 0f;    
+                    triggered = false;
+                    dialogueTimer = 0f;
                 }
             }
-            return; 
+            return;
         }
         float currentDistance = Vector3.Distance(triggerPoint.position, playerTransform.position);
         if (currentDistance <= activeRadius)
         {
-            FireDialogue();
+            ShotDialogue();
             triggered = true;
 
             if (disableTriggerAfterUse)
@@ -55,17 +59,33 @@ public class DialogueActivator : MonoBehaviour
             }
         }
     }
-    public void FireDialogue()
+    public void ShotDialogue()
     {
-        if (DialogueManager.Instance != null) 
-            DialogueManager.Instance.StartDialogue(uiTextComponent, 
-                targetToLookAt, dialogueText, cameraLookAtSpeed, moveCameraToTarget, dialogueDuration);
-        else Debug.LogWarning("No DialogueManager instance encontrado.");
+        if (DialogueLibrary.Instance == null) return;
 
+        var dataInfo = DialogueLibrary.Instance.GetDialogue(dialogueKey);
+        if (dataInfo == null) return;
+
+        var data = dataInfo.Value;
+
+        totalCalculatedDuration = data.dialogueLines.Length * (durationPerLine + 0.4f);
+
+        if (DialogueManager.Instance != null)
+        {
+            DialogueManager.Instance.StartDialogue(
+                data.uiTextComponent,
+                data.targetToLookAt,
+                data.dialogueLines,
+                cameraLookAtSpeed,
+                moveCameraToTarget,
+                durationPerLine
+            );
+        }
         OnTriggered?.Invoke();
     }
-    private void OnDrawGizmos()
+    private void OnDrawGizmosSelected()
     {
+        if (triggerPoint == null) return;
         Gizmos.color = Color.green;
         Gizmos.DrawWireSphere(triggerPoint.position, activeRadius);
     }

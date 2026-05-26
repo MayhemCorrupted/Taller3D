@@ -21,7 +21,7 @@ public class UImanager : MonoBehaviour
     Action openNoteCallback;
     Action openPuzzleCallback;
     public bool IsAnyPanelOpen() => activePanel != UIPanelType.None;
-    void Start()
+    void Awake()
     {
         if (Instance == null) Instance = this;
         else Destroy(gameObject);
