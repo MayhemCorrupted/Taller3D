@@ -92,6 +92,13 @@ public class Player_Interactor : MonoBehaviour
                 SetCurrentInteractable(currentDrawer.gameObject, currentDrawer.interactPrompt);
                 return;
             }
+            WallsCamera cam = hit.collider.GetComponentInParent<WallsCamera>();
+
+            if (cam != null)
+            {
+                SetCurrentInteractable(hit.collider.gameObject, cam.interactPrompt);
+                return;
+            }
         }
 
         ClearInteractable();
@@ -105,6 +112,13 @@ public class Player_Interactor : MonoBehaviour
         else if (currentInteractable.TryGetComponent(out Puzzle_Switch puzzle)) puzzle.Interact();
         else if (currentInteractable.TryGetComponent(out Puzzle_PanelCode puzzlePanel)) puzzlePanel.Interact();
         else if (currentInteractable.TryGetComponent(out OpenObjects drawer)) drawer.Interact();
+        else if (currentInteractable.GetComponentInParent<WallsCamera>())
+        {
+            WallsCamera camera =
+                currentInteractable.GetComponentInParent<WallsCamera>();
+
+            camera.Interact(currentInteractable);
+        }
         else if (currentInteractable.TryGetComponent(out DoorController door))
         {
             if (door.TryGetComponent(out KeyDoor keyDoor))
