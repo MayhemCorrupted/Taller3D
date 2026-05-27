@@ -21,7 +21,7 @@ public class WallsCamera : MonoBehaviour
 
     CinemachineCamera activeCamera;
 
-    void Start()
+    void Awake ()
     {
         playerCamera.Priority = 10;
 
