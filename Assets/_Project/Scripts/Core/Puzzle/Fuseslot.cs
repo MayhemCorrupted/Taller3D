@@ -14,18 +14,13 @@ public class FuseSlot : MonoBehaviour, IDropHandler
         if (transform.childCount == 0)
         {
             GameObject droppedFuse = eventData.pointerDrag;
-            FuseDraggable fuseLogic = droppedFuse.GetComponent<FuseDraggable>();
-
-            if (fuseLogic != null)
+            
+            if (droppedFuse.TryGetComponent(out FuseDraggable fuseLogic) && fuseLogic != null)
             {
                 droppedFuse.transform.SetParent(transform);
-
                 droppedFuse.transform.localPosition = Vector3.zero;
 
-                if (puzzleManager != null)
-                {
-                    puzzleManager.CheckWinCondition();
-                }
+                if (puzzleManager != null) puzzleManager.CheckWinCondition();
             }
         }
     }

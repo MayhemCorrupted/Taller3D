@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 
 [RequireComponent(typeof(CanvasGroup))]
+[RequireComponent (typeof(RectTransform))]
 public class FuseDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     RectTransform rectTransform;
