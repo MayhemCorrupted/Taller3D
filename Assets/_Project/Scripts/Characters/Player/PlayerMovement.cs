@@ -2,7 +2,7 @@ using Unity.Cinemachine;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
-public class Player_Movement : MonoBehaviour
+public class PlayerMovement : MonoBehaviour
 {
     CharacterController playerCtrl;
     Transform cameraTransform;

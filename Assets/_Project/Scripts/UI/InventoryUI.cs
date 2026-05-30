@@ -59,7 +59,7 @@ public class InventoryUI : MonoBehaviour
     void Start()
     {
         if (InventoryManager.Instance != null) InventoryManager.Instance.OnInventoryChanged += RechargeUI;
-        UImanager.Instance.RegisterPanel(UImanager.UIPanelType.Inventory, () => TogglePanel(true));
+        UserInterfaceManager.Instance.RegisterPanel(UserInterfaceManager.PanelType.Inventory, () => TogglePanel(true));
     }
     void Update()
     {
@@ -101,9 +101,9 @@ public class InventoryUI : MonoBehaviour
     {
         if (state)
         {
-            if (!UImanager.Instance.RequestOpen(UImanager.UIPanelType.Inventory)) return;
+            if (!UserInterfaceManager.Instance.RequestOpenPanel(UserInterfaceManager.PanelType.Inventory)) return;
         }
-        else UImanager.Instance.ReportClose(UImanager.UIPanelType.Inventory);
+        else UserInterfaceManager.Instance.ReportClosedPanel(UserInterfaceManager.PanelType.Inventory);
 
         isInventoryOpen = state;
         inventoryPanel.SetActive(isInventoryOpen);

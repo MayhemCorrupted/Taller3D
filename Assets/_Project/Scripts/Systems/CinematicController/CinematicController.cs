@@ -96,10 +96,10 @@ public class CinematicController : MonoBehaviour
 
     void SetPlayerInputEnabled(bool enabled)
     {
-        var movement = FindFirstObjectByType<Player_Movement>();
+        var movement = FindFirstObjectByType<PlayerMovement>();
         if (movement != null) movement.enabled = enabled;
 
-        var cam = FindFirstObjectByType<Player_Camera>();
+        var cam = FindFirstObjectByType<PlayerCamera>();
         if (cam != null) cam.enabled = enabled;
     }
 

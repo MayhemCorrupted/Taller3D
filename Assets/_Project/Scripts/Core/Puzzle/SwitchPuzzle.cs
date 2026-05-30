@@ -2,14 +2,12 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
-public class Puzzle_Switch : MonoBehaviour
+public class SwitchPuzzle : MonoBehaviour, IInteractable
 {
     [Header("References")]
     [SerializeField] GameObject player;
     [SerializeField] GameObject itemInWorld;
     Item itemScript;
-    Player_Movement playerMove;
-    Player_Camera playerCam;
 
     [Header("Item Requirements")]
     [SerializeField] ItemData requiredItemData;
@@ -34,11 +32,6 @@ public class Puzzle_Switch : MonoBehaviour
     void Awake()
     {
         if (itemInWorld != null) itemScript = itemInWorld.GetComponent<Item>();
-        if (player != null)
-        {
-            playerMove = player.GetComponent<Player_Movement>();
-            playerCam = player.GetComponent<Player_Camera>();
-        }
     }
     void Start()
     {
@@ -49,10 +42,14 @@ public class Puzzle_Switch : MonoBehaviour
             int index = i;
             fuseButtons[i].onValueChanged.AddListener((val) => OnToggleChanged(index, val));
         }
-        UImanager.Instance.RegisterPanel(UImanager.UIPanelType.Puzzle, () => TogglePanel(true));
+        UserInterfaceManager.Instance.RegisterPanel(UserInterfaceManager.PanelType.Puzzle, () => TogglePanel(true));
         GenerateProceduralStart();
     }
-
+    public string GetTextInteract() => puzzlePrompt;
+    public void Interact(Transform interactorTransform)
+    {
+        UsePanel();
+    }
     private void GenerateProceduralStart()
     {
         if (fuseButtons == null || fuseButtons.Length == 0) return;
@@ -90,8 +87,7 @@ public class Puzzle_Switch : MonoBehaviour
 
         SyncAllVisuals();
     }
-
-    public void Interact()
+    void UsePanel()
     {
         if (isSolved) return;
 
@@ -113,19 +109,17 @@ public class Puzzle_Switch : MonoBehaviour
         InventoryManager.Instance.RemoveItem(requiredItemData);
         EquipmentManager.Instance.Unequip();
     }
-
     public void TogglePanel(bool state)
     {
         if (state)
         {
-            if (!UImanager.Instance.RequestOpen(UImanager.UIPanelType.Puzzle)) return;
+            if (!UserInterfaceManager.Instance.RequestOpenPanel(UserInterfaceManager.PanelType.Puzzle)) return;
         }
-        else UImanager.Instance.ReportClose(UImanager.UIPanelType.Puzzle);
+        else UserInterfaceManager.Instance.ReportClosedPanel(UserInterfaceManager.PanelType.Puzzle);
 
         puzzlePanel.SetActive(state);
     }
-
-    private void OnToggleChanged(int index, bool value)
+    void OnToggleChanged(int index, bool value)
     {
         if (!value)
         {
@@ -138,8 +132,7 @@ public class Puzzle_Switch : MonoBehaviour
         SyncAllVisuals();
         CheckWin();
     }
-
-    private void ApplySwitchRules(int pressedIndex)
+    void ApplySwitchRules(int pressedIndex)
     {
         if (fuseButtons.Length < 4) return;
 
@@ -161,8 +154,7 @@ public class Puzzle_Switch : MonoBehaviour
                 break;
         }
     }
-
-    private void SyncAllVisuals()
+    void SyncAllVisuals()
     {
         for (int i = 0; i < fuseButtons.Length; i++)
         {
@@ -179,7 +171,6 @@ public class Puzzle_Switch : MonoBehaviour
     {
         foreach (Toggle t in fuseButtons) if (!t.isOn) return;
         isSolved = true;
-        playerCam.LockCamera(false);
         OnPuzzleSolved?.Invoke();
         puzzlePrompt = string.Empty;
         TogglePanel(false);

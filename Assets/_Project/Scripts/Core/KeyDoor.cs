@@ -20,7 +20,7 @@ public class KeyDoor : MonoBehaviour
     {
         if (!door.IsLocked)
         {
-            door.Interact(playerPos);
+            door.OpenOrCloseDoor(playerPos);
             return;
         }
         if (heldItem != null && heldItem == requiredKeyData)
@@ -34,7 +34,7 @@ public class KeyDoor : MonoBehaviour
         }
         else
         {
-            door.Interact(playerPos);
+            door.OpenOrCloseDoor(playerPos);
             OnWrongItem?.Invoke();
         }
     }

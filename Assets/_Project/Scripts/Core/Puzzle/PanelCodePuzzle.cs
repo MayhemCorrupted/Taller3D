@@ -4,7 +4,7 @@ using UnityEngine.UI;
 using System.Collections;
 using TMPro;
 
-public class Puzzle_PanelCode : MonoBehaviour
+public class PanelCodePuzzle : MonoBehaviour, IInteractable
 {
     [System.Serializable]
     public class PuzzleSaveData
@@ -17,8 +17,8 @@ public class Puzzle_PanelCode : MonoBehaviour
 
     [Header("References")]
     [SerializeField] GameObject player;
-    Player_Camera playerCamera;
-    Player_Movement playerMovement;
+    PlayerCamera playerCamera;
+    PlayerMovement playerMovement;
 
     [Header("Code Config")]
     [SerializeField] int codeLength = 4;
@@ -58,20 +58,24 @@ public class Puzzle_PanelCode : MonoBehaviour
 
         if (player != null)
         {
-            playerCamera = player.GetComponent<Player_Camera>();
-            playerMovement = player.GetComponent<Player_Movement>();
+            playerCamera = player.GetComponent<PlayerCamera>();
+            playerMovement = player.GetComponent<PlayerMovement>();
         }
 
         SetupButtonListeners();
     }
-
     void Start()
     {
         SetupPuzzle();
         if (keypadPanel != null) keypadPanel.SetActive(false);
+        UserInterfaceManager.Instance.RegisterPanel(UserInterfaceManager.PanelType.Puzzle, () => ToggleKeypad(true));
         ResetLights();
     }
-
+    public string GetTextInteract() => interactPrompt;
+    public void Interact(Transform interactorTransform)
+    {
+        UsePanel();
+    }
     void SetupButtonListeners()
     {
         for (int i = 0; i < numberButtons.Length; i++)
@@ -121,27 +125,25 @@ public class Puzzle_PanelCode : MonoBehaviour
         }
     }
 
-    public void Interact()
+    void UsePanel()
     {
         if (isSolved) return;
         ToggleKeypad(!isUIOpen);
     }
 
-    public void ToggleKeypad(bool state)
+    void ToggleKeypad(bool state)
     {
         isUIOpen = state;
+        if (state)
+        {
+            if (!UserInterfaceManager.Instance.RequestOpenPanel(UserInterfaceManager.PanelType.Puzzle)) return;
+        }
+        else UserInterfaceManager.Instance.ReportClosedPanel(UserInterfaceManager.PanelType.Puzzle);
         keypadPanel.SetActive(state);
-
-        if (playerCamera != null) playerCamera.LockCamera(state);
-        if (playerMovement != null) playerMovement.CanMove(!state);
-
-        Cursor.lockState = state ? CursorLockMode.None : CursorLockMode.Locked;
-        Cursor.visible = state;
-
         if (state) ResetInput();
     }
 
-    public void InputNumber(int number)
+    void InputNumber(int number)
     {
         if (!isUIOpen || isSolved || currentInput.Length >= codeLength) return;
 
@@ -155,7 +157,7 @@ public class Puzzle_PanelCode : MonoBehaviour
         }
     }
 
-    public void DeleteLastDigit()
+    void DeleteLastDigit()
     {
         if (isSolved || currentInput.Length == 0) return;
 

@@ -1,6 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
-public class Item : MonoBehaviour
+public class Item : MonoBehaviour, IInteractable
 {
     [Header("Data")]
     public ItemData itemData;
@@ -10,6 +10,17 @@ public class Item : MonoBehaviour
     [SerializeField] string itemPrompt;
     public string ItemPrompt => itemPrompt;
     public bool IsPickable { set { isPickable = value; } }
+    #region referencias de la interfaz (el IInteractable)
+    public string GetTextInteract()
+    {
+        string itemName = itemData != null ? itemData.itemName : gameObject.name;
+        return string.Format(itemPrompt, itemName);
+    }
+    public void Interact(Transform interactorTransform)
+    {
+        PickUp();
+    }
+    #endregion
     public void PickUp()
     {
         if (!isPickable)
@@ -38,6 +49,5 @@ public class Item : MonoBehaviour
             OnPicked?.Invoke();
             gameObject.SetActive(false);
         }
-
     }
 }

@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
-public class AudioRegister : MonoBehaviour
+public class AudioLibrary : MonoBehaviour
 {
     public enum AudioType { Music, Enviroment, SFX, Voices }
     [System.Serializable]
@@ -35,13 +35,11 @@ public class AudioRegister : MonoBehaviour
             else Debug.LogWarning($"[AudioRegister] Nombre duplicado o vacío: '{track.trackName}' en {gameObject.name}");
         }
     }
-
     void Start()
     {
         if (AudioManager.Instance != null)
             AudioManager.Instance.SubscribeAudio(this);
     }
-
     public void PlayOneShotSound(string name)
     {
         if (trackDictionary.TryGetValue(name, out AudioTrack track))
@@ -83,7 +81,6 @@ public class AudioRegister : MonoBehaviour
             hasLoopingTrack = false;
         }
     }
-
     public void UpdateCategoryVolume(AudioType categoryUpdated, float newGlobalVolume)
     {
         if (hasLoopingTrack && audioSource != null && audioSource.isPlaying)

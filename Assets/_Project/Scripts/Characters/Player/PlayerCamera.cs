@@ -2,7 +2,7 @@ using Unity.Cinemachine;
 using UnityEngine;
 
 [RequireComponent(typeof(CharacterController))]
-public class Player_Camera : MonoBehaviour
+public class PlayerCamera : MonoBehaviour
 {
     [System.Serializable]
     public struct BobbingProfile
@@ -85,6 +85,13 @@ public class Player_Camera : MonoBehaviour
     private void ApplyHeadBobbing()
     {
         if (noiseComponent == null) return;
+
+        if (isCameraLocked)
+        {
+            noiseComponent.AmplitudeGain = 0;
+            noiseComponent.FrequencyGain = 0;
+            return;
+        }
 
         switch (currentState)
         {

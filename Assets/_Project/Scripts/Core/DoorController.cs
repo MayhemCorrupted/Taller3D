@@ -1,8 +1,9 @@
 using UnityEngine;
 using System.Collections;
 using UnityEngine.Events;
-public class DoorController : MonoBehaviour
+public class DoorController : MonoBehaviour, IInteractable
 {
+    KeyDoor keyDoorComponent;
     Transform hinge;
     [Header("Door Settings")]
     [SerializeField] float openAngle = 90f;
@@ -31,8 +32,23 @@ public class DoorController : MonoBehaviour
     {
         hinge = transform.GetChild(0);
         closedRotation = hinge.localRotation;
+        TryGetComponent(out keyDoorComponent);
     }
-    public void Interact(Vector3 playerPosition)
+    public string GetTextInteract()
+    {
+        if (keyDoorComponent != null && keyDoorComponent.HasCorrectKey()) return keyDoorComponent.KeyTextPrompt;
+        return doorLocked ? lockTextPrompt : interactablePrompt;
+    }
+    public void Interact(Transform interactorTransform)
+    {
+        if (keyDoorComponent != null)
+        {
+            ItemData heldItem = EquipmentManager.Instance.CurrentEquippedItem;
+            keyDoorComponent.TryUnlock(heldItem, interactorTransform.position);
+        }
+        else OpenOrCloseDoor(interactorTransform.position);
+    }
+    public void OpenOrCloseDoor(Vector3 playerPosition)
     {
         if (doorLocked)
         {

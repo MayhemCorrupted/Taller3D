@@ -1,0 +1,94 @@
+using System;
+using UnityEngine;
+
+public class UserInterfaceManager : MonoBehaviour
+{
+    public static UserInterfaceManager Instance { get; private set; }
+    public enum PanelType { None, Inventory, Notes, Puzzle }
+    [Header("Player Reference")]
+    [SerializeField] GameObject player;
+    PlayerMovement movement;
+    PlayerCamera cam;
+    #region Booleanos_UI
+    public bool IsInventoryOpen => ActivePanel == PanelType.Inventory;
+    public bool IsNoteOpen => ActivePanel == PanelType.Notes;
+    public bool IsPuzzleOpen => ActivePanel == PanelType.Puzzle;
+    #endregion
+    public PanelType ActivePanel { get; private set; } = PanelType.None;
+    PanelType pendingPanel = PanelType.None;
+
+    Action openInventoryCallback;
+    Action openNoteCallback;
+    Action openPuzzleCallback;
+    public bool IsAnyPanelOpen() => ActivePanel != PanelType.None;
+    void Awake()
+    {
+        if (Instance == null) Instance = this;
+        else Destroy(gameObject);
+        if (player != null)
+        {
+            movement = player.GetComponent<PlayerMovement>();
+            cam = player.GetComponent<PlayerCamera>();
+        }
+    }
+    public void RegisterPanel(PanelType type, Action openTarget)
+    {
+        switch (type)
+        {
+            case PanelType.Inventory: openInventoryCallback = openTarget; break;
+            case PanelType.Notes: openNoteCallback = openTarget; break;
+            case PanelType.Puzzle: openPuzzleCallback = openTarget; break;
+        }
+    }
+    public void ForceTransitionTo(PanelType newPanel)
+    {
+        if (ActivePanel == newPanel || ActivePanel == PanelType.None) return;
+
+        pendingPanel = ActivePanel;
+        UpdatePanelState(newPanel);
+        TriggerOpenCallback(newPanel);
+    }
+    public bool RequestOpenPanel(PanelType type)
+    {
+        if (ActivePanel == type) return true;
+        if (ActivePanel != PanelType.None)
+        {
+            pendingPanel = type;
+            return false;
+        }
+        UpdatePanelState(type);   
+        return true;
+    }
+    public void ReportClosedPanel(PanelType panelType)
+    {
+        if (ActivePanel != panelType) return;
+
+        if (pendingPanel != PanelType.None)
+        {
+            PanelType nextPanel = pendingPanel;
+            pendingPanel = PanelType.None;
+            UpdatePanelState(nextPanel);
+            TriggerOpenCallback(nextPanel);
+        }
+        else UpdatePanelState(PanelType.None);
+    }
+    void UpdatePanelState(PanelType newPanel)
+    {
+        ActivePanel = newPanel;
+        bool blockInputs = IsAnyPanelOpen();
+        if (cam != null) cam.LockCamera(blockInputs);
+        if (movement != null) movement.CanMove(!blockInputs);
+
+        Cursor.lockState = blockInputs ? CursorLockMode.None : CursorLockMode.Locked;
+        Cursor.visible = blockInputs;
+    }
+    void TriggerOpenCallback(PanelType type)
+    {
+        switch (type)
+        {
+            case PanelType.Inventory: openInventoryCallback?.Invoke(); break;
+            case PanelType.Notes: openNoteCallback?.Invoke(); break;
+            case PanelType.Puzzle: openPuzzleCallback?.Invoke(); break;
+        }
+    }
+}

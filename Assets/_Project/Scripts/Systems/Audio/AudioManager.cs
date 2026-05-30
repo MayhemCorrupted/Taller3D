@@ -5,8 +5,8 @@ public class AudioManager : MonoBehaviour
 {
     public static AudioManager Instance { get; private set; }
 
-    readonly Dictionary<AudioRegister.AudioType, float> categoryVolumes = new();
-    readonly List<AudioRegister> activeAudios = new();
+    readonly Dictionary<AudioLibrary.AudioType, float> categoryVolumes = new();
+    readonly List<AudioLibrary> activeAudios = new();
 
     void Awake()
     {
@@ -17,20 +17,20 @@ public class AudioManager : MonoBehaviour
         }
         Instance = this;
 
-        foreach (AudioRegister.AudioType type in System.Enum.GetValues(typeof(AudioRegister.AudioType)))
+        foreach (AudioLibrary.AudioType type in System.Enum.GetValues(typeof(AudioLibrary.AudioType)))
         {
             categoryVolumes[type] = 1;
         }
     }
-    public void SubscribeAudio(AudioRegister audio)
+    public void SubscribeAudio(AudioLibrary audio)
     {
         if (!activeAudios.Contains(audio)) activeAudios.Add(audio);
     }
-    public void UnsubscribeAudio(AudioRegister audio)
+    public void UnsubscribeAudio(AudioLibrary audio)
     {
         if (activeAudios.Contains(audio)) activeAudios.Remove(audio);
     }
-    public void SetCategoryVolume(AudioRegister.AudioType category, float volume)
+    public void SetCategoryVolume(AudioLibrary.AudioType category, float volume)
     {
         float clampedVolume = Mathf.Clamp01(volume);
         categoryVolumes[category] = clampedVolume;
@@ -40,7 +40,7 @@ public class AudioManager : MonoBehaviour
             audio.UpdateCategoryVolume(category, clampedVolume);
         }
     }
-    public float GetCategoryVolume(AudioRegister.AudioType category)
+    public float GetCategoryVolume(AudioLibrary.AudioType category)
     {
         return categoryVolumes.GetValueOrDefault(category, 1);
     }

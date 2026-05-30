@@ -12,9 +12,9 @@ public struct DialogueEntry
     public TMP_Text uiTextComponent;
     public Transform targetToLookAt;
 }
-public class DialogueLibrary : MonoBehaviour
+public class Dialogues : MonoBehaviour
 {
-    public static DialogueLibrary Instance { get; private set; }
+    public static Dialogues Instance { get; private set; }
     [SerializeField] List<DialogueEntry> dialogueEntries = new();
     readonly Dictionary<string, DialogueEntry> library = new();
 

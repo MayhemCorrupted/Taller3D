@@ -1,8 +1,7 @@
-using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class DialogueActivator : MonoBehaviour
+public class DialogueReader : MonoBehaviour
 {
     Transform playerTransform;
 
@@ -61,9 +60,9 @@ public class DialogueActivator : MonoBehaviour
     }
     public void ShotDialogue()
     {
-        if (DialogueLibrary.Instance == null) return;
+        if (Dialogues.Instance == null) return;
 
-        var dataInfo = DialogueLibrary.Instance.GetDialogue(dialogueKey);
+        var dataInfo = Dialogues.Instance.GetDialogue(dialogueKey);
         if (dataInfo == null) return;
 
         var data = dataInfo.Value;

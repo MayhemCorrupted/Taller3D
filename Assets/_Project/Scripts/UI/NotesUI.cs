@@ -45,7 +45,7 @@ public class NotesUI : MonoBehaviour
     {
         if (NotesManager.Instance != null) NotesManager.Instance.OnNoteCollected += RefreshNotesUI;
 
-        UImanager.Instance.RegisterPanel(UImanager.UIPanelType.Notes, () => {var notes = NotesManager.Instance.GetCollectedNotes();
+        UserInterfaceManager.Instance.RegisterPanel(UserInterfaceManager.PanelType.Notes, () => {var notes = NotesManager.Instance.GetCollectedNotes();
         if (notes != null && notes.Count > 0) OpenNoteFS(currentNoteIndex);
         });
     }
@@ -97,7 +97,7 @@ public class NotesUI : MonoBehaviour
             inventoryUI.TogglePanel(false);
         }
         else openedFromInventory = false;
-        if (UImanager.Instance.RequestOpen(UImanager.UIPanelType.Notes))
+        if (UserInterfaceManager.Instance.RequestOpenPanel(UserInterfaceManager.PanelType.Notes))
         {
             if (notePanelFS != null) notePanelFS.SetActive(true);
             UpdateNoteDisplay(notes);
@@ -133,7 +133,7 @@ public class NotesUI : MonoBehaviour
     {
         if (notePanelFS != null) notePanelFS.SetActive(false);
         HideTranscript();
-        UImanager.Instance.ReportClose(UImanager.UIPanelType.Notes);
+        UserInterfaceManager.Instance.ReportClosedPanel(UserInterfaceManager.PanelType.Notes);
         if (openedFromInventory && inventoryUI != null)
         {
             openedFromInventory = false;

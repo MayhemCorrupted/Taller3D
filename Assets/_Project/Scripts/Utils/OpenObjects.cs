@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class OpenObjects : MonoBehaviour
+public class OpenObjects : MonoBehaviour, IInteractable
 {
     [Header("Settings")]
     [SerializeField] float openDistance = 0.4f;
@@ -21,7 +21,12 @@ public class OpenObjects : MonoBehaviour
         openPosition = closedPosition + new Vector3(0, 0, openDistance);
     }
 
-    public void Interact()
+    public string GetTextInteract() => interactPrompt;
+    public void Interact(Transform interactorTransform)
+    {
+        UseObject();
+    }
+    public void UseObject()
     {
         if (isMoving) return;
 
