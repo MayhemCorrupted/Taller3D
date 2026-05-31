@@ -5,13 +5,23 @@ using System.Collections;
 
 public class DraggablePuzzle : MonoBehaviour, IInteractable
 {
+    const int MAX_SLOTS = 6;
+    [Header("References")]
+    [SerializeField] GameObject player;
+    [SerializeField] GameObject itemInWorld;
+    Item itemScript;
+
+    [Header("Item Requirements")]
+    [SerializeField] ItemData requiredItemData;
+    [SerializeField] GameObject itemGameObject;
+
     [Header("UI Panel Settings")]
     [SerializeField] string interactPrompt = "[E] Abrir Puzzle";
     [SerializeField] GameObject puzzlePanel;
 
-    [Header("Puzzle Logic")]
-    [Tooltip("Arrastra aquí las 6 casillas en orden (De izquierda a derecha o arriba a abajo)")]
-    [SerializeField] FuseSlot[] slots = new FuseSlot[6];
+    [Header("Puzzle Settings")]
+    [Tooltip("Arrastra aquí las 6 casillas en orden numérico")]
+    [SerializeField] FuseSlot[] slots = new FuseSlot[MAX_SLOTS];
 
     [Header("Events")]
     [SerializeField] UnityEvent OnPuzzleSolved;
