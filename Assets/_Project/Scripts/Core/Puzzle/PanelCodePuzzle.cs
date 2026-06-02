@@ -42,12 +42,13 @@ public class PanelCodePuzzle : MonoBehaviour, IInteractable
 
     [Header("Events")]
     [SerializeField] UnityEvent OnCorrectCode;
-
+    bool canUsePanel = true;
     string currentInput = "";
     bool isSolved = false;
     bool isUIOpen = false;
     WaitForSeconds resetDelay;
 
+    public bool CanUsePanel { set { canUsePanel = value; } }
     public string TextPrompt => interactPrompt;
     public bool IsUIOpen => isUIOpen;
     public string CorrectCodeString { get; private set; } = "";
@@ -127,7 +128,7 @@ public class PanelCodePuzzle : MonoBehaviour, IInteractable
 
     void UsePanel()
     {
-        if (isSolved) return;
+        if (isSolved || !canUsePanel) return;
         ToggleKeypad(!isUIOpen);
     }
 
