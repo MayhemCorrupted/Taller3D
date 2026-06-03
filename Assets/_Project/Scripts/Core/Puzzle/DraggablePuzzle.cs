@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
-using TMPro;
-using System.Collections;
+using UnityEngine.UI;
 
 public class DraggablePuzzle : MonoBehaviour, IInteractable
 {
@@ -9,19 +8,29 @@ public class DraggablePuzzle : MonoBehaviour, IInteractable
     [SerializeField] string interactPrompt = "[E] Abrir Puzzle";
     [SerializeField] GameObject puzzlePanel;
 
+    [Header("Item Requirements")]
+    [SerializeField] ItemData requiredItemData;
+    [SerializeField] GameObject itemModel;
+
     [Header("Puzzle Logic")]
     [Tooltip("Arrastra aquí las 6 casillas en orden (De izquierda a derecha o arriba a abajo)")]
     [SerializeField] FuseSlot[] slots = new FuseSlot[6];
+    [SerializeField] Button restartButton;
 
     [Header("Events")]
+    [SerializeField] UnityEvent OnCantInteract;
+    [SerializeField] UnityEvent OnNeedItem;
     [SerializeField] UnityEvent OnPuzzleSolved;
 
     bool isSolved = false;
+    bool isPlaced = false;
     bool isUIOpen = false;
 
     void Start()
     {
+        if (restartButton != null) restartButton.onClick.AddListener(ResetAllFusesToHome);
         if (puzzlePanel != null) puzzlePanel.SetActive(false);
+        if (itemModel != null) itemModel.SetActive(false);
         UserInterfaceManager.Instance.RegisterPanel(UserInterfaceManager.PanelType.Puzzle, () => TogglePanel(true));
     }
 
@@ -29,6 +38,25 @@ public class DraggablePuzzle : MonoBehaviour, IInteractable
     public void Interact(Transform interactorTransform)
     {
         if (isSolved) return;
+        if (!isPlaced && requiredItemData != null)
+        {
+            ItemData currentEquipped = EquipmentManager.Instance.CurrentEquippedItem;
+
+            if (currentEquipped == requiredItemData)
+            {
+                isPlaced = true;
+
+                InventoryManager.Instance.RemoveItem(requiredItemData);
+                EquipmentManager.Instance.Unequip();
+                //if (itemModel != null) itemModel.SetActive(true);
+                return;
+            }
+            else
+            {
+                OnNeedItem?.Invoke();
+                return;
+            }
+        }
         TogglePanel(!isUIOpen);
     }
 
@@ -39,10 +67,7 @@ public class DraggablePuzzle : MonoBehaviour, IInteractable
         {
             if (!UserInterfaceManager.Instance.RequestOpenPanel(UserInterfaceManager.PanelType.Puzzle)) return;
         }
-        else
-        {
-            UserInterfaceManager.Instance.ReportClosedPanel(UserInterfaceManager.PanelType.Puzzle);
-        }
+        else UserInterfaceManager.Instance.ReportClosedPanel(UserInterfaceManager.PanelType.Puzzle);
 
         puzzlePanel.SetActive(state);
     }
@@ -50,17 +75,25 @@ public class DraggablePuzzle : MonoBehaviour, IInteractable
     {
         if (isSolved) return;
 
-        bool slot1HasFuse = slots[0].transform.childCount > 0;
-        bool slot3HasFuse = slots[2].transform.childCount > 0;
-        bool slot5HasFuse = slots[4].transform.childCount > 0;
-        bool slot6HasFuse = slots[5].transform.childCount > 0;
+        bool correctSequence = CheckSlotSequence(0, 3) && CheckSlotSequence(2, 2) && CheckSlotSequence(4, 1) && CheckSlotSequence(5, 4);
 
-        if (slot1HasFuse && slot3HasFuse && slot5HasFuse && slot6HasFuse)
+        if (correctSequence)
         {
             isSolved = true;
             interactPrompt = string.Empty;
             OnPuzzleSolved?.Invoke();
             TogglePanel(false);
         }
+    }
+    bool CheckSlotSequence(int slotIndex, int expectedFuseID)
+    {
+        if (slots[slotIndex].transform.childCount == 0) return false;
+        FuseDraggable fuse = slots[slotIndex].transform.GetChild(0).GetComponent<FuseDraggable>();
+        return fuse != null && fuse.FuseID == expectedFuseID;
+    }
+    public void ResetAllFusesToHome()
+    {
+        FuseDraggable[] allFuses = puzzlePanel.GetComponentsInChildren<FuseDraggable>(true);
+        foreach (FuseDraggable fuse in allFuses) fuse.ResetToInitialPosition();
     }
 }

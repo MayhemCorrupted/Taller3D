@@ -2,7 +2,9 @@ using UnityEngine;
 
 public class KitchenZone : MonoBehaviour
 {
-    [SerializeField] GameObject keyItemPrefab, noteItemPrefab;
+    //script temporal para generar objetos hasta que se haga el sistema robusto de esto para los demás sitios xd
+    [SerializeField] GameObject keyItemPrefab, 
+    noteItemPrefab, keyDoorObject, panelDoorObject;
     [SerializeField] ItemData requiredData;
     [SerializeField] Transform[] spawnPoints;
     [SerializeField] int itemSeed;
@@ -50,6 +52,19 @@ public class KitchenZone : MonoBehaviour
             {
                 if (panelToUnlock != null) panelToUnlock.CanUsePanel = false;
                 else Debug.LogWarning("[KitchenZone] Se generó la llave pero 'panelToUnlock' no está asignado en el Inspector.");
+                if (keyDoorObject != null) keyDoorObject.SetActive(true);
+                if (panelDoorObject != null) panelDoorObject.SetActive(false);
+
+                Debug.Log("[KitchenZone] Estado: Ruta Llave Activa. Panel inhabilitado.");
+            }
+            else
+            {
+                if (panelToUnlock != null) panelToUnlock.CanUsePanel = true;
+
+                if (keyDoorObject != null) keyDoorObject.SetActive(false);
+                if (panelDoorObject != null) panelDoorObject.SetActive(true);
+
+                Debug.Log("[KitchenZone] Estado: Ruta Panel Activa. Panel habilitado.");
             }
 
             Debug.Log($"[Procedural] Semilla Activa: {itemSeed} | Número: {itemRoll} ({(isOdd ? "Impar" : "Par")}) | Posición Índice: {spawnIndex} | Padre: {targetPoint.name}");

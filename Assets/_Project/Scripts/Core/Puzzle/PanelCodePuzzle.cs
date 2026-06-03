@@ -171,7 +171,7 @@ public class PanelCodePuzzle : MonoBehaviour, IInteractable
     {
         if (panelCode != null)
         {
-            panelCode.text = currentInput.PadRight(codeLength, '0');
+            panelCode.text = currentInput.PadRight(codeLength, 'o');
         }
     }
     void UpdateLights()
