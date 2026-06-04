@@ -7,70 +7,66 @@ public class PlayerCamera : MonoBehaviour
     [System.Serializable]
     public struct BobbingProfile
     {
-        [Tooltip("Intensidad o fuerza del movimiento de la cámara.")]
+        [Tooltip("Intensidad del movimiento de la cámara.")]
         public float amplitude;
-        [Tooltip("Velocidad o rapidez del movimiento de la cámara.")]
+        [Tooltip("Velocidad del movimiento de la cámara.")]
         public float frequency;
     }
 
     enum MovementState { Idle, Walking, Stairs, Flying }
 
     [Header("Camera Settings")]
-    [SerializeField] private int mouseSensitivity = 100;
-    [Tooltip("Referencia al componente de ruido de la Cinemachine Camera.")]
-    [SerializeField] private CinemachineBasicMultiChannelPerlin noiseComponent;
-
-    private CinemachineInputAxisController axisController;
-    private CharacterController playerMovement;
+    [SerializeField] int mouseSensitivity = 100;
+    [SerializeField] CinemachineBasicMultiChannelPerlin noiseComponent;
 
     [Header("Detection Settings")]
-    [SerializeField] private float minBobSpeed = 0.18f;
-    [SerializeField] private float stairDetectThreshold = 0.1f;
-    [Tooltip("Velocidad de transición suave entre perfiles de movimiento.")]
-    [SerializeField] private float profileTransitionSpeed = 8f;
+    [SerializeField] float minBobSpeed = 0.18f;
+    [SerializeField] float stairDetectThreshold = 0.1f;
+    [SerializeField] float profileTransitionSpeed = 8f;
 
-    [Header("Movement Profiles Configuration")]
-    [SerializeField] private BobbingProfile idleProfile = new(){ amplitude = 0.2f, frequency = 0.5f };
-    [SerializeField] private BobbingProfile walkProfile = new() { amplitude = 0.7f, frequency = 1.5f };
-    [SerializeField] private BobbingProfile stairsProfile = new() { amplitude = 0.9f, frequency = 2.0f };
-    [SerializeField] private BobbingProfile flyingProfile = new() { amplitude = 0.4f, frequency = 0.8f };
+    [Header("Movement Profiles")]
+    [SerializeField] BobbingProfile idleProfile = new() { amplitude = 0.2f, frequency = 0.5f };
+    [SerializeField] BobbingProfile walkProfile = new() { amplitude = 0.7f, frequency = 1.5f };
+    [SerializeField] BobbingProfile stairsProfile = new() { amplitude = 0.9f, frequency = 2.0f };
+    [SerializeField] BobbingProfile flyingProfile = new() { amplitude = 0.4f, frequency = 0.8f };
 
-    private MovementState currentState;
-    private Vector3 lastPosition;
-    private bool isCameraLocked = false;
+    CinemachineInputAxisController axisController;
+    CharacterController charController;
 
-    private float targetAmplitude;
-    private float targetFrequency;
+    MovementState currentState;
+    Vector3 lastPosition;
+    bool isCameraLocked;
 
-    private void Awake()
+    float targetAmplitude;
+    float targetFrequency;
+
+    void Awake()
     {
-        playerMovement = GetComponent<CharacterController>();
+        charController = GetComponent<CharacterController>();
         axisController = GetComponentInChildren<CinemachineInputAxisController>();
-
         lastPosition = transform.position;
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 
-    private void Update()
+    void Update()
     {
-        SensibilityCinemachine();
-        StateDetect();
+        UpdateSensitivity();
+        DetectMovementState();
         ApplyHeadBobbing();
-
         lastPosition = transform.position;
     }
 
-    private void StateDetect()
+    void DetectMovementState()
     {
-        if (!playerMovement.isGrounded)
+        if (!charController.isGrounded)
         {
             currentState = MovementState.Flying;
             return;
         }
 
-        float speed = new Vector3(playerMovement.velocity.x, 0, playerMovement.velocity.z).magnitude;
+        float speed = new Vector3(charController.velocity.x, 0, charController.velocity.z).magnitude;
         float verticalDelta = Mathf.Abs(transform.position.y - lastPosition.y);
 
         if (verticalDelta > stairDetectThreshold && speed < minBobSpeed)
@@ -82,7 +78,7 @@ public class PlayerCamera : MonoBehaviour
         currentState = speed > minBobSpeed ? MovementState.Walking : MovementState.Idle;
     }
 
-    private void ApplyHeadBobbing()
+    void ApplyHeadBobbing()
     {
         if (noiseComponent == null) return;
 
@@ -93,30 +89,22 @@ public class PlayerCamera : MonoBehaviour
             return;
         }
 
-        switch (currentState)
+        BobbingProfile profile = currentState switch
         {
-            case MovementState.Idle:
-                targetAmplitude = idleProfile.amplitude;
-                targetFrequency = idleProfile.frequency;
-                break;
-            case MovementState.Walking:
-                targetAmplitude = walkProfile.amplitude;
-                targetFrequency = walkProfile.frequency;
-                break;
-            case MovementState.Stairs:
-                targetAmplitude = stairsProfile.amplitude;
-                targetFrequency = stairsProfile.frequency;
-                break;
-            case MovementState.Flying:
-                targetAmplitude = flyingProfile.amplitude;
-                targetFrequency = flyingProfile.frequency;
-                break;
-        }
+            MovementState.Walking => walkProfile,
+            MovementState.Stairs => stairsProfile,
+            MovementState.Flying => flyingProfile,
+            _ => idleProfile
+        };
+
+        targetAmplitude = profile.amplitude;
+        targetFrequency = profile.frequency;
 
         noiseComponent.AmplitudeGain = Mathf.Lerp(noiseComponent.AmplitudeGain, targetAmplitude, Time.deltaTime * profileTransitionSpeed);
         noiseComponent.FrequencyGain = Mathf.Lerp(noiseComponent.FrequencyGain, targetFrequency, Time.deltaTime * profileTransitionSpeed);
     }
-    private void SensibilityCinemachine()
+
+    void UpdateSensitivity()
     {
         if (axisController == null) return;
 

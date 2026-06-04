@@ -9,5 +9,6 @@ public class ItemData : ScriptableObject
     public Sprite sprite;
     public ItemType itemType;
     public GameObject itemModelPrefab;
+
     public enum ItemType { Interactable, Notes }
 }

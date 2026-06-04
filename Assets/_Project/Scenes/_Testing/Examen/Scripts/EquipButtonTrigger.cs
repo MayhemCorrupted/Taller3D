@@ -3,10 +3,12 @@ using UnityEngine.EventSystems;
 
 public class EquipButtonTrigger : MonoBehaviour, IPointerExitHandler
 {
-    private InventoryUI uiInventory;
-    void Awake() => uiInventory = Object.FindFirstObjectByType<InventoryUI>();
+    InventoryUI inventoryUI;
+
+    void Awake() => inventoryUI = Object.FindFirstObjectByType<InventoryUI>();
+
     public void OnPointerExit(PointerEventData eventData)
     {
-        if (uiInventory != null) uiInventory.HideEquipPrompt();
+        if (inventoryUI != null) inventoryUI.HideEquipPrompt();
     }
 }

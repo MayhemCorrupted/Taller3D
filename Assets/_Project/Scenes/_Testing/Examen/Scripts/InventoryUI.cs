@@ -26,13 +26,16 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] Image[] inventoryBackground = new Image[MAX_SLOTS];
 
     int slotSelectedToEquip = 0;
-    int equipedSlotIndex = -1;
+    int equippedSlotIndex = -1;
+
     readonly float[] lastClickTimes = new float[MAX_SLOTS];
     const float doubleClickThreshold = 0.3f;
+
     bool isInventoryOpen = false;
     NotesUI noteUI;
 
     public bool IsInventoryOpen => isInventoryOpen;
+
     void Awake()
     {
         noteUI = GetComponent<NotesUI>();
@@ -56,20 +59,26 @@ public class InventoryUI : MonoBehaviour
             equipConfirmText = equipConfirmButton.GetComponentInChildren<TextMeshProUGUI>();
         }
     }
+
     void Start()
     {
-        if (InventoryManager.Instance != null) InventoryManager.Instance.OnInventoryChanged += RechargeUI;
-        UserInterfaceManager.Instance.RegisterPanel(UserInterfaceManager.PanelType.Inventory, () => TogglePanel(true));
+        if (InventoryManager.Instance != null)
+            InventoryManager.Instance.OnInventoryChanged += RechargeUI;
+
+        UserInterfaceManager.Instance.RegisterPanel(
+            UserInterfaceManager.PanelType.Inventory,
+            () => TogglePanel(true));
     }
+
     void Update()
     {
-        if (Input.GetKeyDown(toggleKey))
-        {
-            if (noteUI != null && noteUI.IsNoteOpen) noteUI.ForceCloseAll();
-            else if (isInventoryOpen) TogglePanel(false);
-            else TogglePanel(true);
-        }
+        if (!Input.GetKeyDown(toggleKey)) return;
+
+        if (noteUI != null && noteUI.IsNoteOpen) noteUI.ForceCloseAll();
+        else if (isInventoryOpen) TogglePanel(false);
+        else TogglePanel(true);
     }
+
     void SetSlotEvents(int index)
     {
         if (inventorySlots[index] == null) return;
@@ -77,33 +86,38 @@ public class InventoryUI : MonoBehaviour
         if (!inventorySlots[index].gameObject.TryGetComponent<EventTrigger>(out var trigger))
             trigger = inventorySlots[index].gameObject.AddComponent<EventTrigger>();
 
-        EventTrigger.Entry clickEntry = new() { eventID = EventTriggerType.PointerClick };
-        clickEntry.callback.AddListener((data) => { OnSlotPointerClick(index); });
-        trigger.triggers.Add(clickEntry);
-
-        EventTrigger.Entry enterEntry = new() { eventID = EventTriggerType.PointerEnter };
-        enterEntry.callback.AddListener((data) => { ShowItemDetails(index); });
-        trigger.triggers.Add(enterEntry);
-
-        EventTrigger.Entry exitEntry = new() { eventID = EventTriggerType.PointerExit };
-        exitEntry.callback.AddListener((data) => { ClearItemInfo(); });
-        trigger.triggers.Add(exitEntry);
+        AddTriggerEntry(trigger, EventTriggerType.PointerClick, _ => OnSlotPointerClick(index));
+        AddTriggerEntry(trigger, EventTriggerType.PointerEnter, _ => ShowItemDetails(index));
+        AddTriggerEntry(trigger, EventTriggerType.PointerExit, _ => ClearItemInfo());
     }
+
+    void AddTriggerEntry(EventTrigger trigger, EventTriggerType type, UnityEngine.Events.UnityAction<BaseEventData> action)
+    {
+        EventTrigger.Entry entry = new() { eventID = type };
+        entry.callback.AddListener(action);
+        trigger.triggers.Add(entry);
+    }
+
     void OnSlotPointerClick(int slotIndex)
     {
         ShowItemDetails(slotIndex);
         ShowEquipPrompt(slotIndex);
-        float timeSinceLastClick = Time.time - lastClickTimes[slotIndex];
-        if (timeSinceLastClick <= doubleClickThreshold) EquipFromSlot(slotIndex);
+
+        float timeSince = Time.time - lastClickTimes[slotIndex];
+        if (timeSince <= doubleClickThreshold) EquipFromSlot(slotIndex);
         else lastClickTimes[slotIndex] = Time.time;
     }
+
     public void TogglePanel(bool state)
     {
         if (state)
         {
             if (!UserInterfaceManager.Instance.RequestOpenPanel(UserInterfaceManager.PanelType.Inventory)) return;
         }
-        else UserInterfaceManager.Instance.ReportClosedPanel(UserInterfaceManager.PanelType.Inventory);
+        else
+        {
+            UserInterfaceManager.Instance.ReportClosedPanel(UserInterfaceManager.PanelType.Inventory);
+        }
 
         isInventoryOpen = state;
         inventoryPanel.SetActive(isInventoryOpen);
@@ -111,22 +125,25 @@ public class InventoryUI : MonoBehaviour
         if (isInventoryOpen) RechargeUI();
         else ClearAllInfo();
     }
+
     public void ClearItemInfo()
     {
         if (itemNameText != null) itemNameText.text = "--";
         if (itemDescriptionText != null) itemDescriptionText.text = "";
     }
+
     public void HideEquipPrompt()
     {
         if (equipPromptPanel != null) equipPromptPanel.SetActive(false);
     }
+
     public void ClearAllInfo()
     {
         ClearItemInfo();
         HideEquipPrompt();
         for (int i = 0; i < MAX_SLOTS; i++) inventoryBackground[i].color = Color.white;
     }
-    #region Inventory_Display
+
     public void ShowEquipPrompt(int slotIndex)
     {
         ItemData item = InventoryManager.Instance.GetItem(slotIndex);
@@ -134,80 +151,76 @@ public class InventoryUI : MonoBehaviour
 
         slotSelectedToEquip = slotIndex;
         equipPromptPanel.SetActive(true);
-        if (equipConfirmText != null) equipConfirmText.text = (slotIndex == equipedSlotIndex) ? "Unequip" : "Equip";
 
+        if (equipConfirmText != null)
+            equipConfirmText.text = (slotIndex == equippedSlotIndex) ? "Unequip" : "Equip";
+
+        PositionPromptNextToSlot(slotIndex);
+    }
+
+    void PositionPromptNextToSlot(int slotIndex)
+    {
         RectTransform slotRect = inventoryBackground[slotIndex].rectTransform;
         RectTransform promptRect = equipPromptPanel.GetComponent<RectTransform>();
+        if (slotRect == null || promptRect == null) return;
 
-        if (slotRect != null && promptRect != null)
-        {
-            promptRect.position = slotRect.position;
+        promptRect.position = slotRect.position;
 
-            float slotHalfWidth = (slotRect.rect.width * slotRect.lossyScale.x) * 0.5f;
-            float promptHalfWidth = (promptRect.rect.width * promptRect.lossyScale.x) * 0.5f;
+        float offsetX = (slotRect.rect.width * slotRect.lossyScale.x * 0.5f)
+                      + (promptRect.rect.width * promptRect.lossyScale.x * 0.5f);
 
-            float slotHalfHeight = (slotRect.rect.height * slotRect.lossyScale.y) * 0.5f;
-            float promptHalfHeight = (promptRect.rect.height * promptRect.lossyScale.y) * 0.5f;
+        float offsetY = (slotRect.rect.height * slotRect.lossyScale.y * 0.5f)
+                      - (promptRect.rect.height * promptRect.lossyScale.y * 0.5f);
 
-            float offsetX = slotHalfWidth + promptHalfWidth;
-            float offsetY = slotHalfHeight - promptHalfHeight;
-
-            Vector3 offset = new(offsetX, -offsetY * 2.5f, 0);
-            promptRect.position += offset;
-        }
+        promptRect.position += new Vector3(offsetX, -offsetY * 2.5f, 0);
     }
+
     public void EquipFromSlot(int slotIndex)
     {
         ItemData item = InventoryManager.Instance.GetItem(slotIndex);
         if (item == null) return;
 
-        if (slotIndex == equipedSlotIndex)
+        if (slotIndex == equippedSlotIndex)
         {
             EquipmentManager.Instance.Unequip();
-            equipedSlotIndex = -1;
+            equippedSlotIndex = -1;
         }
         else
         {
             EquipmentManager.Instance.EquipItem(item);
-            equipedSlotIndex = slotIndex;
+            equippedSlotIndex = slotIndex;
         }
 
-        equipPromptPanel.SetActive(false);
         HideEquipPrompt();
         RechargeUI();
         TogglePanel(false);
     }
+
     void RechargeUI()
     {
         if (InventoryManager.Instance == null) return;
-        _ = InventoryManager.Instance.ItemCount;
 
         for (int i = 0; i < MAX_SLOTS; i++)
         {
             ItemData item = InventoryManager.Instance.GetItem(i);
 
-            if (item != null && item.itemType == ItemData.ItemType.Interactable)
-            {
-                inventoryIcons[i].sprite = item.sprite;
-                inventoryIcons[i].enabled = true;
-                inventoryIcons[i].raycastTarget = true;
-            }
-            else
-            {
-                inventoryIcons[i].sprite = null;
-                inventoryIcons[i].enabled = false;
-                inventoryIcons[i].raycastTarget = false;
-                if (equipedSlotIndex == i) equipedSlotIndex = -1;
-            }
+            bool hasItem = item != null && item.itemType == ItemData.ItemType.Interactable;
+            inventoryIcons[i].sprite = hasItem ? item.sprite : null;
+            inventoryIcons[i].enabled = hasItem;
+            inventoryIcons[i].raycastTarget = hasItem;
+
+            if (!hasItem && equippedSlotIndex == i) equippedSlotIndex = -1;
         }
+
         UpdateSlotVisuals();
     }
-    public bool IsSlotEquipped(int slotIndex) => slotIndex == equipedSlotIndex;
+
     void UpdateSlotVisuals()
     {
         for (int i = 0; i < MAX_SLOTS; i++)
-            inventoryBackground[i].color = (i == equipedSlotIndex) ? Color.green : Color.white;
+            inventoryBackground[i].color = (i == equippedSlotIndex) ? Color.green : Color.white;
     }
+
     public void ShowItemDetails(int slotIndex)
     {
         if (InventoryManager.Instance == null) return;
@@ -220,7 +233,9 @@ public class InventoryUI : MonoBehaviour
         }
         else ClearItemInfo();
     }
-    #endregion
+
+    public bool IsSlotEquipped(int slotIndex) => slotIndex == equippedSlotIndex;
+
     void OnDestroy()
     {
         if (InventoryManager.Instance != null)

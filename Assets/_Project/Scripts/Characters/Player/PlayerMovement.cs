@@ -4,47 +4,54 @@ using UnityEngine;
 [RequireComponent(typeof(CharacterController))]
 public class PlayerMovement : MonoBehaviour
 {
-    CharacterController playerCtrl;
-    Transform cameraTransform;
     [Header("Movement Settings")]
     [SerializeField] Transform orientation;
-    [SerializeField] float walkSpeed = 15;
-    [SerializeField] float gravity = -10;
-    [Header("FlyMode Settings")]
+    [SerializeField] float walkSpeed = 15f;
+    [SerializeField] float gravity = -10f;
+
+    [Header("Fly Mode (Debug)")]
     [SerializeField] KeyCode flyModeKey = KeyCode.Space;
-    [SerializeField] float flySpeed = 10;
-    [SerializeField] float flyImpulse = 15;
+    [SerializeField] float flySpeed = 10f;
+    [SerializeField] float flyImpulse = 15f;
+
+    CharacterController playerCtrl;
+    Transform cameraTransform;
+
     bool flying;
     bool canMove = true;
     Vector2 moveInput;
     float verticalVelocity;
-    private void Awake()
+
+    void Awake()
     {
         playerCtrl = GetComponent<CharacterController>();
         cameraTransform = GetComponentInChildren<CinemachineCamera>().transform;
     }
+
     void Update()
     {
         Orientate();
 
-        if (!canMove)
-        {
-            return;
-        }
-        InputHandle();
-        if (flying) FlyingMovement();
+        if (!canMove) return;
+
+        GatherInput();
+
+        if (flying) FlyMovement();
         else GroundMovement();
     }
-    void InputHandle()
+
+    void GatherInput()
     {
         if (Input.GetKeyDown(flyModeKey) && playerCtrl.isGrounded)
         {
             flying = !flying;
             if (flying) verticalVelocity = flyImpulse;
         }
+
         moveInput.x = Input.GetAxisRaw("Horizontal");
         moveInput.y = Input.GetAxisRaw("Vertical");
     }
+
     public void CanMove(bool state)
     {
         canMove = state;
@@ -54,36 +61,35 @@ public class PlayerMovement : MonoBehaviour
             verticalVelocity = 0;
         }
     }
-    private void Orientate()
+
+    void Orientate()
     {
         if (cameraTransform == null || orientation == null) return;
 
-        Vector3 cameraForward = cameraTransform.forward;
-
-        if (cameraForward != Vector3.zero)
-            orientation.rotation = Quaternion.LookRotation(cameraForward, cameraTransform.up);
+        Vector3 forward = cameraTransform.forward;
+        if (forward != Vector3.zero)
+            orientation.rotation = Quaternion.LookRotation(forward, cameraTransform.up);
     }
 
-    private void FlyingMovement()
-    {
-        verticalVelocity = Mathf.Lerp(verticalVelocity, 0f, Time.deltaTime * 5f);
-
-        Vector3 direction = cameraTransform.forward * moveInput.y + cameraTransform.right * moveInput.x;
-        playerCtrl.Move((direction.normalized * flySpeed + Vector3.up * verticalVelocity) * Time.deltaTime);
-
-        if (playerCtrl.isGrounded) flying = false;
-    }
-
-    private void GroundMovement()
+    void GroundMovement()
     {
         if (playerCtrl.isGrounded) verticalVelocity = -2f;
         else verticalVelocity += gravity * Time.deltaTime;
 
-        Vector3 forwardOrientate = new Vector3(orientation.forward.x, 0f, orientation.forward.z).normalized;
-        Vector3 rightOrientate = new Vector3(orientation.right.x, 0f, orientation.right.z).normalized;
+        Vector3 fwd = new Vector3(orientation.forward.x, 0f, orientation.forward.z).normalized;
+        Vector3 right = new Vector3(orientation.right.x, 0f, orientation.right.z).normalized;
 
-        Vector3 direction = forwardOrientate * moveInput.y + rightOrientate * moveInput.x;
+        Vector3 dir = fwd * moveInput.y + right * moveInput.x;
+        playerCtrl.Move((dir.normalized * walkSpeed + Vector3.up * verticalVelocity) * Time.deltaTime);
+    }
 
-        playerCtrl.Move((direction.normalized * walkSpeed + Vector3.up * verticalVelocity) * Time.deltaTime);
+    void FlyMovement()
+    {
+        verticalVelocity = Mathf.Lerp(verticalVelocity, 0f, Time.deltaTime * 5f);
+
+        Vector3 dir = cameraTransform.forward * moveInput.y + cameraTransform.right * moveInput.x;
+        playerCtrl.Move((dir.normalized * flySpeed + Vector3.up * verticalVelocity) * Time.deltaTime);
+
+        if (playerCtrl.isGrounded) flying = false;
     }
 }

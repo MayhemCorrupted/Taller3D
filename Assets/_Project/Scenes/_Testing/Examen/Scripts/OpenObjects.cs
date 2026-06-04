@@ -8,7 +8,7 @@ public class OpenObjects : MonoBehaviour, IInteractable
     [SerializeField] float speed = 1f;
 
     [Header("Prompt")]
-    public string interactPrompt = "[E] Abrir";
+    [SerializeField] string interactPrompt = "[E] Abrir";
 
     Vector3 closedPosition;
     Vector3 openPosition;
@@ -22,37 +22,31 @@ public class OpenObjects : MonoBehaviour, IInteractable
     }
 
     public string GetTextInteract() => interactPrompt;
-    public void Interact(Transform interactorTransform)
-    {
-        UseObject();
-    }
-    public void UseObject()
+
+    public void Interact(Transform interactorTransform) => ToggleObject();
+
+    public void ToggleObject()
     {
         if (isMoving) return;
 
         StopAllCoroutines();
-
-        if (!isOpen)
-            StartCoroutine(MoveDrawer(openPosition));
-        else
-            StartCoroutine(MoveDrawer(closedPosition));
+        StartCoroutine(MoveObject(isOpen ? closedPosition : openPosition));
     }
 
-    IEnumerator MoveDrawer(Vector3 targetPosition)
+    IEnumerator MoveObject(Vector3 target)
     {
         isMoving = true;
-        Vector3 startPosition = transform.localPosition;
-        float moveTime = 0f;
+        Vector3 start = transform.localPosition;
+        float elapsed = 0f;
 
-        while (moveTime < speed)
+        while (elapsed < speed)
         {
-            moveTime += Time.deltaTime;
-            float time = moveTime / speed;
-            transform.localPosition = Vector3.Lerp(startPosition, targetPosition, time);
+            elapsed += Time.deltaTime;
+            transform.localPosition = Vector3.Lerp(start, target, elapsed / speed);
             yield return null;
         }
 
-        transform.localPosition = targetPosition;
+        transform.localPosition = target;
         isOpen = !isOpen;
         isMoving = false;
     }

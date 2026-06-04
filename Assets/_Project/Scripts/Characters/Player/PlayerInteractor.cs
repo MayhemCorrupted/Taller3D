@@ -1,22 +1,23 @@
-using UnityEngine;
 using TMPro;
+using UnityEngine;
 
 public class PlayerInteractor : MonoBehaviour
 {
     [Header("Interaction Settings")]
-    [SerializeField] float interactRange = 1;
-    [SerializeField] LayerMask interactLayer, obstructLayer;
+    [SerializeField] float interactRange = 1f;
+    [SerializeField] LayerMask interactLayer;
+    [SerializeField] LayerMask obstructLayer;
     [SerializeField] Transform interactPoint;
 
     [Header("Interaction UI")]
     [SerializeField] GameObject interactPrompt;
     [SerializeField] TextMeshProUGUI promptText;
 
-    [Header("Gizmos Debug Settings")]
-    [SerializeField] private bool showGizmos = true;
-    [SerializeField] private Color noHitColor = Color.green;
-    [SerializeField] private Color hitColor = Color.red;
-    [SerializeField] private float hitIndicatorRadius = 0.1f;
+    [Header("Gizmos Debug")]
+    [SerializeField] bool showGizmos = true;
+    [SerializeField] Color noHitColor = Color.green;
+    [SerializeField] Color hitColor = Color.red;
+    [SerializeField] float hitIndicatorRadius = 0.1f;
 
     IInteractable currentInteractable;
     public float InteractRange => interactRange;
@@ -30,49 +31,52 @@ public class PlayerInteractor : MonoBehaviour
         }
 
         if (Cursor.visible) return;
-        InteractDetector();
-        InteractInput();
+
+        DetectInteractable();
+        HandleInput();
     }
 
-    void InteractDetector()
+    void DetectInteractable()
     {
         if (interactPoint == null)
         {
-            Debug.LogWarning("Falta asignar el 'interactPoint' en el Inspector.");
             return;
         }
 
         float effectiveRange = interactRange;
 
-        if (Physics.Raycast(interactPoint.position, interactPoint.forward, out RaycastHit obstructionHit, interactRange, obstructLayer))
+        if (Physics.Raycast(interactPoint.position, interactPoint.forward,
+            out RaycastHit obstruction, interactRange, obstructLayer))
         {
-            effectiveRange = obstructionHit.distance + 0.01f;
+            effectiveRange = obstruction.distance + 0.01f;
         }
 
-        if (Physics.Raycast(interactPoint.position, interactPoint.forward, out RaycastHit hit, Mathf.Min(effectiveRange, interactRange), interactLayer))
+        if (Physics.Raycast(interactPoint.position, interactPoint.forward,
+            out RaycastHit hit, Mathf.Min(effectiveRange, interactRange), interactLayer))
         {
-           IInteractable interactable = hit.collider.GetComponentInParent<IInteractable>();
-           if (interactable != null)
+            IInteractable interactable = hit.collider.GetComponentInParent<IInteractable>();
+            if (interactable != null)
             {
                 SetCurrentInteractable(interactable, interactable.GetTextInteract());
                 return;
             }
         }
+
         ClearInteractable();
     }
 
-    void InteractInput()
+    void HandleInput()
     {
         if (currentInteractable == null || !Input.GetKeyDown(KeyCode.E)) return;
         currentInteractable.Interact(transform);
         ClearInteractable();
     }
 
-    void SetCurrentInteractable(IInteractable interactable, string interactText)
+    void SetCurrentInteractable(IInteractable interactable, string text)
     {
         currentInteractable = interactable;
         if (interactPrompt != null) interactPrompt.SetActive(true);
-        if (promptText != null) promptText.text = interactText;
+        if (promptText != null) promptText.text = text;
     }
 
     void ClearInteractable()
@@ -89,19 +93,16 @@ public class PlayerInteractor : MonoBehaviour
         Vector3 direction = interactPoint.forward;
 
         float effectiveRange = interactRange;
-        if (Physics.Raycast(origin, direction, out RaycastHit obstructionHit, interactRange, obstructLayer))
-        {
-            effectiveRange = obstructionHit.distance;
-        }
+        if (Physics.Raycast(origin, direction, out RaycastHit obstruction, interactRange, obstructLayer))
+            effectiveRange = obstruction.distance;
 
-        bool isHittingInteractable = Physics.Raycast(origin, direction, out RaycastHit hit, effectiveRange + 0.01f, interactLayer);
+        bool hit = Physics.Raycast(origin, direction, out RaycastHit hitInfo, effectiveRange + 0.01f, interactLayer);
 
-        Gizmos.color = isHittingInteractable ? hitColor : noHitColor;
+        Gizmos.color = hit ? hitColor : noHitColor;
+        float dist = hit ? hitInfo.distance : effectiveRange;
+        Vector3 end = origin + direction * dist;
 
-        float finalGizmoDistance = isHittingInteractable ? hit.distance : effectiveRange;
-        Vector3 endPoint = origin + (direction * finalGizmoDistance);
-
-        Gizmos.DrawLine(origin, endPoint);
-        Gizmos.DrawWireSphere(endPoint, hitIndicatorRadius);
+        Gizmos.DrawLine(origin, end);
+        Gizmos.DrawWireSphere(end, hitIndicatorRadius);
     }
 }
