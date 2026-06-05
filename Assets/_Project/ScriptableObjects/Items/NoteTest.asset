@@ -15,10 +15,10 @@ MonoBehaviour:
   id: 3
   itemName: NoteTest
   description: 
-  sprite: {fileID: 0}
+  sprite: {fileID: 21300000, guid: a2c2e4beb05b1a24da25ae5067e339ee, type: 3}
   itemType: 1
   itemModelPrefab: {fileID: 0}
-  NoteDescription: Llegaste al final (por ahora)
-  image: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+  NoteDescription: Se supone que hay una entrada por aqui.
+  image: {fileID: 21300000, guid: a2c2e4beb05b1a24da25ae5067e339ee, type: 3}
   isPuzzleNote: 0
   generatedCode: 

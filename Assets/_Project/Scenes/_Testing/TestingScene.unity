@@ -5007,17 +5007,6 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
---- !u!114 &276383020 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 3894301272265353321, guid: 6b18e6315d46a9643b5656f854ab27c8, type: 3}
-  m_PrefabInstance: {fileID: 8541031273313451173}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
 --- !u!1 &307899182
 GameObject:
   m_ObjectHideFlags: 0
@@ -5597,14 +5586,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b697b5bd79203ae478474441f1f645e3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogueActivator
-  uiTextComponent: {fileID: 1463904537}
-  dialogueText: Busca la llave
-  dialogueDuration: 0
+  dialogueKey: 
+  durationPerLine: 3
   moveCameraToTarget: 1
-  targetToLookAt: {fileID: 1463904536}
   cameraLookAtSpeed: 2
-  triggerCollider: {fileID: 0}
-  playerTag: Player
+  triggerPoint: {fileID: 0}
+  activeRadius: 0.75
   disableTriggerAfterUse: 1
   OnTriggered:
     m_PersistentCalls:
@@ -5664,12 +5651,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Item
   itemData: {fileID: 11400000, guid: 25d9ba3c330e7204e9a438e34b3eed52, type: 2}
   isPickable: 1
-  onPicked:
+  OnPicked:
     m_PersistentCalls:
       m_Calls: []
-  onUnpickabled:
+  OnUnpickable:
     m_PersistentCalls:
       m_Calls: []
+  itemPrompt: 
 --- !u!23 &351155435
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -15147,11 +15135,6 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
---- !u!1 &851470327 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3977607286526999876, guid: 4695c90c40b8ac44695cccf4e0816c97, type: 3}
-  m_PrefabInstance: {fileID: 715367701}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &865160468
 GameObject:
   m_ObjectHideFlags: 0
@@ -17195,14 +17178,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Puzzle_Switch
   player: {fileID: 0}
   itemInWorld: {fileID: 0}
-  requiredItem: {fileID: 11400000, guid: a0e7f997ef313b044b5b08e9c383ce20, type: 2}
-  fuseVisual: {fileID: 7496389943780591586, guid: 5966e7c73b478084db976e2dc64b2036, type: 3}
+  requiredItemData: {fileID: 0}
+  itemGameObject: {fileID: 0}
+  puzzlePrompt: '[E] Empezar Puzzle'
   puzzlePanel: {fileID: 483041814}
-  fuseToggles:
-  - {fileID: 1178488279}
-  - {fileID: 1475372641}
-  - {fileID: 1267726135}
-  - {fileID: 1437748106}
+  fuseButtons: []
   visualFuses:
   - {fileID: 1985454746}
   - {fileID: 738261346}
@@ -19528,17 +19508,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 8655782699616794829, guid: 201ddda03566c554981abb051e08767a, type: 3}
   m_PrefabInstance: {fileID: 2060034813}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &1109618068 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7529836226146476277, guid: 201ddda03566c554981abb051e08767a, type: 3}
-  m_PrefabInstance: {fileID: 2060034813}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1109618062}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ece21ebce81553c4d82ee8de6e13cc07, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::DoorController
 --- !u!114 &1109618070
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19553,36 +19522,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::KeyDoor
   requiredKeyData: {fileID: 11400000, guid: c3f037f4f47dd6048bcd3dfd3adfcdfd, type: 2}
   noKeyOnUse: 1
-  OnCorrectKey:
+  keyTextPrompt: '[E] Usar llave'
+  OnCorrectItem:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1109618068}
-        m_TargetAssemblyTypeName: DoorController, Assembly-CSharp
-        m_MethodName: UnlockDoor
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnWrongKey:
+      m_Calls: []
+  OnWrongItem:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 339373109}
-        m_TargetAssemblyTypeName: DialogueActivator, Assembly-CSharp
-        m_MethodName: FireDialogue
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &1113536594
 GameObject:
   m_ObjectHideFlags: 0
@@ -20834,17 +20780,6 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
---- !u!114 &1178488279 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 64398507806936761, guid: f69dabc186b40e84b97c05ce1dd7ba05, type: 3}
-  m_PrefabInstance: {fileID: 6059075991057368325}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Toggle
 --- !u!43 &1180583463
 Mesh:
   m_ObjectHideFlags: 0
@@ -23039,17 +22974,6 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
---- !u!114 &1267726135 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5693717435350248709, guid: f69dabc186b40e84b97c05ce1dd7ba05, type: 3}
-  m_PrefabInstance: {fileID: 6059075991057368325}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Toggle
 --- !u!43 &1362365311
 Mesh:
   m_ObjectHideFlags: 0
@@ -24296,17 +24220,6 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
---- !u!114 &1437748106 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5955572439932165588, guid: f69dabc186b40e84b97c05ce1dd7ba05, type: 3}
-  m_PrefabInstance: {fileID: 6059075991057368325}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Toggle
 --- !u!1 &1463904535
 GameObject:
   m_ObjectHideFlags: 0
@@ -24490,17 +24403,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &1475372641 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 4429318052324065608, guid: f69dabc186b40e84b97c05ce1dd7ba05, type: 3}
-  m_PrefabInstance: {fileID: 6059075991057368325}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Toggle
 --- !u!43 &1480144823
 Mesh:
   m_ObjectHideFlags: 0
@@ -30585,7 +30487,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1d847cc574f61554ea0ac3060ca1b299, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventoryUI
-  player: {fileID: 851470327}
   toggleKey: 9
   inventoryPanel: {fileID: 3202136437945739230}
   itemNameText: {fileID: 8784333263409741055}
@@ -30642,15 +30543,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NotesUI
   container: {fileID: 8493876668679082752}
   notePrefab: {fileID: 1297050345544555537, guid: 9173175e910cad240bb2dd068cb30799, type: 3}
-  notePanelFS: {fileID: 212716787238616397}
-  noteImageFS: {fileID: 5135330023204710360}
-  nextNoteButton: {fileID: 565009949659974138}
-  prevNoteButton: {fileID: 7020022797426034130}
-  toggleTranscriptButtonFS: {fileID: 276383020}
-  closeNoteButtonFS: {fileID: 2147276972}
-  transcriptPanelFS: {fileID: 9083062221809091355}
-  noteDescriptionFS: {fileID: 5719459383563376822}
-  closeTranscriptButtonFS: {fileID: 1780317527995882111}
+  notePanelFS: {fileID: 0}
+  noteImageFS: {fileID: 0}
+  nextNoteButton: {fileID: 0}
+  prevNoteButton: {fileID: 0}
+  toggleTranscriptButtonFS: {fileID: 0}
+  closeNoteButtonFS: {fileID: 0}
+  transcriptPanelFS: {fileID: 0}
+  noteDescriptionFS: {fileID: 0}
+  closeTranscriptButtonFS: {fileID: 0}
 --- !u!43 &1796428265
 Mesh:
   m_ObjectHideFlags: 0
@@ -39024,17 +38925,6 @@ Mesh:
       - serializedVersion: 1
         m_IndexStart: 0
         m_IndexCount: 0
---- !u!114 &2147276972 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1471287525717169441, guid: 6b18e6315d46a9643b5656f854ab27c8, type: 3}
-  m_PrefabInstance: {fileID: 8541031273313451173}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
 --- !u!1001 &127846459236785985
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39096,11 +38986,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bdca37cd1a9bc5d419012aadebdb9156, type: 3}
---- !u!1 &212716787238616397 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 184162015364548072, guid: 6b18e6315d46a9643b5656f854ab27c8, type: 3}
-  m_PrefabInstance: {fileID: 8541031273313451173}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &334461350843293732
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39255,17 +39140,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5966e7c73b478084db976e2dc64b2036, type: 3}
---- !u!114 &565009949659974138 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 552446476412350815, guid: 6b18e6315d46a9643b5656f854ab27c8, type: 3}
-  m_PrefabInstance: {fileID: 8541031273313451173}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
 --- !u!65 &612656779526977306
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -39301,12 +39175,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::Item
   itemData: {fileID: 11400000, guid: e75bc203294a1784299b8020dcc5fc92, type: 2}
   isPickable: 1
-  onPicked:
+  OnPicked:
     m_PersistentCalls:
       m_Calls: []
-  onUnpickabled:
+  OnUnpickable:
     m_PersistentCalls:
       m_Calls: []
+  itemPrompt: 
 --- !u!1001 &1374492697104456289
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -39326,7 +39201,7 @@ PrefabInstance:
     - target: {fileID: 3164930425949715879, guid: 129ba68cf3b78f24597e20a9252cb4cf, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
+      objectReference: {fileID: 2100000, guid: a97c105638bdf8b4a8650670310a4cd3, type: 2}
     - target: {fileID: 5868282075106594729, guid: 129ba68cf3b78f24597e20a9252cb4cf, type: 3}
       propertyPath: m_LocalPosition.x
       value: 15.6
@@ -39372,17 +39247,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 129ba68cf3b78f24597e20a9252cb4cf, type: 3}
---- !u!114 &1780317527995882111 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 1785971857420886746, guid: 6b18e6315d46a9643b5656f854ab27c8, type: 3}
-  m_PrefabInstance: {fileID: 8541031273313451173}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
 --- !u!23 &2706283026905669597
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -39801,17 +39665,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 201ddda03566c554981abb051e08767a, type: 3}
---- !u!114 &5135330023204710360 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5132315598611668861, guid: 6b18e6315d46a9643b5656f854ab27c8, type: 3}
-  m_PrefabInstance: {fileID: 8541031273313451173}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
 --- !u!114 &5281028353485413328 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5274847541940298613, guid: 6b18e6315d46a9643b5656f854ab27c8, type: 3}
@@ -39838,17 +39691,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5719459383563376822 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 5702230765138599955, guid: 6b18e6315d46a9643b5656f854ab27c8, type: 3}
-  m_PrefabInstance: {fileID: 8541031273313451173}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
 --- !u!1001 &5929894984647780176
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -40039,17 +39881,6 @@ MonoBehaviour:
 --- !u!114 &6665928005242152288 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 6701317345693621701, guid: 6b18e6315d46a9643b5656f854ab27c8, type: 3}
-  m_PrefabInstance: {fileID: 8541031273313451173}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4e29b1a8efbd4b44bb3f3716e73f07ff, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Button
---- !u!114 &7020022797426034130 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 6994617027168779639, guid: 6b18e6315d46a9643b5656f854ab27c8, type: 3}
   m_PrefabInstance: {fileID: 8541031273313451173}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
@@ -40312,11 +40143,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.TextMeshPro::TMPro.TextMeshProUGUI
---- !u!1 &9083062221809091355 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 9110916588642614206, guid: 6b18e6315d46a9643b5656f854ab27c8, type: 3}
-  m_PrefabInstance: {fileID: 8541031273313451173}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
