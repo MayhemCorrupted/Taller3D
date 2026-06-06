@@ -11,10 +11,11 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float walkSpeed = 15;
     [SerializeField] float gravity = -10;
     [Header("FlyMode Settings")]
-    [SerializeField] KeyCode flyModeKey = KeyCode.Space;
     [SerializeField] float flySpeed = 10;
     [SerializeField] float flyImpulse = 15;
     bool flying;
+    bool canFly = true;
+    public bool CanFly { set => canFly = value; }
     bool canMove = true;
     Vector2 moveInput;
     float verticalVelocity;
@@ -32,18 +33,27 @@ public class PlayerMovement : MonoBehaviour
             return;
         }
         InputHandle();
-        if (flying) FlyingMovement();
+        if (flying && canFly) FlyingMovement();
         else GroundMovement();
     }
     void InputHandle()
     {
-        if (Input.GetKeyDown(flyModeKey) && playerCtrl.isGrounded)
+        if (Input.GetKeyDown(InputManager.Instance.FlyKey) && playerCtrl.isGrounded)
         {
             flying = !flying;
             if (flying) verticalVelocity = flyImpulse;
         }
-        moveInput.x = Input.GetAxisRaw("Horizontal");
-        moveInput.y = Input.GetAxisRaw("Vertical");
+        float y = GetAxis(InputManager.Instance.ForwardKey, InputManager.Instance.BackwardKey);
+        float x = GetAxis(InputManager.Instance.RightKey, InputManager.Instance.LeftKey);
+
+        moveInput = new Vector2(x, y).normalized;
+    }
+    float GetAxis(KeyCode positiveKey, KeyCode negativeKey)
+    {
+        float axisValue = 0;
+        if (Input.GetKey(positiveKey)) axisValue += 1;
+        if (Input.GetKey(negativeKey)) axisValue -= 1;
+        return axisValue;
     }
     public void CanMove(bool state)
     {

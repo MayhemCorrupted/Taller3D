@@ -1,12 +1,12 @@
 using UnityEngine;
-
+using System;
 public class InventoryManager : MonoBehaviour
 {
     public static InventoryManager Instance { get; private set; }
     private const int MAX_SLOTS = 3;
     readonly ItemData[] dataItem = new ItemData[MAX_SLOTS];
     private int itemCount = 0;
-    public event System.Action OnInventoryChanged;
+    public event Action OnInventoryChanged;
     public int MaxSlots => MAX_SLOTS;
     public int ItemCount => itemCount;
     void Awake()
@@ -49,12 +49,12 @@ public class InventoryManager : MonoBehaviour
     }
     public ItemData[] GetAllItems()
     {
-        System.Array.Copy(dataItem, 0, dataItem, 0, itemCount);
+        Array.Copy(dataItem, 0, dataItem, 0, itemCount);
         return dataItem;
     }
     public void ClearInventory()
     {
-        System.Array.Clear(dataItem, 0, MAX_SLOTS);
+        Array.Clear(dataItem, 0, MAX_SLOTS);
         itemCount = 0;
         OnInventoryChanged?.Invoke();
     }

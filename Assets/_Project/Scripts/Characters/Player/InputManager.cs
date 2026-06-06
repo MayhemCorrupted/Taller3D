@@ -14,7 +14,7 @@ public class InputManager : MonoBehaviour
 
     [Header("Action Keys")]
     public KeyCode InteractKey { get; private set; }
-    public KeyCode PauseKey { get; private set; }
+    public KeyCode InventoryKey { get; private set; }
 
     private void Awake()
     {
@@ -27,13 +27,14 @@ public class InputManager : MonoBehaviour
     }
     public void LoadAllKeybinds()
     {
-        ForwardKey = (KeyCode)Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Key_Forward", "W"));
-        BackwardKey = (KeyCode)Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Key_Backward", "S"));
-        LeftKey = (KeyCode)Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Key_Left", "A"));
-        RightKey = (KeyCode)Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Key_Right", "D"));
+        ForwardKey = (KeyCode) Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Key_Forward", "W"));
+        LeftKey = (KeyCode) Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Key_Left", "A"));
+        BackwardKey = (KeyCode) Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Key_Backward", "S"));
+        RightKey = (KeyCode) Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Key_Right", "D"));
 
-        FlyKey = (KeyCode)Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Key_Fly", "Space"));
-        InteractKey = (KeyCode)Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Key_Interact", "E"));
-        PauseKey = (KeyCode)Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Key_Pause", "Escape"));
+        FlyKey = (KeyCode) Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Key_Fly", "Space"));
+        InteractKey = (KeyCode) Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Key_Interact", "E"));
+        InventoryKey = (KeyCode) Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Key_Inventory", "Tab"));
     }
 }
+    

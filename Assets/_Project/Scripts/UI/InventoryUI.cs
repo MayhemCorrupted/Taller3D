@@ -9,7 +9,6 @@ public class InventoryUI : MonoBehaviour
     private const int MAX_SLOTS = 3;
 
     [Header("Inventory Settings")]
-    [SerializeField] KeyCode toggleKey = KeyCode.Tab;
     [SerializeField] GameObject inventoryPanel;
     [SerializeField] TextMeshProUGUI itemNameText;
     [SerializeField] TextMeshProUGUI itemDescriptionText;
@@ -63,7 +62,7 @@ public class InventoryUI : MonoBehaviour
     }
     void Update()
     {
-        if (Input.GetKeyDown(toggleKey))
+        if (Input.GetKeyDown(InputManager.Instance.InventoryKey))
         {
             if (noteUI != null && noteUI.IsNoteOpen) noteUI.ForceCloseAll();
             else if (isInventoryOpen) TogglePanel(false);
@@ -223,7 +222,6 @@ public class InventoryUI : MonoBehaviour
     #endregion
     void OnDestroy()
     {
-        if (InventoryManager.Instance != null)
-            InventoryManager.Instance.OnInventoryChanged -= RechargeUI;
+        if (InventoryManager.Instance != null) InventoryManager.Instance.OnInventoryChanged -= RechargeUI;
     }
 }
