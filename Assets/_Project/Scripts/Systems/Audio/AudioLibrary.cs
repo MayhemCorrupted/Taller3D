@@ -3,7 +3,7 @@ using UnityEngine;
 [RequireComponent(typeof(AudioSource))]
 public class AudioLibrary : MonoBehaviour
 {
-    public enum AudioType { Music, Enviroment, SFX, Voices }
+    public enum AudioType { Music, Environment, SFX, Voice }
     [System.Serializable]
     public struct AudioTrack
     {
@@ -28,17 +28,13 @@ public class AudioLibrary : MonoBehaviour
 
         foreach (AudioTrack track in tracks)
         {
-            if (!string.IsNullOrEmpty(track.trackName) && !trackDictionary.ContainsKey(track.trackName))
-            {
-                trackDictionary.Add(track.trackName, track);
-            }
+            if (!string.IsNullOrEmpty(track.trackName) && !trackDictionary.ContainsKey(track.trackName)) trackDictionary.Add(track.trackName, track);
             else Debug.LogWarning($"[AudioRegister] Nombre duplicado o vacío: '{track.trackName}' en {gameObject.name}");
         }
     }
     void Start()
     {
-        if (AudioManager.Instance != null)
-            AudioManager.Instance.SubscribeAudio(this);
+        if (AudioManager.Instance != null) AudioManager.Instance.SubscribeAudio(this);
     }
     public void PlayOneShotSound(string name)
     {
@@ -81,19 +77,16 @@ public class AudioLibrary : MonoBehaviour
             hasLoopingTrack = false;
         }
     }
-    public void UpdateCategoryVolume(AudioType categoryUpdated, float newGlobalVolume)
+    public void RecalculateLoopVolume()
     {
         if (hasLoopingTrack && audioSource != null && audioSource.isPlaying)
         {
-            if (currentLoopingTrack.category == categoryUpdated)
-            {
-                audioSource.volume = newGlobalVolume * currentLoopingTrack.localVolume;
-            }
+            float globalVolume = AudioManager.Instance != null ? AudioManager.Instance.GetCategoryVolume(currentLoopingTrack.category) : 1f;
+            audioSource.volume = globalVolume * currentLoopingTrack.localVolume;
         }
     }
     void OnDestroy()
     {
-        if (AudioManager.Instance != null)
-            AudioManager.Instance.UnsubscribeAudio(this);
+        if (AudioManager.Instance != null) AudioManager.Instance.UnsubscribeAudio(this);
     }
 }

@@ -5,7 +5,7 @@ using UnityEngine;
 [System.Serializable]
 public struct DialogueEntry
 {
-    [Tooltip("La llave exacta que usará el activador para encontrar este diálogo")]
+    [Tooltip("La llave exacta que usará el reader para encontrar este diálogo")]
     public string dialogueKey;
     [TextArea(3, 5)]
     public string[] dialogueLines;

@@ -32,10 +32,7 @@ public class DialogueManager : MonoBehaviour
 
         typeCoroutine = StartCoroutine(TypingTextSequence(textUI, textLines, durationPerLine));
 
-        if (lookAtTarget && target != null && panTiltComponent != null)
-        {
-            lookCoroutine = StartCoroutine(LookAtTarget(target, rotationSpeed));
-        }
+        if (lookAtTarget && target != null && panTiltComponent != null) lookCoroutine = StartCoroutine(LookAtTarget(target, rotationSpeed));
     }
 
     void SetCharacterAlpha(TMP_Text textComponent, int charIndex, byte alpha)
@@ -64,13 +61,10 @@ public class DialogueManager : MonoBehaviour
             textComponent.ForceMeshUpdate();
             TMP_TextInfo textInfo = textComponent.textInfo;
 
-            for (int i = 0; i < textInfo.characterCount; i++)
-            {
-                SetCharacterAlpha(textComponent, i, 0);
-            }
+            for (int i = 0; i < textInfo.characterCount; i++) SetCharacterAlpha(textComponent, i, 0);
+
             textComponent.UpdateVertexData(TMP_VertexDataUpdateFlags.Colors32);
 
-            // Escribir texto
             for (int i = 0; i < textInfo.characterCount; i++)
             {
                 if (!textInfo.characterInfo[i].isVisible) continue;

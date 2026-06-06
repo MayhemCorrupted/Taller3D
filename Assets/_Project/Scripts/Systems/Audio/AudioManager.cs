@@ -32,16 +32,23 @@ public class AudioManager : MonoBehaviour
     }
     public void SetCategoryVolume(AudioLibrary.AudioType category, float volume)
     {
-        float clampedVolume = Mathf.Clamp01(volume);
-        categoryVolumes[category] = clampedVolume;
-
+        categoryVolumes[category] = Mathf.Clamp01(volume);
+        NotifyAudiosToRecalculate();
+    }
+    public void NotifyMasterVolumeChanged()
+    {
+        NotifyAudiosToRecalculate();
+    }
+    private void NotifyAudiosToRecalculate()
+    {
         foreach (var audio in activeAudios)
         {
-            audio.UpdateCategoryVolume(category, clampedVolume);
+            audio.RecalculateLoopVolume();
         }
     }
     public float GetCategoryVolume(AudioLibrary.AudioType category)
     {
-        return categoryVolumes.GetValueOrDefault(category, 1);
+        float catVol = categoryVolumes.GetValueOrDefault(category, 1f);
+        return catVol * SettingsDataManager.MasterVolume;
     }
 }

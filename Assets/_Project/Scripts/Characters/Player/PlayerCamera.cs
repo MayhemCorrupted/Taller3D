@@ -16,7 +16,6 @@ public class PlayerCamera : MonoBehaviour
     enum MovementState { Idle, Walking, Stairs, Flying }
 
     [Header("Camera Settings")]
-    [SerializeField] private int mouseSensitivity = 100;
     [Tooltip("Referencia al componente de ruido de la Cinemachine Camera.")]
     [SerializeField] private CinemachineBasicMultiChannelPerlin noiseComponent;
 
@@ -120,19 +119,19 @@ public class PlayerCamera : MonoBehaviour
     {
         if (axisController == null) return;
 
+        float currentSens = SettingsDataManager.MouseSensibility;
+        bool invX = SettingsDataManager.InvertX;
+        bool invY = SettingsDataManager.InvertY;
+
         foreach (var c in axisController.Controllers)
         {
-            if (isCameraLocked)
-            {
-                c.Input.LegacyGain = 0;
-            }
+            if (isCameraLocked) c.Input.LegacyGain = 0;
             else
             {
-                if (c.Name == "Look X (Pan)") c.Input.LegacyGain = mouseSensitivity;
-                if (c.Name == "Look Y (Tilt)") c.Input.LegacyGain = -mouseSensitivity;
+                if (c.Name == "Look X (Pan)") c.Input.LegacyGain = currentSens * (invX ? -1 : 1);
+                if (c.Name == "Look Y (Tilt)") c.Input.LegacyGain = currentSens * (invY ? 1 : -1);
             }
         }
     }
-
     public void LockCamera(bool lockCam) => isCameraLocked = lockCam;
 }
