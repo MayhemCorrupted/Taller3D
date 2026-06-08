@@ -326,8 +326,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OpenObjects
   targetToAnimate: {fileID: 4343453577727815382}
+  OnClosingObject:
+    m_PersistentCalls:
+      m_Calls: []
+  OnOpeningObject:
+    m_PersistentCalls:
+      m_Calls: []
   openMode: 1
-  animationSpeed: 1.5
+  animationSpeed: 1
   slideAxis: {x: 0, y: 0, z: 1}
   slideDistance: 0.4
   rotationAxis: {x: 0, y: 1, z: 0}
@@ -460,8 +466,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OpenObjects
   targetToAnimate: {fileID: 0}
+  OnClosingObject:
+    m_PersistentCalls:
+      m_Calls: []
+  OnOpeningObject:
+    m_PersistentCalls:
+      m_Calls: []
   openMode: 0
-  animationSpeed: 1.5
+  animationSpeed: 1
   slideAxis: {x: 0, y: 0, z: 1}
   slideDistance: 0.4
   rotationAxis: {x: 0, y: 1, z: 0}
@@ -593,8 +605,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::OpenObjects
   targetToAnimate: {fileID: 8479166311148455765}
+  OnClosingObject:
+    m_PersistentCalls:
+      m_Calls: []
+  OnOpeningObject:
+    m_PersistentCalls:
+      m_Calls: []
   openMode: 1
-  animationSpeed: 1.5
+  animationSpeed: 1
   slideAxis: {x: 0, y: 0, z: 1}
   slideDistance: 0.4
   rotationAxis: {x: 0, y: 1, z: 0}
