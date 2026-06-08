@@ -4,7 +4,7 @@ using UnityEngine;
 public class UserInterfaceManager : MonoBehaviour
 {
     public static UserInterfaceManager Instance { get; private set; }
-    public enum PanelType { None, Inventory, Notes, Puzzle }
+    public enum PanelType { None, Inventory, Notes, Puzzle, Pause }
     [Header("Player Reference")]
     [SerializeField] GameObject player;
     PlayerMovement movement;
@@ -13,6 +13,7 @@ public class UserInterfaceManager : MonoBehaviour
     public bool IsInventoryOpen => ActivePanel == PanelType.Inventory;
     public bool IsNoteOpen => ActivePanel == PanelType.Notes;
     public bool IsPuzzleOpen => ActivePanel == PanelType.Puzzle;
+    public bool IsPauseOpen => ActivePanel == PanelType.Pause;
     #endregion
     public PanelType ActivePanel { get; private set; } = PanelType.None;
     PanelType pendingPanel = PanelType.None;
@@ -20,6 +21,7 @@ public class UserInterfaceManager : MonoBehaviour
     Action openInventoryCallback;
     Action openNoteCallback;
     Action openPuzzleCallback;
+    Action openPauseCallback;
     public bool IsAnyPanelOpen() => ActivePanel != PanelType.None;
     void Awake()
     {
@@ -38,6 +40,7 @@ public class UserInterfaceManager : MonoBehaviour
             case PanelType.Inventory: openInventoryCallback = openTarget; break;
             case PanelType.Notes: openNoteCallback = openTarget; break;
             case PanelType.Puzzle: openPuzzleCallback = openTarget; break;
+            case PanelType.Pause: openPauseCallback = openTarget; break;
         }
     }
     public void ForceTransitionTo(PanelType newPanel)
@@ -89,6 +92,7 @@ public class UserInterfaceManager : MonoBehaviour
             case PanelType.Inventory: openInventoryCallback?.Invoke(); break;
             case PanelType.Notes: openNoteCallback?.Invoke(); break;
             case PanelType.Puzzle: openPuzzleCallback?.Invoke(); break;
+            case PanelType.Pause: openPauseCallback?.Invoke(); break;
         }
     }
 }
