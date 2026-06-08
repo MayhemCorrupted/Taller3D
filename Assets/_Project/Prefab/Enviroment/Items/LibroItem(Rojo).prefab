@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4876401450713254064}
   - component: {fileID: 2057337001391445390}
   - component: {fileID: 2274987505955555679}
+  - component: {fileID: 268493929211325036}
   m_Layer: 3
   m_Name: Tapa
   m_TagString: Untagged
@@ -90,6 +91,22 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &268493929211325036
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1823898950302019048}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90db61f420c406b4b97b536f12fb03ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractiveObjectLight
+  targetRenderer: {fileID: 2274987505955555679}
+  glowColor: {r: 0, g: 0, b: 0, a: 0}
+  blinkSpeed: 3
+  glowStrength: 1.5
 --- !u!1 &2674777168270790305
 GameObject:
   m_ObjectHideFlags: 0
