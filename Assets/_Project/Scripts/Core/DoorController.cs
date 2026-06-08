@@ -59,6 +59,8 @@ public class DoorController : MonoBehaviour, IInteractable
 
         StopAllCoroutines();
 
+
+
         if (!isOpen)
         {
             int side = CalculateSide(playerPosition);

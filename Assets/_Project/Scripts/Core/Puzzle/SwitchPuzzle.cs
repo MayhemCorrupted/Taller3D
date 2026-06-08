@@ -4,122 +4,136 @@ using UnityEngine.UI;
 
 public class SwitchPuzzle : MonoBehaviour, IInteractable
 {
-    [Header("References")]
-    [SerializeField] GameObject player;
-    [SerializeField] GameObject itemInWorld;
-    Item itemScript;
-
     [Header("Item Requirements")]
     [SerializeField] ItemData requiredItemData;
-    [SerializeField] GameObject itemGameObject;
+    [SerializeField] GameObject itemPlacedModel;
 
-    [Header("Puzzle Configs")]
-    [SerializeField] string puzzlePrompt = "[E] Empezar Puzzle";
-    [SerializeField] GameObject puzzlePanel;
+    [Header("Puzzle UI & Interaction")]
+    [SerializeField] string interactPrompt = "[E] Inspect Panel";
+    [SerializeField] GameObject uiPanel;
     [SerializeField] Toggle[] fuseButtons;
-    [SerializeField] Scrollbar[] visualFuses;
-    [SerializeField] Image[] feedbackLights;
-    [SerializeField] Color lightColorOn = Color.green;
-    [SerializeField] Color lightColorOff = Color.red;
+    [SerializeField] Scrollbar[] fuseVisualScrollbars;
+    [SerializeField] Image[] fuseFeedbackLights;
+
+    [Header("Color Settings")]
+    [SerializeField] Color lightOnColor = Color.green;
+    [SerializeField] Color lightOffColor = Color.red;
 
     [Header("Events")]
-    [SerializeField] UnityEvent OnCantInteract;
-    [SerializeField] UnityEvent OnNeedItem;
+    [SerializeField] UnityEvent OnMissingItem;
     [SerializeField] UnityEvent OnPuzzleSolved;
-    public string PuzzlePrompt => puzzlePrompt;
-    bool isPlaced = false;
+    [SerializeField] UnityEvent OnNoPlacedItem;
+
+    bool isFusePlaced = false;
     bool isSolved = false;
-    void Awake()
-    {
-        if (itemInWorld != null) itemScript = itemInWorld.GetComponent<Item>();
-    }
+    bool isUIOpen = false;
+
+    public string PuzzlePrompt => interactPrompt;
+
     void Start()
     {
-        puzzlePanel.SetActive(false);
+        if (uiPanel != null) uiPanel.SetActive(false);
+        if (itemPlacedModel != null) itemPlacedModel.SetActive(false);
 
         for (int i = 0; i < fuseButtons.Length; i++)
         {
             int index = i;
-            fuseButtons[i].onValueChanged.AddListener((val) => OnToggleChanged(index, val));
+            fuseButtons[index].onValueChanged.AddListener((val) => OnFuseToggled(index, val));
         }
-        UserInterfaceManager.Instance.RegisterPanel(UserInterfaceManager.PanelType.Puzzle, () => TogglePanel(true));
-        GenerateProceduralStart();
     }
-    public string GetTextInteract() => puzzlePrompt;
-    public void Interact(Transform interactorTransform)
-    {
-        UsePanel();
-    }
-    private void GenerateProceduralStart()
+
+    public void InitializeProceduralState(bool startAllOff)
     {
         if (fuseButtons == null || fuseButtons.Length == 0) return;
 
-        float randomChance = Random.value;
-
-        if (randomChance < 0.5f)
+        if (startAllOff)
         {
             for (int i = 0; i < fuseButtons.Length; i++)
-            {
+                fuseButtons[i].SetIsOnWithoutNotify(false);
+        }
+        else
+        {
+            for (int i = 0; i < fuseButtons.Length; i++)
                 fuseButtons[i].SetIsOnWithoutNotify(true);
-            }
 
             if (fuseButtons.Length >= 2)
             {
-                int off = 0;
-                while (off < 2)
+                int turnedOffCount = 0;
+                while (turnedOffCount < 2)
                 {
                     int randomIndex = Random.Range(0, fuseButtons.Length);
                     if (fuseButtons[randomIndex].isOn)
                     {
                         fuseButtons[randomIndex].SetIsOnWithoutNotify(false);
-                        off++;
+                        turnedOffCount++;
                     }
                 }
             }
         }
-        else
-        {
-            for (int i = 0; i < fuseButtons.Length; i++)
-            {
-                fuseButtons[i].SetIsOnWithoutNotify(false);
-            }
-        }
-
         SyncAllVisuals();
     }
-    void UsePanel()
+
+    public string GetTextInteract() => interactPrompt;
+
+    public void Interact(Transform interactorTransform)
     {
         if (isSolved) return;
 
-        if (!isPlaced)
+        if (!isFusePlaced)
         {
-            if (EquipmentManager.Instance.CurrentEquippedItem != requiredItemData && itemInWorld.activeSelf) OnCantInteract?.Invoke();
-            if (!itemInWorld.activeSelf) OnNeedItem?.Invoke();
-            if (EquipmentManager.Instance.CurrentEquippedItem == requiredItemData) PlaceFuse();
+            TryPlaceFuse();
             return;
         }
 
-        TogglePanel(true);
+        TogglePanel(!isUIOpen);
     }
 
-    private void PlaceFuse()
+    private void TryPlaceFuse()
     {
-        isPlaced = true;
-        if (itemGameObject != null) itemGameObject.SetActive(true);
-        InventoryManager.Instance.RemoveItem(requiredItemData);
-        EquipmentManager.Instance.Unequip();
+        if (EquipmentManager.Instance.CurrentEquippedItem == requiredItemData)
+        {
+            isFusePlaced = true;
+            if (itemPlacedModel != null) itemPlacedModel.SetActive(true);
+
+            InventoryManager.Instance.RemoveItem(requiredItemData);
+            EquipmentManager.Instance.Unequip();
+        }
+        else
+        {
+            bool hasItemInInventory = false;
+            ItemData[] currentItems = InventoryManager.Instance.GetAllItems();
+
+            for (int i = 0; i < currentItems.Length; i++)
+            {
+                if (currentItems[i] == requiredItemData)
+                {
+                    hasItemInInventory = true;
+                    break;
+                }
+            }
+
+            if (hasItemInInventory) OnNoPlacedItem?.Invoke();
+            else OnMissingItem?.Invoke();
+        }
     }
+
     public void TogglePanel(bool state)
     {
+        isUIOpen = state;
+
         if (state)
         {
             if (!UserInterfaceManager.Instance.RequestOpenPanel(UserInterfaceManager.PanelType.Puzzle)) return;
         }
-        else UserInterfaceManager.Instance.ReportClosedPanel(UserInterfaceManager.PanelType.Puzzle);
+        else
+        {
+            UserInterfaceManager.Instance.ReportClosedPanel(UserInterfaceManager.PanelType.Puzzle);
+        }
 
-        puzzlePanel.SetActive(state);
+        if (uiPanel != null) uiPanel.SetActive(state);
     }
-    void OnToggleChanged(int index, bool value)
+
+    private void OnFuseToggled(int index, bool value)
     {
         if (!value)
         {
@@ -128,11 +142,11 @@ public class SwitchPuzzle : MonoBehaviour, IInteractable
         }
 
         ApplySwitchRules(index);
-
         SyncAllVisuals();
-        CheckWin();
+        CheckWinCondition();
     }
-    void ApplySwitchRules(int pressedIndex)
+
+    private void ApplySwitchRules(int pressedIndex)
     {
         if (fuseButtons.Length < 4) return;
 
@@ -141,38 +155,41 @@ public class SwitchPuzzle : MonoBehaviour, IInteractable
             case 0:
                 if (fuseButtons[2].isOn) fuseButtons[2].SetIsOnWithoutNotify(false);
                 break;
-
-            case 1: 
+            case 1:
                 if (fuseButtons[0].isOn) fuseButtons[0].SetIsOnWithoutNotify(false);
                 break;
-
             case 2:
                 break;
-
             case 3:
                 if (fuseButtons[1].isOn) fuseButtons[1].SetIsOnWithoutNotify(false);
                 break;
         }
     }
-    void SyncAllVisuals()
+
+    private void SyncAllVisuals()
     {
         for (int i = 0; i < fuseButtons.Length; i++)
         {
             bool state = fuseButtons[i].isOn;
 
-            if (visualFuses.Length > i && visualFuses[i] != null)
-                visualFuses[i].value = state ? 1f : 0f;
+            if (fuseVisualScrollbars.Length > i && fuseVisualScrollbars[i] != null)
+                fuseVisualScrollbars[i].value = state ? 1f : 0f;
 
-            if (feedbackLights.Length > i && feedbackLights[i] != null)
-                feedbackLights[i].color = state ? lightColorOn : lightColorOff;
+            if (fuseFeedbackLights.Length > i && fuseFeedbackLights[i] != null)
+                fuseFeedbackLights[i].color = state ? lightOnColor : lightOffColor;
         }
     }
-    private void CheckWin()
+
+    private void CheckWinCondition()
     {
-        foreach (Toggle t in fuseButtons) if (!t.isOn) return;
+        foreach (Toggle t in fuseButtons)
+        {
+            if (!t.isOn) return;
+        }
+
         isSolved = true;
+        interactPrompt = string.Empty;
         OnPuzzleSolved?.Invoke();
-        puzzlePrompt = string.Empty;
         TogglePanel(false);
     }
 }   

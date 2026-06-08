@@ -4,80 +4,109 @@ using UnityEngine.UI;
 
 public class DraggablePuzzle : MonoBehaviour, IInteractable
 {
-    [Header("UI Panel Settings")]
-    [SerializeField] string interactPrompt = "[E] Abrir Puzzle";
-    [SerializeField] GameObject puzzlePanel;
-
     [Header("Item Requirements")]
     [SerializeField] ItemData requiredItemData;
-    [SerializeField] GameObject itemModel;
+    [SerializeField] GameObject itemPlacedModel;
 
-    [Header("Puzzle Logic")]
-    [Tooltip("Arrastra aquí las 6 casillas en orden (De izquierda a derecha o arriba a abajo)")]
-    [SerializeField] FuseSlot[] slots = new FuseSlot[6];
+    [Header("UI Panel Settings")]
+    [SerializeField] string interactPrompt = "[E] Open Box";
+    [SerializeField] GameObject uiPanel;
     [SerializeField] Button restartButton;
 
+    [Header("Puzzle Logic")]
+    [Tooltip("Orden de casillas (0 a 5)")]
+    [SerializeField] FuseSlot[] gridSlots = new FuseSlot[6];
+
+    [Header("Scalable Variants")]
+    [Tooltip("0 = Nota de pista | 1 = Visuales de amperaje | 2+ = Futuras variantes")]
+    [SerializeField] GameObject[] puzzleVariants;
+
     [Header("Events")]
-    [SerializeField] UnityEvent OnCantInteract;
-    [SerializeField] UnityEvent OnNeedItem;
+    [SerializeField] UnityEvent OnMissingItem;
     [SerializeField] UnityEvent OnPuzzleSolved;
+    [SerializeField] UnityEvent OnNoPlacedItem;
 
     bool isSolved = false;
-    bool isPlaced = false;
+    bool isFusePlaced = false;
     bool isUIOpen = false;
 
     void Start()
     {
         if (restartButton != null) restartButton.onClick.AddListener(ResetAllFusesToHome);
-        if (puzzlePanel != null) puzzlePanel.SetActive(false);
-        if (itemModel != null) itemModel.SetActive(false);
-        UserInterfaceManager.Instance.RegisterPanel(UserInterfaceManager.PanelType.Puzzle, () => TogglePanel(true));
+        if (uiPanel != null) uiPanel.SetActive(false);
+        if (itemPlacedModel != null) itemPlacedModel.SetActive(false);
     }
 
     public string GetTextInteract() => interactPrompt;
+
     public void Interact(Transform interactorTransform)
     {
         if (isSolved) return;
-        if (!isPlaced && requiredItemData != null)
+
+        if (!isFusePlaced && requiredItemData != null)
         {
-            ItemData currentEquipped = EquipmentManager.Instance.CurrentEquippedItem;
-
-            if (currentEquipped == requiredItemData)
-            {
-                isPlaced = true;
-
-                InventoryManager.Instance.RemoveItem(requiredItemData);
-                EquipmentManager.Instance.Unequip();
-                //if (itemModel != null) itemModel.SetActive(true);
-                return;
-            }
-            else
-            {
-                OnNeedItem?.Invoke();
-                return;
-            }
+            TryPlaceFuse();
+            return;
         }
+
         TogglePanel(!isUIOpen);
+    }
+
+    private void TryPlaceFuse()
+    {
+        if (EquipmentManager.Instance.CurrentEquippedItem == requiredItemData)
+        {
+            isFusePlaced = true;
+            if (itemPlacedModel != null) itemPlacedModel.SetActive(true);
+
+            InventoryManager.Instance.RemoveItem(requiredItemData);
+            EquipmentManager.Instance.Unequip();
+        }
+        else
+        {
+            bool hasItemInInventory = false;
+            ItemData[] currentItems = InventoryManager.Instance.GetAllItems();
+
+            for (int i = 0; i < currentItems.Length; i++)
+            {
+                if (currentItems[i] == requiredItemData)
+                {
+                    hasItemInInventory = true;
+                    break;
+                }
+            }
+
+            if (hasItemInInventory) OnNoPlacedItem?.Invoke();
+            else OnMissingItem?.Invoke(); 
+        }
     }
 
     public void TogglePanel(bool state)
     {
         isUIOpen = state;
+
         if (state)
         {
             if (!UserInterfaceManager.Instance.RequestOpenPanel(UserInterfaceManager.PanelType.Puzzle)) return;
         }
-        else UserInterfaceManager.Instance.ReportClosedPanel(UserInterfaceManager.PanelType.Puzzle);
+        else
+        {
+            UserInterfaceManager.Instance.ReportClosedPanel(UserInterfaceManager.PanelType.Puzzle);
+        }
 
-        puzzlePanel.SetActive(state);
+        if (uiPanel != null) uiPanel.SetActive(state);
     }
+
     public void CheckWinCondition()
     {
         if (isSolved) return;
 
-        bool correctSequence = CheckSlotSequence(0, 3) && CheckSlotSequence(2, 2) && CheckSlotSequence(4, 1) && CheckSlotSequence(5, 4);
+        bool isCorrect = CheckSlotSequence(0, 3) &&
+                         CheckSlotSequence(2, 2) &&
+                         CheckSlotSequence(4, 1) &&
+                         CheckSlotSequence(5, 4);
 
-        if (correctSequence)
+        if (isCorrect)
         {
             isSolved = true;
             interactPrompt = string.Empty;
@@ -85,15 +114,36 @@ public class DraggablePuzzle : MonoBehaviour, IInteractable
             TogglePanel(false);
         }
     }
-    bool CheckSlotSequence(int slotIndex, int expectedFuseID)
+
+    private bool CheckSlotSequence(int slotIndex, int expectedFuseID)
     {
-        if (slots[slotIndex].transform.childCount == 0) return false;
-        FuseDraggable fuse = slots[slotIndex].transform.GetChild(0).GetComponent<FuseDraggable>();
+        if (gridSlots[slotIndex].transform.childCount == 0) return false;
+
+        FuseDraggable fuse = gridSlots[slotIndex].transform.GetChild(0).GetComponent<FuseDraggable>();
         return fuse != null && fuse.FuseID == expectedFuseID;
     }
+
     public void ResetAllFusesToHome()
     {
-        FuseDraggable[] allFuses = puzzlePanel.GetComponentsInChildren<FuseDraggable>(true);
-        foreach (FuseDraggable fuse in allFuses) fuse.ResetToInitialPosition();
+        if (uiPanel == null) return;
+
+        FuseDraggable[] allFuses = uiPanel.GetComponentsInChildren<FuseDraggable>(true);
+        foreach (FuseDraggable fuse in allFuses)
+        {
+            fuse.ResetToInitialPosition();
+        }
+    }
+
+    public void SetActiveVariant(int variantIndex)
+    {
+        if (puzzleVariants == null || puzzleVariants.Length == 0) return;
+
+        for (int i = 0; i < puzzleVariants.Length; i++)
+        {
+            if (puzzleVariants[i] != null)
+            {
+                puzzleVariants[i].SetActive(i == variantIndex);
+            }
+        }
     }
 }

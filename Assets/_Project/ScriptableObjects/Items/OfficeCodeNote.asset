@@ -19,6 +19,6 @@ MonoBehaviour:
   itemType: 1
   itemModelPrefab: {fileID: 0}
   NoteDescription: El codigo de la oficina es {code}
-  image: {fileID: 10901, guid: 0000000000000000f000000000000000, type: 0}
+  image: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
   isPuzzleNote: 1
-  generatedCode: 7224
+  generatedCode: 0579

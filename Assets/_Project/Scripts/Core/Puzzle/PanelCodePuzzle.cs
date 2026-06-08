@@ -62,9 +62,8 @@ public class PanelCodePuzzle : MonoBehaviour, IInteractable
             playerCamera = player.GetComponent<PlayerCamera>();
             playerMovement = player.GetComponent<PlayerMovement>();
         }
-
-        SetupButtonListeners();
     }
+
     void Start()
     {
         SetupPuzzle();
@@ -72,12 +71,14 @@ public class PanelCodePuzzle : MonoBehaviour, IInteractable
         UserInterfaceManager.Instance.RegisterPanel(UserInterfaceManager.PanelType.Puzzle, () => ToggleKeypad(true));
         ResetLights();
     }
+
     public string GetTextInteract() => interactPrompt;
+
     public void Interact(Transform interactorTransform)
     {
         UsePanel();
     }
-    void SetupButtonListeners()
+    void AssignButtonListeners()
     {
         for (int i = 0; i < numberButtons.Length; i++)
         {
@@ -102,28 +103,31 @@ public class PanelCodePuzzle : MonoBehaviour, IInteractable
         }
     }
 
+    void RemoveButtonListeners()
+    {
+        for (int i = 0; i < numberButtons.Length; i++)
+        {
+            if (numberButtons[i] != null) numberButtons[i].onClick.RemoveAllListeners();
+        }
+
+        if (deleteButton != null) deleteButton.onClick.RemoveAllListeners();
+        if (exitButton != null) exitButton.onClick.RemoveAllListeners();
+    }
+
+
     void SetupPuzzle()
     {
         if (string.IsNullOrEmpty(CorrectCodeString) || CorrectCodeString.Length != codeLength)
         {
-            if (!string.IsNullOrEmpty(customCode) && customCode.Length == codeLength)
-            {
-                CorrectCodeString = customCode;
-            }
+            if (!string.IsNullOrEmpty(customCode) && customCode.Length == codeLength) CorrectCodeString = customCode;
             else
             {
                 CorrectCodeString = "";
-                for (int i = 0; i < codeLength; i++)
-                {
-                    CorrectCodeString += Random.Range(0, 10).ToString();
-                }
+                for (int i = 0; i < codeLength; i++) CorrectCodeString += Random.Range(0, 10).ToString();
             }
         }
 
-        if (linkedNote != null && linkedNote.isPuzzleNote)
-        {
-            linkedNote.generatedCode = CorrectCodeString;
-        }
+        if (linkedNote != null && linkedNote.isPuzzleNote) linkedNote.generatedCode = CorrectCodeString;
     }
 
     void UsePanel()
@@ -135,15 +139,21 @@ public class PanelCodePuzzle : MonoBehaviour, IInteractable
     void ToggleKeypad(bool state)
     {
         isUIOpen = state;
+
         if (state)
         {
             if (!UserInterfaceManager.Instance.RequestOpenPanel(UserInterfaceManager.PanelType.Puzzle)) return;
+            AssignButtonListeners();
+            ResetInput();
         }
-        else UserInterfaceManager.Instance.ReportClosedPanel(UserInterfaceManager.PanelType.Puzzle);
-        keypadPanel.SetActive(state);
-        if (state) ResetInput();
-    }
+        else
+        {
+            UserInterfaceManager.Instance.ReportClosedPanel(UserInterfaceManager.PanelType.Puzzle);
+            RemoveButtonListeners();
+        }
 
+        if (keypadPanel != null) keypadPanel.SetActive(state);
+    }
     void InputNumber(int number)
     {
         if (!isUIOpen || isSolved || currentInput.Length >= codeLength) return;
@@ -157,7 +167,6 @@ public class PanelCodePuzzle : MonoBehaviour, IInteractable
             StartCoroutine(CheckCodeRoutine());
         }
     }
-
     void DeleteLastDigit()
     {
         if (isSolved || currentInput.Length == 0) return;
@@ -166,7 +175,6 @@ public class PanelCodePuzzle : MonoBehaviour, IInteractable
         UpdateDisplay();
         UpdateLights();
     }
-
     void UpdateDisplay()
     {
         if (panelCode != null)
@@ -180,14 +188,8 @@ public class PanelCodePuzzle : MonoBehaviour, IInteractable
         {
             if (indicatorLights[i] == null) continue;
 
-            if (i < currentInput.Length)
-            {
-                indicatorLights[i].color = pressedColor;
-            }
-            else
-            {
-                indicatorLights[i].color = defaultColor;
-            }
+            if (i < currentInput.Length) indicatorLights[i].color = pressedColor;
+            else indicatorLights[i].color = defaultColor;
         }
     }
     IEnumerator CheckCodeRoutine()
@@ -219,6 +221,7 @@ public class PanelCodePuzzle : MonoBehaviour, IInteractable
             ResetInput();
         }
     }
+
     void SetAllLightsColor(Color color)
     {
         for (int i = 0; i < indicatorLights.Length; i++)
@@ -236,7 +239,6 @@ public class PanelCodePuzzle : MonoBehaviour, IInteractable
     {
         SetAllLightsColor(defaultColor);
     }
-
     public PuzzleSaveData SavePuzzleState()
     {
         PuzzleSaveData data = new()

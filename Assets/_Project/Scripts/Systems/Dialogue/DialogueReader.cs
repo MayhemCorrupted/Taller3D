@@ -16,7 +16,7 @@ public class DialogueReader : MonoBehaviour
 
     [Header("Trigger Settings")]
     [SerializeField] Transform triggerPoint;
-    [SerializeField] float activeRadius = 0.75f;
+    [SerializeField] Vector3 activeBoxSize = new();
     [SerializeField] bool disableTriggerAfterUse = true;
 
     public UnityEvent OnTriggered;
@@ -29,10 +29,14 @@ public class DialogueReader : MonoBehaviour
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null) playerTransform = player.transform;
+
+        if (triggerPoint == null) triggerPoint = transform;
     }
+
     void Update()
     {
         if (playerTransform == null || triggerPoint == null) return;
+
         if (triggered)
         {
             if (!disableTriggerAfterUse)
@@ -46,8 +50,8 @@ public class DialogueReader : MonoBehaviour
             }
             return;
         }
-        float currentDistance = Vector3.Distance(triggerPoint.position, playerTransform.position);
-        if (currentDistance <= activeRadius)
+
+        if (IsPlayerInsideBox())
         {
             ShotDialogue();
             triggered = true;
@@ -58,6 +62,19 @@ public class DialogueReader : MonoBehaviour
             }
         }
     }
+    private bool IsPlayerInsideBox()
+    {
+        Vector3 difference = playerTransform.position - triggerPoint.position;
+
+        Vector3 extents = activeBoxSize / 2f;
+
+        bool insideX = Mathf.Abs(difference.x) <= extents.x;
+        bool insideY = Mathf.Abs(difference.y) <= extents.y;
+        bool insideZ = Mathf.Abs(difference.z) <= extents.z;
+
+        return insideX && insideY && insideZ;
+    }
+
     public void ShotDialogue()
     {
         if (Dialogues.Instance == null) return;
@@ -82,10 +99,12 @@ public class DialogueReader : MonoBehaviour
         }
         OnTriggered?.Invoke();
     }
+
     private void OnDrawGizmosSelected()
     {
         if (triggerPoint == null) return;
+
         Gizmos.color = Color.green;
-        Gizmos.DrawWireSphere(triggerPoint.position, activeRadius);
+        Gizmos.DrawWireCube(triggerPoint.position, activeBoxSize);
     }
 }   
