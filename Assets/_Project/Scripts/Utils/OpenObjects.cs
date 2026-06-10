@@ -53,16 +53,13 @@ public class OpenObjects : MonoBehaviour, IInteractable
 
     public void UseObject()
     {
-        if (isMoving)
-        {
-            if (isOpen) OnOpeningObject?.Invoke();
-            else OnClosingObject?.Invoke();
-            return;
-        }
+        if (isMoving) return;
 
         isOpen = !isOpen;
         interactPrompt = isOpen ? "[E] Close" : "[E] Open";
 
+        if (isOpen) OnOpeningObject?.Invoke();
+        else OnClosingObject?.Invoke();
 
         StopAllCoroutines();
         StartCoroutine(AnimateObject(isOpen));
