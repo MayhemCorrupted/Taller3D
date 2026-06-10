@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: c11a38666c6fc1d4099110102a85f24f
+guid: d7993f3ad9e5ded4f89f97ce2aea9aa6
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -34,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Notes_0
+      name: UI FRAGMENT_0
       rect:
         serializedVersion: 2
-        x: 103
-        y: 310
-        width: 143
-        height: 143
+        x: 97
+        y: 513
+        width: 235
+        height: 241
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -125,20 +125,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6854c88cb79e06d4d825bfac0e12cc58
-      internalID: 295723500
+      spriteID: 0934eec49cd80b946afd9edabdfa4aac
+      internalID: -2132817700
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Notes_1
+      name: UI FRAGMENT_1
       rect:
         serializedVersion: 2
-        x: 254
-        y: 302
-        width: 305
-        height: 158
+        x: 964
+        y: 427
+        width: 575
+        height: 393
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -147,20 +147,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fca1d71c1ff99af4285a4693fbc7a509
-      internalID: 2110523543
+      spriteID: 01b867c866e725f48bb173350453cc05
+      internalID: 719369870
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Notes_2
+      name: UI FRAGMENT_2
       rect:
         serializedVersion: 2
-        x: 612
-        y: 258
-        width: 342
-        height: 232
+        x: 108
+        y: 115
+        width: 767
+        height: 246
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -169,20 +169,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7bb0bf7fe9ffe814b9faeb3b084f513d
-      internalID: 529777986
+      spriteID: 4b2f4228957f3bf42826ea6d70837343
+      internalID: 2040405528
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Notes_3
+      name: UI FRAGMENT_3
       rect:
         serializedVersion: 2
-        x: 105
-        y: 80
-        width: 451
-        height: 154
+        x: 963
+        y: 128
+        width: 570
+        height: 181
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -191,30 +191,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 7ac4576684a56594092ee69fc606d35f
-      internalID: -517219913
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Notes_4
-      rect:
-        serializedVersion: 2
-        x: 614
-        y: 94
-        width: 336
-        height: 108
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      customData: 
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 098a8284fd7422840affb892b7934c02
-      internalID: 370412284
+      spriteID: 6d595a4c1e2a6df408b06a678b5153f9
+      internalID: 1992310447
       vertices: []
       indices: 
       edges: []
@@ -223,7 +201,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: aff976127c26c4143aa71844a4c6001a
+    spriteID: 8da72baec604cc4448d6d0b839cc6d54
     internalID: 0
     vertices: []
     indices: 
@@ -233,13 +211,12 @@ TextureImporter:
     spriteCustomMetadata:
       entries:
       - key: SpriteEditor.SliceSettings
-        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":1,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":1.0,"y":1.0},"gridSpriteSize":{"x":64.0,"y":64.0},"gridSpriteOffset":{"x":0.0,"y":0.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.5},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":0,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
     nameFileIdTable:
-      Notes_0: 295723500
-      Notes_1: 2110523543
-      Notes_2: 529777986
-      Notes_3: -517219913
-      Notes_4: 370412284
+      UI FRAGMENT_0: -2132817700
+      UI FRAGMENT_1: 719369870
+      UI FRAGMENT_2: 2040405528
+      UI FRAGMENT_3: 1992310447
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
