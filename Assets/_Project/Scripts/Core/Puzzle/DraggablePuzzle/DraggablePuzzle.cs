@@ -17,7 +17,7 @@ public class DraggablePuzzle : MonoBehaviour, IInteractable
     [Tooltip("Orden de casillas (0 a 5)")]
     [SerializeField] FuseSlot[] gridSlots = new FuseSlot[6];
 
-    [Header("Scalable Variants")]
+    [Header("Variants")]
     [Tooltip("0 = Nota de pista | 1 = Visuales de amperaje | 2+ = Futuras variantes")]
     [SerializeField] GameObject[] puzzleVariants;
 

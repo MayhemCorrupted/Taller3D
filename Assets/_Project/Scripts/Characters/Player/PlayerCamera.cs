@@ -34,25 +34,29 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] private BobbingProfile stairsProfile = new() { amplitude = 0.9f, frequency = 2.0f };
     [SerializeField] private BobbingProfile flyingProfile = new() { amplitude = 0.4f, frequency = 0.8f };
 
-    private MovementState currentState;
-    private Vector3 lastPosition;
-    private bool isCameraLocked = false;
+    MovementState currentState;
+    Vector3 lastPosition;
+    bool isCameraLocked;
 
-    private float targetAmplitude;
-    private float targetFrequency;
+    float targetAmplitude;
+    float targetFrequency;
 
-    private void Awake()
+    void Awake()
     {
         playerMovement = GetComponent<CharacterController>();
         axisController = GetComponentInChildren<CinemachineInputAxisController>();
 
         lastPosition = transform.position;
+        isCameraLocked = true;
 
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
-
-    private void Update()
+    void Start()
+    {
+        isCameraLocked = false;
+    }
+    void Update()
     {
         SensibilityCinemachine();
         StateDetect();
@@ -61,7 +65,7 @@ public class PlayerCamera : MonoBehaviour
         lastPosition = transform.position;
     }
 
-    private void StateDetect()
+    void StateDetect()
     {
         if (!playerMovement.isGrounded)
         {
@@ -81,7 +85,7 @@ public class PlayerCamera : MonoBehaviour
         currentState = speed > minBobSpeed ? MovementState.Walking : MovementState.Idle;
     }
 
-    private void ApplyHeadBobbing()
+    void ApplyHeadBobbing()
     {
         if (noiseComponent == null) return;
 
@@ -115,7 +119,7 @@ public class PlayerCamera : MonoBehaviour
         noiseComponent.AmplitudeGain = Mathf.Lerp(noiseComponent.AmplitudeGain, targetAmplitude, Time.deltaTime * profileTransitionSpeed);
         noiseComponent.FrequencyGain = Mathf.Lerp(noiseComponent.FrequencyGain, targetFrequency, Time.deltaTime * profileTransitionSpeed);
     }
-    private void SensibilityCinemachine()
+    void SensibilityCinemachine()
     {
         if (axisController == null) return;
 

@@ -19,7 +19,7 @@ public class PlayerMovement : MonoBehaviour
     bool canMove = true;
     Vector2 moveInput;
     float verticalVelocity;
-    private void Awake()
+    void Awake()
     {
         playerCtrl = GetComponent<CharacterController>();
         cameraTransform = GetComponentInChildren<CinemachineCamera>().transform;
@@ -27,11 +27,8 @@ public class PlayerMovement : MonoBehaviour
     void Update()
     {
         Orientate();
+        if (!canMove) return;
 
-        if (!canMove)
-        {
-            return;
-        }
         InputHandle();
         if (flying && canFly) FlyingMovement();
         else GroundMovement();

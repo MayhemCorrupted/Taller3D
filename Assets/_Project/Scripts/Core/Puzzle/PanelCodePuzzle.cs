@@ -48,7 +48,7 @@ public class PanelCodePuzzle : MonoBehaviour, IInteractable
     bool isUIOpen = false;
     WaitForSeconds resetDelay;
 
-    public bool CanUsePanel { set { canUsePanel = value; } }
+    public bool CanUsePanel { set => canUsePanel = value; }
     public string TextPrompt => interactPrompt;
     public bool IsUIOpen => isUIOpen;
     public string CorrectCodeString { get; private set; } = "";
