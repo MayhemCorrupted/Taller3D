@@ -104,9 +104,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractiveObjectLight
   targetRenderer: {fileID: 2274987505955555679}
-  glowColor: {r: 0, g: 0, b: 0, a: 0}
-  blinkSpeed: 3
-  glowStrength: 1.5
+  glowColor: {r: 1, g: 1, b: 1, a: 0}
+  blinkSpeed: 4
+  glowStrength: 1.2
 --- !u!1 &2674777168270790305
 GameObject:
   m_ObjectHideFlags: 0

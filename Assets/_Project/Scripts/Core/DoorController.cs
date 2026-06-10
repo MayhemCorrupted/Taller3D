@@ -4,8 +4,8 @@ using UnityEngine.Events;
 public class DoorController : MonoBehaviour, IInteractable
 {
     KeyDoor keyDoorComponent;
-    Transform hinge;
     [Header("Door Settings")]
+    [SerializeField] Transform hinge;
     [SerializeField] float openAngle = 90f;
     [SerializeField] float doorSpeed = 2f;
     [SerializeField] string lockTextPrompt = "Closed";
@@ -19,6 +19,7 @@ public class DoorController : MonoBehaviour, IInteractable
     bool isOpen = false;
     bool isMoving = false;
      Quaternion closedRotation;
+    [Header("Events")]
     [SerializeField] UnityEvent OnLockedDoor;
     [SerializeField] UnityEvent OnOpeningDoor;
     [SerializeField] UnityEvent OnClosingDoor;
@@ -30,7 +31,15 @@ public class DoorController : MonoBehaviour, IInteractable
     public float DoorSpeed { set { doorSpeed = value; } }
     void Awake()
     {
-        hinge = transform.GetChild(0);
+        if (hinge == null)
+        {
+            if (transform.childCount > 0) hinge = transform.GetChild(0);
+            else
+            {
+                Debug.LogError($"[DoorController] No se asignó un Hinge en {gameObject.name} y tampoco tiene objetos hijos.");
+                return;
+            }
+        }
         closedRotation = hinge.localRotation;
         TryGetComponent(out keyDoorComponent);
     }
