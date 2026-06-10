@@ -14,7 +14,7 @@ public class UserInterfaceManager : MonoBehaviour
     public bool IsNoteOpen => ActivePanel == PanelType.Notes;
     public bool IsPuzzleOpen => ActivePanel == PanelType.Puzzle;
     public bool IsPauseOpen => ActivePanel == PanelType.Pause;
-    public bool isMiscOpen => ActivePanel == PanelType.Misc;
+    public bool IsMiscOpen => ActivePanel == PanelType.Misc;
     #endregion
     public PanelType ActivePanel { get; private set; } = PanelType.None;
     PanelType pendingPanel = PanelType.None;

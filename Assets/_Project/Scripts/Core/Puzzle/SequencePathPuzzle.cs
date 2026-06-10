@@ -56,10 +56,7 @@ public class SequencePathPuzzle : MonoBehaviour, IInteractable
         for (int i = 0; i < totalButtons; i++)
         {
             int randomIndex = Random.Range(i, totalButtons);
-            int temp = proceduralButtonValues[i];
-
-            proceduralButtonValues[i] = proceduralButtonValues[randomIndex];
-            proceduralButtonValues[randomIndex] = temp;
+            (proceduralButtonValues[randomIndex], proceduralButtonValues[i]) = (proceduralButtonValues[i], proceduralButtonValues[randomIndex]);
         }
 
         for (int i = 0; i < totalButtons; i++)
@@ -68,9 +65,7 @@ public class SequencePathPuzzle : MonoBehaviour, IInteractable
             {
                 if (numpadButtons[i].transform.childCount > 0)
                 {
-                    Image iconImage = numpadButtons[i].transform.GetChild(0).GetComponent<Image>();
-                    
-                    if (iconImage != null)
+                    if (numpadButtons[i].transform.GetChild(0).TryGetComponent<Image>(out var iconImage))
                     {
                         int spriteIndex = proceduralButtonValues[i] - 1; 
                         
@@ -135,7 +130,6 @@ public class SequencePathPuzzle : MonoBehaviour, IInteractable
             ProcessError();
         }
     }
-
     private void ProcessCorrectPress(int buttonIndex, int pressedValue)
     {
         numpadButtons[buttonIndex].interactable = false;
@@ -159,7 +153,7 @@ public class SequencePathPuzzle : MonoBehaviour, IInteractable
         StartCoroutine(ErrorResetRoutine());
     }
 
-    private IEnumerator ErrorResetRoutine()
+    IEnumerator ErrorResetRoutine()
     {
         isLockedOut = true;
 
@@ -168,7 +162,8 @@ public class SequencePathPuzzle : MonoBehaviour, IInteractable
             sequenceLights[currentSequenceStep].color = lightErrorColor;
         }
 
-        yield return new WaitForSeconds(0.5f);
+        float waitForSeconds = 0.5f;
+        yield return new WaitForSeconds(waitForSeconds);
 
         currentSequenceStep = 0;
         expectedNextValue = 0;

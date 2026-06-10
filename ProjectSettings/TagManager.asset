@@ -6,6 +6,7 @@ TagManager:
   tags:
   - KitchenSpawn
   - BookSpawn
+  - DragPuzzle
   layers:
   - Default
   - TransparentFX

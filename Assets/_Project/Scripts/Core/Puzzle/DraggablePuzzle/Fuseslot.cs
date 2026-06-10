@@ -3,18 +3,20 @@ using UnityEngine.EventSystems;
 
 public class FuseSlot : MonoBehaviour, IDropHandler
 {
-    DraggablePuzzle puzzleManager;
+    [SerializeField] DraggablePuzzle puzzleManager;
 
-    void Awake()
+    void Start()
     {
-        puzzleManager = FindFirstObjectByType<DraggablePuzzle>();
+        puzzleManager = puzzleManager.gameObject.GetComponent<DraggablePuzzle>();
     }
     public void OnDrop(PointerEventData eventData)
     {
-        if (transform.childCount == 0)
+        FuseDraggable existingFuse = GetComponentInChildren<FuseDraggable>();
+
+        if (existingFuse == null)
         {
             GameObject droppedFuse = eventData.pointerDrag;
-            
+
             if (droppedFuse.TryGetComponent(out FuseDraggable fuseLogic) && fuseLogic != null)
             {
                 droppedFuse.transform.SetParent(transform);

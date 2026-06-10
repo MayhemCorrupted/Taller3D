@@ -44,7 +44,8 @@ public class FadeUI : MonoBehaviour
         yield return new WaitForSeconds(stayDuration);
 
         OnDurationEnded?.Invoke();
-        yield return new WaitForSeconds(0.7f);
+        float waitForSeconds = 0.7f;
+        yield return new WaitForSeconds(waitForSeconds);
         yield return StartCoroutine(FadeCanvasGroup(1f, 0f, fadeOutDuration));
 
         OnSequenceComplete?.Invoke();

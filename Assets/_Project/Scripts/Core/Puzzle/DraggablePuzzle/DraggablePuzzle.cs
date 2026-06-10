@@ -2,6 +2,14 @@ using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
 
+[System.Serializable]
+public struct SlotRequirement
+{
+    [Tooltip("Índice de la casilla dentro del arreglo de Grid Slots (ej. de 0 a 5).")]
+    public int slotIndex;
+    [Tooltip("ID numérico que debe poseer el FuseDraggable insertado.")]
+    public int expectedFuseID;
+}
 public class DraggablePuzzle : MonoBehaviour, IInteractable
 {
     [Header("Item Requirements")]
@@ -12,13 +20,16 @@ public class DraggablePuzzle : MonoBehaviour, IInteractable
     [SerializeField] string interactPrompt = "[E] Open Box";
     [SerializeField] GameObject uiPanel;
     [SerializeField] Button restartButton;
+    [SerializeField] Button exitButton;
 
     [Header("Puzzle Logic")]
     [Tooltip("Orden de casillas (0 a 5)")]
     [SerializeField] FuseSlot[] gridSlots = new FuseSlot[6];
-
+    [Header("Solution Configuration")]
+    [Tooltip("Añade aquí las casillas que tienen un requisito de fusible obligatorio para ganar.")]
+    [SerializeField] SlotRequirement[] solutionRequirements;
     [Header("Variants")]
-    [Tooltip("0 = Nota de pista | 1 = Visuales de amperaje | 2+ = Futuras variantes")]
+    [Tooltip("0 = Nota de pista | 1 = Visuales de amperaje")]
     [SerializeField] GameObject[] puzzleVariants;
 
     [Header("Events")]
@@ -30,9 +41,10 @@ public class DraggablePuzzle : MonoBehaviour, IInteractable
     bool isFusePlaced = false;
     bool isUIOpen = false;
 
-    void Start()
+    void Awake()
     {
         if (restartButton != null) restartButton.onClick.AddListener(ResetAllFusesToHome);
+        if (exitButton != null) exitButton.onClick.AddListener(() => TogglePanel(false));
         if (uiPanel != null) uiPanel.SetActive(false);
         if (itemPlacedModel != null) itemPlacedModel.SetActive(false);
     }
@@ -101,10 +113,18 @@ public class DraggablePuzzle : MonoBehaviour, IInteractable
     {
         if (isSolved) return;
 
-        bool isCorrect = CheckSlotSequence(0, 3) &&
-                         CheckSlotSequence(2, 2) &&
-                         CheckSlotSequence(4, 1) &&
-                         CheckSlotSequence(5, 4);
+        if (solutionRequirements == null || solutionRequirements.Length == 0) return;
+
+        bool isCorrect = true;
+
+        foreach (SlotRequirement req in solutionRequirements)
+        {
+            if (!CheckSlotSequence(req.slotIndex, req.expectedFuseID))
+            {
+                isCorrect = false;
+                break; 
+            }
+        }
 
         if (isCorrect)
         {
@@ -117,9 +137,10 @@ public class DraggablePuzzle : MonoBehaviour, IInteractable
 
     private bool CheckSlotSequence(int slotIndex, int expectedFuseID)
     {
-        if (gridSlots[slotIndex].transform.childCount == 0) return false;
+        if (slotIndex < 0 || slotIndex >= gridSlots.Length) return false;
 
-        FuseDraggable fuse = gridSlots[slotIndex].transform.GetChild(0).GetComponent<FuseDraggable>();
+        FuseDraggable fuse = gridSlots[slotIndex].GetComponentInChildren<FuseDraggable>();
+
         return fuse != null && fuse.FuseID == expectedFuseID;
     }
 

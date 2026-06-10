@@ -659,7 +659,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 35dd40956a29b3e4ebf417bb4046a367, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::MainMenuUI
-  playSceneName: TutorialScene
+  playSceneName: WalkthoughtScene
   playButton: {fileID: 1384192435}
   exitButton: {fileID: 1880833090}
 --- !u!1 &1112477482
