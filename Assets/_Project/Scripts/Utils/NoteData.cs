@@ -1,6 +1,6 @@
 using UnityEngine;
 
-[CreateAssetMenu(fileName = "NoteData", menuName = "Scriptable Objects/NoteData")]
+[CreateAssetMenu(fileName = "NoteData", menuName = "Items/NoteData")]
 public class NoteData : ItemData
 {
     [TextArea(5, 20)] public string NoteDescription;
