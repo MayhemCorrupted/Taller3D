@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: KitchenCodeNote
   m_EditorClassIdentifier: Assembly-CSharp::NoteData
   id: 7
-  itemName: Kitchen notes
+  itemName: Kitchen note
   description: 
   sprite: {fileID: 0}
   itemType: 1
@@ -21,4 +21,4 @@ MonoBehaviour:
   NoteDescription: El codigo de la cocina es {code}
   image: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
   isPuzzleNote: 1
-  generatedCode: 
+  generatedCode: 9408

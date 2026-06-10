@@ -10,15 +10,16 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 09ed1550255f7be498d68b434fc1d29d, type: 3}
-  m_Name: OfficeCodeNote
+  m_Name: ParentRoomNote
   m_EditorClassIdentifier: Assembly-CSharp::NoteData
-  id: 6
-  itemName: Office code
+  id: 0
+  itemName: Mother's note
   description: 
   sprite: {fileID: 0}
   itemType: 1
   itemModelPrefab: {fileID: 0}
-  NoteDescription: "El codigo de la oficina es {code}\n- Pap\xE1"
-  image: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  isPuzzleNote: 1
-  generatedCode: 5659
+  NoteDescription: Deje tu libro favorito en la libreria, ve a buscarlo cuando quieras
+    leerlo.
+  image: {fileID: 0}
+  isPuzzleNote: 0
+  generatedCode: 

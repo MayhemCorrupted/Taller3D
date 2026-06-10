@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: ElectricBoxNote
   m_EditorClassIdentifier: Assembly-CSharp::NoteData
   id: 6
-  itemName: ElectricBoxNote
+  itemName: Basement note
   description: 
   sprite: {fileID: 0}
   itemType: 1
   itemModelPrefab: {fileID: 0}
-  NoteDescription: El codigo de la oficina es {code}
+  NoteDescription: "Seg\xFAn mi mam\xE1 este es el patron\n"
   image: {fileID: 21300000, guid: 0a48cd8f57cb07c46b7cce8d6ec652fd, type: 3}
   isPuzzleNote: 1
   generatedCode: 7224
