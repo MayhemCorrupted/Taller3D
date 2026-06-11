@@ -275619,6 +275619,7 @@ GameObject:
   - component: {fileID: 1920243727216574778}
   - component: {fileID: 4414341509935691248}
   - component: {fileID: 4414341509935691249}
+  - component: {fileID: 4414341509935691250}
   m_Layer: 3
   m_Name: Plano
   m_TagString: Untagged
@@ -295037,6 +295038,28 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   itemPrompt: (E)
+--- !u!64 &4414341509935691250
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2756792615769068581}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4068373912626513877, guid: cab8fc0e2c143bd4bb79b78001cd3411, type: 3}
 --- !u!4 &4424263902239786853
 Transform:
   m_ObjectHideFlags: 0
