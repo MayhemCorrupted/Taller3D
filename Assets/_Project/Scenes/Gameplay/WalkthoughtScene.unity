@@ -115242,7 +115242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4700f9f03ad19f94baf0367cb7a9c988, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Unity.Cinemachine::Unity.Cinemachine.CinemachineFollowZoom
-  Width: 2
+  Width: 0
   Damping: 0
   FovRange: {x: 1, y: 58}
 --- !u!1 &1011867411
@@ -164452,15 +164452,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cc38f9c0273756644b97c19337f5aeb1, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -19.124002
+      value: -19.897964
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cc38f9c0273756644b97c19337f5aeb1, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 1.7055941
+      value: 1.7
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cc38f9c0273756644b97c19337f5aeb1, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -6.9100003
+      value: -6.9281735
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: cc38f9c0273756644b97c19337f5aeb1, type: 3}
       propertyPath: m_LocalRotation.w
@@ -275619,7 +275619,7 @@ GameObject:
   - component: {fileID: 1920243727216574778}
   - component: {fileID: 4414341509935691248}
   - component: {fileID: 4414341509935691249}
-  m_Layer: 0
+  m_Layer: 3
   m_Name: Plano
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -295036,7 +295036,7 @@ MonoBehaviour:
   OnUnpickable:
     m_PersistentCalls:
       m_Calls: []
-  itemPrompt: 
+  itemPrompt: (E)
 --- !u!4 &4424263902239786853
 Transform:
   m_ObjectHideFlags: 0
