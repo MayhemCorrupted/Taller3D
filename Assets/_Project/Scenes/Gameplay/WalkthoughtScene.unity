@@ -287931,7 +287931,7 @@ MonoBehaviour:
   OnUnpickable:
     m_PersistentCalls:
       m_Calls: []
-  itemPrompt: 
+  itemPrompt: (E)
 --- !u!64 &3866996893347819723
 MeshCollider:
   m_ObjectHideFlags: 0
