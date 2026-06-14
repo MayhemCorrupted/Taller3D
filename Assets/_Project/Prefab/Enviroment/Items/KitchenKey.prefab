@@ -9,10 +9,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4545700986262636078}
+  - component: {fileID: 8574911101740842842}
+  - component: {fileID: 1738970425114976087}
   - component: {fileID: 1069189062934842882}
   - component: {fileID: 2767312885287139388}
-  m_Layer: 0
-  m_Name: Key
+  - component: {fileID: 1076184614382295256}
+  m_Layer: 3
+  m_Name: KitchenKey
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -34,6 +37,67 @@ Transform:
   - {fileID: 6996414005062349375}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &8574911101740842842
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8926419196658962880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 019d3c1ba88bfa7478257766a95c3379, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Item
+  itemData: {fileID: 11400000, guid: 61a7bcda0f8dc3246a242767098cdf73, type: 2}
+  isPickable: 1
+  OnPicked:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1069189062934842882}
+        m_TargetAssemblyTypeName: AudioRegister, Assembly-CSharp
+        m_MethodName: PlayOneShotSound
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: GrabKey
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 9197623145209643692}
+        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
+        m_MethodName: SetActive
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: GrabKey
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnUnpickable:
+    m_PersistentCalls:
+      m_Calls: []
+  itemPrompt: '[E] recoger {0}'
+--- !u!114 &1738970425114976087
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8926419196658962880}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90db61f420c406b4b97b536f12fb03ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractiveObjectLight
+  targetRenderer: {fileID: 1975399740063088640}
+  glowColor: {r: 1, g: 1, b: 1, a: 1}
+  blinkSpeed: 3
+  glowStrength: 1.5
 --- !u!114 &1069189062934842882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,6 +212,27 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!65 &1076184614382295256
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8926419196658962880}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 0.041367713, y: 0.01201582, z: 0.08421326}
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &9197623145209643692
 GameObject:
   m_ObjectHideFlags: 0
@@ -159,9 +244,6 @@ GameObject:
   - component: {fileID: 6996414005062349375}
   - component: {fileID: 5340175381168820858}
   - component: {fileID: 1975399740063088640}
-  - component: {fileID: 6414057057840160497}
-  - component: {fileID: 9096084989903375069}
-  - component: {fileID: 3333619801843427171}
   m_Layer: 3
   m_Name: KeyModel
   m_TagString: Untagged
@@ -178,7 +260,7 @@ Transform:
   m_GameObject: {fileID: 9197623145209643692}
   serializedVersion: 2
   m_LocalRotation: {x: -0.0000004540741, y: -0.7071074, z: -0.7071062, w: 0.00000044703484}
-  m_LocalPosition: {x: 0, y: 0.058000088, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1.2, y: 1.2, z: 1.2}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -241,73 +323,3 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &6414057057840160497
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9197623145209643692}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 019d3c1ba88bfa7478257766a95c3379, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Item
-  itemData: {fileID: 11400000, guid: 61a7bcda0f8dc3246a242767098cdf73, type: 2}
-  isPickable: 1
-  OnPicked:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1069189062934842882}
-        m_TargetAssemblyTypeName: AudioRegister, Assembly-CSharp
-        m_MethodName: PlayOneShotSound
-        m_Mode: 5
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: GrabKey
-          m_BoolArgument: 0
-        m_CallState: 2
-  OnUnpickable:
-    m_PersistentCalls:
-      m_Calls: []
-  itemPrompt: '[E] recoger {0}'
---- !u!65 &9096084989903375069
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9197623145209643692}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.07958968, y: 0.09, z: 0.14875714}
-  m_Center: {x: 0.0024476831, y: -6.806544e-16, z: 0.069378585}
---- !u!114 &3333619801843427171
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9197623145209643692}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90db61f420c406b4b97b536f12fb03ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InteractiveObjectLight
-  targetRenderer: {fileID: 1975399740063088640}
-  glowColor: {r: 0, g: 0, b: 0, a: 0}
-  blinkSpeed: 3
-  glowStrength: 1.5

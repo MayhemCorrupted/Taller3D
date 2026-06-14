@@ -4,9 +4,10 @@
 TagManager:
   serializedVersion: 3
   tags:
-  - KitchenSpawn
+  - KitchenKeySpawn
   - BookSpawn
   - DragPuzzle
+  - KitchenNoteSpawn
   layers:
   - Default
   - TransparentFX

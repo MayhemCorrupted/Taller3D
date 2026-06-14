@@ -8,9 +8,11 @@ public class MainMenuUI : MonoBehaviour
     [SerializeField] string playSceneName;
     [SerializeField] Button playButton;
     [SerializeField] Button exitButton;
-
     void Awake()
     {
+        Time.timeScale = 1;
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
         if (playButton != null) playButton.onClick.AddListener(() => ChangePlayScene(playSceneName));
         if (exitButton != null) exitButton.onClick.AddListener(() => ExitGame());
     }

@@ -24,6 +24,7 @@ public class InventoryManager : MonoBehaviour
         if (itemCount >= MAX_SLOTS) return false;
         dataItem[itemCount] = item;
         itemCount++;
+        if (EquipmentManager.Instance != null && EquipmentManager.Instance.CurrentEquippedItem == null) EquipmentManager.Instance.EquipItem(item);
         OnInventoryChanged?.Invoke();
         return true;
     }
@@ -33,8 +34,8 @@ public class InventoryManager : MonoBehaviour
         {
             if (dataItem[i] == item)
             {
+                if (EquipmentManager.Instance != null && EquipmentManager.Instance.CurrentEquippedItem == item) EquipmentManager.Instance.Unequip();
                 for (int j = i; j < itemCount - 1; j++) dataItem[j] = dataItem[j + 1]; 
-
                 dataItem[itemCount - 1] = null;
                 itemCount--;
                 OnInventoryChanged?.Invoke();
@@ -49,8 +50,9 @@ public class InventoryManager : MonoBehaviour
     }
     public ItemData[] GetAllItems()
     {
-        Array.Copy(dataItem, 0, dataItem, 0, itemCount);
-        return dataItem;
+        ItemData[] currentItems = new ItemData[itemCount];
+        Array.Copy(dataItem, 0, currentItems, 0, itemCount);
+        return currentItems;
     }
     public void ClearInventory()
     {

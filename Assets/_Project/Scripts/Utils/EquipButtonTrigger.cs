@@ -1,12 +1,5 @@
 using UnityEngine;
-using UnityEngine.EventSystems;
 
-public class EquipButtonTrigger : MonoBehaviour, IPointerExitHandler
+public class EquipButtonTrigger : MonoBehaviour
 {
-    private InventoryUI uiInventory;
-    void Awake() => uiInventory = Object.FindFirstObjectByType<InventoryUI>();
-    public void OnPointerExit(PointerEventData eventData)
-    {
-        if (uiInventory != null) uiInventory.HideEquipPrompt();
-    }
 }
