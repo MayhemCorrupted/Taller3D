@@ -1,6 +1,10 @@
 using UnityEngine;
 using TMPro;
-
+public interface IInteractable
+{
+    string GetTextInteract();
+    void Interact(Transform interactorTransform);
+}
 public class PlayerInteractor : MonoBehaviour
 {
     [Header("Interaction Settings")]
