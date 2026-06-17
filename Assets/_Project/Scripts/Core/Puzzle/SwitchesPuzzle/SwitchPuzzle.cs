@@ -4,6 +4,8 @@ using UnityEngine.UI;
 
 public class SwitchPuzzle : MonoBehaviour, IInteractable
 {
+    private const int MAX_SWITCHES = 6;
+
     [Header("Item Requirements")]
     [SerializeField] ItemData requiredItemData;
     [SerializeField] GameObject itemPlacedModel;
@@ -11,9 +13,11 @@ public class SwitchPuzzle : MonoBehaviour, IInteractable
     [Header("Puzzle UI & Interaction")]
     [SerializeField] string interactPrompt = "[E] Inspect Panel";
     [SerializeField] GameObject uiPanel;
-    [SerializeField] Toggle[] fuseButtons;
-    [SerializeField] Scrollbar[] fuseVisualScrollbars;
-    [SerializeField] Image[] fuseFeedbackLights;
+
+    [Tooltip("Utilizar Buttons normales para evitar el desajuste visual de Toggles.")]
+    [SerializeField] Button[] fuseButtons = new Button[MAX_SWITCHES];
+    [SerializeField] Scrollbar[] fuseVisualScrollbars = new Scrollbar[MAX_SWITCHES];
+    [SerializeField] Image[] fuseFeedbackLights = new Image[MAX_SWITCHES];
 
     [Header("Color Settings")]
     [SerializeField] Color lightOnColor = Color.green;
@@ -28,7 +32,21 @@ public class SwitchPuzzle : MonoBehaviour, IInteractable
     bool isSolved = false;
     bool isUIOpen = false;
 
+    readonly bool[] currentSwitchStates = new bool[MAX_SWITCHES];
+
+    ISwitchVariantLogic activePuzzleLogic;
+    PuzzleVariant[] variantRegistry;
+
     public string PuzzlePrompt => interactPrompt;
+
+    void Awake()
+    {
+        variantRegistry = new PuzzleVariant[]
+        {
+            new(0, new Variant1Logic()),
+            new(1, new Variant2Logic())
+        };
+    }
 
     void Start()
     {
@@ -38,38 +56,26 @@ public class SwitchPuzzle : MonoBehaviour, IInteractable
         for (int i = 0; i < fuseButtons.Length; i++)
         {
             int index = i;
-            fuseButtons[index].onValueChanged.AddListener((val) => OnFuseToggled(index, val));
+            if (fuseButtons[index] != null)
+            {
+                fuseButtons[index].onClick.AddListener(() => OnFusePressed(index));
+            }
         }
     }
 
-    public void InitializeProceduralState(bool startAllOff)
+    public void InitializeProceduralState(int proceduralSeed)
     {
         if (fuseButtons == null || fuseButtons.Length == 0) return;
 
-        if (startAllOff)
-        {
-            for (int i = 0; i < fuseButtons.Length; i++)
-                fuseButtons[i].SetIsOnWithoutNotify(false);
-        }
-        else
-        {
-            for (int i = 0; i < fuseButtons.Length; i++)
-                fuseButtons[i].SetIsOnWithoutNotify(true);
+        int variantIndex = proceduralSeed % variantRegistry.Length;
+        activePuzzleLogic = variantRegistry[variantIndex].logicInstance;
 
-            if (fuseButtons.Length >= 2)
-            {
-                int turnedOffCount = 0;
-                while (turnedOffCount < 2)
-                {
-                    int randomIndex = Random.Range(0, fuseButtons.Length);
-                    if (fuseButtons[randomIndex].isOn)
-                    {
-                        fuseButtons[randomIndex].SetIsOnWithoutNotify(false);
-                        turnedOffCount++;
-                    }
-                }
-            }
+        Debug.Log($"[Procedural] Switch Puzzle | Lógica Elegida: {variantRegistry[variantIndex].variantID}");
+        for (int i = 0; i < currentSwitchStates.Length; i++)
+        {
+            currentSwitchStates[i] = false;
         }
+
         SyncAllVisuals();
     }
 
@@ -133,44 +139,22 @@ public class SwitchPuzzle : MonoBehaviour, IInteractable
         if (uiPanel != null) uiPanel.SetActive(state);
     }
 
-    private void OnFuseToggled(int index, bool value)
+    private void OnFusePressed(int index)
     {
-        if (!value)
-        {
-            fuseButtons[index].SetIsOnWithoutNotify(true);
-            return;
-        }
+        if (activePuzzleLogic == null || isSolved) return;
 
-        ApplySwitchRules(index);
+        // Enviamos el estado actual a la lógica procedural dictada por el struct
+        activePuzzleLogic.ProcessSwitch(index, currentSwitchStates);
+
         SyncAllVisuals();
         CheckWinCondition();
     }
 
-    private void ApplySwitchRules(int pressedIndex)
-    {
-        if (fuseButtons.Length < 4) return;
-
-        switch (pressedIndex)
-        {
-            case 0:
-                if (fuseButtons[2].isOn) fuseButtons[2].SetIsOnWithoutNotify(false);
-                break;
-            case 1:
-                if (fuseButtons[0].isOn) fuseButtons[0].SetIsOnWithoutNotify(false);
-                break;
-            case 2:
-                break;
-            case 3:
-                if (fuseButtons[1].isOn) fuseButtons[1].SetIsOnWithoutNotify(false);
-                break;
-        }
-    }
-
     private void SyncAllVisuals()
     {
-        for (int i = 0; i < fuseButtons.Length; i++)
+        for (int i = 0; i < MAX_SWITCHES; i++)
         {
-            bool state = fuseButtons[i].isOn;
+            bool state = currentSwitchStates[i];
 
             if (fuseVisualScrollbars.Length > i && fuseVisualScrollbars[i] != null)
                 fuseVisualScrollbars[i].value = state ? 1f : 0f;
@@ -179,12 +163,11 @@ public class SwitchPuzzle : MonoBehaviour, IInteractable
                 fuseFeedbackLights[i].color = state ? lightOnColor : lightOffColor;
         }
     }
-
     private void CheckWinCondition()
     {
-        foreach (Toggle t in fuseButtons)
+        for (int i = 0; i < MAX_SWITCHES; i++)
         {
-            if (!t.isOn) return;
+            if (!currentSwitchStates[i]) return;
         }
 
         isSolved = true;
