@@ -52,9 +52,8 @@ public class ProceduralBasementSection : MonoBehaviour
 
         if (activeVariant.linkedSwitchLogic != null)
         {
-            int subVariant = Random.Range(0, 2);
-            bool startWithFusesOff = (subVariant == 0);
-            activeVariant.linkedSwitchLogic.InitializeProceduralState(startWithFusesOff);
+            int logicVariantSeed = Random.Range(0, 2);
+            activeVariant.linkedSwitchLogic.InitializeProceduralState(logicVariantSeed);
         }
 
         Debug.Log($"[Procedural] Fusibles | Puzzle Elegido: {activeVariant.variantName}");
