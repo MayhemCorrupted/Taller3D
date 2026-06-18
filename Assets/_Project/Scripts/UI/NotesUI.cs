@@ -6,55 +6,51 @@ using UnityEngine.UI;
 public class NotesUI : MonoBehaviour
 {
     [Header("Note Settings")]
-    [SerializeField] Transform container;
+    [SerializeField] Image noteImage;
+    [SerializeField] Transform noteContainer;
+    [SerializeField] TextMeshProUGUI inspectNoteText;
+    [Header("Interface References")]
     [SerializeField] GameObject notePrefab;
-
-    [Header("Fullscreen Note Settings")]
-    [SerializeField] GameObject notePanelFS;
-    [SerializeField] Image noteImageFS;
+    [SerializeField] GameObject notePanel;
+    [SerializeField] GameObject inspectPanel;
     [SerializeField] Button nextNoteButton;
     [SerializeField] Button prevNoteButton;
-    [SerializeField] Button toggleTranscriptButtonFS;
-    [SerializeField] Button closeNoteButtonFS;
-
-    [Header("Transcript Panel Settings")]
-    [SerializeField] GameObject transcriptPanelFS;
-    [SerializeField] TextMeshProUGUI noteDescriptionFS;
-    [SerializeField] Button closeTranscriptButtonFS;
+    [SerializeField] Button toggleInspectButton;
+    [SerializeField] Button closeNoteButton;
 
     InventoryUI inventoryUI;
     bool openedFromInventory = false;
     int currentNoteIndex = 0;
-    bool isTranscriptVisible = false;
     readonly List<GameObject> UInotes = new();
-    public bool IsNoteOpen => notePanelFS != null && notePanelFS.activeSelf;
+    public bool IsNoteOpen => notePanel != null && notePanel.activeSelf;
     void Awake()
     {
         inventoryUI = GetComponent<InventoryUI>();
+
         if (nextNoteButton != null) nextNoteButton.onClick.AddListener(NextNote);
+
         if (prevNoteButton != null) prevNoteButton.onClick.AddListener(PrevNote);
-        if (toggleTranscriptButtonFS != null) toggleTranscriptButtonFS.onClick.AddListener(ToggleTranscriptFS);
-        if (closeNoteButtonFS != null) closeNoteButtonFS.onClick.AddListener(CloseNoteFS);
 
-        if (closeTranscriptButtonFS != null) closeTranscriptButtonFS.onClick.AddListener(HideTranscript);
+        if (toggleInspectButton != null) toggleInspectButton.onClick.AddListener(ToggleInspectText);
 
-        if (notePanelFS != null) notePanelFS.SetActive(false);
-        if (transcriptPanelFS != null) transcriptPanelFS.SetActive(false);
+        if (closeNoteButton != null) closeNoteButton.onClick.AddListener(CloseNoteFS);
+
+        if (notePanel != null) notePanel.SetActive(false);
+
+        if (inspectPanel != null) inspectPanel.SetActive(false);
     }
     void Start()
     {
         if (NotesManager.Instance != null) NotesManager.Instance.OnNoteCollected += RefreshNotesUI;
 
-        UserInterfaceManager.Instance.RegisterPanel(UserInterfaceManager.PanelType.Notes, () => {var notes = NotesManager.Instance.GetCollectedNotes();
-        if (notes != null && notes.Count > 0) OpenNoteFS(currentNoteIndex);
-        });
+        UserInterfaceManager.Instance.RegisterPanel(UserInterfaceManager.PanelType.Notes, () => { var notes = NotesManager.Instance.GetCollectedNotes(); if (notes != null && notes.Count > 0) OpenNoteFS (currentNoteIndex) ;} );
     }
+    void OnEnable() => RefreshNotesUI();
     public void ForceCloseAll()
     {
         openedFromInventory = false;
         CloseNoteFS();               
     }
-    void OnEnable() => RefreshNotesUI();
     public void RefreshNotesUI()
     {
         if (NotesManager.Instance == null) return;
@@ -67,7 +63,8 @@ public class NotesUI : MonoBehaviour
         for (int i = 0; i < notes.Count; i++)
         {
             int index = i;
-            GameObject newNote = Instantiate(notePrefab, container);
+            
+            GameObject newNote = Instantiate(notePrefab, noteContainer);
             UInotes.Add(newNote);
 
             TextMeshProUGUI itemName = newNote.GetComponentInChildren<TextMeshProUGUI>();
@@ -82,58 +79,62 @@ public class NotesUI : MonoBehaviour
         {
             if (note != null) Destroy(note);
         }
+
         UInotes.Clear();
     }
     void OpenNoteFS(int index)
     {
         if (NotesManager.Instance == null) return;
+
         var notes = NotesManager.Instance.GetCollectedNotes();
+
         if (notes == null || index < 0 || notes.Count == 0) return;
 
         currentNoteIndex = Mathf.Clamp(index, 0, notes.Count - 1);
+
         if (inventoryUI != null && inventoryUI.IsInventoryOpen)
         {
-            openedFromInventory = true;
+            openedFromInventory = true;            
             inventoryUI.TogglePanel(false);
         }
         else openedFromInventory = false;
+
         if (UserInterfaceManager.Instance.RequestOpenPanel(UserInterfaceManager.PanelType.Notes))
         {
-            if (notePanelFS != null) notePanelFS.SetActive(true);
+            if (notePanel != null) notePanel.SetActive(true);
             UpdateNoteDisplay(notes);
         }
     }
     void UpdateNoteDisplay(List<NoteData> notes)
     {
         if (notes == null || currentNoteIndex < 0 || currentNoteIndex >= notes.Count) return;
+
         NoteData current = notes[currentNoteIndex];
+        
         if (current == null) return;
 
-        if (noteImageFS != null) noteImageFS.sprite = current.image;
+        if (noteImage != null) noteImage.sprite = current.image;
 
-        if (noteDescriptionFS != null) noteDescriptionFS.text = current.GetParsedDescription();
+        if (inspectNoteText != null) inspectNoteText.text = current.GetParsedDescription();
 
-        HideTranscript();
+        if (inspectPanel != null) inspectPanel.SetActive(false);
 
         if (prevNoteButton != null) prevNoteButton.interactable = currentNoteIndex > 0;
+
         if (nextNoteButton != null) nextNoteButton.interactable = currentNoteIndex < notes.Count - 1;
     }
-    public void ToggleTranscriptFS()
+    public void ToggleInspectText()
     {
-        isTranscriptVisible = !isTranscriptVisible;
-        if (transcriptPanelFS != null) transcriptPanelFS.SetActive(isTranscriptVisible);
-    }
-
-    void HideTranscript()
-    {
-        isTranscriptVisible = false;
-        if (transcriptPanelFS != null) transcriptPanelFS.SetActive(false);
+        if (inspectPanel != null) inspectPanel.SetActive(!inspectPanel.activeSelf);
     }
     public void CloseNoteFS()
     {
-        if (notePanelFS != null) notePanelFS.SetActive(false);
-        HideTranscript();
+        if (notePanel != null) notePanel.SetActive(false);
+        
+        if (inspectPanel != null) inspectPanel.SetActive(false);
+        
         UserInterfaceManager.Instance.ReportClosedPanel(UserInterfaceManager.PanelType.Notes);
+
         if (openedFromInventory && inventoryUI != null)
         {
             openedFromInventory = false;
@@ -143,7 +144,9 @@ public class NotesUI : MonoBehaviour
     void NextNote()
     {
         if (NotesManager.Instance == null) return;
+        
         var notes = NotesManager.Instance.GetCollectedNotes();
+
         if (notes != null && currentNoteIndex < notes.Count - 1)
         {
             currentNoteIndex++;
@@ -153,7 +156,9 @@ public class NotesUI : MonoBehaviour
     void PrevNote()
     {
         if (NotesManager.Instance == null) return;
+        
         var notes = NotesManager.Instance.GetCollectedNotes();
+
         if (notes != null && currentNoteIndex > 0)
         {
             currentNoteIndex--;
@@ -162,7 +167,6 @@ public class NotesUI : MonoBehaviour
     }
     void OnDestroy()
     {
-        if (NotesManager.Instance != null)
-            NotesManager.Instance.OnNoteCollected -= RefreshNotesUI;
+        if (NotesManager.Instance != null) NotesManager.Instance.OnNoteCollected -= RefreshNotesUI;
     }
 }
