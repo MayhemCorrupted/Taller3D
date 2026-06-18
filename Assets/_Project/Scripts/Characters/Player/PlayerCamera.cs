@@ -1,5 +1,6 @@
 using Unity.Cinemachine;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 [RequireComponent(typeof(CharacterController))]
 public class PlayerCamera : MonoBehaviour
@@ -34,6 +35,10 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] private BobbingProfile stairsProfile = new() { amplitude = 0.9f, frequency = 2.0f };
     [SerializeField] private BobbingProfile flyingProfile = new() { amplitude = 0.4f, frequency = 0.8f };
 
+    [Header("Post Processing")]
+    [SerializeField] private Volume GhostVolume;
+    [SerializeField] private float volumeTransition = 5f;
+
     MovementState currentState;
     Vector3 lastPosition;
     bool isCameraLocked;
@@ -61,6 +66,7 @@ public class PlayerCamera : MonoBehaviour
         SensibilityCinemachine();
         StateDetect();
         ApplyHeadBobbing();
+        ApplyPostProcessing();
 
         lastPosition = transform.position;
     }
@@ -119,6 +125,14 @@ public class PlayerCamera : MonoBehaviour
         noiseComponent.AmplitudeGain = Mathf.Lerp(noiseComponent.AmplitudeGain, targetAmplitude, Time.deltaTime * profileTransitionSpeed);
         noiseComponent.FrequencyGain = Mathf.Lerp(noiseComponent.FrequencyGain, targetFrequency, Time.deltaTime * profileTransitionSpeed);
     }
+    void ApplyPostProcessing()
+    {
+        if (GhostVolume == null) return;
+
+        float targetWeight = (currentState == MovementState.Flying) ? 1f : 0f;
+        GhostVolume.weight = Mathf.Lerp(GhostVolume.weight, targetWeight, Time.deltaTime * volumeTransition);
+    }
+
     void SensibilityCinemachine()
     {
         if (axisController == null) return;

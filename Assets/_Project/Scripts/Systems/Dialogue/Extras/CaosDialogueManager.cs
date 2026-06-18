@@ -10,15 +10,14 @@ public class CaosDialogueManager : MonoBehaviour
     {
         public string text;
         public TMP_FontAsset font;
-        public Color textColor;
+        public Color color;
         public float minSize;
         public float maxSize;
         public FontStyles styleFont;
         public float lifeTime;
         public float waitBeforeNext;
     }
-    [System.Serializable]
-    public struct SpawnPoint
+    [System.Serializable] private struct SpawnPoint
     {
         public RectTransform position;
         public bool used;
@@ -35,7 +34,7 @@ public class CaosDialogueManager : MonoBehaviour
 
     [SerializeField] List<SpawnPoint> myPoints = new List<SpawnPoint>();
 
-    private List<TMP_Text> poolList = new List<TMP_Text>();
+    private List<TMP_Text> textClones = new List<TMP_Text>();
     private bool isRunning = false;
 
     void Awake()
@@ -44,7 +43,7 @@ public class CaosDialogueManager : MonoBehaviour
         {
             GameObject clone = Instantiate(textPrefab, canvasContainer);
             clone.SetActive(false);
-            poolList.Add(clone.GetComponent<TMP_Text>());
+            textClones.Add(clone.GetComponent<TMP_Text>());
         }
     }
 
@@ -67,7 +66,7 @@ public class CaosDialogueManager : MonoBehaviour
 
             if (pointIndex != -1 && freeText != null)
             {
-                MarkPointStatus(pointIndex, true);
+                TogglePoint(pointIndex, true);
 
                 freeText.text = currentDialogue.text;
                 freeText.font = currentDialogue.font;
@@ -78,7 +77,7 @@ public class CaosDialogueManager : MonoBehaviour
                 rect.localPosition = myPoints[pointIndex].position.localPosition;
                 rect.localRotation = Quaternion.Euler(0, 0, Random.Range(-5f, 5f));
 
-                Color colorWithAlpha = currentDialogue.textColor;
+                Color colorWithAlpha = currentDialogue.color;
                 colorWithAlpha.a = 0f;
                 freeText.color = colorWithAlpha;
 
@@ -119,7 +118,7 @@ public class CaosDialogueManager : MonoBehaviour
         }
 
         textComponent.gameObject.SetActive(false);
-        MarkPointStatus(pointIndex, false);
+        TogglePoint(pointIndex, false);
     }
 
     int FindFreePoint()
@@ -139,7 +138,7 @@ public class CaosDialogueManager : MonoBehaviour
 
     TMP_Text FindOffText()
     {
-        foreach (TMP_Text textElement in poolList)
+        foreach (TMP_Text textElement in textClones)
         {
             if (textElement.gameObject.activeSelf == false)
             {
@@ -149,7 +148,7 @@ public class CaosDialogueManager : MonoBehaviour
         return null;
     }
 
-    void MarkPointStatus(int index, bool isUsed)
+    void TogglePoint(int index, bool isUsed)
     {
         SpawnPoint point = myPoints[index];
         point.used = isUsed;
