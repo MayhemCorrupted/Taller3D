@@ -39,10 +39,6 @@ public class PauseMenuUI : MonoBehaviour
         if (InputManager.Instance == null) return;
         if (!Input.GetKeyDown(KeyCode.Escape)) return;
 
-        bool anyOtherOpen = UserInterfaceManager.Instance.IsAnyPanelOpen()
-                            && !UserInterfaceManager.Instance.IsPauseOpen;
-        if (anyOtherOpen) return;
-
         if (settingsPanel != null && settingsPanel.activeSelf)
         {
             CloseSettings();
@@ -52,11 +48,15 @@ public class PauseMenuUI : MonoBehaviour
         bool isOpening = !pausePanel.activeSelf;
 
         if (isOpening)
+        {
             UserInterfaceManager.Instance.RequestOpenPanel(UserInterfaceManager.PanelType.Pause);
+            TogglePause(true);
+        }
         else
+        {
             UserInterfaceManager.Instance.ReportClosedPanel(UserInterfaceManager.PanelType.Pause);
-
-        TogglePause(isOpening);
+            TogglePause(false);
+        }
     }
 
     public void TogglePause(bool state)

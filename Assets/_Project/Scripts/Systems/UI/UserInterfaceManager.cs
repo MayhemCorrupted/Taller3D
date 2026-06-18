@@ -29,6 +29,11 @@ public class UserInterfaceManager : MonoBehaviour
     Action openPauseCallback;
     Action openMiscCallback;
 
+    Action closeInventoryCallback;
+    Action closeNoteCallback;
+    Action closePuzzleCallback;
+    Action closeMiscCallback;
+
     public bool IsAnyPanelOpen() => ActivePanel != PanelType.None;
 
     void Awake()
@@ -55,12 +60,28 @@ public class UserInterfaceManager : MonoBehaviour
         }
     }
 
+    public void RegisterForceClose(PanelType type, Action closeTarget)
+    {
+        switch (type)
+        {
+            case PanelType.Inventory: closeInventoryCallback = closeTarget; break;
+            case PanelType.Notes: closeNoteCallback = closeTarget; break;
+            case PanelType.Puzzle: closePuzzleCallback = closeTarget; break;
+            case PanelType.Misc: closeMiscCallback = closeTarget; break;
+        }
+    }
+
     public bool RequestOpenPanel(PanelType type)
     {
         if (ActivePanel == type) return true;
 
         if (type == PanelType.Pause)
         {
+            if (ActivePanel != PanelType.None)
+            {
+                TriggerForceClose(ActivePanel);
+                pendingPanel = ActivePanel;
+            }
             UpdatePanelState(type);
             return true;
         }
@@ -121,6 +142,17 @@ public class UserInterfaceManager : MonoBehaviour
             case PanelType.Puzzle: openPuzzleCallback?.Invoke(); break;
             case PanelType.Pause: openPauseCallback?.Invoke(); break;
             case PanelType.Misc: openMiscCallback?.Invoke(); break;
+        }
+    }
+
+    void TriggerForceClose(PanelType type)
+    {
+        switch (type)
+        {
+            case PanelType.Inventory: closeInventoryCallback?.Invoke(); break;
+            case PanelType.Notes: closeNoteCallback?.Invoke(); break;
+            case PanelType.Puzzle: closePuzzleCallback?.Invoke(); break;
+            case PanelType.Misc: closeMiscCallback?.Invoke(); break;
         }
     }
 }
