@@ -63,6 +63,9 @@ public class PauseMenuUI : MonoBehaviour
     {
         if (pausePanel != null) pausePanel.SetActive(state);
         Time.timeScale = state ? 0f : 1f;
+
+        //Añadido
+        if (state) AudioManager.Instance?.PauseAll();
     }
 
     void ResumeGame()
@@ -70,6 +73,8 @@ public class PauseMenuUI : MonoBehaviour
         if (UserInterfaceManager.Instance != null)
             UserInterfaceManager.Instance.ReportClosedPanel(UserInterfaceManager.PanelType.Pause);
         TogglePause(false);
+
+        AudioManager.Instance?.ResumeAll();
     }
 
     void GoToMainMenu()

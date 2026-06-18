@@ -7,6 +7,9 @@ public class AudioManager : MonoBehaviour
 
     readonly Dictionary<AudioLibrary.AudioType, float> categoryVolumes = new();
     readonly List<AudioLibrary> activeAudios = new();
+    readonly List<AudioLibrary> wasPlaying = new();
+
+    private bool isPaused = false;
 
     void Awake()
     {
@@ -50,5 +53,31 @@ public class AudioManager : MonoBehaviour
     {
         float catVol = categoryVolumes.GetValueOrDefault(category, 1f);
         return catVol * SettingsDataManager.MasterVolume;
+    }
+
+    public void PauseAll()
+    {
+        wasPlaying.Clear();
+
+        foreach (var audio in activeAudios)
+        {
+            if (audio.IsPlaying())
+            {
+                wasPlaying.Add(audio);
+               
+            }
+
+            audio.Pause();
+        }
+    }
+
+    public void ResumeAll()
+    {
+        foreach( var audio in wasPlaying)
+        {
+            if (audio != null) audio.Resume();
+            
+        }
+        wasPlaying.Clear();
     }
 }
