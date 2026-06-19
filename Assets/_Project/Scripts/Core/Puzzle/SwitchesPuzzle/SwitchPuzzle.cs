@@ -143,7 +143,6 @@ public class SwitchPuzzle : MonoBehaviour, IInteractable
     {
         if (activePuzzleLogic == null || isSolved) return;
 
-        // Enviamos el estado actual a la lógica procedural dictada por el struct
         activePuzzleLogic.ProcessSwitch(index, currentSwitchStates);
 
         SyncAllVisuals();
@@ -156,11 +155,9 @@ public class SwitchPuzzle : MonoBehaviour, IInteractable
         {
             bool state = currentSwitchStates[i];
 
-            if (fuseVisualScrollbars.Length > i && fuseVisualScrollbars[i] != null)
-                fuseVisualScrollbars[i].value = state ? 1f : 0f;
+            if (fuseVisualScrollbars.Length > i && fuseVisualScrollbars[i] != null) fuseVisualScrollbars[i].value = state ? 1f : 0f;
 
-            if (fuseFeedbackLights.Length > i && fuseFeedbackLights[i] != null)
-                fuseFeedbackLights[i].color = state ? lightOnColor : lightOffColor;
+            if (fuseFeedbackLights.Length > i && fuseFeedbackLights[i] != null) fuseFeedbackLights[i].color = state ? lightOnColor : lightOffColor;
         }
     }
     private void CheckWinCondition()

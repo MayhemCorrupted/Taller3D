@@ -5,7 +5,7 @@ public class ProceduralSeedGenerator : MonoBehaviour
     public static ProceduralSeedGenerator Instance { get; private set; }
 
     [Header("Global Seed Configuration")]
-    [Tooltip("Formato estricto de 11 dígitos: 3(Puertas) + 3(Fusibles) + 3(Cajas) + 2(Libro). Si lo dejas vacío, se generará uno aleatorio.")]
+    [Tooltip("Formato de 11 dígitos: 3(Puertas) + 3(Fusibles) + 3(Cajas) + 2(Libro). Si lo dejas vacío, se generará uno aleatorio.")]
     public string masterSeed = "";
     public int DoorSeed { get; private set; }
     public int FuseSeed { get; private set; }
