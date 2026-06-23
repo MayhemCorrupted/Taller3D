@@ -1,12 +1,12 @@
 using UnityEngine;
-
+[RequireComponent(typeof(Renderer))]
 public class InteractiveObjectLight : MonoBehaviour
 {
     [Header("References")]
     [SerializeField] private Renderer targetRenderer;
 
     [Header("Light Settings")]
-    [SerializeField] private Color glowColor;
+    [SerializeField] private Color glowColor = Color.white;
     [SerializeField] private float blinkSpeed = 3f;
     [SerializeField] private float glowStrength = 1.5f;
 

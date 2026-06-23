@@ -30,7 +30,6 @@ public class SwitchPuzzle : MonoBehaviour, IInteractable
 
     bool isFusePlaced = false;
     bool isSolved = false;
-    bool isUIOpen = false;
 
     readonly bool[] currentSwitchStates = new bool[MAX_SWITCHES];
 
@@ -61,6 +60,17 @@ public class SwitchPuzzle : MonoBehaviour, IInteractable
                 fuseButtons[index].onClick.AddListener(() => OnFusePressed(index));
             }
         }
+        UserInterfaceManager.Instance.RegisterPanel(
+            UserInterfaceManager.PanelType.Switch,
+            () =>
+            {
+                if (uiPanel != null) uiPanel.SetActive(true);
+            },
+            () =>
+            {
+                if (uiPanel != null) uiPanel.SetActive(false);
+            }
+        );
     }
 
     public void InitializeProceduralState(int proceduralSeed)
@@ -91,10 +101,10 @@ public class SwitchPuzzle : MonoBehaviour, IInteractable
             return;
         }
 
-        TogglePanel(!isUIOpen);
+        UserInterfaceManager.Instance.TogglePanel(UserInterfaceManager.PanelType.Switch);
     }
 
-    private void TryPlaceFuse()
+    void TryPlaceFuse()
     {
         if (EquipmentManager.Instance.CurrentEquippedItem == requiredItemData)
         {
@@ -122,24 +132,7 @@ public class SwitchPuzzle : MonoBehaviour, IInteractable
             else OnMissingItem?.Invoke();
         }
     }
-
-    public void TogglePanel(bool state)
-    {
-        isUIOpen = state;
-
-        if (state)
-        {
-            if (!UserInterfaceManager.Instance.RequestOpenPanel(UserInterfaceManager.PanelType.Puzzle)) return;
-        }
-        else
-        {
-            UserInterfaceManager.Instance.ReportClosedPanel(UserInterfaceManager.PanelType.Puzzle);
-        }
-
-        if (uiPanel != null) uiPanel.SetActive(state);
-    }
-
-    private void OnFusePressed(int index)
+    void OnFusePressed(int index)
     {
         if (activePuzzleLogic == null || isSolved) return;
 
@@ -149,7 +142,7 @@ public class SwitchPuzzle : MonoBehaviour, IInteractable
         CheckWinCondition();
     }
 
-    private void SyncAllVisuals()
+    void SyncAllVisuals()
     {
         for (int i = 0; i < MAX_SWITCHES; i++)
         {
@@ -160,7 +153,7 @@ public class SwitchPuzzle : MonoBehaviour, IInteractable
             if (fuseFeedbackLights.Length > i && fuseFeedbackLights[i] != null) fuseFeedbackLights[i].color = state ? lightOnColor : lightOffColor;
         }
     }
-    private void CheckWinCondition()
+    void CheckWinCondition()
     {
         for (int i = 0; i < MAX_SWITCHES; i++)
         {
@@ -170,6 +163,6 @@ public class SwitchPuzzle : MonoBehaviour, IInteractable
         isSolved = true;
         interactPrompt = string.Empty;
         OnPuzzleSolved?.Invoke();
-        TogglePanel(false);
+        UserInterfaceManager.Instance.ClosePanel(UserInterfaceManager.PanelType.Switch);
     }
 }   

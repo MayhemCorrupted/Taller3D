@@ -1,41 +1,22 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class UserInterfaceManager : MonoBehaviour
 {
     public static UserInterfaceManager Instance { get; private set; }
 
-    public enum PanelType { None, Inventory, Notes, Puzzle, Pause, Misc }
+    public enum PanelType { None, Inventory, Notes, Switch, Draggable, Dial, Panel, Sequence, Pause }
 
     [Header("Player Reference")]
-    [SerializeField] GameObject player;
-    PlayerMovement movement;
-    PlayerCamera cam;
-
-    #region Booleanos_UI
-    public bool IsInventoryOpen => ActivePanel == PanelType.Inventory;
-    public bool IsNoteOpen => ActivePanel == PanelType.Notes;
-    public bool IsPuzzleOpen => ActivePanel == PanelType.Puzzle;
-    public bool IsPauseOpen => ActivePanel == PanelType.Pause;
-    public bool IsMiscOpen => ActivePanel == PanelType.Misc;
-    #endregion
-
+    [SerializeField] private GameObject player;
+    private PlayerMovement movement;
+    private PlayerCamera cam;
     public PanelType ActivePanel { get; private set; } = PanelType.None;
-    PanelType pendingPanel = PanelType.None;
 
-    Action openInventoryCallback;
-    Action openNoteCallback;
-    Action openPuzzleCallback;
-    Action openPauseCallback;
-    Action openMiscCallback;
-
-    Action closeInventoryCallback;
-    Action closeNoteCallback;
-    Action closePuzzleCallback;
-    Action closeMiscCallback;
-
+    private readonly Dictionary<PanelType, Action> openCallbacks = new();
+    private readonly Dictionary<PanelType, Action> closeCallbacks = new();
     public bool IsAnyPanelOpen() => ActivePanel != PanelType.None;
-
     void Awake()
     {
         if (Instance == null) Instance = this;
@@ -47,112 +28,73 @@ public class UserInterfaceManager : MonoBehaviour
             cam = player.GetComponent<PlayerCamera>();
         }
     }
-
-    public void RegisterPanel(PanelType type, Action openTarget)
+    public void RegisterPanel(PanelType type, Action openTarget, Action closeTarget)
     {
-        switch (type)
-        {
-            case PanelType.Inventory: openInventoryCallback = openTarget; break;
-            case PanelType.Notes: openNoteCallback = openTarget; break;
-            case PanelType.Puzzle: openPuzzleCallback = openTarget; break;
-            case PanelType.Pause: openPauseCallback = openTarget; break;
-            case PanelType.Misc: openMiscCallback = openTarget; break;
-        }
+        if (!openCallbacks.TryAdd(type, openTarget)) openCallbacks[type] = openTarget;
+        if (!closeCallbacks.TryAdd(type, closeTarget)) closeCallbacks[type] = closeTarget;
     }
-
-    public void RegisterForceClose(PanelType type, Action closeTarget)
+    public void TogglePanel(PanelType type)
     {
-        switch (type)
-        {
-            case PanelType.Inventory: closeInventoryCallback = closeTarget; break;
-            case PanelType.Notes: closeNoteCallback = closeTarget; break;
-            case PanelType.Puzzle: closePuzzleCallback = closeTarget; break;
-            case PanelType.Misc: closeMiscCallback = closeTarget; break;
-        }
+        if (ActivePanel == type)
+            ClosePanel(type);
+        else
+            TryOpenPanel(type);
     }
-
-    public bool RequestOpenPanel(PanelType type)
+    public void TryOpenPanel(PanelType type)
     {
-        if (ActivePanel == type) return true;
-
-        if (type == PanelType.Pause)
-        {
-            if (ActivePanel != PanelType.None)
-            {
-                TriggerForceClose(ActivePanel);
-                pendingPanel = ActivePanel;
-            }
-            UpdatePanelState(type);
-            return true;
-        }
-
         if (ActivePanel != PanelType.None)
         {
-            pendingPanel = type;
-            return false;
-        }
+            if (type == PanelType.Pause)
+            {
+                TriggerForceClose(ActivePanel);
+                UpdatePanelState(type, true);
+                TriggerOpenCallback(type);
+            }
+            return;
+        } 
 
-        UpdatePanelState(type);
-        return true;
+        UpdatePanelState(type, type == PanelType.Pause);
+        TriggerOpenCallback(type);
     }
-
-    public void ReportClosedPanel(PanelType panelType)
+    public void ClosePanel(PanelType type)
     {
-        if (ActivePanel != panelType) return;
+        if (ActivePanel != type) return;
 
-        if (pendingPanel != PanelType.None)
-        {
-            PanelType next = pendingPanel;
-            pendingPanel = PanelType.None;
-            UpdatePanelState(next);
-            TriggerOpenCallback(next);
-        }
-        else UpdatePanelState(PanelType.None);
+        TriggerForceClose(type);
+        UpdatePanelState(PanelType.None, false);
     }
-
     public void ForceTransitionTo(PanelType newPanel)
     {
-        if (ActivePanel == newPanel || ActivePanel == PanelType.None) return;
-        pendingPanel = ActivePanel;
-        UpdatePanelState(newPanel);
+        if (ActivePanel == newPanel) return;
+
+        if (ActivePanel != PanelType.None) TriggerForceClose(ActivePanel);
+
+        if (newPanel == PanelType.Pause) Time.timeScale = 0f;
+        else Time.timeScale = 1f;
+
+        UpdatePanelState(newPanel, newPanel == PanelType.Pause);
         TriggerOpenCallback(newPanel);
     }
-
-    void UpdatePanelState(PanelType newPanel)
+    private void UpdatePanelState(PanelType newPanel, bool isPause)
     {
         ActivePanel = newPanel;
+
+        Time.timeScale = isPause ? 0f : 1f;
+
         bool blockInputs = IsAnyPanelOpen();
 
-        if (newPanel != PanelType.Pause)
-        {
-            if (cam != null) cam.LockCamera(blockInputs);
-            if (movement != null) movement.CanMove(!blockInputs);
-        }
+        if (cam != null) cam.LockCamera(blockInputs);
+        if (movement != null) movement.CanMove(!blockInputs);
 
         Cursor.lockState = blockInputs ? CursorLockMode.None : CursorLockMode.Locked;
         Cursor.visible = blockInputs;
     }
-
-    void TriggerOpenCallback(PanelType type)
+    private void TriggerOpenCallback(PanelType type)
     {
-        switch (type)
-        {
-            case PanelType.Inventory: openInventoryCallback?.Invoke(); break;
-            case PanelType.Notes: openNoteCallback?.Invoke(); break;
-            case PanelType.Puzzle: openPuzzleCallback?.Invoke(); break;
-            case PanelType.Pause: openPauseCallback?.Invoke(); break;
-            case PanelType.Misc: openMiscCallback?.Invoke(); break;
-        }
+        if (openCallbacks.TryGetValue(type, out Action callback)) callback?.Invoke();
     }
-
-    void TriggerForceClose(PanelType type)
+    private void TriggerForceClose(PanelType type)
     {
-        switch (type)
-        {
-            case PanelType.Inventory: closeInventoryCallback?.Invoke(); break;
-            case PanelType.Notes: closeNoteCallback?.Invoke(); break;
-            case PanelType.Puzzle: closePuzzleCallback?.Invoke(); break;
-            case PanelType.Misc: closeMiscCallback?.Invoke(); break;
-        }
+        if (closeCallbacks.TryGetValue(type, out Action callback)) callback?.Invoke();
     }
 }

@@ -25,9 +25,7 @@ public class InventoryUI : MonoBehaviour
 
     bool isInventoryOpen = false;
     NotesUI noteUI;
-
     public bool IsInventoryOpen => isInventoryOpen;
-
     void Awake()
     {
         noteUI = GetComponent<NotesUI>();
@@ -43,29 +41,34 @@ public class InventoryUI : MonoBehaviour
             }
         }
     }
-
     void Start()
     {
         if (InventoryManager.Instance != null) InventoryManager.Instance.OnInventoryChanged += RechargeUI;
-
         UserInterfaceManager.Instance.RegisterPanel(
-            UserInterfaceManager.PanelType.Inventory, () => TogglePanel(true));
-
-        UserInterfaceManager.Instance.RegisterForceClose(
-            UserInterfaceManager.PanelType.Inventory, ForceClose);
+            UserInterfaceManager.PanelType.Inventory,
+            () =>
+            {
+                isInventoryOpen = true;
+                inventoryPanel.SetActive(true);
+                RechargeUI();
+            },
+            () =>
+            {
+                isInventoryOpen = false;
+                inventoryPanel.SetActive(false);
+                ClearAllInfo();
+                if (noteUI != null && noteUI.IsNoteOpen) noteUI.ForceCloseAll();
+            }
+        );
     }
 
     void Update()
     {
         if (!Input.GetKeyDown(InputManager.Instance.InventoryKey)) return;
 
-        if (UserInterfaceManager.Instance.IsAnyPanelOpen() && !isInventoryOpen) return;
-
-        if (noteUI != null && noteUI.IsNoteOpen) noteUI.ForceCloseAll();
-        else if (isInventoryOpen) TogglePanel(false);
-        else TogglePanel(true);
+        UserInterfaceManager.Instance.TogglePanel(UserInterfaceManager.PanelType.Inventory);
+    
     }
-
     void SetSlotEvents(int index)
     {
         if (inventorySlots[index] == null) return;
@@ -93,43 +96,16 @@ public class InventoryUI : MonoBehaviour
         if (timeSinceLastClick <= doubleClickThreshold) EquipFromSlot(slotIndex);
         else lastClickTimes[slotIndex] = Time.time;
     }
-
-    public void TogglePanel(bool state)
-    {
-        if (state)
-        {
-            if (!UserInterfaceManager.Instance.RequestOpenPanel(UserInterfaceManager.PanelType.Inventory)) return;
-        }
-        else UserInterfaceManager.Instance.ReportClosedPanel(UserInterfaceManager.PanelType.Inventory);
-
-        isInventoryOpen = state;
-        inventoryPanel.SetActive(isInventoryOpen);
-
-        if (isInventoryOpen) RechargeUI();
-        else ClearAllInfo();
-    }
-
-    void ForceClose()
-    {
-        isInventoryOpen = false;
-        inventoryPanel.SetActive(false);
-        ClearAllInfo();
-
-        if (noteUI != null && noteUI.IsNoteOpen) noteUI.ForceCloseAll();
-    }
-
     public void ClearItemInfo()
     {
         if (itemNameText != null) itemNameText.text = "--";
         if (itemDescriptionText != null) itemDescriptionText.text = "";
     }
-
     public void ClearAllInfo()
     {
         ClearItemInfo();
         for (int i = 0; i < MAX_SLOTS; i++) inventoryBackground[i].color = Color.white;
     }
-
     #region Inventory_Display
     public void EquipFromSlot(int slotIndex)
     {
@@ -140,7 +116,6 @@ public class InventoryUI : MonoBehaviour
         else EquipmentManager.Instance.EquipItem(item);
         RechargeUI();
     }
-
     void RechargeUI()
     {
         if (InventoryManager.Instance == null) return;
@@ -167,7 +142,6 @@ public class InventoryUI : MonoBehaviour
         }
         UpdateSlotVisuals();
     }
-
     void SyncEquippedSlotIndex()
     {
         equipedSlotIndex = -1;
@@ -185,15 +159,14 @@ public class InventoryUI : MonoBehaviour
             }
         }
     }
-
     public bool IsSlotEquipped(int slotIndex) => slotIndex == equipedSlotIndex;
-
     void UpdateSlotVisuals()
     {
         for (int i = 0; i < MAX_SLOTS; i++)
+        {
             inventoryBackground[i].color = (i == equipedSlotIndex) ? Color.green : Color.white;
+        }
     }
-
     public void ShowItemDetails(int slotIndex)
     {
         if (InventoryManager.Instance == null) return;
@@ -207,7 +180,6 @@ public class InventoryUI : MonoBehaviour
         else ClearItemInfo();
     }
     #endregion
-
     void OnDestroy()
     {
         if (InventoryManager.Instance != null) InventoryManager.Instance.OnInventoryChanged -= RechargeUI;

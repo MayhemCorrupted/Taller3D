@@ -12,14 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09ed1550255f7be498d68b434fc1d29d, type: 3}
   m_Name: ParentRoomNote
   m_EditorClassIdentifier: Assembly-CSharp::NoteData
-  id: 0
+  id: 7
   itemName: Mother's note
   description: 
   sprite: {fileID: 0}
   itemType: 1
   itemModelPrefab: {fileID: 0}
-  NoteDescription: Deje tu libro favorito en la libreria, ve a buscarlo cuando quieras
-    leerlo.
+  NoteDescription: I leave your book on the bookshelf of the library, take it when
+    you want to read it.
   image: {fileID: 0}
   isPuzzleNote: 0
   generatedCode: 
