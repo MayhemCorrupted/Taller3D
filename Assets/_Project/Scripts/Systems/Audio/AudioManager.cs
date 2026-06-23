@@ -51,4 +51,15 @@ public class AudioManager : MonoBehaviour
         float catVol = categoryVolumes.GetValueOrDefault(category, 1f);
         return catVol * SettingsDataManager.MasterVolume;
     }
+
+    public void PauseGlobalAudio()
+    {
+        AudioListener.pause = true;
+    }
+
+    public void ResumeGlobalAudio()
+    {
+        AudioListener.pause = false;
+    }
+
 }

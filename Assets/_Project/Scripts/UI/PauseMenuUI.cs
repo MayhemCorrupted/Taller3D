@@ -51,11 +51,14 @@ public class PauseMenuUI : MonoBehaviour
         {
             UserInterfaceManager.Instance.RequestOpenPanel(UserInterfaceManager.PanelType.Pause);
             TogglePause(true);
+            AudioManager.Instance.PauseGlobalAudio();
+            
         }
         else
         {
             UserInterfaceManager.Instance.ReportClosedPanel(UserInterfaceManager.PanelType.Pause);
             TogglePause(false);
+            AudioManager.Instance.ResumeGlobalAudio();
         }
     }
 
@@ -63,6 +66,8 @@ public class PauseMenuUI : MonoBehaviour
     {
         if (pausePanel != null) pausePanel.SetActive(state);
         Time.timeScale = state ? 0f : 1f;
+
+        
     }
 
     void ResumeGame()
