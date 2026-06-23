@@ -2,7 +2,6 @@ using System.Collections;
 using TMPro;
 using Unity.Cinemachine;
 using UnityEngine;
-
 public class DialogueManager : MonoBehaviour
 {
     public static DialogueManager Instance { get; private set; }
@@ -28,6 +27,8 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] float mouseInterruptDuration = 0.3f;
     [SerializeField] float mouseSensitivityThreshold = 0.001f;
 
+    bool isLookInterrupted = false;
+    Transform currentLookTarget = null;
     void Awake()
     {
         if (Instance == null) Instance = this;
@@ -40,6 +41,8 @@ public class DialogueManager : MonoBehaviour
         if (IsDialogueActive) return false;
 
         IsDialogueActive = true;
+        isLookInterrupted = false;
+        currentLookTarget = null;
 
         if (typeCoroutine != null) StopCoroutine(typeCoroutine);
         if (lookCoroutine != null) StopCoroutine(lookCoroutine);
@@ -47,11 +50,7 @@ public class DialogueManager : MonoBehaviour
 
         typeCoroutine = StartCoroutine(TypingTextSequence(data));
 
-        if (data.dialogueType == DialogueType.World_3D)
-        {
-            if (data.targetToLookAt != null && panTiltComponent != null) lookCoroutine = StartCoroutine(LookAtTarget(data.targetToLookAt));
-            if (data.worldTextPosition != null) fallbackCoroutine = StartCoroutine(Track3DTextVisibility(data.worldTextPosition));
-        }
+        if (data.dialogueType == DialogueType.World_3D) fallbackCoroutine = StartCoroutine(Track3DTextVisibility(data.worldTextPosition));
         else
         {
             if (fallbackCanvasGroup != null) fallbackCanvasGroup.alpha = 1f;
@@ -64,12 +63,22 @@ public class DialogueManager : MonoBehaviour
         float fadeDuration = 0.4f;
 
         TMP_Text activeMainText = null;
-        float currentDuration = 3f; 
+        float currentDuration = 3f;
 
         foreach (var lineData in data.dialogueSequence)
         {
             if (lineData.uiTextComponent != null) activeMainText = lineData.uiTextComponent;
             if (lineData.duration > 0f) currentDuration = lineData.duration;
+
+            if (lineData.targetToLookAt != null && lineData.targetToLookAt != currentLookTarget)
+            {
+                currentLookTarget = lineData.targetToLookAt;
+                isLookInterrupted = false;
+
+                if (lookCoroutine != null) StopCoroutine(lookCoroutine);
+
+                if (panTiltComponent != null)lookCoroutine = StartCoroutine(LookAtTarget(currentLookTarget));
+            }
 
             string currentText = lineData.textLine;
 
@@ -112,8 +121,11 @@ public class DialogueManager : MonoBehaviour
                 yield return null;
             }
         }
+
         if (fallbackCoroutine != null) StopCoroutine(fallbackCoroutine);
         if (fallbackCanvasGroup != null) fallbackCanvasGroup.alpha = 0f;
+
+        currentLookTarget = null;
         IsDialogueActive = false;
     }
     void PrepareTextComponent(TMP_Text textComponent, string textLine)
@@ -149,10 +161,16 @@ public class DialogueManager : MonoBehaviour
 
         while (true)
         {
-            Vector3 viewportPos = mainCamera.WorldToViewportPoint(worldPosition.position);
-            bool isOffScreen = viewportPos.z < 0 || viewportPos.x < 0 || viewportPos.x > 1 || viewportPos.y < 0 || viewportPos.y > 1;
+            bool isOffScreen = false;
+            if (worldPosition != null)
+            {
+                Vector3 viewportPos = mainCamera.WorldToViewportPoint(worldPosition.position);
+                isOffScreen = viewportPos.z < 0 || viewportPos.x < 0 || viewportPos.x > 1 || viewportPos.y < 0 || viewportPos.y > 1;
+            }
+            bool isActivelyLooking = (currentLookTarget != null && !isLookInterrupted);
 
-            float targetAlpha = isOffScreen ? 1f : 0f;
+            float targetAlpha = isActivelyLooking ? 0f : (isOffScreen ? 1f : 0f);
+
             fallbackCanvasGroup.alpha = Mathf.Lerp(fallbackCanvasGroup.alpha, targetAlpha, Time.deltaTime * fallbackFadeSpeed);
 
             yield return null;
@@ -183,7 +201,11 @@ public class DialogueManager : MonoBehaviour
             float deltaPan = Mathf.DeltaAngle(currentPan, idealPan);
             float deltaTilt = Mathf.DeltaAngle(currentTilt, idealTilt);
 
-            if (Mathf.Abs(deltaPan) <= angleTolerance && Mathf.Abs(deltaTilt) <= angleTolerance) break;
+            if (Mathf.Abs(deltaPan) <= angleTolerance && Mathf.Abs(deltaTilt) <= angleTolerance)
+            {
+                isLookInterrupted = true;
+                break;
+            }
 
             float mouseX = Input.GetAxis("Mouse X");
             float mouseY = Input.GetAxis("Mouse Y");
@@ -191,7 +213,11 @@ public class DialogueManager : MonoBehaviour
             if (Mathf.Abs(mouseX) > mouseSensitivityThreshold || Mathf.Abs(mouseY) > mouseSensitivityThreshold)
             {
                 mouseMoveTimer += Time.deltaTime;
-                if (mouseMoveTimer >= mouseInterruptDuration) break;
+                if (mouseMoveTimer >= mouseInterruptDuration)
+                {
+                    isLookInterrupted = true;
+                    break;
+                }
             }
             else mouseMoveTimer = 0f;
 

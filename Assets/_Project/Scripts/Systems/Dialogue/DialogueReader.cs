@@ -1,74 +1,72 @@
-    using UnityEngine;
-    using UnityEngine.Events;
+using UnityEngine;
+using UnityEngine.Events;
+public class DialogueReader : MonoBehaviour
+{
+    Transform playerTransform;
 
-    public class DialogueReader : MonoBehaviour
+    [Header("Library Reference")]
+    [Tooltip("La llave que buscará en el DialogueLibrary")]
+    [SerializeField] string dialogueKey;
+
+    [Header("Trigger Settings")]
+    [SerializeField] Transform triggerPoint;
+    [SerializeField] Vector3 activeBoxSize = new();
+    [SerializeField] bool disableTriggerAfterUse = true;
+    [SerializeField] bool singleTriggerOnlyViaEvent = true;
+    public UnityEvent OnTriggered;
+
+    bool triggered = false;
+    bool hasBeenExecuted = false;
+    void Awake()
     {
-        Transform playerTransform;
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player != null) playerTransform = player.transform;
 
-        [Header("Library Reference")]
-        [Tooltip("La llave que buscará en el DialogueLibrary")]
-        [SerializeField] string dialogueKey;
+        if (triggerPoint == null) triggerPoint = transform;
+    }
+    void Update()
+    {
+        if (triggered || playerTransform == null || triggerPoint == null) return;
 
-        [Header("Trigger Settings")]
-        [SerializeField] Transform triggerPoint;
-        [SerializeField] Vector3 activeBoxSize = new();
-        [SerializeField] bool disableTriggerAfterUse = true;
-        [SerializeField] bool singleTriggerOnlyViaEvent = true;
-        public UnityEvent OnTriggered;
-
-        bool triggered = false;
-        bool hasBeenExecuted = false;
-        void Awake()
+        if (IsPlayerInsideBox())
         {
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
-            if (player != null) playerTransform = player.transform;
-
-            if (triggerPoint == null) triggerPoint = transform;
+            ShotDialogue();
         }
+    }
+    bool IsPlayerInsideBox()
+    {
+        Vector3 difference = playerTransform.position - triggerPoint.position;
 
-        void Update()
-        {
-           if (triggered || playerTransform == null || triggerPoint == null) return;
+        Vector3 extents = activeBoxSize / 2f;
 
-            if (IsPlayerInsideBox())
-            {
-                ShotDialogue();
-            }
-        }
-        bool IsPlayerInsideBox()
-        {
-            Vector3 difference = playerTransform.position - triggerPoint.position;
+        bool insideX = Mathf.Abs(difference.x) <= extents.x;
+        bool insideY = Mathf.Abs(difference.y) <= extents.y;
+        bool insideZ = Mathf.Abs(difference.z) <= extents.z;
 
-            Vector3 extents = activeBoxSize / 2f;
+        return insideX && insideY && insideZ;
+    }
+    public void ShotDialogue()
+    {
+        if (singleTriggerOnlyViaEvent && hasBeenExecuted) return;
 
-            bool insideX = Mathf.Abs(difference.x) <= extents.x;
-            bool insideY = Mathf.Abs(difference.y) <= extents.y;
-            bool insideZ = Mathf.Abs(difference.z) <= extents.z;
+        var dataInfo = Dialogues.Instance.GetDialogue(dialogueKey);
+        if (dataInfo == null) return;
 
-            return insideX && insideY && insideZ;
-        }
-        public void ShotDialogue()
-        {
-            if (singleTriggerOnlyViaEvent && hasBeenExecuted) return;
+        bool dialogueStarted = DialogueManager.Instance.StartDialogue(dataInfo.Value);
+        if (!dialogueStarted) return;
 
-            var dataInfo = Dialogues.Instance.GetDialogue(dialogueKey);
-            if (dataInfo == null) return;
+        hasBeenExecuted = true;
+        triggered = true;
 
-            bool dialogueStarted = DialogueManager.Instance.StartDialogue(dataInfo.Value);
-            if (!dialogueStarted) return;
+        OnTriggered?.Invoke();
 
-            hasBeenExecuted = true;
-            triggered = true;
+        if (disableTriggerAfterUse) this.enabled = false;
+    }
+    void OnDrawGizmosSelected()
+    {
+        if (triggerPoint == null) return;
 
-            OnTriggered?.Invoke();
-
-            if (disableTriggerAfterUse) this.enabled = false;
-        }
-        void OnDrawGizmosSelected()
-        {
-            if (triggerPoint == null) return;
-
-            Gizmos.color = Color.green;
-            Gizmos.DrawWireCube(triggerPoint.position, activeBoxSize);
-        }
-    }   
+        Gizmos.color = Color.green;
+        Gizmos.DrawWireCube(triggerPoint.position, activeBoxSize);
+    }
+}   

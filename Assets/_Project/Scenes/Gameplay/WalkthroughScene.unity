@@ -101863,105 +101863,102 @@ MonoBehaviour:
   - dialogueKey: InitialText
     dialogueType: 1
     worldTextPosition: {fileID: 640296959}
-    targetToLookAt: {fileID: 640296959}
     dialogueSequence:
     - textLine: Where I am?
       uiTextComponent: {fileID: 640296960}
       duration: 1
+      targetToLookAt: {fileID: 640296959}
     - textLine: I have to find my parents...
       uiTextComponent: {fileID: 0}
       duration: 1
+      targetToLookAt: {fileID: 0}
   - dialogueKey: TutorialDoorText
     dialogueType: 1
     worldTextPosition: {fileID: 1995883794}
-    targetToLookAt: {fileID: 1995883794}
     dialogueSequence:
-    - textLine: La puerta parece estar cerrada...
+    - textLine: The door is closed... La puerta parece estar cerrada...
       uiTextComponent: {fileID: 1995883795}
       duration: 1
-    - textLine: "Necesito una llave \xBFD\xF3nde podr\xE1 estar?"
-      uiTextComponent: {fileID: 1995883795}
+      targetToLookAt: {fileID: 1995883794}
+    - textLine: I need the key. Where could the key be?
+      uiTextComponent: {fileID: 0}
       duration: 1
+      targetToLookAt: {fileID: 0}
   - dialogueKey: FuseNotItem
-    dialogueType: 0
+    dialogueType: 1
     worldTextPosition: {fileID: 0}
-    targetToLookAt: {fileID: 406381011}
-    dialogueSequence: []
+    dialogueSequence:
+    - textLine: 
+      uiTextComponent: {fileID: 0}
+      duration: 0
+      targetToLookAt: {fileID: 0}
+    - textLine: 
+      uiTextComponent: {fileID: 0}
+      duration: 0
+      targetToLookAt: {fileID: 0}
   - dialogueKey: DoorJacksonLocked
     dialogueType: 0
     worldTextPosition: {fileID: 0}
-    targetToLookAt: {fileID: 2137810017}
     dialogueSequence: []
   - dialogueKey: TakeFuse
-    dialogueType: 0
+    dialogueType: 1
     worldTextPosition: {fileID: 0}
-    targetToLookAt: {fileID: 673232818}
     dialogueSequence: []
   - dialogueKey: LivingRoomIndication
     dialogueType: 1
     worldTextPosition: {fileID: 676494771}
-    targetToLookAt: {fileID: 676494771}
     dialogueSequence:
     - textLine: I will search my parents on their room
       uiTextComponent: {fileID: 676494772}
       duration: 1
+      targetToLookAt: {fileID: 676494771}
     - textLine: Let's go to the stairs
       uiTextComponent: {fileID: 0}
       duration: 0
+      targetToLookAt: {fileID: 0}
   - dialogueKey: DoorOfficeClosed
     dialogueType: 0
     worldTextPosition: {fileID: 0}
-    targetToLookAt: {fileID: 1275667709}
     dialogueSequence: []
   - dialogueKey: ParentsRoomDialogue
     dialogueType: 0
     worldTextPosition: {fileID: 0}
-    targetToLookAt: {fileID: 867629239}
     dialogueSequence: []
   - dialogueKey: FirstSecretWall
     dialogueType: 0
     worldTextPosition: {fileID: 0}
-    targetToLookAt: {fileID: 700980046}
     dialogueSequence: []
   - dialogueKey: SecondSecretWall
     dialogueType: 0
     worldTextPosition: {fileID: 0}
-    targetToLookAt: {fileID: 607824710}
     dialogueSequence: []
   - dialogueKey: ThirdSecretWall
     dialogueType: 0
     worldTextPosition: {fileID: 0}
-    targetToLookAt: {fileID: 606397956}
     dialogueSequence: []
   - dialogueKey: FiveSecretWall
     dialogueType: 0
     worldTextPosition: {fileID: 0}
-    targetToLookAt: {fileID: 596445519}
     dialogueSequence: []
   - dialogueKey: FourSecretWall
     dialogueType: 0
     worldTextPosition: {fileID: 0}
-    targetToLookAt: {fileID: 277407452}
     dialogueSequence: []
   - dialogueKey: SixSecretWall
     dialogueType: 0
     worldTextPosition: {fileID: 0}
-    targetToLookAt: {fileID: 1839111253}
     dialogueSequence: []
   - dialogueKey: JacksonRoom
     dialogueType: 0
     worldTextPosition: {fileID: 0}
-    targetToLookAt: {fileID: 801967910}
     dialogueSequence: []
   - dialogueKey: DemoText
     dialogueType: 0
     worldTextPosition: {fileID: 0}
-    targetToLookAt: {fileID: 1659991841}
     dialogueSequence: []
   - dialogueKey: LibraryText
     dialogueType: 0
     worldTextPosition: {fileID: 0}
-    targetToLookAt: {fileID: 229083071}
     dialogueSequence: []
 --- !u!43 &936884485
 Mesh:
@@ -110427,8 +110424,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1550039657}
         m_TargetAssemblyTypeName: StateProgressionManager, Assembly-CSharp
-        m_MethodName: AddToState
-        m_Mode: 3
+        m_MethodName: AddStatePoint
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -182814,11 +182811,6 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 1659991845}
   m_SourcePrefab: {fileID: 100100000, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
---- !u!224 &1659991841 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 6412430279199106041, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
-  m_PrefabInstance: {fileID: 1659991840}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1659991842 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 2678081046836349823, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
@@ -190134,8 +190126,8 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1550039657}
         m_TargetAssemblyTypeName: StateProgressionManager, Assembly-CSharp
-        m_MethodName: AddToState
-        m_Mode: 3
+        m_MethodName: AddStatePoint
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -291871,6 +291863,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1419042227}
     m_Modifications:
     - target: {fileID: 3269771458903054785, guid: e91d561cb249b3d4d863e81ca256338d, type: 3}
+      propertyPath: OnCorrectItem.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3269771458903054785, guid: e91d561cb249b3d4d863e81ca256338d, type: 3}
       propertyPath: OnCorrectItem.m_PersistentCalls.m_Calls.Array.data[1].m_Target
       value: 
       objectReference: {fileID: 0}
@@ -291884,7 +291880,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6260523553896828450, guid: e91d561cb249b3d4d863e81ca256338d, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6844721042511978938, guid: e91d561cb249b3d4d863e81ca256338d, type: 3}
       propertyPath: m_LocalScale.x
@@ -305111,7 +305107,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6535511790042797529, guid: b3bfd38e83f2d9249b9f96e3e45d0f17, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6718605215546254556, guid: b3bfd38e83f2d9249b9f96e3e45d0f17, type: 3}
       propertyPath: m_LocalScale.x
