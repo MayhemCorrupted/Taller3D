@@ -2,31 +2,28 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using System;
+using UnityEngine.Events;
 public enum DialogueType { UI, World_3D }
 [Serializable] public struct DialogueLineData
 {
     [TextArea(2, 4)]
     public string textLine;
-
-    [Tooltip("Opcional. Si se deja vacío, heredará el TextMesh de la línea anterior.")]
-    public TMP_Text uiTextComponent;
-
-    [Tooltip("Opcional. Si es 0, heredará la duración de la línea anterior.")]
-    public float duration;
-    
+    [Header("Configuración de Línea")]
+    public DialogueType dialogueType;
     [Tooltip("Punto al que la cámara mirará automáticamente.")]
     public Transform targetToLookAt;
+    [Tooltip("Opcional. Si se deja vacío, heredará el TextMesh de la línea anterior.")]
+    public TMP_Text textMeshComponent;
+    [Tooltip("Opcional. Si es 0, heredará la duración de la línea anterior.")]
+    public float lineTypingDuration;
+    [Header("Events")]
+    public UnityEvent onLineStart;
 }
 [Serializable] public struct DialogueEntry
 {
     [Tooltip("La llave exacta que usará el reader para encontrar este diálogo")]
     public string dialogueKey;
 
-    [Header("Configuración de Tipo")]
-    public DialogueType dialogueType;
-    [Tooltip("Obligatorio si el tipo es World_3D. Posición del texto en el mundo para calcular si está en pantalla.")]
-    public Transform worldTextPosition;
-    
     [Header("Líneas de Diálogo")]
     public DialogueLineData[] dialogueSequence;
 }

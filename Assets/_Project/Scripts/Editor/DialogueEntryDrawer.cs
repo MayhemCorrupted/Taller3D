@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEditor;
 
-[CustomPropertyDrawer(typeof(DialogueEntry))]
+[CustomPropertyDrawer(typeof(DialogueLineData))]
 public class DialogueEntryDrawer : PropertyDrawer
 {
     public override float GetPropertyHeight(SerializedProperty property, GUIContent label)
@@ -16,12 +16,11 @@ public class DialogueEntryDrawer : PropertyDrawer
         prop.NextVisible(true);
         while (!SerializedProperty.EqualContents(prop, endProp))
         {
-            if (!is3D && (prop.name == "worldTextPosition" || prop.name == "targetToLookAt"))
+            if (!is3D && prop.name == "targetToLookAt")
             {
                 prop.NextVisible(false);
                 continue;
             }
-
             height += EditorGUI.GetPropertyHeight(prop, true) + EditorGUIUtility.standardVerticalSpacing;
             prop.NextVisible(false);
         }
@@ -43,7 +42,7 @@ public class DialogueEntryDrawer : PropertyDrawer
         prop.NextVisible(true);
         while (!SerializedProperty.EqualContents(prop, endProp))
         {
-            if (!is3D && (prop.name == "worldTextPosition" || prop.name == "targetToLookAt"))
+            if (!is3D && prop.name == "targetToLookAt")
             {
                 prop.NextVisible(false);
                 continue;

@@ -27,8 +27,10 @@ public class DialogueManager : MonoBehaviour
     [SerializeField] float mouseInterruptDuration = 0.3f;
     [SerializeField] float mouseSensitivityThreshold = 0.001f;
 
+    bool isUsingFallbackUI = false;
     bool isLookInterrupted = false;
     Transform currentLookTarget = null;
+    DialogueType currentLineType;
     void Awake()
     {
         if (Instance == null) Instance = this;
@@ -50,11 +52,7 @@ public class DialogueManager : MonoBehaviour
 
         typeCoroutine = StartCoroutine(TypingTextSequence(data));
 
-        if (data.dialogueType == DialogueType.World_3D) fallbackCoroutine = StartCoroutine(Track3DTextVisibility(data.worldTextPosition));
-        else
-        {
-            if (fallbackCanvasGroup != null) fallbackCanvasGroup.alpha = 1f;
-        }
+        fallbackCoroutine = StartCoroutine(Track3DTextVisibility());
         return true; 
     }
     IEnumerator TypingTextSequence(DialogueEntry data)
@@ -67,38 +65,60 @@ public class DialogueManager : MonoBehaviour
 
         foreach (var lineData in data.dialogueSequence)
         {
-            if (lineData.uiTextComponent != null) activeMainText = lineData.uiTextComponent;
-            if (lineData.duration > 0f) currentDuration = lineData.duration;
+            lineData.onLineStart?.Invoke();
+            currentLineType = lineData.dialogueType;
 
-            if (lineData.targetToLookAt != null && lineData.targetToLookAt != currentLookTarget)
+            if (lineData.targetToLookAt != null)
             {
-                currentLookTarget = lineData.targetToLookAt;
-                isLookInterrupted = false;
+                if (lineData.targetToLookAt != currentLookTarget)
+                {
+                    currentLookTarget = lineData.targetToLookAt;
+                    isLookInterrupted = false;
 
-                if (lookCoroutine != null) StopCoroutine(lookCoroutine);
-
-                if (panTiltComponent != null)lookCoroutine = StartCoroutine(LookAtTarget(currentLookTarget));
+                    if (lookCoroutine != null) StopCoroutine(lookCoroutine);
+                    if (panTiltComponent != null) lookCoroutine = StartCoroutine(LookAtTarget(currentLookTarget));
+                }
             }
+            else
+            {
+                if (currentLineType == DialogueType.World_3D)
+                {
+                    Debug.LogWarning("[DialogueManager] tienes una línea World_3D sin targetToLookAt. El panel UI Fallback no sabrá dónde anclarse.");
+                    currentLookTarget = null;
+                }
+            }
+
+            if (lineData.textMeshComponent != null) activeMainText = lineData.textMeshComponent;
+
+            isUsingFallbackUI = (currentLineType == DialogueType.World_3D) || (currentLineType == DialogueType.UI && activeMainText == null);
+
+            if (lineData.lineTypingDuration > 0f) currentDuration = lineData.lineTypingDuration;
 
             string currentText = lineData.textLine;
 
             PrepareTextComponent(activeMainText, currentText);
-            if (data.dialogueType == DialogueType.World_3D) PrepareTextComponent(fallbackUIText, currentText);
+            if (currentLineType == DialogueType.World_3D) PrepareTextComponent(fallbackUIText, currentText);
 
-            int charCount = activeMainText != null ? activeMainText.textInfo.characterCount : (fallbackUIText != null ? fallbackUIText.textInfo.characterCount : 0);
+            int charCount = activeMainText != null ? activeMainText.textInfo.characterCount : (isUsingFallbackUI && fallbackUIText != null ? fallbackUIText.textInfo.characterCount : 0);
 
             for (int i = 0; i < charCount; i++)
             {
+                bool isVisibleInMain = activeMainText != null && activeMainText.textInfo.characterInfo[i].isVisible;
+                bool isVisibleInFallback = isUsingFallbackUI && fallbackUIText != null && fallbackUIText.textInfo.characterInfo[i].isVisible;
+               
                 if (activeMainText != null && !activeMainText.textInfo.characterInfo[i].isVisible) continue;
-
+                
+                if (!isVisibleInMain && !isVisibleInFallback) continue;
+                
                 float t = 0;
+                
                 while (t < 1)
                 {
                     t += Time.deltaTime / timePerCharacter;
                     byte currentAlpha = (byte)Mathf.Lerp(0, 255, t);
 
                     SetCharacterAlpha(activeMainText, i, currentAlpha);
-                    if (data.dialogueType == DialogueType.World_3D) SetCharacterAlpha(fallbackUIText, i, currentAlpha);
+                    if (currentLineType == DialogueType.World_3D) SetCharacterAlpha(fallbackUIText, i, currentAlpha);
 
                     yield return null;
                 }
@@ -116,7 +136,7 @@ public class DialogueManager : MonoBehaviour
                 for (int i = 0; i < charCount; i++)
                 {
                     SetCharacterAlpha(activeMainText, i, targetAlpha);
-                    if (data.dialogueType == DialogueType.World_3D) SetCharacterAlpha(fallbackUIText, i, targetAlpha);
+                    if (currentLineType == DialogueType.World_3D) SetCharacterAlpha(fallbackUIText, i, targetAlpha);
                 }
                 yield return null;
             }
@@ -155,24 +175,31 @@ public class DialogueManager : MonoBehaviour
         vertexColors[vertexIndex + 3].a = alpha;
         textComponent.UpdateVertexData(TMP_VertexDataUpdateFlags.Colors32);
     }
-    IEnumerator Track3DTextVisibility(Transform worldPosition)
+    IEnumerator Track3DTextVisibility()
     {
-        if (fallbackCanvasGroup == null || worldPosition == null || mainCamera == null) yield break;
+        if (fallbackCanvasGroup == null || mainCamera == null) yield break;
 
         while (true)
         {
-            bool isOffScreen = false;
-            if (worldPosition != null)
+            if (currentLineType == DialogueType.UI)
             {
-                Vector3 viewportPos = mainCamera.WorldToViewportPoint(worldPosition.position);
-                isOffScreen = viewportPos.z < 0 || viewportPos.x < 0 || viewportPos.x > 1 || viewportPos.y < 0 || viewportPos.y > 1;
+                float targetAlpha = isUsingFallbackUI ? 1f : 0f;
+                fallbackCanvasGroup.alpha = Mathf.Lerp(fallbackCanvasGroup.alpha, targetAlpha, Time.deltaTime * fallbackFadeSpeed);
             }
-            bool isActivelyLooking = (currentLookTarget != null && !isLookInterrupted);
+            else
+            {
+                bool isOffScreen = false;
+                if (currentLookTarget != null)
+                {
+                    Vector3 viewportPos = mainCamera.WorldToViewportPoint(currentLookTarget.position);
+                    isOffScreen = viewportPos.z < 0 || viewportPos.x < 0 || viewportPos.x > 1 || viewportPos.y < 0 || viewportPos.y > 1;
+                }
 
-            float targetAlpha = isActivelyLooking ? 0f : (isOffScreen ? 1f : 0f);
+                bool isActivelyLooking = (currentLookTarget != null && !isLookInterrupted);
+                float targetAlpha = isActivelyLooking ? 0f : (isOffScreen ? 1f : 0f);
 
-            fallbackCanvasGroup.alpha = Mathf.Lerp(fallbackCanvasGroup.alpha, targetAlpha, Time.deltaTime * fallbackFadeSpeed);
-
+                fallbackCanvasGroup.alpha = Mathf.Lerp(fallbackCanvasGroup.alpha, targetAlpha, Time.deltaTime * fallbackFadeSpeed);
+            }
             yield return null;
         }
     }
