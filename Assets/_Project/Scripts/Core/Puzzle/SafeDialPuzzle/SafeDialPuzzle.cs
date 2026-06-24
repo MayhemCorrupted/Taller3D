@@ -5,7 +5,7 @@ using UnityEngine.UI;
 public class SafeDialPuzzle : MonoBehaviour, IInteractable
 {
     [Header("Interaction & UI")]
-    [SerializeField] string interactPrompt = "[E] Inspeccionar Caja Fuerte";
+    [SerializeField] string interactPrompt = "[{key}] Inspeccionar Caja Fuerte";
     [SerializeField] GameObject uiPanel;
     [SerializeField] Button exitButton;
     [SerializeField] SafeDialUI dialController;

@@ -24,7 +24,6 @@ public class PlayerInteractor : MonoBehaviour
 
     IInteractable currentInteractable;
     public float InteractRange => interactRange;
-
     void Update()
     {
         if (UserInterfaceManager.Instance != null && UserInterfaceManager.Instance.IsAnyPanelOpen())
@@ -37,7 +36,6 @@ public class PlayerInteractor : MonoBehaviour
         InteractDetector();
         InteractInput();
     }
-
     void InteractDetector()
     {
         if (interactPoint == null)
@@ -58,33 +56,45 @@ public class PlayerInteractor : MonoBehaviour
            IInteractable interactable = hit.collider.GetComponentInParent<IInteractable>();
            if (interactable != null)
             {
-                SetCurrentInteractable(interactable, interactable.GetTextInteract());
-                return;
+                string interactText = interactable.GetTextInteract();
+                if (!string.IsNullOrEmpty(interactText))
+                {
+                    SetCurrentInteractable(interactable, interactText);
+                    return;
+                }
             }
         }
         ClearInteractable();
     }
-
     void InteractInput()
     {
-        if (currentInteractable == null || !Input.GetKeyDown(KeyCode.E)) return;
-        currentInteractable.Interact(transform);
-        ClearInteractable();
+        if (currentInteractable == null || InputManager.Instance == null) return;
+        
+        if (Input.GetKeyDown(InputManager.Instance.InteractKey))
+        {
+            currentInteractable.Interact(transform);
+            ClearInteractable();
+        }
     }
-
     void SetCurrentInteractable(IInteractable interactable, string interactText)
     {
         currentInteractable = interactable;
         if (interactPrompt != null) interactPrompt.SetActive(true);
-        if (promptText != null) promptText.text = interactText;
+        if (promptText != null)
+        {
+            if (InputManager.Instance != null && interactText.Contains("{key}"))
+            {
+                string currentKey = InputManager.Instance.InteractKey.ToString();
+                promptText.text = interactText.Replace("{key}", currentKey);
+            }
+            else promptText.text = interactText;
+        }
     }
-
     void ClearInteractable()
     {
         currentInteractable = null;
         if (interactPrompt != null) interactPrompt.SetActive(false);
     }
-
     void OnDrawGizmos()
     {
         if (!showGizmos || interactPoint == null) return;

@@ -35,7 +35,7 @@ public class DialogueEntryDrawer : PropertyDrawer
         SerializedProperty typeProp = property.FindPropertyRelative("dialogueType");
         bool is3D = typeProp.enumValueIndex == (int)DialogueType.World_3D;
 
-        Rect rect = new Rect(position.x, position.y, position.width, EditorGUIUtility.singleLineHeight);
+        Rect rect = new(position.x, position.y, position.width, EditorGUIUtility.singleLineHeight);
 
         SerializedProperty prop = property.Copy();
         SerializedProperty endProp = prop.GetEndProperty();

@@ -27,7 +27,7 @@ public class PanelCodePuzzle : MonoBehaviour, IInteractable
     [SerializeField] NoteData linkedNote;
 
     [Header("UI Panel & Buttons")]
-    [SerializeField] string interactPrompt = "[E] Abrir panel";
+    [SerializeField] string interactPrompt = "[{key}] Abrir panel";
     [SerializeField] GameObject keypadPanel;
     [SerializeField] Button[] numberButtons = new Button[NUMPAD];
     [SerializeField] Button deleteButton;

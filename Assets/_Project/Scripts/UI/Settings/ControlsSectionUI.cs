@@ -27,7 +27,6 @@ public class ControlsSectionUI : MonoBehaviour
 
     [Header("Action Buttons")]
     [SerializeField] Button resetInputButton;
-    [SerializeField] Button saveInputButton;
     private bool isRebinding = false;
 
     void Start()
@@ -67,19 +66,11 @@ public class ControlsSectionUI : MonoBehaviour
                 currentMapping.rebindButton.onClick.AddListener(() => StartRebinding(currentMapping.playerPrefsKey, currentMapping.buttonText));
             }
         }
-        // 1. Conexión de los nuevos botones
         if (resetInputButton != null) resetInputButton.onClick.AddListener(ResetToDefaults);
-        if (saveInputButton != null) saveInputButton.onClick.AddListener(SaveAndApply);
     }
-
-    // --- MÉTODOS DE ACCIÓN ---
-
     private void ResetToDefaults()
     {
-        // 2. DATO IMPORTANTE: Restauración del Mouse
-        // Al modificar el '.value' o '.isOn', se disparan automáticamente los eventos 'onValueChanged'
-        // que asignamos arriba. Esto significa que el 'SettingsDataManager' se actualizará solo.
-        if (mouseSensibilitySlider != null) mouseSensibilitySlider.value = 100; // Asumiendo 50 como valor por defecto
+        if (mouseSensibilitySlider != null) mouseSensibilitySlider.value = 100;
         if (invertY != null) invertY.isOn = false;
         if (invertX != null) invertX.isOn = false;
 
@@ -96,7 +87,6 @@ public class ControlsSectionUI : MonoBehaviour
         SaveAndApply();
         Debug.Log("[Controls UI] Se han restaurado los valores por defecto.");
     }
-
     private void SaveAndApply()
     {
         PlayerPrefs.Save();
@@ -108,13 +98,11 @@ public class ControlsSectionUI : MonoBehaviour
 
         Debug.Log("[Controls UI] Configuraciones guardadas y aplicadas.");
     }
-
     private void StartRebinding(string prefKey, TextMeshProUGUI buttonText)
     {
         if (isRebinding) return;
         StartCoroutine(WaitForKeyPress(prefKey, buttonText));
     }
-
     private IEnumerator WaitForKeyPress(string prefKey, TextMeshProUGUI buttonText)
     {
         isRebinding = true;
@@ -137,6 +125,7 @@ public class ControlsSectionUI : MonoBehaviour
 
         WaitForSecondsRealtime waitForSecondsRealtime = new(0.1f);
         yield return waitForSecondsRealtime;
+        SaveAndApply();
         isRebinding = false;
     }
 }

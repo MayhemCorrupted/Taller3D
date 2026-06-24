@@ -15,7 +15,9 @@ public class OpenObjects : MonoBehaviour, IInteractable
     [Tooltip("¿Este objeto se desliza (Cajón) o gira (Puerta)?")]
     [SerializeField] OpenMode openMode = OpenMode.Drawer;
     [SerializeField] float animationSpeed = 1.5f;
-    string interactPrompt = "[E] Open";
+    
+    [SerializeField] string openTextPrompt = "[{key}] Open";
+    [SerializeField] string closeTextPrompt = "[{key}] Close";
 
     [Header("Drawer Settings (Slide)")]
     [Tooltip("Dirección local hacia donde sale el cajón. Generalmente Z = (0, 0, 1) o X = (1, 0, 0)")] 
@@ -44,7 +46,11 @@ public class OpenObjects : MonoBehaviour, IInteractable
         openRotation = closedRotation * Quaternion.AngleAxis(rotationAngle, rotationAxis.normalized);
     }
 
-    public string GetTextInteract() => interactPrompt;
+    public string GetTextInteract()
+    {
+        if (isMoving) return "";
+        return isOpen ? closeTextPrompt : openTextPrompt;
+    }
 
     public void Interact(Transform interactorTransform)
     {
@@ -56,8 +62,7 @@ public class OpenObjects : MonoBehaviour, IInteractable
         if (isMoving) return;
 
         isOpen = !isOpen;
-        interactPrompt = isOpen ? "[E] Close" : "[E] Open";
-
+   
         if (isOpen) OnOpeningObject?.Invoke();
         else OnClosingObject?.Invoke();
 

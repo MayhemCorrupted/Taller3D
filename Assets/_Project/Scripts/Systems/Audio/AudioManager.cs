@@ -7,7 +7,6 @@ public class AudioManager : MonoBehaviour
 
     readonly Dictionary<AudioLibrary.AudioType, float> categoryVolumes = new();
     readonly List<AudioLibrary> activeAudios = new();
-
     void Awake()
     {
         if (Instance != null && Instance != this)

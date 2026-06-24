@@ -34,6 +34,8 @@ public class ProceduralBasementSection : MonoBehaviour
         int variantIndex = Random.Range(0, puzzleVariants.Length);
         FusePuzzleVariant activeVariant = puzzleVariants[variantIndex];
 
+        Debug.Log($"[Procedural] Sótano/Fusibles (Semilla: {ProceduralSeedGenerator.Instance.FuseSeed}) | Variante: {activeVariant.variantName}");
+
         foreach (FusePuzzleVariant variant in puzzleVariants)
         {
             if (variant.puzzleContainer != null) variant.puzzleContainer.SetActive(false);
@@ -55,7 +57,5 @@ public class ProceduralBasementSection : MonoBehaviour
             int logicVariantSeed = Random.Range(0, 2);
             activeVariant.linkedSwitchLogic.InitializeProceduralState(logicVariantSeed);
         }
-
-        Debug.Log($"[Procedural] Fusibles | Puzzle Elegido: {activeVariant.variantName}");
     }
 }

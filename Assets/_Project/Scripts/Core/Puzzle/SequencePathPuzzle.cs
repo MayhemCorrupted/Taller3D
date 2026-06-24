@@ -5,9 +5,9 @@ using UnityEngine.Events;
 public class SequencePathPuzzle : MonoBehaviour, IInteractable
 {
     [Header("UI Panel & Interaction")]
-    [SerializeField] string interactPrompt = "[E] Interact";
     [SerializeField] GameObject uiPanel;
     [SerializeField] Button exitButton;
+    [SerializeField] string interactPrompt = "[{key}] Use panel";
 
     [Header("Puzzle Components")]
     [SerializeField] Button[] numpadButtons;
@@ -52,7 +52,7 @@ public class SequencePathPuzzle : MonoBehaviour, IInteractable
 
     private void InitializeProceduralGrid()
     {
-        Random.InitState(ProceduralSeedGenerator.Instance.SafeSeed + gameObject.name.GetHashCode());
+        Random.InitState(ProceduralSeedGenerator.Instance.OfficeSeed + gameObject.name.GetHashCode());
 
         int totalButtons = numpadButtons.Length;
         proceduralButtonValues = new int[totalButtons];
