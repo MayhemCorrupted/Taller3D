@@ -47,7 +47,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 90db61f420c406b4b97b536f12fb03ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractiveObjectLight
-  targetRenderer: {fileID: 1975399740063088640}
+  targetRenderer: {fileID: 0}
   glowColor: {r: 1, g: 1, b: 1, a: 1}
   blinkSpeed: 3
   glowStrength: 1.5
@@ -233,6 +233,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   itemPrompt: '[E] recoger {0}'
+  unpickablePrompt: cannot grab {0}
 --- !u!33 &5340175381168820858
 MeshFilter:
   m_ObjectHideFlags: 0

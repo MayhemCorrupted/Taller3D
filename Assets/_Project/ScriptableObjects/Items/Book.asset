@@ -10,15 +10,17 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 09ed1550255f7be498d68b434fc1d29d, type: 3}
-  m_Name: OfficeCodeNote
+  m_Name: Book
   m_EditorClassIdentifier: Assembly-CSharp::NoteData
   id: 6
-  itemName: Office code
-  description: 
+  itemName: Book
+  description: 'Wa
+
+'
   sprite: {fileID: 0}
-  itemType: 1
-  itemModelPrefab: {fileID: 0}
-  NoteDescription: El codigo de la oficina es {code}
+  itemType: 0
+  itemModelPrefab: {fileID: 919132149155446097, guid: 4227ec5f3ef533d4f8385ed62751b31d, type: 3}
+  NoteDescription: 
   image: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  isPuzzleNote: 1
+  isPuzzleNote: 0
   generatedCode: 5935

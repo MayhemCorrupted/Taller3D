@@ -1,9 +1,9 @@
 using UnityEngine;
-[RequireComponent(typeof(Renderer))]
+[RequireComponent(typeof(MeshRenderer))]
 public class InteractiveObjectLight : MonoBehaviour
 {
     [Header("References")]
-    [SerializeField] private Renderer targetRenderer;
+    [SerializeField] private MeshRenderer targetRenderer;
 
     [Header("Light Settings")]
     [SerializeField] private Color glowColor = Color.white;
@@ -16,7 +16,7 @@ public class InteractiveObjectLight : MonoBehaviour
     {
         if (targetRenderer == null)
         {
-            targetRenderer = GetComponent<Renderer>();
+            targetRenderer = GetComponent<MeshRenderer>();
         }
 
         materials = targetRenderer.materials;
