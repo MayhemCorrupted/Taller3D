@@ -37,4 +37,3 @@ public class InputManager : MonoBehaviour
         InventoryKey = (KeyCode) Enum.Parse(typeof(KeyCode), PlayerPrefs.GetString("Key_Inventory", "Tab"));
     }
 }
-    

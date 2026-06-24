@@ -8,6 +8,7 @@ public class PauseMenuUI : MonoBehaviour
     [SerializeField] GameObject pausePanel;
     [SerializeField] GameObject settingsPanel;
     [SerializeField] string sceneName = "MainMenuScene";
+    [SerializeField] KeyCode menuKey = KeyCode.Escape;
 
     [Header("Principal Buttons")]
     [SerializeField] Button resumeButton;
@@ -18,7 +19,7 @@ public class PauseMenuUI : MonoBehaviour
     [Header("Settings Buttons")]
     [SerializeField] Button backFromSettingsButton;
 
-    void Awake()
+    void Start()
     {
         if (pausePanel != null) pausePanel.SetActive(false);
         if (settingsPanel != null) settingsPanel.SetActive(false);
@@ -28,53 +29,43 @@ public class PauseMenuUI : MonoBehaviour
         if (quitButton != null) quitButton.onClick.AddListener(QuitGame);
         if (mainMenuButton != null) mainMenuButton.onClick.AddListener(GoToMainMenu);
         if (backFromSettingsButton != null) backFromSettingsButton.onClick.AddListener(CloseSettings);
-
-        if (UserInterfaceManager.Instance != null)
-            UserInterfaceManager.Instance.RegisterPanel(
-                UserInterfaceManager.PanelType.Pause, () => TogglePause(true));
+       UserInterfaceManager.Instance.RegisterPanel(
+            UserInterfaceManager.PanelType.Pause,
+            () => TogglePause(true),
+            () => TogglePause(false)
+        );
     }
 
     void Update()
     {
         if (InputManager.Instance == null) return;
-        if (!Input.GetKeyDown(KeyCode.Escape)) return;
+        if (!Input.GetKeyDown(menuKey)) return;
+
+        UserInterfaceManager.Instance.TogglePanel(UserInterfaceManager.PanelType.Pause);
 
         if (settingsPanel != null && settingsPanel.activeSelf)
         {
             CloseSettings();
             return;
         }
-
-        bool isOpening = !pausePanel.activeSelf;
-
-        if (isOpening)
-        {
-            UserInterfaceManager.Instance.RequestOpenPanel(UserInterfaceManager.PanelType.Pause);
-            TogglePause(true);
-            AudioManager.Instance.PauseGlobalAudio();
-            
-        }
-        else
-        {
-            UserInterfaceManager.Instance.ReportClosedPanel(UserInterfaceManager.PanelType.Pause);
-            TogglePause(false);
-            AudioManager.Instance.ResumeGlobalAudio();
-        }
     }
 
-    public void TogglePause(bool state)
+    public void TogglePause(bool isPaused)
     {
-        if (pausePanel != null) pausePanel.SetActive(state);
-        Time.timeScale = state ? 0f : 1f;
+        if (pausePanel != null) pausePanel.SetActive(isPaused);
+        Time.timeScale = isPaused ? 0f : 1f;
 
-        
+        if (AudioManager.Instance != null)
+        {
+            if (isPaused) AudioManager.Instance.PauseGlobalAudio();
+            else AudioManager.Instance.ResumeGlobalAudio();
+        }
+
     }
 
     void ResumeGame()
     {
-        if (UserInterfaceManager.Instance != null)
-            UserInterfaceManager.Instance.ReportClosedPanel(UserInterfaceManager.PanelType.Pause);
-        TogglePause(false);
+        UserInterfaceManager.Instance.ClosePanel(UserInterfaceManager.PanelType.Pause);
     }
 
     void GoToMainMenu()
@@ -99,7 +90,6 @@ public class PauseMenuUI : MonoBehaviour
         Time.timeScale = 1;
         Application.Quit();
     }
-
     void OnDestroy()
     {
         if (resumeButton != null) resumeButton.onClick.RemoveAllListeners();

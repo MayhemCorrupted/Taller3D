@@ -10,9 +10,13 @@ public class SwitchPuzzle : MonoBehaviour, IInteractable
     [SerializeField] ItemData requiredItemData;
     [SerializeField] GameObject itemPlacedModel;
 
-    [Header("Puzzle UI & Interaction")]
-    [SerializeField] string interactPrompt = "[E] Inspect Panel";
+    [Header("Puzzle UI & Prompts")]
+    [SerializeField] string inspectPanelPrompt = "[{key}] Inspect Panel";
+    [SerializeField] string placeFusePrompt = "[{key}] Place Fuse";
+    [SerializeField] string missingFusePrompt = "Requires Fuse";      
+
     [SerializeField] GameObject uiPanel;
+    [SerializeField] Button closePanelButton;
 
     [Tooltip("Utilizar Buttons normales para evitar el desajuste visual de Toggles.")]
     [SerializeField] Button[] fuseButtons = new Button[MAX_SWITCHES];
@@ -30,14 +34,13 @@ public class SwitchPuzzle : MonoBehaviour, IInteractable
 
     bool isFusePlaced = false;
     bool isSolved = false;
-    bool isUIOpen = false;
 
     readonly bool[] currentSwitchStates = new bool[MAX_SWITCHES];
 
     ISwitchVariantLogic activePuzzleLogic;
     PuzzleVariant[] variantRegistry;
 
-    public string PuzzlePrompt => interactPrompt;
+    public string PuzzlePrompt => inspectPanelPrompt;
 
     void Awake()
     {
@@ -53,6 +56,11 @@ public class SwitchPuzzle : MonoBehaviour, IInteractable
         if (uiPanel != null) uiPanel.SetActive(false);
         if (itemPlacedModel != null) itemPlacedModel.SetActive(false);
 
+        if (closePanelButton != null)
+        {
+            closePanelButton.onClick.AddListener(() => {UserInterfaceManager.Instance.ClosePanel(UserInterfaceManager.PanelType.Switch); });
+        }
+
         for (int i = 0; i < fuseButtons.Length; i++)
         {
             int index = i;
@@ -61,6 +69,17 @@ public class SwitchPuzzle : MonoBehaviour, IInteractable
                 fuseButtons[index].onClick.AddListener(() => OnFusePressed(index));
             }
         }
+        UserInterfaceManager.Instance.RegisterPanel(
+            UserInterfaceManager.PanelType.Switch,
+            () =>
+            {
+                if (uiPanel != null) uiPanel.SetActive(true);
+            },
+            () =>
+            {
+                if (uiPanel != null) uiPanel.SetActive(false);
+            }
+        );
     }
 
     public void InitializeProceduralState(int proceduralSeed)
@@ -79,8 +98,21 @@ public class SwitchPuzzle : MonoBehaviour, IInteractable
         SyncAllVisuals();
     }
 
-    public string GetTextInteract() => interactPrompt;
+    public string GetTextInteract()
+    {
+        if (isSolved) return ""; 
 
+        if (!isFusePlaced)
+        {
+            if (PlayerHasFuse())
+            {
+                return placeFusePrompt;
+            }
+            return missingFusePrompt; 
+        }
+
+        return inspectPanelPrompt;
+    }
     public void Interact(Transform interactorTransform)
     {
         if (isSolved) return;
@@ -91,10 +123,29 @@ public class SwitchPuzzle : MonoBehaviour, IInteractable
             return;
         }
 
-        TogglePanel(!isUIOpen);
+        UserInterfaceManager.Instance.TogglePanel(UserInterfaceManager.PanelType.Switch);
     }
+    private bool PlayerHasFuse()
+    {
+        if (requiredItemData == null) return false;
 
-    private void TryPlaceFuse()
+        if (EquipmentManager.Instance != null && EquipmentManager.Instance.CurrentEquippedItem == requiredItemData)
+        {
+            return true;
+        }
+
+        if (InventoryManager.Instance != null)
+        {
+            ItemData[] currentItems = InventoryManager.Instance.GetAllItems();
+            for (int i = 0; i < currentItems.Length; i++)
+            {
+                if (currentItems[i] == requiredItemData) return true;
+            }
+        }
+
+        return false;
+    }
+    void TryPlaceFuse()
     {
         if (EquipmentManager.Instance.CurrentEquippedItem == requiredItemData)
         {
@@ -122,24 +173,7 @@ public class SwitchPuzzle : MonoBehaviour, IInteractable
             else OnMissingItem?.Invoke();
         }
     }
-
-    public void TogglePanel(bool state)
-    {
-        isUIOpen = state;
-
-        if (state)
-        {
-            if (!UserInterfaceManager.Instance.RequestOpenPanel(UserInterfaceManager.PanelType.Puzzle)) return;
-        }
-        else
-        {
-            UserInterfaceManager.Instance.ReportClosedPanel(UserInterfaceManager.PanelType.Puzzle);
-        }
-
-        if (uiPanel != null) uiPanel.SetActive(state);
-    }
-
-    private void OnFusePressed(int index)
+    void OnFusePressed(int index)
     {
         if (activePuzzleLogic == null || isSolved) return;
 
@@ -149,7 +183,7 @@ public class SwitchPuzzle : MonoBehaviour, IInteractable
         CheckWinCondition();
     }
 
-    private void SyncAllVisuals()
+    void SyncAllVisuals()
     {
         for (int i = 0; i < MAX_SWITCHES; i++)
         {
@@ -160,7 +194,7 @@ public class SwitchPuzzle : MonoBehaviour, IInteractable
             if (fuseFeedbackLights.Length > i && fuseFeedbackLights[i] != null) fuseFeedbackLights[i].color = state ? lightOnColor : lightOffColor;
         }
     }
-    private void CheckWinCondition()
+    void CheckWinCondition()
     {
         for (int i = 0; i < MAX_SWITCHES; i++)
         {
@@ -168,8 +202,8 @@ public class SwitchPuzzle : MonoBehaviour, IInteractable
         }
 
         isSolved = true;
-        interactPrompt = string.Empty;
+        inspectPanelPrompt = string.Empty;
         OnPuzzleSolved?.Invoke();
-        TogglePanel(false);
+        UserInterfaceManager.Instance.ClosePanel(UserInterfaceManager.PanelType.Switch);
     }
 }   

@@ -8,8 +8,10 @@ public class DoorController : MonoBehaviour, IInteractable
     [SerializeField] Transform hinge;
     [SerializeField] float openAngle = 90f;
     [SerializeField] float doorSpeed = 2f;
+    [Header("Prompt Settings")]
     [SerializeField] string lockTextPrompt = "Closed";
-    [SerializeField] string interactablePrompt = "[E] interact";
+    [SerializeField] string openDoorPrompt = "{key} Open door";
+    [SerializeField] string closeDoorPrompt = "{key} Close door";
     [Header("Direction Restrictions")]
     [SerializeField] bool revertDirection = false;
     [SerializeField][Range(-1, 1)] int forcedDirection = 0;
@@ -25,7 +27,7 @@ public class DoorController : MonoBehaviour, IInteractable
     [SerializeField] UnityEvent OnClosingDoor;
     public bool IsLocked => doorLocked;
     public string LockTextPrompt => lockTextPrompt;
-    public string InteractablePrompt => interactablePrompt;
+    public string InteractablePrompt => openDoorPrompt;
     public bool IsOpen => isOpen;
     public bool IsMoving => isMoving;
     public float DoorSpeed { set { doorSpeed = value; } }
@@ -45,11 +47,16 @@ public class DoorController : MonoBehaviour, IInteractable
     }
     public string GetTextInteract()
     {
+        if (isMoving) return "";
+
         if (keyDoorComponent != null && keyDoorComponent.HasCorrectKey()) return keyDoorComponent.KeyTextPrompt;
-        return doorLocked ? lockTextPrompt : interactablePrompt;
+        if (doorLocked) return lockTextPrompt;
+
+        return isOpen ? closeDoorPrompt : openDoorPrompt;
     }
     public void Interact(Transform interactorTransform)
     {
+        if (isMoving) return;
         if (keyDoorComponent != null)
         {
             ItemData heldItem = EquipmentManager.Instance.CurrentEquippedItem;

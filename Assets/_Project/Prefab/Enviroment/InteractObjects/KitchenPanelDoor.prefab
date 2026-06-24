@@ -168,7 +168,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &5360117925917978018
 Transform:
   m_ObjectHideFlags: 0
@@ -177,7 +177,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8211094879797474539}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -1, z: -0, w: 0.00000037252897}
+  m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -201,8 +201,8 @@ MonoBehaviour:
   codeLength: 4
   customCode: 
   panelCode: {fileID: 0}
-  linkedNote: {fileID: 11400000, guid: c7e8cda811277134783c5806b365bd55, type: 2}
-  interactPrompt: '[E] Abrir panel'
+  linkedNote: {fileID: 11400000, guid: 6e9c723027222194b94ba9d61150c0ac, type: 2}
+  interactPrompt: '[E] Open Panel'
   keypadPanel: {fileID: 0}
   numberButtons:
   - {fileID: 0}
@@ -253,10 +253,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ece21ebce81553c4d82ee8de6e13cc07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorController
+  hinge: {fileID: 0}
   openAngle: 90
   doorSpeed: 2
   lockTextPrompt: Cerrado
-  interactablePrompt: '[E] Abrir/Cerrar '
+  interactablePrompt: ' '
   revertDirection: 0
   forcedDirection: 0
   doorLocked: 1
@@ -1635,7 +1636,7 @@ MonoBehaviour:
   m_PreserveMeshAssetOnDestroy: 0
   assetGuid: 
   m_Mesh: {fileID: 0}
-  m_VersionIndex: 1247
+  m_VersionIndex: 1271
   m_IsSelectable: 1
   m_SelectedFaces: 
   m_SelectedEdges: []
@@ -1800,7 +1801,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0

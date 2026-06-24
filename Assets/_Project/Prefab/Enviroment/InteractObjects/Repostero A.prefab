@@ -258,8 +258,8 @@ GameObject:
   - component: {fileID: 4178112218097474995}
   - component: {fileID: 3665956795032615562}
   - component: {fileID: 6147715444480564035}
-  - component: {fileID: 4819484223026450657}
   - component: {fileID: 7426269578986360631}
+  - component: {fileID: 4819484223026450657}
   m_Layer: 3
   m_Name: Cajon_A_2
   m_TagString: Untagged
@@ -376,16 +376,61 @@ MonoBehaviour:
   targetToAnimate: {fileID: 0}
   OnClosingObject:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7426269578986360631}
+        m_TargetAssemblyTypeName: AudioLibrary, Assembly-CSharp
+        m_MethodName: PlayOneShotSound
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: CloseDrawer
+          m_BoolArgument: 0
+        m_CallState: 2
   OnOpeningObject:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 7426269578986360631}
+        m_TargetAssemblyTypeName: AudioLibrary, Assembly-CSharp
+        m_MethodName: PlayOneShotSound
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: OpenDrawer
+          m_BoolArgument: 0
+        m_CallState: 2
   openMode: 0
   animationSpeed: 1
   slideAxis: {x: 0, y: 0, z: 1}
   slideDistance: 40
   rotationAxis: {x: 0, y: 1, z: 0}
   rotationAngle: 90
+--- !u!114 &7426269578986360631
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3342422937795695047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58f82f37a2b8f684080424d192fc8701, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioLibrary
+  tracks:
+  - trackName: CloseDrawer
+    clip: {fileID: 8300000, guid: 9a435070d489fd54996a970591c297e9, type: 3}
+    category: 2
+    localVolume: 1
+  - trackName: OpenDrawer
+    clip: {fileID: 8300000, guid: e522df94ee39a354485f76a79416323e, type: 3}
+    category: 2
+    localVolume: 1
 --- !u!82 &4819484223026450657
 AudioSource:
   m_ObjectHideFlags: 0
@@ -407,7 +452,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 0.5
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -443,7 +488,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -483,27 +528,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &7426269578986360631
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3342422937795695047}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58f82f37a2b8f684080424d192fc8701, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AudioLibrary
-  tracks:
-  - trackName: CloseDrawer
-    clip: {fileID: 8300000, guid: 9a435070d489fd54996a970591c297e9, type: 3}
-    category: 2
-    localVolume: 1
-  - trackName: OpenDrawer
-    clip: {fileID: 8300000, guid: e522df94ee39a354485f76a79416323e, type: 3}
-    category: 2
-    localVolume: 1
 --- !u!1 &3496756618155484727
 GameObject:
   m_ObjectHideFlags: 0
@@ -579,8 +603,8 @@ GameObject:
   - component: {fileID: 4237879931534761715}
   - component: {fileID: 991383478621730594}
   - component: {fileID: 3040007457638977630}
-  - component: {fileID: 1050238158294650269}
   - component: {fileID: 5340049010356309429}
+  - component: {fileID: 1050238158294650269}
   m_Layer: 3
   m_Name: Cajon_A_1
   m_TagString: Untagged
@@ -697,16 +721,61 @@ MonoBehaviour:
   targetToAnimate: {fileID: 0}
   OnClosingObject:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5340049010356309429}
+        m_TargetAssemblyTypeName: AudioLibrary, Assembly-CSharp
+        m_MethodName: PlayOneShotSound
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: CloseDrawer
+          m_BoolArgument: 0
+        m_CallState: 2
   OnOpeningObject:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5340049010356309429}
+        m_TargetAssemblyTypeName: AudioLibrary, Assembly-CSharp
+        m_MethodName: PlayOneShotSound
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: OpenDrawer
+          m_BoolArgument: 0
+        m_CallState: 2
   openMode: 0
   animationSpeed: 1
   slideAxis: {x: 0, y: 0, z: 1}
   slideDistance: 40
   rotationAxis: {x: 0, y: 1, z: 0}
   rotationAngle: 90
+--- !u!114 &5340049010356309429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5803930701369189138}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58f82f37a2b8f684080424d192fc8701, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioLibrary
+  tracks:
+  - trackName: CloseDrawer
+    clip: {fileID: 8300000, guid: 9a435070d489fd54996a970591c297e9, type: 3}
+    category: 2
+    localVolume: 1
+  - trackName: OpenDrawer
+    clip: {fileID: 8300000, guid: e522df94ee39a354485f76a79416323e, type: 3}
+    category: 2
+    localVolume: 1
 --- !u!82 &1050238158294650269
 AudioSource:
   m_ObjectHideFlags: 0
@@ -728,7 +797,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 0.5
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -764,7 +833,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -804,27 +873,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &5340049010356309429
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5803930701369189138}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58f82f37a2b8f684080424d192fc8701, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AudioLibrary
-  tracks:
-  - trackName: CloseDrawer
-    clip: {fileID: 8300000, guid: 9a435070d489fd54996a970591c297e9, type: 3}
-    category: 2
-    localVolume: 1
-  - trackName: OpenDrawer
-    clip: {fileID: 8300000, guid: e522df94ee39a354485f76a79416323e, type: 3}
-    category: 2
-    localVolume: 1
 --- !u!1 &5958258504508697727
 GameObject:
   m_ObjectHideFlags: 0
@@ -900,8 +948,8 @@ GameObject:
   - component: {fileID: 8597122736790819143}
   - component: {fileID: 344155019648482826}
   - component: {fileID: 3674013266402675560}
-  - component: {fileID: 3246910875727532920}
   - component: {fileID: 4792021577691473743}
+  - component: {fileID: 3246910875727532920}
   m_Layer: 0
   m_Name: Cajon_A_3
   m_TagString: Untagged
@@ -1018,16 +1066,61 @@ MonoBehaviour:
   targetToAnimate: {fileID: 0}
   OnClosingObject:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4792021577691473743}
+        m_TargetAssemblyTypeName: AudioLibrary, Assembly-CSharp
+        m_MethodName: PlayOneShotSound
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: CloseDrawer
+          m_BoolArgument: 0
+        m_CallState: 2
   OnOpeningObject:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 4792021577691473743}
+        m_TargetAssemblyTypeName: AudioLibrary, Assembly-CSharp
+        m_MethodName: PlayOneShotSound
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: OpenDrawer
+          m_BoolArgument: 0
+        m_CallState: 2
   openMode: 0
   animationSpeed: 1
   slideAxis: {x: 0, y: 0, z: 1}
   slideDistance: 40
   rotationAxis: {x: 0, y: 1, z: 0}
   rotationAngle: 90
+--- !u!114 &4792021577691473743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6236992925618569837}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 58f82f37a2b8f684080424d192fc8701, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::AudioLibrary
+  tracks:
+  - trackName: CloseDrawer
+    clip: {fileID: 8300000, guid: 9a435070d489fd54996a970591c297e9, type: 3}
+    category: 2
+    localVolume: 1
+  - trackName: OpenDrawer
+    clip: {fileID: 8300000, guid: e522df94ee39a354485f76a79416323e, type: 3}
+    category: 2
+    localVolume: 1
 --- !u!82 &3246910875727532920
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1049,7 +1142,7 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 0.5
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -1085,7 +1178,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -1125,27 +1218,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &4792021577691473743
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6236992925618569837}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 58f82f37a2b8f684080424d192fc8701, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::AudioLibrary
-  tracks:
-  - trackName: CloseDrawer
-    clip: {fileID: 8300000, guid: 9a435070d489fd54996a970591c297e9, type: 3}
-    category: 2
-    localVolume: 1
-  - trackName: OpenDrawer
-    clip: {fileID: 8300000, guid: e522df94ee39a354485f76a79416323e, type: 3}
-    category: 2
-    localVolume: 1
 --- !u!1 &7842583655661178378
 GameObject:
   m_ObjectHideFlags: 0

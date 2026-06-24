@@ -5,11 +5,11 @@ public class ProceduralSeedGenerator : MonoBehaviour
     public static ProceduralSeedGenerator Instance { get; private set; }
 
     [Header("Global Seed Configuration")]
-    [Tooltip("Formato de 11 dígitos: 3(Puertas) + 3(Fusibles) + 3(Cajas) + 2(Libro). Si lo dejas vacío, se generará uno aleatorio.")]
+    [Tooltip("Admite cualquier cadena de texto como semilla maestra. Si lo dejas vacío, se generará una semilla aleatoria.")]
     public string masterSeed = "";
     public int DoorSeed { get; private set; }
     public int FuseSeed { get; private set; }
-    public int SafeSeed { get; private set; }
+    public int OfficeSeed { get; private set; }
     public int BookSeed { get; private set; }
 
     void Awake()
@@ -31,31 +31,37 @@ public class ProceduralSeedGenerator : MonoBehaviour
             GenerateRandomMasterSeed();
         }
 
-        try
+        if (masterSeed.Length == 4 && int.TryParse(masterSeed, out _))
         {
-            DoorSeed = int.Parse(masterSeed.Substring(0, 3));
-            FuseSeed = int.Parse(masterSeed.Substring(3, 3));
-            SafeSeed = int.Parse(masterSeed.Substring(6, 3));
-            BookSeed = int.Parse(masterSeed.Substring(9, 2));
+            DoorSeed = int.Parse(masterSeed[0].ToString());
+            FuseSeed = int.Parse(masterSeed[1].ToString());
+            OfficeSeed = int.Parse(masterSeed[2].ToString());
+            BookSeed = int.Parse(masterSeed[3].ToString());
+
+            Debug.Log($"[Procedural] Semilla Numérica Estándar: {masterSeed}");
         }
-        catch (System.Exception e)
+        else
         {
-            Debug.LogError($"[ProceduralManager] Error al fragmentar la semilla. Generando semilla de emergencia. Error: {e.Message}");
-            GenerateRandomMasterSeed();
-            InitializeMasterSeed();
-            return;
+            System.Random textHashRandom = new(masterSeed.GetHashCode());
+
+            DoorSeed = textHashRandom.Next(0, 10);
+            FuseSeed = textHashRandom.Next(0, 10);
+            OfficeSeed = textHashRandom.Next(0, 10);
+            BookSeed = textHashRandom.Next(0, 10);
+
+            Debug.Log($"[Procedural] Semilla de Texto Detectada: '{masterSeed}' -> Convertida internamente.");
         }
 
-        Debug.Log($"[ProceduralManager] Semilla Maestra Iniciada: {masterSeed}\nPuertas: {DoorSeed} | Fusibles: {FuseSeed} | Cajas: {SafeSeed} | Libro: {BookSeed}");
+        Debug.Log($"[Procedural] Distribución = Puertas: {DoorSeed} | Fusibles: {FuseSeed} | Oficina: {OfficeSeed} | Libro: {BookSeed}");
     }
     private void GenerateRandomMasterSeed()
     {
         masterSeed = "";
-        for (int i = 0; i < 11; i++)
+        for (int i = 0; i < 4; i++) 
         {
             masterSeed += Random.Range(0, 10).ToString();
         }
-        Debug.LogWarning("[ProceduralManager] Semilla aleatoria generada automáticamente.");
+        Debug.LogWarning("[Procedural] Semilla vacía. Generando semilla aleatoria automáticamente.");
     }
     public int GetCustomLocalSeed(string uniqueID)
     {

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 public class ProceduralLibrarySection : MonoBehaviour
@@ -11,7 +12,10 @@ public class ProceduralLibrarySection : MonoBehaviour
 
         [Header("Spawn Configuration")]
         [Tooltip("El Tag exacto en Unity de los puntos donde este objeto tiene permitido aparecer")]
-        public string spawnTag;            
+        public string spawnTag;
+        [Header("Secondary Items Configuration")]
+        [Tooltip("Prefabs adicionales (falsos/decorativos) que llenarán los puntos restantes")]
+        public GameObject[] secondaryPrefabs;
 
         [Header("Environment Props (Optional)")]
         [Tooltip("Libros falsos o pistas visuales que aparecen SOLO en esta ruta")]
@@ -23,7 +27,7 @@ public class ProceduralLibrarySection : MonoBehaviour
 
     [Header("Library Configurations")]
     [SerializeField] private LibraryPuzzleVariant[] libraryVariants;
-
+    
     void Start()
     {
         ExecuteLibrarySpawning();
@@ -38,19 +42,34 @@ public class ProceduralLibrarySection : MonoBehaviour
         int variantIndex = Random.Range(0, libraryVariants.Length);
         LibraryPuzzleVariant activeVariant = libraryVariants[variantIndex];
 
+        Debug.Log($"[Procedural] Librería (Semilla: {ProceduralSeedGenerator.Instance.BookSeed}) | Variante: {activeVariant.variantName}");
+
         if (!string.IsNullOrEmpty(activeVariant.spawnTag))
         {
-            GameObject[] availablePoints = GameObject.FindGameObjectsWithTag(activeVariant.spawnTag);
+            List<GameObject> availablePoints = new(GameObject.FindGameObjectsWithTag(activeVariant.spawnTag));
 
-            if (availablePoints.Length > 0)
+            if (availablePoints.Count > 0)
             {
-                int spawnIndex = Random.Range(0, availablePoints.Length);
-                Transform targetPoint = availablePoints[spawnIndex].transform;
+                int mainSpawnIndex = Random.Range(0, availablePoints.Count);
+                Transform mainTargetPoint = availablePoints[mainSpawnIndex].transform;
 
-                GameObject spawnedItem = Instantiate(activeVariant.itemPrefab, targetPoint.position, targetPoint.rotation);
-                spawnedItem.transform.SetParent(targetPoint, true);
+                SpawnPrefabAtTransform(activeVariant.itemPrefab, mainTargetPoint);
+                Debug.Log($"[Procedural] Librería | Objeto Principal en: {mainTargetPoint.name}");
 
-                Debug.Log($"[Procedural] Librería | Variante: {activeVariant.variantName} | Spawn en: {targetPoint.name} (Tag: {activeVariant.spawnTag})");
+                availablePoints.RemoveAt(mainSpawnIndex);
+
+                if (activeVariant.secondaryPrefabs != null && activeVariant.secondaryPrefabs.Length > 0)
+                {
+                    for (int i = 0; i < availablePoints.Count; i++)
+                    {
+                        Transform secTargetPoint = availablePoints[i].transform;
+
+                        int randomPrefabIndex = Random.Range(0, activeVariant.secondaryPrefabs.Length);
+                        GameObject selectedPrefab = activeVariant.secondaryPrefabs[randomPrefabIndex];
+
+                        SpawnPrefabAtTransform(selectedPrefab, secTargetPoint);
+                    }
+                }
             }
             else
             {
@@ -61,7 +80,6 @@ public class ProceduralLibrarySection : MonoBehaviour
         {
             Debug.LogError($"[Procedural] La variante {activeVariant.variantName} no tiene un Tag asignado en el Inspector.");
         }
-
         foreach (GameObject prop in activeVariant.propsToEnable)
         {
             if (prop != null) prop.SetActive(true);
@@ -71,5 +89,12 @@ public class ProceduralLibrarySection : MonoBehaviour
         {
             if (prop != null) prop.SetActive(false);
         }
+    }
+    void SpawnPrefabAtTransform(GameObject prefab, Transform target)
+    {
+        if (prefab == null || target == null) return;
+
+        GameObject spawnedItem = Instantiate(prefab, target.position, target.rotation);
+        spawnedItem.transform.SetParent(target, true);
     }
 }

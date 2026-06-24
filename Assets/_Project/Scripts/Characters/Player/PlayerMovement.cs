@@ -15,10 +15,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float flyImpulse = 15;
     bool flying;
     bool canFly = true;
-    public bool CanFly { set => canFly = value; }
     bool canMove = true;
     Vector2 moveInput;
     float verticalVelocity;
+    public Vector3 Velocity => playerCtrl.velocity;
+    public bool IsGrounded => playerCtrl.isGrounded;
+    public bool Flying => flying;
+    public bool CanFly { set => canFly = value; }
     void Awake()
     {
         playerCtrl = GetComponent<CharacterController>();
@@ -31,14 +34,14 @@ public class PlayerMovement : MonoBehaviour
 
         InputHandle();
         if (flying && canFly) FlyingMovement();
-        else GroundMovement();
+        else if (!flying || playerCtrl.isGrounded) GroundMovement();
     }
     void InputHandle()
     {
         if (Input.GetKeyDown(InputManager.Instance.FlyKey))
         {
             flying = !flying;
-            if (flying) verticalVelocity = flyImpulse;
+            if (flying && playerCtrl.isGrounded) verticalVelocity = flyImpulse;
         }
         float y = GetAxis(InputManager.Instance.ForwardKey, InputManager.Instance.BackwardKey);
         float x = GetAxis(InputManager.Instance.RightKey, InputManager.Instance.LeftKey);

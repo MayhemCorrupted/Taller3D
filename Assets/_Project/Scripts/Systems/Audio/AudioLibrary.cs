@@ -49,7 +49,6 @@ public class AudioLibrary : MonoBehaviour
         }
         else Debug.LogWarning($"[AudioRegister] Pista no encontrada: '{name}'");
     }
-
     public void PlayLoopSound(string name)
     {
         if (trackDictionary.TryGetValue(name, out AudioTrack track))
@@ -68,7 +67,6 @@ public class AudioLibrary : MonoBehaviour
         }
         else Debug.LogWarning($"[AudioRegister] Pista no encontrada: '{name}'");
     }
-
     public void StopSound()
     {
         if (audioSource != null)

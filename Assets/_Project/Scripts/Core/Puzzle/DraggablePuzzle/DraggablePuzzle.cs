@@ -39,18 +39,25 @@ public class DraggablePuzzle : MonoBehaviour, IInteractable
 
     bool isSolved = false;
     bool isFusePlaced = false;
-    bool isUIOpen = false;
-
-    void Awake()
+    void Start()
     {
         if (restartButton != null) restartButton.onClick.AddListener(ResetAllFusesToHome);
-        if (exitButton != null) exitButton.onClick.AddListener(() => TogglePanel(false));
+        if (exitButton != null) exitButton.onClick.AddListener(() => UserInterfaceManager.Instance.ClosePanel(UserInterfaceManager.PanelType.Draggable));
         if (uiPanel != null) uiPanel.SetActive(false);
         if (itemPlacedModel != null) itemPlacedModel.SetActive(false);
+        UserInterfaceManager.Instance.RegisterPanel(
+            UserInterfaceManager.PanelType.Draggable,
+            () =>
+            {
+                if (uiPanel != null) uiPanel.SetActive(true);
+            },
+            () =>
+            {
+                if (uiPanel != null) uiPanel.SetActive(false);
+            }
+        );
     }
-
     public string GetTextInteract() => interactPrompt;
-
     public void Interact(Transform interactorTransform)
     {
         if (isSolved) return;
@@ -61,10 +68,9 @@ public class DraggablePuzzle : MonoBehaviour, IInteractable
             return;
         }
 
-        TogglePanel(!isUIOpen);
+        UserInterfaceManager.Instance.TogglePanel(UserInterfaceManager.PanelType.Draggable);
     }
-
-    private void TryPlaceFuse()
+    void TryPlaceFuse()
     {
         if (EquipmentManager.Instance.CurrentEquippedItem == requiredItemData)
         {
@@ -92,23 +98,6 @@ public class DraggablePuzzle : MonoBehaviour, IInteractable
             else OnMissingItem?.Invoke(); 
         }
     }
-
-    public void TogglePanel(bool state)
-    {
-        isUIOpen = state;
-
-        if (state)
-        {
-            if (!UserInterfaceManager.Instance.RequestOpenPanel(UserInterfaceManager.PanelType.Puzzle)) return;
-        }
-        else
-        {
-            UserInterfaceManager.Instance.ReportClosedPanel(UserInterfaceManager.PanelType.Puzzle);
-        }
-
-        if (uiPanel != null) uiPanel.SetActive(state);
-    }
-
     public void CheckWinCondition()
     {
         if (isSolved) return;
@@ -131,11 +120,10 @@ public class DraggablePuzzle : MonoBehaviour, IInteractable
             isSolved = true;
             interactPrompt = string.Empty;
             OnPuzzleSolved?.Invoke();
-            TogglePanel(false);
+            UserInterfaceManager.Instance.ClosePanel(UserInterfaceManager.PanelType.Draggable);
         }
     }
-
-    private bool CheckSlotSequence(int slotIndex, int expectedFuseID)
+    bool CheckSlotSequence(int slotIndex, int expectedFuseID)
     {
         if (slotIndex < 0 || slotIndex >= gridSlots.Length) return false;
 
@@ -154,7 +142,6 @@ public class DraggablePuzzle : MonoBehaviour, IInteractable
             fuse.ResetToInitialPosition();
         }
     }
-
     public void SetActiveVariant(int variantIndex)
     {
         if (puzzleVariants == null || puzzleVariants.Length == 0) return;

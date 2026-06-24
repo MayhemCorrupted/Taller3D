@@ -27,7 +27,7 @@ public class PanelCodePuzzle : MonoBehaviour, IInteractable
     [SerializeField] NoteData linkedNote;
 
     [Header("UI Panel & Buttons")]
-    [SerializeField] string interactPrompt = "[E] Abrir panel";
+    [SerializeField] string interactPrompt = "[{key}] Abrir panel";
     [SerializeField] GameObject keypadPanel;
     [SerializeField] Button[] numberButtons = new Button[NUMPAD];
     [SerializeField] Button deleteButton;
@@ -68,7 +68,6 @@ public class PanelCodePuzzle : MonoBehaviour, IInteractable
     {
         SetupPuzzle();
         if (keypadPanel != null) keypadPanel.SetActive(false);
-        UserInterfaceManager.Instance.RegisterPanel(UserInterfaceManager.PanelType.Puzzle, () => ToggleKeypad(true));
         ResetLights();
     }
 
@@ -99,7 +98,7 @@ public class PanelCodePuzzle : MonoBehaviour, IInteractable
         if (exitButton != null)
         {
             exitButton.onClick.RemoveAllListeners();
-            exitButton.onClick.AddListener(() => ToggleKeypad(false));
+            exitButton.onClick.AddListener(() => UserInterfaceManager.Instance.ClosePanel(UserInterfaceManager.PanelType.Panel));
         }
     }
 
@@ -133,27 +132,10 @@ public class PanelCodePuzzle : MonoBehaviour, IInteractable
     void UsePanel()
     {
         if (isSolved || !canUsePanel) return;
-        ToggleKeypad(!isUIOpen);
+        UserInterfaceManager.Instance.RegisterPanel(UserInterfaceManager.PanelType.Panel, OpenPanel, ClosePanel);
+        UserInterfaceManager.Instance.TogglePanel(UserInterfaceManager.PanelType.Panel);
     }
 
-    void ToggleKeypad(bool state)
-    {
-        isUIOpen = state;
-
-        if (state)
-        {
-            if (!UserInterfaceManager.Instance.RequestOpenPanel(UserInterfaceManager.PanelType.Puzzle)) return;
-            AssignButtonListeners();
-            ResetInput();
-        }
-        else
-        {
-            UserInterfaceManager.Instance.ReportClosedPanel(UserInterfaceManager.PanelType.Puzzle);
-            RemoveButtonListeners();
-        }
-
-        if (keypadPanel != null) keypadPanel.SetActive(state);
-    }
     void InputNumber(int number)
     {
         if (!isUIOpen || isSolved || currentInput.Length >= codeLength) return;
@@ -192,6 +174,19 @@ public class PanelCodePuzzle : MonoBehaviour, IInteractable
             else indicatorLights[i].color = defaultColor;
         }
     }
+    void OpenPanel()
+    {
+        isUIOpen = true;
+        if (keypadPanel != null) keypadPanel.SetActive(true);
+        AssignButtonListeners();
+        ResetInput();
+    }
+    void ClosePanel()
+    {
+        isUIOpen = false;
+        if (keypadPanel != null) keypadPanel.SetActive(false);
+        RemoveButtonListeners();
+    }
     IEnumerator CheckCodeRoutine()
     {
         bool isCodeCorrect = (currentInput == CorrectCodeString);
@@ -214,7 +209,7 @@ public class PanelCodePuzzle : MonoBehaviour, IInteractable
             isSolved = true;
             OnCorrectCode?.Invoke();
             interactPrompt = string.Empty;
-            ToggleKeypad(false);
+            UserInterfaceManager.Instance.ClosePanel(UserInterfaceManager.PanelType.Panel);
         }
         else
         {

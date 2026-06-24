@@ -7,7 +7,6 @@ public class AudioManager : MonoBehaviour
 
     readonly Dictionary<AudioLibrary.AudioType, float> categoryVolumes = new();
     readonly List<AudioLibrary> activeAudios = new();
-
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -51,15 +50,12 @@ public class AudioManager : MonoBehaviour
         float catVol = categoryVolumes.GetValueOrDefault(category, 1f);
         return catVol * SettingsDataManager.MasterVolume;
     }
-
     public void PauseGlobalAudio()
     {
         AudioListener.pause = true;
     }
-
     public void ResumeGlobalAudio()
     {
         AudioListener.pause = false;
     }
-
 }

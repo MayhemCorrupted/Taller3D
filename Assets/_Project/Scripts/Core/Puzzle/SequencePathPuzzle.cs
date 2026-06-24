@@ -5,9 +5,9 @@ using UnityEngine.Events;
 public class SequencePathPuzzle : MonoBehaviour, IInteractable
 {
     [Header("UI Panel & Interaction")]
-    [SerializeField] string interactPrompt = "[E] Interact";
     [SerializeField] GameObject uiPanel;
     [SerializeField] Button exitButton;
+    [SerializeField] string interactPrompt = "[{key}] Use panel";
 
     [Header("Puzzle Components")]
     [SerializeField] Button[] numpadButtons;
@@ -27,14 +27,23 @@ public class SequencePathPuzzle : MonoBehaviour, IInteractable
     int currentSequenceStep = 0;
     bool isLockedOut = false;
     bool isSolved = false;
-    bool isUIOpen = false;
     public string PuzzlePrompt => interactPrompt;
    void Start()
     {
         if (uiPanel != null) uiPanel.SetActive(false);
-        if (exitButton != null) exitButton.onClick.AddListener(() => TogglePanel(false));
+        if (exitButton != null) exitButton.onClick.AddListener(() => UserInterfaceManager.Instance.ClosePanel(UserInterfaceManager.PanelType.Sequence));
 
-        UserInterfaceManager.Instance.RegisterPanel(UserInterfaceManager.PanelType.Puzzle, () => TogglePanel(true));
+        UserInterfaceManager.Instance.RegisterPanel(
+            UserInterfaceManager.PanelType.Sequence,
+            () =>
+            {
+                if (uiPanel != null) uiPanel.SetActive(true);
+            },
+            () =>
+            {
+                if (uiPanel != null) uiPanel.SetActive(false);
+            }
+        );
 
         InitializeProceduralGrid();
         AssignButtonListeners();
@@ -43,7 +52,7 @@ public class SequencePathPuzzle : MonoBehaviour, IInteractable
 
     private void InitializeProceduralGrid()
     {
-        Random.InitState(ProceduralSeedGenerator.Instance.SafeSeed + gameObject.name.GetHashCode());
+        Random.InitState(ProceduralSeedGenerator.Instance.OfficeSeed + gameObject.name.GetHashCode());
 
         int totalButtons = numpadButtons.Length;
         proceduralButtonValues = new int[totalButtons];
@@ -96,23 +105,7 @@ public class SequencePathPuzzle : MonoBehaviour, IInteractable
     public void Interact(Transform interactorTransform)
     {
         if (isSolved) return;
-        TogglePanel(!isUIOpen);
-    }
-
-    private void TogglePanel(bool state)
-    {
-        isUIOpen = state;
-
-        if (state)
-        {
-            if (!UserInterfaceManager.Instance.RequestOpenPanel(UserInterfaceManager.PanelType.Puzzle)) return;
-        }
-        else
-        {
-            UserInterfaceManager.Instance.ReportClosedPanel(UserInterfaceManager.PanelType.Puzzle);
-        }
-
-        if (uiPanel != null) uiPanel.SetActive(state);
+        UserInterfaceManager.Instance.TogglePanel(UserInterfaceManager.PanelType.Sequence);
     }
 
     private void OnButtonPressed(int buttonIndex)
@@ -192,6 +185,6 @@ public class SequencePathPuzzle : MonoBehaviour, IInteractable
         interactPrompt = string.Empty;
         Debug.Log("[Puzzle Caja Fuerte] Secuencia completada con éxito.");
         OnSolved?.Invoke();
-        TogglePanel(false);
+     UserInterfaceManager.Instance.ClosePanel(UserInterfaceManager.PanelType.Sequence);
     }
 }

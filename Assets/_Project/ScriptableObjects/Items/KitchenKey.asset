@@ -12,9 +12,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e7535a60aa6a9a4297dc71c3bb0981c, type: 3}
   m_Name: KitchenKey
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  id: 6
+  id: 5
   itemName: Kitchen Key
-  description: Es la llave para abrir la puerta de la cocina.
+  description: This key If I remember is for the kitchen.
   sprite: {fileID: 21300000, guid: 9fd32e619fce19c4f9c67114c5128001, type: 3}
   itemType: 0
   itemModelPrefab: {fileID: 4660505114910537706, guid: a070b0721f64e6b46870ecdead3ad61d, type: 3}

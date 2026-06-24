@@ -1,6 +1,5 @@
 using UnityEngine;
 using UnityEngine.Events;
-
 public class DialogueReader : MonoBehaviour
 {
     Transform playerTransform;
@@ -9,22 +8,15 @@ public class DialogueReader : MonoBehaviour
     [Tooltip("La llave que buscará en el DialogueLibrary")]
     [SerializeField] string dialogueKey;
 
-    [Header("Playback Settings")]
-    [SerializeField] float durationPerLine = 3f;
-    [SerializeField] bool moveCameraToTarget = true;
-    [SerializeField] float cameraLookAtSpeed = 2f;
-
     [Header("Trigger Settings")]
     [SerializeField] Transform triggerPoint;
     [SerializeField] Vector3 activeBoxSize = new();
     [SerializeField] bool disableTriggerAfterUse = true;
-
+    [SerializeField] bool singleTriggerOnlyViaEvent = true;
     public UnityEvent OnTriggered;
 
     bool triggered = false;
-    float dialogueTimer;
-    float totalCalculatedDuration;
-
+    bool hasBeenExecuted = false;
     void Awake()
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
@@ -32,37 +24,16 @@ public class DialogueReader : MonoBehaviour
 
         if (triggerPoint == null) triggerPoint = transform;
     }
-
     void Update()
     {
-        if (playerTransform == null || triggerPoint == null) return;
-
-        if (triggered)
-        {
-            if (!disableTriggerAfterUse)
-            {
-                dialogueTimer += Time.deltaTime;
-                if (dialogueTimer >= totalCalculatedDuration)
-                {
-                    triggered = false;
-                    dialogueTimer = 0f;
-                }
-            }
-            return;
-        }
+        if (triggered || playerTransform == null || triggerPoint == null) return;
 
         if (IsPlayerInsideBox())
         {
             ShotDialogue();
-            triggered = true;
-
-            if (disableTriggerAfterUse)
-            {
-                enabled = false;
-            }
         }
     }
-    private bool IsPlayerInsideBox()
+    bool IsPlayerInsideBox()
     {
         Vector3 difference = playerTransform.position - triggerPoint.position;
 
@@ -74,33 +45,24 @@ public class DialogueReader : MonoBehaviour
 
         return insideX && insideY && insideZ;
     }
-
     public void ShotDialogue()
     {
-        if (Dialogues.Instance == null) return;
+        if (singleTriggerOnlyViaEvent && hasBeenExecuted) return;
 
         var dataInfo = Dialogues.Instance.GetDialogue(dialogueKey);
         if (dataInfo == null) return;
 
-        var data = dataInfo.Value;
+        bool dialogueStarted = DialogueManager.Instance.StartDialogue(dataInfo.Value);
+        if (!dialogueStarted) return;
 
-        totalCalculatedDuration = data.dialogueLines.Length * (durationPerLine + 0.4f);
+        hasBeenExecuted = true;
+        triggered = true;
 
-        if (DialogueManager.Instance != null)
-        {
-            DialogueManager.Instance.StartDialogue(
-                data.uiTextComponent,
-                data.targetToLookAt,
-                data.dialogueLines,
-                cameraLookAtSpeed,
-                moveCameraToTarget,
-                durationPerLine
-            );
-        }
         OnTriggered?.Invoke();
-    }
 
-    private void OnDrawGizmosSelected()
+        if (disableTriggerAfterUse) this.enabled = false;
+    }
+    void OnDrawGizmosSelected()
     {
         if (triggerPoint == null) return;
 

@@ -2,7 +2,7 @@ using Unity.Cinemachine;
 using UnityEngine;
 using UnityEngine.Rendering;
 
-[RequireComponent(typeof(CharacterController))]
+[RequireComponent(typeof(PlayerMovement))]
 public class PlayerCamera : MonoBehaviour
 {
     [System.Serializable]
@@ -21,7 +21,7 @@ public class PlayerCamera : MonoBehaviour
     [SerializeField] private CinemachineBasicMultiChannelPerlin noiseComponent;
 
     private CinemachineInputAxisController axisController;
-    private CharacterController playerMovement;
+    private PlayerMovement playerMovement;
 
     [Header("Detection Settings")]
     [SerializeField] private float minBobSpeed = 0.18f;
@@ -48,7 +48,7 @@ public class PlayerCamera : MonoBehaviour
 
     void Awake()
     {
-        playerMovement = GetComponent<CharacterController>();
+        playerMovement = GetComponent<PlayerMovement>();
         axisController = GetComponentInChildren<CinemachineInputAxisController>();
 
         lastPosition = transform.position;
@@ -73,13 +73,13 @@ public class PlayerCamera : MonoBehaviour
 
     void StateDetect()
     {
-        if (!playerMovement.isGrounded)
+        if (playerMovement.Flying)
         {
             currentState = MovementState.Flying;
             return;
         }
 
-        float speed = new Vector3(playerMovement.velocity.x, 0, playerMovement.velocity.z).magnitude;
+        float speed = new Vector3(playerMovement.Velocity.x, 0, playerMovement.Velocity.z).magnitude;
         float verticalDelta = Mathf.Abs(transform.position.y - lastPosition.y);
 
         if (verticalDelta > stairDetectThreshold && speed < minBobSpeed)

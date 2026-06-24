@@ -12,10 +12,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e7535a60aa6a9a4297dc71c3bb0981c, type: 3}
   m_Name: FuseItem
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  id: 5
+  id: 3
   itemName: Fuse
-  description: Recuerdo que mi padre llevaba uno de estos al sotano cuando las luces
-    fallaban
+  description: I remember when my dad bring one of this to the basement when we had
+    a blackout
   sprite: {fileID: 21300000, guid: 00e348bbf48f926449acb90362aa808c, type: 3}
   itemType: 0
   itemModelPrefab: {fileID: 128023844997736086, guid: 06d4654e91d4cf048bafd406553b6e86, type: 3}

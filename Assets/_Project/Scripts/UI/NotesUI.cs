@@ -43,7 +43,29 @@ public class NotesUI : MonoBehaviour
     {
         if (NotesManager.Instance != null) NotesManager.Instance.OnNoteCollected += RefreshNotesUI;
 
-        UserInterfaceManager.Instance.RegisterPanel(UserInterfaceManager.PanelType.Notes, () => { var notes = NotesManager.Instance.GetCollectedNotes(); if (notes != null && notes.Count > 0) OpenNoteFS (currentNoteIndex) ;} );
+        UserInterfaceManager.Instance.RegisterPanel(
+            UserInterfaceManager.PanelType.Notes,
+            () =>
+            {
+                var notes = NotesManager.Instance.GetCollectedNotes();
+                if (notes != null && notes.Count > 0)
+                {
+                    if (notePanel != null) notePanel.SetActive(true);
+                    UpdateNoteDisplay(notes);
+                }
+            },
+            () =>
+            {
+                if (notePanel != null) notePanel.SetActive(false);
+                if (inspectPanel != null) inspectPanel.SetActive(false);
+
+                if (openedFromInventory && inventoryUI != null)
+                {
+                    openedFromInventory = false;
+                    UserInterfaceManager.Instance.TryOpenPanel(UserInterfaceManager.PanelType.Inventory);
+                }
+            }
+        );
     }
     void OnEnable() => RefreshNotesUI();
     public void ForceCloseAll()
@@ -94,16 +116,12 @@ public class NotesUI : MonoBehaviour
 
         if (inventoryUI != null && inventoryUI.IsInventoryOpen)
         {
-            openedFromInventory = true;            
-            inventoryUI.TogglePanel(false);
+            openedFromInventory = true;
+            UserInterfaceManager.Instance.ClosePanel(UserInterfaceManager.PanelType.Inventory);
         }
         else openedFromInventory = false;
-
-        if (UserInterfaceManager.Instance.RequestOpenPanel(UserInterfaceManager.PanelType.Notes))
-        {
-            if (notePanel != null) notePanel.SetActive(true);
-            UpdateNoteDisplay(notes);
-        }
+        UserInterfaceManager.Instance.TryOpenPanel(UserInterfaceManager.PanelType.Notes);
+   
     }
     void UpdateNoteDisplay(List<NoteData> notes)
     {
@@ -129,17 +147,7 @@ public class NotesUI : MonoBehaviour
     }
     public void CloseNoteFS()
     {
-        if (notePanel != null) notePanel.SetActive(false);
-        
-        if (inspectPanel != null) inspectPanel.SetActive(false);
-        
-        UserInterfaceManager.Instance.ReportClosedPanel(UserInterfaceManager.PanelType.Notes);
-
-        if (openedFromInventory && inventoryUI != null)
-        {
-            openedFromInventory = false;
-            inventoryUI.TogglePanel(true); 
-        }
+        UserInterfaceManager.Instance.ClosePanel(UserInterfaceManager.PanelType.Notes);
     }
     void NextNote()
     {

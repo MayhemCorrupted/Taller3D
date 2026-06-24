@@ -49,6 +49,8 @@ public class ProceduralKitchenSection : MonoBehaviour
         int variantIndex = Random.Range(0, puzzleVariants.Length);
         PuzzleVariant activeVariant = puzzleVariants[variantIndex];
 
+        Debug.Log($"[Procedural] Cocina (Semilla: {ProceduralSeedGenerator.Instance.DoorSeed}) | Variante: {activeVariant.variantName}");
+
         int locationIndex = Random.Range(0, activeVariant.allowedLocations.Length);
         string selectedTag = activeVariant.allowedLocations[locationIndex].locationTag;
 
@@ -61,7 +63,7 @@ public class ProceduralKitchenSection : MonoBehaviour
             GameObject spawnedItem = Instantiate(activeVariant.itemPrefab, targetPoint.position, targetPoint.rotation);
             spawnedItem.transform.SetParent(targetPoint, true);
 
-            Debug.Log($"[Procedural] Ruta: {activeVariant.variantName} | Objeto en: {selectedTag}");
+            Debug.Log($"[Procedural] Objeto en: {selectedTag}");
         }
         else Debug.LogWarning($"[Procedural] No se encontraron objetos con el tag: {selectedTag}");
 
