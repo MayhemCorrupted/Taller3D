@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -20,11 +21,13 @@ public class StateProgressionManager : MonoBehaviour
     [Header("UI Reference")]
     [Tooltip("Arrastra aquí tu componente de texto de la jerarquía de Canvas.")]
     [SerializeField] TextMeshProUGUI stateTextMesh;
+    [SerializeField] CanvasGroup indicatorCG;
+    [SerializeField] float fadeSpeed = 0.5f;
+    [SerializeField] float fadeDuration = 1.0f;
 
     [Header("System Memory")]
     [Tooltip("NO TOCAR, es para ver el state como debug")]
     [SerializeField] int currentState = 0;
-
     [Header("Configuración de Estados")]
     [SerializeField] StateProgressionStep[] stateSequence;
 
@@ -32,6 +35,8 @@ public class StateProgressionManager : MonoBehaviour
 
     void Awake()
     {
+        indicatorCG.alpha = 0;
+        currentState = 0;
         if (stateTextMesh != null) stateTextMesh.text = string.Empty;
         foreach (var step in stateSequence)
         {
@@ -41,35 +46,50 @@ public class StateProgressionManager : MonoBehaviour
             }
         }
     }
-
     void Start()
     {
         EvaluateState();
-    }
-    /// <summary>
-    /// Función pública para sumar puntos. llamala en una acción de UnityEvent para que aumente el contador.
-    /// </summary>
+    }   
     public void AddStatePoint()
     {
         currentState++;
         EvaluateState();
     }
-    /// <summary>
-    /// (Opcional) Función de emergencia por si un puzzle requiere forzar un salto a un número exacto.
-    /// </summary>
     public void SetExactState(int exactTargetState)
     {
         currentState = exactTargetState;
         EvaluateState();
     }
-
     private void EvaluateState()
     {
         if (quickLookup.TryGetValue(currentState, out StateProgressionStep currentStep))
         {
+            if (indicatorCG != null) StartCoroutine(FadeIndicator());
             if (stateTextMesh != null) stateTextMesh.text = currentStep.stateDisplayText;
             else Debug.LogWarning("[StateManager] El texto cambió, pero el TextMeshProUGUI no esta en el inspector.");
             currentStep.onStateTriggered?.Invoke();
         }
     }
+    IEnumerator FadeIndicator()
+    {
+        indicatorCG.alpha = 0f;
+        yield return StartCoroutine(SetFade(0f, 1f, fadeDuration, fadeSpeed));
+        yield return new WaitForSeconds(fadeDuration);
+        yield return StartCoroutine(SetFade(1f, 0f, fadeDuration, fadeSpeed));
+    }
+    IEnumerator SetFade(float startAlpha, float targetAlpha, float duration, float speed)
+    {
+        float elapsedTime = 0f;
+        indicatorCG.alpha = startAlpha;
+
+        while (elapsedTime < duration)
+        {
+            elapsedTime += Time.deltaTime * speed;
+            indicatorCG.alpha = Mathf.Lerp(startAlpha, targetAlpha, elapsedTime / duration);
+            yield return null;
+        }
+
+        indicatorCG.alpha = targetAlpha;
+    }
+    
 }

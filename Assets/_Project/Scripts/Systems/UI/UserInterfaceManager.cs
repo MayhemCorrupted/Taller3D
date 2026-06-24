@@ -6,7 +6,7 @@ public class UserInterfaceManager : MonoBehaviour
 {
     public static UserInterfaceManager Instance { get; private set; }
 
-    public enum PanelType { None, Inventory, Notes, Switch, Draggable, Dial, Panel, Sequence, Pause }
+    public enum PanelType { None, Inventory, Notes, Switch, Draggable, Dial, Panel, Sequence, Pause, Book }
 
     [Header("Player Reference")]
     [SerializeField] private GameObject player;

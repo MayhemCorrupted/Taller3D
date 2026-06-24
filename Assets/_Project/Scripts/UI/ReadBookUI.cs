@@ -12,12 +12,11 @@ public class ReadBookUI : MonoBehaviour
     [SerializeField] Button previousPageButton;
     [SerializeField] Button closeButton;
     int index = 0;
-    readonly UserInterfaceManager.PanelType bookPanelType = UserInterfaceManager.PanelType.Notes;
     void Start()
     {
         if (UserInterfaceManager.Instance != null)
         {
-            UserInterfaceManager.Instance.RegisterPanel(bookPanelType, OpenBookPanel, CloseBookPanel);
+            UserInterfaceManager.Instance.RegisterPanel(UserInterfaceManager.PanelType.Book, OpenBookPanel, CloseBookPanel);
         }
 
         if (nextPageButton != null) nextPageButton.onClick.AddListener(NextPage);
@@ -40,7 +39,7 @@ public class ReadBookUI : MonoBehaviour
 
         if (EquipmentManager.Instance != null && EquipmentManager.Instance.CurrentEquippedItem == bookItemData)
         {
-            UserInterfaceManager.Instance.TryOpenPanel(bookPanelType);
+            UserInterfaceManager.Instance.TryOpenPanel(UserInterfaceManager.PanelType.Book);
         }
     }
     void OpenBookPanel()
@@ -53,7 +52,7 @@ public class ReadBookUI : MonoBehaviour
     {
         if (UserInterfaceManager.Instance != null)
         {
-            UserInterfaceManager.Instance.ClosePanel(bookPanelType);
+            UserInterfaceManager.Instance.ClosePanel(UserInterfaceManager.PanelType.Book);
         }
     }
     void CloseBookPanel()

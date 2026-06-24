@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 [RequireComponent(typeof(InventoryUI))]
 public class NotesUI : MonoBehaviour
@@ -17,6 +18,8 @@ public class NotesUI : MonoBehaviour
     [SerializeField] Button prevNoteButton;
     [SerializeField] Button toggleInspectButton;
     [SerializeField] Button closeNoteButton;
+
+    public UnityEvent OnReadNote;
 
     InventoryUI inventoryUI;
     bool openedFromInventory = false;

@@ -17,7 +17,9 @@ public class DraggablePuzzle : MonoBehaviour, IInteractable
     [SerializeField] GameObject itemPlacedModel;
 
     [Header("UI Panel Settings")]
-    [SerializeField] string interactPrompt = "[E] Open Box";
+    [SerializeField] string interactPrompt = "[{key}] Open Box";
+    [SerializeField] string placeFusePrompt = "[{key}] Place Fuse";
+    [SerializeField] string missingFusePrompt = "Requires Fuse";
     [SerializeField] GameObject uiPanel;
     [SerializeField] Button restartButton;
     [SerializeField] Button exitButton;
@@ -57,7 +59,22 @@ public class DraggablePuzzle : MonoBehaviour, IInteractable
             }
         );
     }
-    public string GetTextInteract() => interactPrompt;
+    public string GetTextInteract()
+    {
+        if (isSolved) return "";
+
+        if (!isFusePlaced)
+        {
+            if (PlayerHasFuse())
+            {
+                return placeFusePrompt;
+            }
+            return missingFusePrompt;
+        }
+
+        return interactPrompt;
+
+    }
     public void Interact(Transform interactorTransform)
     {
         if (isSolved) return;
@@ -97,6 +114,26 @@ public class DraggablePuzzle : MonoBehaviour, IInteractable
             if (hasItemInInventory) OnNoPlacedItem?.Invoke();
             else OnMissingItem?.Invoke(); 
         }
+    }
+    private bool PlayerHasFuse()
+    {
+        if (requiredItemData == null) return false;
+
+        if (EquipmentManager.Instance != null && EquipmentManager.Instance.CurrentEquippedItem == requiredItemData)
+        {
+            return true;
+        }
+
+        if (InventoryManager.Instance != null)
+        {
+            ItemData[] currentItems = InventoryManager.Instance.GetAllItems();
+            for (int i = 0; i < currentItems.Length; i++)
+            {
+                if (currentItems[i] == requiredItemData) return true;
+            }
+        }
+
+        return false;
     }
     public void CheckWinCondition()
     {
