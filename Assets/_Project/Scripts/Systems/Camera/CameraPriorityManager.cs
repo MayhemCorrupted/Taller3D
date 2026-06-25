@@ -7,7 +7,6 @@ public class CameraPriorityManager : MonoBehaviour
     public static CameraPriorityManager Instance { get; private set; }
 
     [Header("Core Reference")]
-    [Tooltip("La cámara que sigue al jugador por defecto.")]
     [SerializeField] CinemachineCamera mainCamera;
 
     [Header("Priority Settings")]
@@ -15,6 +14,10 @@ public class CameraPriorityManager : MonoBehaviour
     [SerializeField] int inactivePriority = 10;
 
     CinemachineCamera currentActiveCamera;
+    CinemachineCamera lastActiveCamera;
+
+    public CinemachineCamera CurrentCamera => currentActiveCamera;
+    public bool IsMainCameraActive => currentActiveCamera == mainCamera;
 
     void Awake()
     {
@@ -25,40 +28,72 @@ public class CameraPriorityManager : MonoBehaviour
         {
             mainCamera.Priority = activePriority;
             currentActiveCamera = mainCamera;
+            lastActiveCamera = mainCamera;
         }
     }
+
+    // ─── MÉTODOS ORIGINALES (para CameraTrigger automático) ───
 
     public void SwitchCameraTemporarily(CinemachineCamera targetCam, float duration)
     {
         if (targetCam == null || targetCam == currentActiveCamera) return;
-
         StopAllCoroutines();
         StartCoroutine(TemporarySwitchRoutine(targetCam, duration));
     }
+
     public void SwitchCameraPermanently(CinemachineCamera targetCam)
     {
         if (targetCam == null || targetCam == currentActiveCamera) return;
-
         StopAllCoroutines();
         SetCameraPriority(targetCam);
     }
-    public void ReturnToMainCamera()
+
+    // ─── MÉTODOS NUEVOS (para SpyCameraInteractable) ───
+
+    public void EnterSpyMode(CinemachineCamera spyCam)
+    {
+        if (spyCam == null || spyCam == currentActiveCamera) return;
+        StopAllCoroutines();
+        lastActiveCamera = currentActiveCamera;
+        SetCameraPriority(spyCam);
+    }
+
+    public void ExitSpyMode()
     {
         StopAllCoroutines();
-        SetCameraPriority(mainCamera);
+        if (lastActiveCamera != null && lastActiveCamera != currentActiveCamera)
+            SetCameraPriority(lastActiveCamera);
+        else
+            SetCameraPriority(mainCamera);
     }
+
+    public bool ToggleSpyMode(CinemachineCamera spyCam)
+    {
+        if (currentActiveCamera == spyCam)
+        {
+            ExitSpyMode();
+            return false;
+        }
+        else
+        {
+            EnterSpyMode(spyCam);
+            return true;
+        }
+    }
+
+    // ─── PRIVADOS ───
+
     IEnumerator TemporarySwitchRoutine(CinemachineCamera targetCam, float duration)
     {
+        lastActiveCamera = currentActiveCamera;
         SetCameraPriority(targetCam);
-
         yield return new WaitForSeconds(duration);
-
         SetCameraPriority(mainCamera);
     }
+
     void SetCameraPriority(CinemachineCamera newCam)
     {
         if (currentActiveCamera != null) currentActiveCamera.Priority = inactivePriority;
-
         newCam.Priority = activePriority;
         currentActiveCamera = newCam;
     }
