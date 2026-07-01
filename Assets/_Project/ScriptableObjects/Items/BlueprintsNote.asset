@@ -18,9 +18,8 @@ MonoBehaviour:
   sprite: {fileID: 0}
   itemType: 1
   itemModelPrefab: {fileID: 0}
-  NoteDescription: 'According to this, it''s say there''s a secret door here
-
-'
+  NoteDescription: According to these blueprints, there should be an entrance behind
+    one of the walls.
   image: {fileID: 21300000, guid: a2c2e4beb05b1a24da25ae5067e339ee, type: 3}
   isPuzzleNote: 0
   generatedCode: 
