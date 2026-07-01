@@ -156779,6 +156779,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: LibroItemOrigin
       objectReference: {fileID: 0}
+    - target: {fileID: 6507616073663194117, guid: dcaadef500dec8041ab83c3ea6dd0a60, type: 3}
+      propertyPath: 'm_Materials.Array.data[0]'
+      value: 
+      objectReference: {fileID: 2100000, guid: 84996a145eb86d342bd184f485340add, type: 2}
     - target: {fileID: 7380396886070198422, guid: dcaadef500dec8041ab83c3ea6dd0a60, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
