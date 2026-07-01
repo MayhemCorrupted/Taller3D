@@ -3,6 +3,8 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NoteData", menuName = "Items/NoteData")]
 public class NoteData : ItemData
 {
+    [Space(10)]
+    [Header("Note Section")]
     [TextArea(5, 20)] public string NoteDescription;
     public Sprite image;
 

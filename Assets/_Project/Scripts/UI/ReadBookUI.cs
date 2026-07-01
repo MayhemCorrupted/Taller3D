@@ -1,16 +1,35 @@
 using UnityEngine;
 using UnityEngine.UI;
-
+using TMPro;
+using UnityEngine.Events;
+[System.Serializable]
+public struct BookPage
+{
+    public Sprite bookPageSprite;
+    [TextArea(2,3)] public string pageText;
+    public UnityEvent onPassingPage;
+}
 public class ReadBookUI : MonoBehaviour
 {
-    [SerializeField] GameObject bookPanel;
-    [SerializeField] GameObject[] bookPages;
-    [SerializeField] GameObject[] bookText;
+    [Header("Item Reference")]
     [SerializeField] ItemData bookItemData;
+    [Header("GameObject References")]
+    [SerializeField] GameObject bookPanel;
+    [SerializeField] GameObject inspectContainer;
+    [Header("Text and Image Components")]
+    [SerializeField] TMP_Text pageTextComponent;
+    [SerializeField] Image pageImageComponent;
+    [Header("Button References")]
     [SerializeField] Button inspectBook;
     [SerializeField] Button nextPageButton;
     [SerializeField] Button previousPageButton;
     [SerializeField] Button closeButton;
+    [Header("Events")]
+    [SerializeField] UnityEvent onOpenPanel;
+    [SerializeField] UnityEvent onClosePanel;
+    [Header("Book Pages")]
+    [SerializeField] BookPage[] bookPages;
+
     int index = 0;
     void Start()
     {
@@ -22,6 +41,8 @@ public class ReadBookUI : MonoBehaviour
         if (nextPageButton != null) nextPageButton.onClick.AddListener(NextPage);
         if (previousPageButton != null) previousPageButton.onClick.AddListener(PreviousPage);
         if (closeButton != null) closeButton.onClick.AddListener(RequestClose);
+        if (inspectBook != null) inspectBook.onClick.AddListener(ToggleInspect);
+        if (inspectContainer != null) inspectContainer.SetActive(false);
         if (bookPanel != null) bookPanel.SetActive(false);
     }
 
@@ -46,6 +67,7 @@ public class ReadBookUI : MonoBehaviour
     {
         index = 0; 
         if (bookPanel != null) bookPanel.SetActive(true);
+        onOpenPanel?.Invoke();
         UpdatePageVisuals();
     }
     void RequestClose()
@@ -58,6 +80,7 @@ public class ReadBookUI : MonoBehaviour
     void CloseBookPanel()
     {
         if (bookPanel != null) bookPanel.SetActive(false);
+        onClosePanel?.Invoke();
     }
     void NextPage()
     {
@@ -65,6 +88,14 @@ public class ReadBookUI : MonoBehaviour
         {
             index++;
             UpdatePageVisuals();
+        }
+    }
+    void ToggleInspect()
+    {
+        if (inspectContainer != null)
+        {
+            bool isActive = inspectContainer.activeSelf;
+            inspectContainer.SetActive(!isActive);
         }
     }
     void PreviousPage()
@@ -77,17 +108,21 @@ public class ReadBookUI : MonoBehaviour
     }
     void UpdatePageVisuals()
     {
-        for (int i = 0; i < bookPages.Length; i++)
+        if (bookPages == null || bookPages.Length == 0) return;
+
+        BookPage currentPage = bookPages[index];
+
+        if (pageImageComponent != null)
         {
-            if (bookPages[i] != null) bookPages[i].SetActive(i == index);
+            pageImageComponent.sprite = currentPage.bookPageSprite;
+            pageImageComponent.enabled = currentPage.bookPageSprite != null;
         }
 
-        for (int i = 0; i < bookText.Length; i++)
-        {
-            if (bookText[i] != null) bookText[i].SetActive(i == index);
-        }
+        if (pageTextComponent != null) pageTextComponent.text = currentPage.pageText;
 
         if (previousPageButton != null) previousPageButton.gameObject.SetActive(index > 0);
         if (nextPageButton != null) nextPageButton.gameObject.SetActive(index < bookPages.Length - 1);
+
+        currentPage.onPassingPage?.Invoke();
     }
 }

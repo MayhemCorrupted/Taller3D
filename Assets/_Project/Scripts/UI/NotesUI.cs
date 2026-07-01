@@ -3,6 +3,15 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+[System.Serializable]
+public class NoteInspectEvent
+{
+    [Tooltip("Escribe exactamente el 'itemName' del ScriptableObject de la nota.")]
+    public string targetNoteName;
+    public bool triggerOnce;
+    [HideInInspector] public bool triggered = false;
+    public UnityEvent onInspectTriggered;
+}
 [RequireComponent(typeof(InventoryUI))]
 public class NotesUI : MonoBehaviour
 {
@@ -19,6 +28,8 @@ public class NotesUI : MonoBehaviour
     [SerializeField] Button toggleInspectButton;
     [SerializeField] Button closeNoteButton;
 
+    [Header("Special Note Inspect Events")]
+    [SerializeField] NoteInspectEvent[] specialInspectEvents;
     public UnityEvent OnReadNote;
 
     InventoryUI inventoryUI;
@@ -26,6 +37,19 @@ public class NotesUI : MonoBehaviour
     int currentNoteIndex = 0;
     readonly List<GameObject> UInotes = new();
     public bool IsNoteOpen => notePanel != null && notePanel.activeSelf;
+    public string CurrentViewingNoteName
+    {
+        get
+        {
+            if (NotesManager.Instance == null) return string.Empty;
+            var notes = NotesManager.Instance.GetCollectedNotes();
+            if (notes != null && currentNoteIndex >= 0 && currentNoteIndex < notes.Count)
+            {
+                return notes[currentNoteIndex].itemName;
+            }
+            return string.Empty;
+        }
+    }
     void Awake()
     {
         inventoryUI = GetComponent<InventoryUI>();
@@ -146,7 +170,27 @@ public class NotesUI : MonoBehaviour
     }
     public void ToggleInspectText()
     {
-        if (inspectPanel != null) inspectPanel.SetActive(!inspectPanel.activeSelf);
+        if (inspectPanel != null)
+        {
+            bool isOpen = !inspectPanel.activeSelf;
+            inspectPanel.SetActive(isOpen);
+
+            if (isOpen)
+            {
+                string viewedNoteName = CurrentViewingNoteName;
+                foreach (var noteEvent in specialInspectEvents)
+                {
+                    if (noteEvent.targetNoteName == viewedNoteName && (!noteEvent.triggerOnce))
+                    {
+                        if (noteEvent.triggerOnce && noteEvent.triggered) continue;
+
+                        Debug.Log($"[NotesUI] Evento invocado por: {viewedNoteName}");
+                        noteEvent.onInspectTriggered?.Invoke();
+                        noteEvent.triggered = true;
+                    }
+                }
+            }
+        }
     }
     public void CloseNoteFS()
     {

@@ -6,6 +6,8 @@ public class NotesManager : MonoBehaviour
     public static NotesManager Instance { get; private set; }
     readonly List<NoteData> CollectedNotes = new();
     public event System.Action OnNoteCollected;
+    public NoteData LastObtainedNote { get; private set; }
+    public string LastObtainedNoteText => LastObtainedNote != null ? LastObtainedNote.itemName : string.Empty;
     void Awake()
     {
         if (Instance != null && Instance != this)
@@ -20,6 +22,7 @@ public class NotesManager : MonoBehaviour
         if(!CollectedNotes.Contains(note)) 
         {
             CollectedNotes.Add(note);
+            LastObtainedNote = note;
             OnNoteCollected?.Invoke();
         }
     }
