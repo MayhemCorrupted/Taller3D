@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,7 +7,9 @@ public class MenuManager : MonoBehaviour
 
 
     [SerializeField] private Animator anim;
-    [SerializeField] private GameObject goBackList;
+    [SerializeField] private CreditsManager crman;
+    [SerializeField] private GameObject[] goBackList;
+    [SerializeField] private GameObject membersList;
     [SerializeField] private GameObject mainMenu;
     [SerializeField] private bool isOnMenu;
     [SerializeField] private bool isOnPlay;
@@ -14,13 +17,10 @@ public class MenuManager : MonoBehaviour
     [SerializeField] private bool isOnCredits;
 
 
-
-
-
-
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        
         isOnMenu = false;
         anim = GetComponentInParent<Animator>();
     }
@@ -41,12 +41,13 @@ public class MenuManager : MonoBehaviour
 
     public void PressPlay()
     {
+
         if (isOnMenu)
         {
             anim.SetTrigger("ZoomToPlay");
             isOnMenu= false;
             isOnPlay = true;
-            activeGoBack();
+            activeGoBack(0);
         }
         else SceneManager.LoadScene("WalkThoughtScene"); 
     }
@@ -58,10 +59,11 @@ public class MenuManager : MonoBehaviour
             anim.SetTrigger("ZoomToOptions");
             isOnMenu = false;
             isOnOptions = true;
-            activeGoBack();
+            activeGoBack(1);
 
         }
-        
+
+
     }
 
     public void PressCredits()
@@ -71,7 +73,8 @@ public class MenuManager : MonoBehaviour
             anim.SetTrigger("ZoomToCredits");
             isOnMenu = false;
             isOnCredits = true;
-            activeGoBack();
+            membersList.SetActive(true);
+            activeGoBack(2);
         }
     }
 
@@ -86,20 +89,44 @@ public class MenuManager : MonoBehaviour
         {
             anim.SetTrigger("OptionsToMenu");
             isOnOptions= false;
+            
         }
         else if (isOnCredits)
         {
             anim.SetTrigger("CreditsToMenu");
-            isOnCredits= false; 
+            isOnCredits= false;
+            membersList.SetActive(false);
+            crman.DeactivateAllPanels();
         }
         else return;
 
         isOnMenu = true;
-        goBackList.SetActive(false);
+        DeactivateGoBacks();
+        
     }
 
-    private void activeGoBack()
+    private void activeGoBack( int option)
     {
-        goBackList.SetActive(true);
+
+        for (int i = 0; i < goBackList.Length; i++)
+        {
+            if(i == option)
+            {
+                goBackList[i].SetActive(true);
+            }
+        }
+
+    }
+
+    private void DeactivateGoBacks()
+    {
+        foreach (GameObject gobackbutton in goBackList)
+        {
+            if (gobackbutton != null)
+            {
+
+                gobackbutton.SetActive(false);
+            }
+        }
     }
 }
