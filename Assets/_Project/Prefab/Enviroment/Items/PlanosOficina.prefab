@@ -28,7 +28,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4532579668897293221}
   serializedVersion: 2
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -11.5441, y: 11.3026, z: -1.837}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_ConstrainProportionsScale: 0
@@ -104,15 +104,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 019d3c1ba88bfa7478257766a95c3379, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Item
-  itemData: {fileID: 11400000, guid: 61a7bcda0f8dc3246a242767098cdf73, type: 2}
+  itemData: {fileID: 11400000, guid: 7e9fe60f56ec203469844bc3ef658886, type: 2}
   isPickable: 1
   OnPicked:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: AudioLibrary, Assembly-CSharp
-        m_MethodName: PlayOneShotSound
-        m_Mode: 5
+        m_TargetAssemblyTypeName: DoorController, Assembly-CSharp
+        m_MethodName: ForceClose
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -123,13 +123,13 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: DoorController, Assembly-CSharp
-        m_MethodName: ForceClose
-        m_Mode: 1
+        m_MethodName: set_DoorSpeed
+        m_Mode: 4
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
-          m_FloatArgument: 0
+          m_FloatArgument: 0.5
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
@@ -161,6 +161,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   itemPrompt: '[E] grab {0}'
+  unpickablePrompt: cannot grab {0}
 --- !u!64 &3705550499901993440
 MeshCollider:
   m_ObjectHideFlags: 0

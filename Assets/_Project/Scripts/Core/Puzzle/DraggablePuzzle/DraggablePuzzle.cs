@@ -36,8 +36,9 @@ public class DraggablePuzzle : MonoBehaviour, IInteractable
 
     [Header("Events")]
     [SerializeField] UnityEvent OnMissingItem;
-    [SerializeField] UnityEvent OnPuzzleSolved;
     [SerializeField] UnityEvent OnNoPlacedItem;
+    [SerializeField] UnityEvent OnPlacedItem;
+    [SerializeField] UnityEvent OnPuzzleSolved;
 
     bool isSolved = false;
     bool isFusePlaced = false;
@@ -96,6 +97,7 @@ public class DraggablePuzzle : MonoBehaviour, IInteractable
 
             InventoryManager.Instance.RemoveItem(requiredItemData);
             EquipmentManager.Instance.Unequip();
+            OnPlacedItem?.Invoke(); 
         }
         else
         {

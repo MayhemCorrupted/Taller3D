@@ -11,7 +11,7 @@ public struct FadeEvents
     public float fadeOutDuration;
     public UnityEvent OnSequenceStart;
     [Tooltip("Se invoca al terminar la duración prolongada, ANTES de que el panel empiece a desaparecer.")]
-    public UnityEvent OnDurationEnded;
+    public UnityEvent OnDurationFade;
     [Tooltip("Opcional: Se invoca cuando el Fade Out termina y el panel ya es invisible.")]
     public UnityEvent OnSequenceComplete;
 }
@@ -59,13 +59,9 @@ public class FadeUI : MonoBehaviour
         if (hasEvents) activeEvents.OnSequenceStart?.Invoke();
 
         yield return new WaitForSeconds(activeEvents.fadeStayDuration);
-        if (hasEvents) activeEvents.OnDurationEnded?.Invoke();
+        if (hasEvents) activeEvents.OnDurationFade?.Invoke();
 
-        float waitForSeconds = 0.7f;
-        yield return new WaitForSeconds(waitForSeconds);
-        
         yield return StartCoroutine(FadeCanvasGroup(1f, 0f, activeEvents.fadeOutDuration));
-
         if (hasEvents) activeEvents.OnSequenceComplete?.Invoke();
 
         if (disablePanelOnComplete) panelObject.SetActive(false);

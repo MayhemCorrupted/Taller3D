@@ -7,15 +7,16 @@ public class Item : MonoBehaviour, IInteractable
     [SerializeField] bool isPickable = true;
     [SerializeField] UnityEvent OnPicked;
     [SerializeField] UnityEvent OnUnpickable;
-    [SerializeField] string itemPrompt = "grab {0}";
-    [SerializeField] string unpickablePrompt = "cannot grab {0}";
+    [SerializeField] string itemPrompt = "[{key}] grab {item}";
+    [SerializeField] string unpickablePrompt = "Cannot grab {item}";
     public string ItemPrompt => itemPrompt;
     public bool IsPickable { set { isPickable = value; } }
     #region referencias de la interfaz (el IInteractable)
     public string GetTextInteract()
     {
         string itemName = itemData != null ? itemData.itemName : gameObject.name;
-        return string.Format(isPickable ? itemPrompt : unpickablePrompt, itemName);
+        string selectedPrompt = isPickable ? itemPrompt : unpickablePrompt;
+        return selectedPrompt.Replace("{item}", itemName);
     }
     public void Interact(Transform interactorTransform)
     {

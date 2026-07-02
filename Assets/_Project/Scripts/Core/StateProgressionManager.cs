@@ -30,7 +30,7 @@ public class StateProgressionManager : MonoBehaviour
     [SerializeField] StateProgressionStep[] stateSequence;
 
     readonly Dictionary<int, StateProgressionStep> quickLookup = new();
-
+    readonly HashSet<string> triggeredHints = new();
     void Awake()
     {
         currentState = 0;
@@ -47,22 +47,38 @@ public class StateProgressionManager : MonoBehaviour
     void Start()
     {
         EvaluateState();
-    }   
+    }
     public void AddStatePoint()
     {
         currentState++;
         EvaluateState();
     }
-
     public void SetExactState(int exactTargetState)
     {
         currentState = exactTargetState;
         EvaluateState();
     }
-    public void OverrideHintText(string newHint, bool overrideOneTime)
+    /// <summary>
+    /// Permite sobreescribir el texto del indicador de estado, con la opción de que solo se muestre una vez si se antepone "[ONCE]" al texto. Ejemplo: "[ONCE]Ahora debo hacer tal cosa."
+    /// </summary>
+    /// <param name="newHint"> El nuevo texto para el indicador de estado del hint.</param>
+    public void OverrideHintText(string newHint)
     {
-        if (overrideOneTime) return;
-        stateTextMesh.text = newHint;
+        bool isRunOnce = false;
+        string displayText = newHint;
+
+        if (newHint.StartsWith("[ONCE]"))
+        {
+            isRunOnce = true;
+            displayText = newHint.Replace("[ONCE]", "").Trim();
+        }
+
+        if (isRunOnce)
+        {
+            if (triggeredHints.Contains(displayText)) return;
+            triggeredHints.Add(displayText);
+        }
+        stateTextMesh.text = displayText;
         StopAllCoroutines();
         if (indicatorCG != null) StartCoroutine(FadeIndicator());
     }

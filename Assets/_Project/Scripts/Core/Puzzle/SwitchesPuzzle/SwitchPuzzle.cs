@@ -29,8 +29,9 @@ public class SwitchPuzzle : MonoBehaviour, IInteractable
 
     [Header("Events")]
     [SerializeField] UnityEvent OnMissingItem;
-    [SerializeField] UnityEvent OnPuzzleSolved;
     [SerializeField] UnityEvent OnNoPlacedItem;
+    [SerializeField] UnityEvent OnPlacedItem;
+    [SerializeField] UnityEvent OnPuzzleSolved;
 
     bool isFusePlaced = false;
     bool isSolved = false;
@@ -154,6 +155,7 @@ public class SwitchPuzzle : MonoBehaviour, IInteractable
 
             InventoryManager.Instance.RemoveItem(requiredItemData);
             EquipmentManager.Instance.Unequip();
+            OnPlacedItem?.Invoke(); 
         }
         else
         {
