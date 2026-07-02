@@ -10,7 +10,7 @@ public class DialogueReader : MonoBehaviour
 
     [Header("Trigger Settings")]
     [SerializeField] Transform triggerPoint;
-    [SerializeField] Vector3 activeBoxSize = new();
+    [SerializeField] Vector3 activeBoxSize = new(1,1,1);
     [SerializeField] bool disableTriggerAfterUse = true;
     [SerializeField] bool singleTriggerOnlyViaEvent = true;
     public UnityEvent OnTriggered;
@@ -21,7 +21,6 @@ public class DialogueReader : MonoBehaviour
     {
         GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player != null) playerTransform = player.transform;
-
         if (triggerPoint == null) triggerPoint = transform;
     }
     void Update()

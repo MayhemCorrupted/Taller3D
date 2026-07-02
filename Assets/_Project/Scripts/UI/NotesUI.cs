@@ -180,7 +180,7 @@ public class NotesUI : MonoBehaviour
                 string viewedNoteName = CurrentViewingNoteName;
                 foreach (var noteEvent in specialInspectEvents)
                 {
-                    if (noteEvent.targetNoteName == viewedNoteName && (!noteEvent.triggerOnce))
+                    if (noteEvent.targetNoteName == viewedNoteName)
                     {
                         if (noteEvent.triggerOnce && noteEvent.triggered) continue;
 

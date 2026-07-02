@@ -5,20 +5,27 @@ using UnityEngine.Events;
 [System.Serializable]
 public struct BookPage
 {
-    public Sprite bookPageSprite;
-    [TextArea(2,3)] public string pageText;
+    public Sprite rightPageSprite;
+    public Sprite leftPageSprite;
+    [Space(3)]
+    [TextArea(2,3)] public string leftPageText;
+    [TextArea(2,3)] public string rightPageText;
     public UnityEvent onPassingPage;
 }
 public class ReadBookUI : MonoBehaviour
 {
-    [Header("Item Reference")]
+    [Header("Main References")]
     [SerializeField] ItemData bookItemData;
-    [Header("GameObject References")]
     [SerializeField] GameObject bookPanel;
-    [SerializeField] GameObject inspectContainer;
-    [Header("Text and Image Components")]
-    [SerializeField] TMP_Text pageTextComponent;
-    [SerializeField] Image pageImageComponent;
+    [Header("Left Side References")]
+    [SerializeField] GameObject rightInspectContainer;
+    [SerializeField] GameObject leftInspectContainer;
+    [Space(3)]
+    [SerializeField] TMP_Text rightTextComponent;
+    [SerializeField] TMP_Text leftTextComponent;
+    [Space(3)]
+    [SerializeField] Image rightImageComponent;
+    [SerializeField] Image leftImageComponent;
     [Header("Button References")]
     [SerializeField] Button inspectBook;
     [SerializeField] Button nextPageButton;
@@ -42,7 +49,8 @@ public class ReadBookUI : MonoBehaviour
         if (previousPageButton != null) previousPageButton.onClick.AddListener(PreviousPage);
         if (closeButton != null) closeButton.onClick.AddListener(RequestClose);
         if (inspectBook != null) inspectBook.onClick.AddListener(ToggleInspect);
-        if (inspectContainer != null) inspectContainer.SetActive(false);
+        if (leftInspectContainer != null) leftInspectContainer.SetActive(false);
+        if (rightInspectContainer != null) rightInspectContainer.SetActive(false);
         if (bookPanel != null) bookPanel.SetActive(false);
     }
 
@@ -92,10 +100,11 @@ public class ReadBookUI : MonoBehaviour
     }
     void ToggleInspect()
     {
-        if (inspectContainer != null)
+        if (leftInspectContainer != null)
         {
-            bool isActive = inspectContainer.activeSelf;
-            inspectContainer.SetActive(!isActive);
+            bool isActive = leftInspectContainer.activeSelf && rightInspectContainer.activeSelf;
+            leftInspectContainer.SetActive(!isActive);
+            rightInspectContainer.SetActive(!isActive);
         }
     }
     void PreviousPage()
@@ -112,13 +121,19 @@ public class ReadBookUI : MonoBehaviour
 
         BookPage currentPage = bookPages[index];
 
-        if (pageImageComponent != null)
+        if (leftImageComponent != null)
         {
-            pageImageComponent.sprite = currentPage.bookPageSprite;
-            pageImageComponent.enabled = currentPage.bookPageSprite != null;
+            leftImageComponent.sprite = currentPage.leftPageSprite;
+            leftImageComponent.enabled = currentPage.leftPageSprite != null;
+        }
+        if (rightImageComponent != null)
+        {
+            rightImageComponent.sprite = currentPage.rightPageSprite;
+            rightImageComponent.enabled = currentPage.rightPageSprite != null;
         }
 
-        if (pageTextComponent != null) pageTextComponent.text = currentPage.pageText;
+        if (leftTextComponent != null) leftTextComponent.text = currentPage.leftPageText;
+        if (rightTextComponent != null) rightTextComponent.text= currentPage.rightPageText;
 
         if (previousPageButton != null) previousPageButton.gameObject.SetActive(index > 0);
         if (nextPageButton != null) nextPageButton.gameObject.SetActive(index < bookPages.Length - 1);

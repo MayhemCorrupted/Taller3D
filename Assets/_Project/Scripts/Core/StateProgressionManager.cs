@@ -10,10 +10,7 @@ public struct StateProgressionStep
 {
     [Tooltip("El valor exacto de 'currentState' para que este evento ocurra.")]
     public int requiredStateValue;
-
-    [TextArea(2, 4)]
-    public string stateDisplayText;
-
+    [TextArea(2, 4)] public string stateDisplayText;
     public UnityEvent onStateTriggered;
 }
 public class StateProgressionManager : MonoBehaviour
@@ -24,9 +21,10 @@ public class StateProgressionManager : MonoBehaviour
     [SerializeField] CanvasGroup indicatorCG;
     [SerializeField] float fadeSpeed = 0.5f;
     [SerializeField] float fadeDuration = 1.0f;
+    [SerializeField] float fadeHoldDuration = 1.0f;
 
     [Header("System Memory")]
-    [Tooltip("NO TOCAR, es para ver el state como debug")]
+    [Tooltip("NO TOCAR, es para debuggear")]
     [SerializeField] int currentState = 0;
     [Header("Configuración de Estados")]
     [SerializeField] StateProgressionStep[] stateSequence;
@@ -35,8 +33,8 @@ public class StateProgressionManager : MonoBehaviour
 
     void Awake()
     {
-        indicatorCG.alpha = 0;
         currentState = 0;
+        if (indicatorCG != null) indicatorCG.alpha = 0;
         if (stateTextMesh != null) stateTextMesh.text = string.Empty;
         foreach (var step in stateSequence)
         {
@@ -55,12 +53,20 @@ public class StateProgressionManager : MonoBehaviour
         currentState++;
         EvaluateState();
     }
+
     public void SetExactState(int exactTargetState)
     {
         currentState = exactTargetState;
         EvaluateState();
     }
-    private void EvaluateState()
+    public void OverrideHintText(string newHint, bool overrideOneTime)
+    {
+        if (overrideOneTime) return;
+        stateTextMesh.text = newHint;
+        StopAllCoroutines();
+        if (indicatorCG != null) StartCoroutine(FadeIndicator());
+    }
+    void EvaluateState()
     {
         if (quickLookup.TryGetValue(currentState, out StateProgressionStep currentStep))
         {
@@ -74,7 +80,7 @@ public class StateProgressionManager : MonoBehaviour
     {
         indicatorCG.alpha = 0f;
         yield return StartCoroutine(SetFade(0f, 1f, fadeDuration, fadeSpeed));
-        yield return new WaitForSeconds(fadeDuration);
+        yield return new WaitForSeconds(fadeHoldDuration);
         yield return StartCoroutine(SetFade(1f, 0f, fadeDuration, fadeSpeed));
     }
     IEnumerator SetFade(float startAlpha, float targetAlpha, float duration, float speed)
