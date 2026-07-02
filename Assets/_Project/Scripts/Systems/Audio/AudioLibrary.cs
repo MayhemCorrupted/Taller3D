@@ -14,7 +14,7 @@ public class AudioLibrary : MonoBehaviour
     }
 
     [Header("Audio Library")]
-    [SerializeField] List<AudioTrack> tracks = new();
+    [SerializeField] List<AudioTrack> tracks = new(); 
     readonly private Dictionary<string, AudioTrack> trackDictionary = new();
     private AudioSource audioSource;
 

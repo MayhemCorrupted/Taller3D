@@ -8,6 +8,10 @@ TagManager:
   - BookSpawn
   - DragPuzzle
   - KitchenNoteSpawn
+  - WoodGround
+  - Stairs
+  - Carpet
+  - Concrete
   layers:
   - Default
   - TransparentFX
