@@ -16305,7 +16305,7 @@ GameObject:
   - component: {fileID: 146202708}
   m_Layer: 0
   m_Name: Piso (Segundo) (3)
-  m_TagString: Untagged
+  m_TagString: WoodGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 126
@@ -35422,9 +35422,13 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 469253955}
     m_Modifications:
+    - target: {fileID: 2767312885287139388, guid: edde9e2411b725542aa83f68bdb19732, type: 3}
+      propertyPath: panLevelCustomCurve.m_Curve.Array.data[0].value
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4545700986262636078, guid: edde9e2411b725542aa83f68bdb19732, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -0.10000001
       objectReference: {fileID: 0}
     - target: {fileID: 4545700986262636078, guid: edde9e2411b725542aa83f68bdb19732, type: 3}
       propertyPath: m_LocalPosition.y
@@ -35463,8 +35467,16 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4870840653057251930, guid: edde9e2411b725542aa83f68bdb19732, type: 3}
+      propertyPath: itemPrompt
+      value: '[{key}] grab {item}'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4870840653057251930, guid: edde9e2411b725542aa83f68bdb19732, type: 3}
+      propertyPath: unpickablePrompt
+      value: cannot grab {item}
+      objectReference: {fileID: 0}
+    - target: {fileID: 4870840653057251930, guid: edde9e2411b725542aa83f68bdb19732, type: 3}
       propertyPath: OnPicked.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4870840653057251930, guid: edde9e2411b725542aa83f68bdb19732, type: 3}
       propertyPath: OnPicked.m_PersistentCalls.m_Calls.Array.data[1].m_Target
@@ -35472,11 +35484,15 @@ PrefabInstance:
       objectReference: {fileID: 1550039657}
     - target: {fileID: 4870840653057251930, guid: edde9e2411b725542aa83f68bdb19732, type: 3}
       propertyPath: OnPicked.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: SetExactState
+      value: OverrideHintText
       objectReference: {fileID: 0}
     - target: {fileID: 4870840653057251930, guid: edde9e2411b725542aa83f68bdb19732, type: 3}
       propertyPath: OnPicked.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_IntArgument
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4870840653057251930, guid: edde9e2411b725542aa83f68bdb19732, type: 3}
+      propertyPath: OnPicked.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_StringArgument
+      value: '[ONCE]Use the key'
       objectReference: {fileID: 0}
     - target: {fileID: 8926419196658962880, guid: edde9e2411b725542aa83f68bdb19732, type: 3}
       propertyPath: m_Name
@@ -35572,7 +35588,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 42d885c6d2decbe4a96bebed7c2c84c3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SafeDialPuzzle
-  interactPrompt: '[E] Inspeccionar Caja Fuerte'
+  interactPrompt: '[{key}] Inspect Safe box'
   uiPanel: {fileID: 282396126}
   exitButton: {fileID: 830561926}
   dialController: {fileID: 533054018}
@@ -35608,7 +35624,19 @@ MonoBehaviour:
       m_Calls: []
   OnSafeUnlocked:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 407480290}
+        m_TargetAssemblyTypeName: DoorController, Assembly-CSharp
+        m_MethodName: UnlockDoor
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!65 &255073967
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -46986,6 +47014,10 @@ PrefabInstance:
       value: GarageDoor
       objectReference: {fileID: 0}
     - target: {fileID: 8570922834988828346, guid: 49e9feecf1256c7469b48b8005f35c5d, type: 3}
+      propertyPath: lockTextPrompt
+      value: Garage (Closed)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8570922834988828346, guid: 49e9feecf1256c7469b48b8005f35c5d, type: 3}
       propertyPath: openDoorPrompt
       value: '{key} Open garage''s door'
       objectReference: {fileID: 0}
@@ -50849,7 +50881,25 @@ MonoBehaviour:
   prevNoteButton: {fileID: 2065100025}
   toggleInspectButton: {fileID: 1078492250}
   closeNoteButton: {fileID: 1365324509}
-  specialInspectEvents: []
+  specialInspectEvents:
+  - targetNoteName: Mother's note
+    triggerOnce: 1
+    triggered: 0
+    onInspectTriggered:
+      m_PersistentCalls:
+        m_Calls:
+        - m_Target: {fileID: 1550039657}
+          m_TargetAssemblyTypeName: StateProgressionManager, Assembly-CSharp
+          m_MethodName: SetExactState
+          m_Mode: 3
+          m_Arguments:
+            m_ObjectArgument: {fileID: 0}
+            m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+            m_IntArgument: 3
+            m_FloatArgument: 0
+            m_StringArgument: 
+            m_BoolArgument: 0
+          m_CallState: 2
   OnReadNote:
     m_PersistentCalls:
       m_Calls: []
@@ -51803,8 +51853,8 @@ MonoBehaviour:
   openAngle: 90
   doorSpeed: 2
   lockTextPrompt: 
-  openDoorPrompt: interact
-  closeDoorPrompt: interact
+  openDoorPrompt: 
+  closeDoorPrompt: 
   revertDirection: 0
   forcedDirection: -1
   doorLocked: 1
@@ -56577,12 +56627,11 @@ Transform:
   - {fileID: 1591985097}
   - {fileID: 1447823730}
   - {fileID: 2049793746}
-  - {fileID: 5059404356599230853}
+  - {fileID: 3380399697084666674}
   - {fileID: 2729596933807459238}
   - {fileID: 568775799}
-  - {fileID: 1493329763}
+  - {fileID: 1047690387}
   - {fileID: 730497281}
-  - {fileID: 1085692315}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &469845397
@@ -57478,11 +57527,11 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 647680549}
   - {fileID: 2024552830}
   - {fileID: 1171431434}
   - {fileID: 1310511094}
   - {fileID: 573490049}
-  - {fileID: 647680549}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &486606029
@@ -68732,7 +68781,7 @@ GameObject:
   - component: {fileID: 589653870}
   m_Layer: 0
   m_Name: Cube (12)
-  m_TagString: Untagged
+  m_TagString: Stairs
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 126
@@ -73403,6 +73452,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 660329348}
+  - {fileID: 1801709523}
   m_Father: {fileID: 485242215}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &648054010
@@ -74370,7 +74420,7 @@ GameObject:
   m_Layer: 0
   m_Name: InitialKitchenRoom
   m_TagString: Untagged
-  m_Icon: {fileID: 0}
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
@@ -74416,7 +74466,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: InitialTrigger
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &661815153
@@ -74554,7 +74604,7 @@ GameObject:
   - component: {fileID: 663869090}
   m_Layer: 0
   m_Name: Piso (Primero) (1)
-  m_TagString: Untagged
+  m_TagString: WoodGround
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 126
@@ -86952,7 +87002,7 @@ PrefabInstance:
       objectReference: {fileID: 68189985}
     - target: {fileID: 2638775825566068914, guid: 201ddda03566c554981abb051e08767a, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -10.270002
+      value: -10.273
       objectReference: {fileID: 0}
     - target: {fileID: 2638775825566068914, guid: 201ddda03566c554981abb051e08767a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -89599,6 +89649,10 @@ PrefabInstance:
     - target: {fileID: 5168290649569638307, guid: 49e9feecf1256c7469b48b8005f35c5d, type: 3}
       propertyPath: m_Name
       value: KidDoor
+      objectReference: {fileID: 0}
+    - target: {fileID: 8570922834988828346, guid: 49e9feecf1256c7469b48b8005f35c5d, type: 3}
+      propertyPath: doorLocked
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8570922834988828346, guid: 49e9feecf1256c7469b48b8005f35c5d, type: 3}
       propertyPath: openDoorPrompt
@@ -109384,7 +109438,7 @@ MonoBehaviour:
       dialogueType: 1
       targetToLookAt: {fileID: 229083071}
       textMeshComponent: {fileID: 229083072}
-      lineTypingDuration: 1
+      lineTypingDuration: 0.5
       onLineStart:
         m_PersistentCalls:
           m_Calls: []
@@ -109411,7 +109465,19 @@ MonoBehaviour:
       lineTypingDuration: 0
       onLineStart:
         m_PersistentCalls:
-          m_Calls: []
+          m_Calls:
+          - m_Target: {fileID: 0}
+            m_TargetAssemblyTypeName: 
+            m_MethodName: 
+            m_Mode: 1
+            m_Arguments:
+              m_ObjectArgument: {fileID: 0}
+              m_ObjectArgumentAssemblyTypeName: 
+              m_IntArgument: 0
+              m_FloatArgument: 0
+              m_StringArgument: 
+              m_BoolArgument: 0
+            m_CallState: 2
     - textLine: Maybe that will help...
       dialogueType: 1
       targetToLookAt: {fileID: 229083071}
@@ -114432,6 +114498,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: BathroomParentDoor
       objectReference: {fileID: 0}
+    - target: {fileID: 8570922834988828346, guid: 49e9feecf1256c7469b48b8005f35c5d, type: 3}
+      propertyPath: openDoorPrompt
+      value: '{key} Open bathroom door'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8570922834988828346, guid: 49e9feecf1256c7469b48b8005f35c5d, type: 3}
+      propertyPath: closeDoorPrompt
+      value: '{key} Close bathroom door'
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -116150,11 +116224,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2002004509}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
---- !u!4 &978547364 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1357195181048278943, guid: db9c4b04844f9ad4e9a4012b50fc1546, type: 3}
-  m_PrefabInstance: {fileID: 1964540662529735505}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &983993273
 GameObject:
   m_ObjectHideFlags: 0
@@ -122322,6 +122391,38 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2002004509}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
+--- !u!1 &1047690386
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1047690387}
+  m_Layer: 0
+  m_Name: KitchenNoteOrigin
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1047690387
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1047690386}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1493329763}
+  m_Father: {fileID: 469253955}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1048413437
 GameObject:
   m_ObjectHideFlags: 0
@@ -126253,11 +126354,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 374215853}
   m_LocalEulerAnglesHint: {x: 0, y: -90, z: 0}
---- !u!4 &1085692315 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1687538835879876029, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
-  m_PrefabInstance: {fileID: 1652927789}
-  m_PrefabAsset: {fileID: 0}
 --- !u!64 &1085901799
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -136955,12 +137051,16 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8570922834988828346, guid: 49e9feecf1256c7469b48b8005f35c5d, type: 3}
+      propertyPath: lockTextPrompt
+      value: Library (Closed)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8570922834988828346, guid: 49e9feecf1256c7469b48b8005f35c5d, type: 3}
       propertyPath: openDoorPrompt
-      value: '{key} Open library door'
+      value: '{key} Open library''s door'
       objectReference: {fileID: 0}
     - target: {fileID: 8570922834988828346, guid: 49e9feecf1256c7469b48b8005f35c5d, type: 3}
       propertyPath: closeDoorPrompt
-      value: '{key} Close library door'
+      value: '{key} Close library''s door'
       objectReference: {fileID: 0}
     - target: {fileID: 8570922834988828346, guid: 49e9feecf1256c7469b48b8005f35c5d, type: 3}
       propertyPath: OnLockedDoor.m_PersistentCalls.m_Calls.Array.size
@@ -146377,19 +146477,7 @@ MonoBehaviour:
   singleTriggerOnlyViaEvent: 1
   OnTriggered:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: Item, Assembly-CSharp
-        m_MethodName: set_IsPickable
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
+      m_Calls: []
 --- !u!1 &1267413513
 GameObject:
   m_ObjectHideFlags: 0
@@ -147694,7 +147782,7 @@ GameObject:
   - component: {fileID: 1276408208}
   m_Layer: 0
   m_Name: Stairs
-  m_TagString: Untagged
+  m_TagString: Stairs
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 126
@@ -153133,15 +153221,43 @@ PrefabInstance:
   serializedVersion: 2
   m_Modification:
     serializedVersion: 3
-    m_TransformParent: {fileID: 469253955}
+    m_TransformParent: {fileID: 1047690387}
     m_Modifications:
+    - target: {fileID: 23228915916115943, guid: 42e835d6b1327364394179e7a194c202, type: 3}
+      propertyPath: itemPrompt
+      value: '[{key}] Grab {0}'
+      objectReference: {fileID: 0}
     - target: {fileID: 23228915916115943, guid: 42e835d6b1327364394179e7a194c202, type: 3}
       propertyPath: OnPicked.m_PersistentCalls.m_Calls.Array.size
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 23228915916115943, guid: 42e835d6b1327364394179e7a194c202, type: 3}
+      propertyPath: OnPicked.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 23228915916115943, guid: 42e835d6b1327364394179e7a194c202, type: 3}
+      propertyPath: OnPicked.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1550039657}
+    - target: {fileID: 23228915916115943, guid: 42e835d6b1327364394179e7a194c202, type: 3}
       propertyPath: OnPicked.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 23228915916115943, guid: 42e835d6b1327364394179e7a194c202, type: 3}
+      propertyPath: OnPicked.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OverrideHintText
+      objectReference: {fileID: 0}
+    - target: {fileID: 23228915916115943, guid: 42e835d6b1327364394179e7a194c202, type: 3}
+      propertyPath: OnPicked.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: StateProgressionManager, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 23228915916115943, guid: 42e835d6b1327364394179e7a194c202, type: 3}
+      propertyPath: OnPicked.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
+      value: '[ONCE]Check the note'
+      objectReference: {fileID: 0}
+    - target: {fileID: 23228915916115943, guid: 42e835d6b1327364394179e7a194c202, type: 3}
+      propertyPath: OnPicked.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 4493586700797165675, guid: 42e835d6b1327364394179e7a194c202, type: 3}
       propertyPath: m_LocalPosition.x
@@ -153185,7 +153301,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8072396906976070075, guid: 42e835d6b1327364394179e7a194c202, type: 3}
       propertyPath: m_Name
-      value: KitchenNotesOrigin
+      value: NoteModel
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -153298,6 +153414,10 @@ PrefabInstance:
     - target: {fileID: 8216622610215210921, guid: 4c80ae67d7fe1de47bd75be51cc0984d, type: 3}
       propertyPath: m_OcclusionCulling
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8216622610215210921, guid: 4c80ae67d7fe1de47bd75be51cc0984d, type: 3}
+      propertyPath: m_CullingMask.m_Bits
+      value: 128
       objectReference: {fileID: 0}
     - target: {fileID: 8602047284973628600, guid: 4c80ae67d7fe1de47bd75be51cc0984d, type: 3}
       propertyPath: m_RenderPostProcessing
@@ -156809,7 +156929,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: 84996a145eb86d342bd184f485340add, type: 2}
     - target: {fileID: 7380396886070198422, guid: dcaadef500dec8041ab83c3ea6dd0a60, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.100000024
       objectReference: {fileID: 0}
     - target: {fileID: 7380396886070198422, guid: dcaadef500dec8041ab83c3ea6dd0a60, type: 3}
       propertyPath: m_LocalPosition.y
@@ -156846,6 +156966,22 @@ PrefabInstance:
     - target: {fileID: 7380396886070198422, guid: dcaadef500dec8041ab83c3ea6dd0a60, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8718140722810156247, guid: dcaadef500dec8041ab83c3ea6dd0a60, type: 3}
+      propertyPath: itemPrompt
+      value: '[{key}] grab {item}'
+      objectReference: {fileID: 0}
+    - target: {fileID: 8718140722810156247, guid: dcaadef500dec8041ab83c3ea6dd0a60, type: 3}
+      propertyPath: unpickablePrompt
+      value: Cannot grab {item}
+      objectReference: {fileID: 0}
+    - target: {fileID: 8718140722810156247, guid: dcaadef500dec8041ab83c3ea6dd0a60, type: 3}
+      propertyPath: OnPicked.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8718140722810156247, guid: dcaadef500dec8041ab83c3ea6dd0a60, type: 3}
+      propertyPath: OnPicked.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -162025,7 +162161,7 @@ Transform:
   m_GameObject: {fileID: 1425964028}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -4.09, y: -0.276, z: -2.3999999}
+  m_LocalPosition: {x: -4.138, y: -0.276, z: -2.5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -191737,7 +191873,7 @@ GameObject:
   - component: {fileID: 1648079404}
   m_Layer: 0
   m_Name: Stairs (1)
-  m_TagString: Untagged
+  m_TagString: Stairs
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 126
@@ -193969,63 +194105,6 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
---- !u!1001 &1652927789
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 469253955}
-    m_Modifications:
-    - target: {fileID: 1687538835879876029, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1687538835879876029, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1687538835879876029, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1687538835879876029, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1687538835879876029, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1687538835879876029, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1687538835879876029, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1687538835879876029, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1687538835879876029, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1687538835879876029, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 4532579668897293221, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
-      propertyPath: m_Name
-      value: OfficeBlueprintsOrigin
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
 --- !u!1 &1653790117
 GameObject:
   m_ObjectHideFlags: 0
@@ -195422,12 +195501,32 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
+      propertyPath: fadeSettings.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
       propertyPath: events.Array.data[0].eventName
       value: InitialGame
       objectReference: {fileID: 0}
     - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
       propertyPath: events.Array.data[1].eventName
       value: PlayerBody
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
+      propertyPath: fadeSettings.Array.data[0].eventName
+      value: InitialTrigger
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
+      propertyPath: fadeSettings.Array.data[0].fadeInDuration
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
+      propertyPath: fadeSettings.Array.data[0].fadeOutDuration
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
+      propertyPath: fadeSettings.Array.data[0].fadeStayDuration
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
       propertyPath: OnDurationEnded.m_PersistentCalls.m_Calls.Array.size
@@ -195482,12 +195581,24 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
+      propertyPath: fadeSettings.Array.data[0].OnDurationFade.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
+      propertyPath: fadeSettings.Array.data[0].OnDurationEnded.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
       propertyPath: OnDurationEnded.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: SceneLoader, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
       propertyPath: OnSequenceStart.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: DialogueReader, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
+      propertyPath: fadeSettings.Array.data[0].OnSequenceComplete.m_PersistentCalls.m_Calls.Array.size
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
       propertyPath: events.Array.data[0].OnSequenceStart.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
@@ -195526,6 +195637,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
+      propertyPath: fadeSettings.Array.data[0].OnDurationFade.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
       propertyPath: events.Array.data[0].OnSequenceStart.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ShotDialogue
       objectReference: {fileID: 0}
@@ -195534,11 +195649,55 @@ PrefabInstance:
       value: ShotDialogue
       objectReference: {fileID: 0}
     - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
+      propertyPath: fadeSettings.Array.data[0].OnDurationEnded.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
+      propertyPath: fadeSettings.Array.data[0].OnDurationFade.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1011867413}
+    - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
       propertyPath: events.Array.data[0].OnSequenceComplete.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
+      propertyPath: fadeSettings.Array.data[0].OnDurationEnded.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1011867413}
+    - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
       propertyPath: events.Array.data[0].OnSequenceComplete.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ShotDialogue
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
+      propertyPath: fadeSettings.Array.data[0].OnSequenceComplete.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
+      propertyPath: fadeSettings.Array.data[0].OnDurationFade.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
+      propertyPath: fadeSettings.Array.data[0].OnDurationEnded.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
+      propertyPath: fadeSettings.Array.data[0].OnDurationFade.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ShotDialogue
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
+      propertyPath: fadeSettings.Array.data[0].OnSequenceComplete.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1011867413}
+    - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
+      propertyPath: fadeSettings.Array.data[0].OnDurationEnded.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: ShotDialogue
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
+      propertyPath: fadeSettings.Array.data[0].OnSequenceComplete.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
+      propertyPath: fadeSettings.Array.data[0].OnSequenceComplete.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ShotDialogue
       objectReference: {fileID: 0}
     - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
@@ -195562,6 +195721,18 @@ PrefabInstance:
       value: DialogueReader, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
+      propertyPath: fadeSettings.Array.data[0].OnDurationFade.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: DialogueReader, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
+      propertyPath: fadeSettings.Array.data[0].OnDurationEnded.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: DialogueReader, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
+      propertyPath: fadeSettings.Array.data[0].OnSequenceComplete.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: DialogueReader, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
       propertyPath: events.Array.data[0].OnSequenceStart.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
@@ -195571,6 +195742,18 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
       propertyPath: events.Array.data[0].OnSequenceComplete.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
+      propertyPath: fadeSettings.Array.data[0].OnDurationFade.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
+      propertyPath: fadeSettings.Array.data[0].OnDurationEnded.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
+      propertyPath: fadeSettings.Array.data[0].OnSequenceComplete.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 4116047261558296585, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
@@ -199277,7 +199460,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::DialogueActivator
   dialogueKey: ParentsRoomDialogue
   triggerPoint: {fileID: 1425964029}
-  activeBoxSize: {x: 1.72, y: 2, z: 2}
+  activeBoxSize: {x: 1.4, y: 2, z: 0.41}
   disableTriggerAfterUse: 1
   singleTriggerOnlyViaEvent: 1
   OnTriggered:
@@ -199285,14 +199468,14 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 1550039657}
         m_TargetAssemblyTypeName: StateProgressionManager, Assembly-CSharp
-        m_MethodName: SetExactState
-        m_Mode: 3
+        m_MethodName: OverrideHintText
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 4
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: '[ONCE]Enter to your parent''s room'
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!1 &1700082000
@@ -203791,7 +203974,7 @@ MonoBehaviour:
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 3
+          m_IntArgument: 2
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -205322,11 +205505,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 3221747207352929686, guid: 49e9feecf1256c7469b48b8005f35c5d, type: 3}
   m_PrefabInstance: {fileID: 364918577}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1772795130 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7472204359260188268, guid: db9c4b04844f9ad4e9a4012b50fc1546, type: 3}
-  m_PrefabInstance: {fileID: 1964540662529735505}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1773677167
 GameObject:
   m_ObjectHideFlags: 0
@@ -205699,7 +205877,7 @@ GameObject:
   - component: {fileID: 1775896115}
   m_Layer: 0
   m_Name: Pared lateral  (6)
-  m_TagString: Untagged
+  m_TagString: Stairs
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 126
@@ -208897,12 +209075,16 @@ PrefabInstance:
       value: FuseDoor
       objectReference: {fileID: 0}
     - target: {fileID: 8570922834988828346, guid: 49e9feecf1256c7469b48b8005f35c5d, type: 3}
+      propertyPath: lockTextPrompt
+      value: Fuse room (Closed)
+      objectReference: {fileID: 0}
+    - target: {fileID: 8570922834988828346, guid: 49e9feecf1256c7469b48b8005f35c5d, type: 3}
       propertyPath: openDoorPrompt
-      value: '[{key}] Open door'
+      value: '[{key}] Open fuse door'
       objectReference: {fileID: 0}
     - target: {fileID: 8570922834988828346, guid: 49e9feecf1256c7469b48b8005f35c5d, type: 3}
       propertyPath: closeDoorPrompt
-      value: '[{key}] Close door'
+      value: '[{key}] Close fuse door'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -210540,6 +210722,68 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
+--- !u!1 &1801709522
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1801709523}
+  - component: {fileID: 1801709524}
+  m_Layer: 0
+  m_Name: LibraryRoom
+  m_TagString: Untagged
+  m_Icon: {fileID: 7250588514170254948, guid: 0000000000000000d000000000000000, type: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1801709523
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1801709522}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -12.543, y: 8.5, z: 0.20000014}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 647680549}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1801709524
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1801709522}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f1dbd94b0f278648a3aa41d959488f7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BoxTrigger
+  activeBoxSize: {x: 0.41, y: 1.84, z: 1.56}
+  disableTriggerAfterUse: 1
+  singleTriggerOnlyViaEvent: 1
+  OnTriggered:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 1550039657}
+        m_TargetAssemblyTypeName: StateProgressionManager, Assembly-CSharp
+        m_MethodName: SetExactState
+        m_Mode: 3
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 3
+          m_FloatArgument: 0
+          m_StringArgument: '[ONCE]'
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &1803406910
 GameObject:
   m_ObjectHideFlags: 0
@@ -212979,7 +213223,7 @@ GameObject:
   - component: {fileID: 1834700057}
   m_Layer: 0
   m_Name: Stairs
-  m_TagString: Untagged
+  m_TagString: Stairs
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 126
@@ -225131,7 +225375,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8570922834988828346, guid: 49e9feecf1256c7469b48b8005f35c5d, type: 3}
       propertyPath: closeDoorPrompt
-      value: '[{key}] Close paren''s room'
+      value: '[{key}] Close parent''s room'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -239018,7 +239262,7 @@ GameObject:
   - component: {fileID: 2048844039}
   m_Layer: 0
   m_Name: Piso
-  m_TagString: Untagged
+  m_TagString: Concrete
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 126
@@ -248609,6 +248853,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+--- !u!1 &532608988674385194
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 3380399697084666674}
+  - component: {fileID: 7570318857622708520}
+  - component: {fileID: 2542744469647698677}
+  - component: {fileID: 2016689146048366739}
+  - component: {fileID: 787569973684336495}
+  m_Layer: 3
+  m_Name: BlueprintOffice
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &543450651740374734
 Transform:
   m_ObjectHideFlags: 0
@@ -249030,6 +249294,28 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8008824204084947496}
   m_Mesh: {fileID: -1369155694144071282, guid: c92fd57f29ee9484aae8ebe7b482de6b, type: 3}
+--- !u!64 &787569973684336495
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532608988674385194}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 4068373912626513877, guid: cab8fc0e2c143bd4bb79b78001cd3411, type: 3}
 --- !u!1 &817815873071846081 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 6535511790042797529, guid: b3bfd38e83f2d9249b9f96e3e45d0f17, type: 3}
@@ -250235,6 +250521,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2750493590684450927}
     - target: {fileID: 3725363954645880522, guid: db9c4b04844f9ad4e9a4012b50fc1546, type: 3}
+      propertyPath: linkedNote
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3725363954645880522, guid: db9c4b04844f9ad4e9a4012b50fc1546, type: 3}
       propertyPath: keypadPanel
       value: 
       objectReference: {fileID: 6874493416235833890}
@@ -250319,6 +250609,14 @@ PrefabInstance:
       value: Use the panel
       objectReference: {fileID: 0}
     - target: {fileID: 5834491060654749064, guid: db9c4b04844f9ad4e9a4012b50fc1546, type: 3}
+      propertyPath: openDoorPrompt
+      value: '[{key}] Open office door'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5834491060654749064, guid: db9c4b04844f9ad4e9a4012b50fc1546, type: 3}
+      propertyPath: closeDoorPrompt
+      value: '[{key}] Close office door'
+      objectReference: {fileID: 0}
+    - target: {fileID: 5834491060654749064, guid: db9c4b04844f9ad4e9a4012b50fc1546, type: 3}
       propertyPath: OnClosingDoor.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
       value: SlamDoor
       objectReference: {fileID: 0}
@@ -250381,10 +250679,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 7472204359260188268, guid: db9c4b04844f9ad4e9a4012b50fc1546, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 7715571240327254083}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: db9c4b04844f9ad4e9a4012b50fc1546, type: 3}
 --- !u!114 &2012918946880087627 stripped
 MonoBehaviour:
@@ -250444,11 +250739,23 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 1550039657}
+        m_TargetAssemblyTypeName: StateProgressionManager, Assembly-CSharp
+        m_MethodName: OverrideHintText
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: Go to the basement with the fuse
+          m_BoolArgument: 0
+        m_CallState: 2
   OnUnpickable:
     m_PersistentCalls:
       m_Calls: []
-  itemPrompt: '[E] Grab {0}'
-  unpickablePrompt: cannot grab {0}
+  itemPrompt: '[{key}] grab {item}'
+  unpickablePrompt: I have to go the second place first
 --- !u!65 &2014768388387538613
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -250470,6 +250777,76 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.1, y: 0.25, z: 0.1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &2016689146048366739
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532608988674385194}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 019d3c1ba88bfa7478257766a95c3379, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Item
+  itemData: {fileID: 11400000, guid: 7e9fe60f56ec203469844bc3ef658886, type: 2}
+  isPickable: 1
+  OnPicked:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 7715571240327254080}
+        m_TargetAssemblyTypeName: DoorController, Assembly-CSharp
+        m_MethodName: ForceClose
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: SlamDoor
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 7715571240327254080}
+        m_TargetAssemblyTypeName: DoorController, Assembly-CSharp
+        m_MethodName: set_DoorSpeed
+        m_Mode: 4
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0.5
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1077349303}
+        m_TargetAssemblyTypeName: DialogueReader, Assembly-CSharp
+        m_MethodName: ShotDialogue
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 2063004725}
+        m_TargetAssemblyTypeName: DoorController, Assembly-CSharp
+        m_MethodName: UnlockDoor
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+  OnUnpickable:
+    m_PersistentCalls:
+      m_Calls: []
+  itemPrompt: '[E] grab {0}'
+  unpickablePrompt: cannot grab {0}
 --- !u!114 &2096655572778332949 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8161543124829785818, guid: 0ee961e32a5ffc249abc144e16e05b26, type: 3}
@@ -250620,6 +250997,55 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!23 &2542744469647698677
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532608988674385194}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_StaticShadowCaster: 0
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RayTraceProcedural: 0
+  m_RayTracingAccelStructBuildFlagsOverride: 0
+  m_RayTracingAccelStructBuildFlags: 1
+  m_SmallMeshCulling: 1
+  m_ForceMeshLod: -1
+  m_MeshLodSelectionBias: 0
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 1833810152192036645, guid: cab8fc0e2c143bd4bb79b78001cd3411, type: 3}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_GlobalIlluminationMeshLod: 0
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+  m_MaskInteraction: 0
+  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!33 &2594620683817088105
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -251098,6 +251524,21 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!4 &3380399697084666674
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532608988674385194}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -10.944099, y: 11.3026, z: -1.837}
+  m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 469253955}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &3441069456232430245 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2013976344891446634, guid: 0ee961e32a5ffc249abc144e16e05b26, type: 3}
@@ -251292,12 +251733,24 @@ MonoBehaviour:
   isPickable: 1
   OnPicked:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1550039657}
+        m_TargetAssemblyTypeName: StateProgressionManager, Assembly-CSharp
+        m_MethodName: OverrideHintText
+        m_Mode: 5
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: '[ONCE]Read the note'
+          m_BoolArgument: 0
+        m_CallState: 2
   OnUnpickable:
     m_PersistentCalls:
       m_Calls: []
-  itemPrompt: '[(E)] grab {0}'
-  unpickablePrompt: cannot grab {0}
+  itemPrompt: '[{key}] grab {item}'
+  unpickablePrompt: Cannot grab {item}
 --- !u!64 &3866996893347819723
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -251362,163 +251815,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
---- !u!1001 &4144085971582453391
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    serializedVersion: 3
-    m_TransformParent: {fileID: 469253955}
-    m_Modifications:
-    - target: {fileID: 1687538835879876029, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -10.944099
-      objectReference: {fileID: 0}
-    - target: {fileID: 1687538835879876029, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 11.3026
-      objectReference: {fileID: 0}
-    - target: {fileID: 1687538835879876029, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: -1.837
-      objectReference: {fileID: 0}
-    - target: {fileID: 1687538835879876029, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 1687538835879876029, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1687538835879876029, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1687538835879876029, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1687538835879876029, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1687538835879876029, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 1687538835879876029, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 2485556174498516508, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
-      propertyPath: itemData
-      value: 
-      objectReference: {fileID: 11400000, guid: 7e9fe60f56ec203469844bc3ef658886, type: 2}
-    - target: {fileID: 2485556174498516508, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
-      propertyPath: OnPicked.m_PersistentCalls.m_Calls.Array.size
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2485556174498516508, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
-      propertyPath: OnUnpickable.m_PersistentCalls.m_Calls.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2485556174498516508, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
-      propertyPath: OnPicked.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2485556174498516508, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
-      propertyPath: OnPicked.m_PersistentCalls.m_Calls.Array.data[1].m_Mode
-      value: 4
-      objectReference: {fileID: 0}
-    - target: {fileID: 2485556174498516508, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
-      propertyPath: OnPicked.m_PersistentCalls.m_Calls.Array.data[4].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2485556174498516508, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
-      propertyPath: OnPicked.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 7715571240327254080}
-    - target: {fileID: 2485556174498516508, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
-      propertyPath: OnPicked.m_PersistentCalls.m_Calls.Array.data[1].m_Target
-      value: 
-      objectReference: {fileID: 7715571240327254080}
-    - target: {fileID: 2485556174498516508, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
-      propertyPath: OnPicked.m_PersistentCalls.m_Calls.Array.data[2].m_Target
-      value: 
-      objectReference: {fileID: 1077349303}
-    - target: {fileID: 2485556174498516508, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
-      propertyPath: OnPicked.m_PersistentCalls.m_Calls.Array.data[3].m_Target
-      value: 
-      objectReference: {fileID: 2063004725}
-    - target: {fileID: 2485556174498516508, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
-      propertyPath: OnPicked.m_PersistentCalls.m_Calls.Array.data[4].m_Target
-      value: 
-      objectReference: {fileID: 2063004725}
-    - target: {fileID: 2485556174498516508, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
-      propertyPath: OnUnpickable.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 2485556174498516508, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
-      propertyPath: OnPicked.m_PersistentCalls.m_Calls.Array.data[4].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2485556174498516508, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
-      propertyPath: OnPicked.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ForceClose
-      objectReference: {fileID: 0}
-    - target: {fileID: 2485556174498516508, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
-      propertyPath: OnPicked.m_PersistentCalls.m_Calls.Array.data[1].m_MethodName
-      value: set_DoorSpeed
-      objectReference: {fileID: 0}
-    - target: {fileID: 2485556174498516508, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
-      propertyPath: OnPicked.m_PersistentCalls.m_Calls.Array.data[4].m_MethodName
-      value: UnlockDoor
-      objectReference: {fileID: 0}
-    - target: {fileID: 2485556174498516508, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
-      propertyPath: OnUnpickable.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 7715571240327254083}
-    - target: {fileID: 2485556174498516508, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
-      propertyPath: OnUnpickable.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
-      value: 2
-      objectReference: {fileID: 0}
-    - target: {fileID: 2485556174498516508, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
-      propertyPath: OnUnpickable.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: Trigger
-      objectReference: {fileID: 0}
-    - target: {fileID: 2485556174498516508, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
-      propertyPath: OnPicked.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: DoorController, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 2485556174498516508, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
-      propertyPath: OnPicked.m_PersistentCalls.m_Calls.Array.data[4].m_TargetAssemblyTypeName
-      value: DoorController, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 2485556174498516508, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
-      propertyPath: OnPicked.m_PersistentCalls.m_Calls.Array.data[1].m_Arguments.m_FloatArgument
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2485556174498516508, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
-      propertyPath: OnUnpickable.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: EnvironmentFeedback, Assembly-CSharp
-      objectReference: {fileID: 0}
-    - target: {fileID: 2485556174498516508, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
-      propertyPath: OnPicked.m_PersistentCalls.m_Calls.Array.data[4].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 2485556174498516508, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
-      propertyPath: OnUnpickable.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
-      value: UnityEngine.Object, UnityEngine
-      objectReference: {fileID: 0}
-    - target: {fileID: 4532579668897293221, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
-      propertyPath: m_Name
-      value: PlanosOficina
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-    m_RemovedGameObjects: []
-    m_AddedGameObjects: []
-    m_AddedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
 --- !u!23 &4199315465081254721
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -251797,6 +252093,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  OnNoPlacedItem:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPlacedItem:
+    m_PersistentCalls:
+      m_Calls: []
   OnPuzzleSolved:
     m_PersistentCalls:
       m_Calls:
@@ -251814,12 +252116,12 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 1550039657}
         m_TargetAssemblyTypeName: StateProgressionManager, Assembly-CSharp
-        m_MethodName: AddStatePoint
-        m_Mode: 1
+        m_MethodName: SetExactState
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 4
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -251836,9 +252138,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  OnNoPlacedItem:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1001 &4616450244153591175
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -251968,11 +252267,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 543450652977883593}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!4 &5059404356599230853 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1687538835879876029, guid: 64011fdc34120bb43b70462e54da05b4, type: 3}
-  m_PrefabInstance: {fileID: 4144085971582453391}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &5085401424601054337
 Transform:
   m_ObjectHideFlags: 0
@@ -252924,6 +253218,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1419042227}
     m_Modifications:
+    - target: {fileID: 480874565837929423, guid: b3bfd38e83f2d9249b9f96e3e45d0f17, type: 3}
+      propertyPath: lockTextPrompt
+      value: Use the panel
+      objectReference: {fileID: 0}
     - target: {fileID: 5321889848982900281, guid: b3bfd38e83f2d9249b9f96e3e45d0f17, type: 3}
       propertyPath: player
       value: 
@@ -252944,6 +253242,10 @@ PrefabInstance:
       propertyPath: deleteButton
       value: 
       objectReference: {fileID: 9118250974860828508}
+    - target: {fileID: 5321889848982900281, guid: b3bfd38e83f2d9249b9f96e3e45d0f17, type: 3}
+      propertyPath: interactPrompt
+      value: '[{key}] Open Panel'
+      objectReference: {fileID: 0}
     - target: {fileID: 5321889848982900281, guid: b3bfd38e83f2d9249b9f96e3e45d0f17, type: 3}
       propertyPath: 'numberButtons.Array.data[0]'
       value: 
@@ -253132,6 +253434,12 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+  OnNoPlacedItem:
+    m_PersistentCalls:
+      m_Calls: []
+  OnPlacedItem:
+    m_PersistentCalls:
+      m_Calls: []
   OnPuzzleSolved:
     m_PersistentCalls:
       m_Calls:
@@ -253171,9 +253479,6 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
-  OnNoPlacedItem:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!33 &6805952728102489592
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -253401,6 +253706,14 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 6260523553896828450, guid: e91d561cb249b3d4d863e81ca256338d, type: 3}
   m_PrefabInstance: {fileID: 5383974327962249352}
   m_PrefabAsset: {fileID: 0}
+--- !u!33 &7570318857622708520
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 532608988674385194}
+  m_Mesh: {fileID: 4068373912626513877, guid: cab8fc0e2c143bd4bb79b78001cd3411, type: 3}
 --- !u!4 &7628044879455142493
 Transform:
   m_ObjectHideFlags: 0
@@ -253437,36 +253750,12 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5834491060654749064, guid: db9c4b04844f9ad4e9a4012b50fc1546, type: 3}
   m_PrefabInstance: {fileID: 1964540662529735505}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1772795130}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ece21ebce81553c4d82ee8de6e13cc07, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DoorController
---- !u!114 &7715571240327254083
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1772795130}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b71e628ed2d9c994eb62deef431b3fe3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::EnvironmentFeedback
-  shakeTarget: {fileID: 978547364}
-  shakeDuration: 0.6
-  shakeMagnitude: 0.04
-  shakeLoops: 3
-  pauseBetweenLoops: 0.2
-  returnToOrigin: 1
-  OnShakeStart:
-    m_PersistentCalls:
-      m_Calls: []
-  OnShakeEnd:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!114 &7767768241049109553 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 7704027118887328579, guid: 0ee961e32a5ffc249abc144e16e05b26, type: 3}
@@ -253780,6 +254069,74 @@ PrefabInstance:
       propertyPath: stateTextMesh
       value: 
       objectReference: {fileID: 1635122645}
+    - target: {fileID: 7344129718908532138, guid: 41e50039a8098b14a8436459a2dd8bcf, type: 3}
+      propertyPath: stateSequence.Array.size
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7344129718908532138, guid: 41e50039a8098b14a8436459a2dd8bcf, type: 3}
+      propertyPath: stateSequence.Array.data[1].stateDisplayText
+      value: Go to the second floor to find your parents
+      objectReference: {fileID: 0}
+    - target: {fileID: 7344129718908532138, guid: 41e50039a8098b14a8436459a2dd8bcf, type: 3}
+      propertyPath: stateSequence.Array.data[2].stateDisplayText
+      value: Go to the library
+      objectReference: {fileID: 0}
+    - target: {fileID: 7344129718908532138, guid: 41e50039a8098b14a8436459a2dd8bcf, type: 3}
+      propertyPath: stateSequence.Array.data[3].stateDisplayText
+      value: Inspect the fuse box
+      objectReference: {fileID: 0}
+    - target: {fileID: 7344129718908532138, guid: 41e50039a8098b14a8436459a2dd8bcf, type: 3}
+      propertyPath: stateSequence.Array.data[4].stateDisplayText
+      value: 'Go to the first floor and when '
+      objectReference: {fileID: 0}
+    - target: {fileID: 7344129718908532138, guid: 41e50039a8098b14a8436459a2dd8bcf, type: 3}
+      propertyPath: stateSequence.Array.data[1].requiredStateValue
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7344129718908532138, guid: 41e50039a8098b14a8436459a2dd8bcf, type: 3}
+      propertyPath: stateSequence.Array.data[2].requiredStateValue
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7344129718908532138, guid: 41e50039a8098b14a8436459a2dd8bcf, type: 3}
+      propertyPath: stateSequence.Array.data[3].requiredStateValue
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7344129718908532138, guid: 41e50039a8098b14a8436459a2dd8bcf, type: 3}
+      propertyPath: stateSequence.Array.data[4].requiredStateValue
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7344129718908532138, guid: 41e50039a8098b14a8436459a2dd8bcf, type: 3}
+      propertyPath: stateSequence.Array.data[1].onStateTriggered.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7344129718908532138, guid: 41e50039a8098b14a8436459a2dd8bcf, type: 3}
+      propertyPath: stateSequence.Array.data[1].onStateTriggered.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 7344129718908532138, guid: 41e50039a8098b14a8436459a2dd8bcf, type: 3}
+      propertyPath: stateSequence.Array.data[1].onStateTriggered.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2014768388387538612}
+    - target: {fileID: 7344129718908532138, guid: 41e50039a8098b14a8436459a2dd8bcf, type: 3}
+      propertyPath: stateSequence.Array.data[1].onStateTriggered.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 7344129718908532138, guid: 41e50039a8098b14a8436459a2dd8bcf, type: 3}
+      propertyPath: stateSequence.Array.data[1].onStateTriggered.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: set_IsPickable
+      objectReference: {fileID: 0}
+    - target: {fileID: 7344129718908532138, guid: 41e50039a8098b14a8436459a2dd8bcf, type: 3}
+      propertyPath: stateSequence.Array.data[1].onStateTriggered.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: Item, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 7344129718908532138, guid: 41e50039a8098b14a8436459a2dd8bcf, type: 3}
+      propertyPath: stateSequence.Array.data[1].onStateTriggered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7344129718908532138, guid: 41e50039a8098b14a8436459a2dd8bcf, type: 3}
+      propertyPath: stateSequence.Array.data[1].onStateTriggered.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
