@@ -7,32 +7,25 @@ using UnityEngine;
 public class ComicPanel : MonoBehaviour
 {
     [System.Serializable] private class StepData 
-    {
-        [SerializeField] private string stepName;
 
-        [Header("UI y Visuales")]
-        [SerializeField] private CanvasGroup panelImage;
-        [SerializeField] private TextMeshProUGUI textUI;
-        [TextArea(2, 5)][SerializeField] private string dialogueText;
+    {
+        [Header("UI Visuals")]
+        public CanvasGroup panelImage;
+        public TextMeshProUGUI textUI;
+        [TextArea(2, 5)] public string dialogueText;
 
         [Header("Audio")]
-        [SerializeField] private AudioSource audioSource;
-        [SerializeField] private AudioClip audioClip;
-
-        public CanvasGroup PanelImage => panelImage;
-        public TextMeshProUGUI TextUI => textUI; 
-        public string DialogueText => dialogueText;
-        public AudioSource AudioSource => audioSource;
-        public AudioClip AudioClip => audioClip;
+        public AudioSource audioSource;
+        public AudioClip audioClip; 
     }
 
     [SerializeField] private CinemachineCamera virtualCamera;
     [SerializeField] private float fadeSpeed = 2f;
     [SerializeField] private float textSpeed = 0.03f;
 
-    [Header("Estilo de texto")]
+    [Header("Text style")]
     [SerializeField] private TMP_FontAsset globalFont;
-    [SerializeField] private Color globalColor = Color.white;
+    [SerializeField] private Color globalColor = Color.black;
     [SerializeField] private float globalFontSize = 36f;
     [SerializeField] private TextAlignmentOptions globalAlignment = TextAlignmentOptions.Center;
 
@@ -56,19 +49,19 @@ public class ComicPanel : MonoBehaviour
 
         foreach (var step in steps)
         {
-            if (step.PanelImage != null) step.PanelImage.alpha = 0f;
+            if (step.panelImage != null) step.panelImage.alpha = 0f;
 
-            if (step.TextUI != null)
+            if (step.textUI != null)
 
             {
-                step.TextUI.enableAutoSizing = false;
-                if (globalFont != null) step.TextUI.font = globalFont;
-                step.TextUI.fontSize = globalFontSize;
-                step.TextUI.color = globalColor;
-                step.TextUI.alignment = globalAlignment;
+                step.textUI.enableAutoSizing = false;
+                if (globalFont != null) step.textUI.font = globalFont;
+                step.textUI.fontSize = globalFontSize;
+                step.textUI.color = globalColor;
+                step.textUI.alignment = globalAlignment;
 
-                step.TextUI.text = "";
-                step.TextUI.gameObject.SetActive(false);
+                step.textUI.text = "";
+                step.textUI.gameObject.SetActive(false);
             }
         }
 
@@ -83,7 +76,7 @@ public class ComicPanel : MonoBehaviour
     {
         if (isWriting)
         {
-            CompleteTextInstantly();
+            CompleteText();
             return true;
         }
 
@@ -104,47 +97,42 @@ public class ComicPanel : MonoBehaviour
         if (virtualCamera != null)
         {
             virtualCamera.Priority = 0;
-            StartCoroutine(DisableCameraDelayed(virtualCamera.gameObject));
+            virtualCamera.gameObject.SetActive(false);
         }
 
         gameObject.SetActive(false);
     }
-    private IEnumerator DisableCameraDelayed(GameObject camObj)
-    {
-        yield return new WaitForSeconds(2f);
-        camObj.SetActive(false);
-    }
-
+    
     private void ActivateStep(int index)
     {
         StepData currentStep = steps[index];
 
-        if (currentStep.TextUI != null)
+        if (currentStep.textUI != null)
         {
-            currentStep.TextUI.gameObject.SetActive(true);
-            currentFullText = currentStep.DialogueText;
+            currentStep.textUI.gameObject.SetActive(true);
+            currentFullText = currentStep.dialogueText;
 
             if (typingCoroutine != null) StopCoroutine(typingCoroutine);
-            typingCoroutine = StartCoroutine(TypeText(currentStep.TextUI, currentStep.DialogueText));
+            typingCoroutine = StartCoroutine(TypeText(currentStep.textUI, currentStep.dialogueText));
         }
 
-        if (currentStep.AudioSource != null && currentStep.AudioClip != null)
+        if (currentStep.audioSource != null && currentStep.audioClip != null)
         {
-            if (currentStep.AudioSource.isPlaying) currentStep.AudioSource.Stop();
-            currentStep.AudioSource.clip = currentStep.AudioClip;
-            currentStep.AudioSource.Play();
+            if (currentStep.audioSource.isPlaying) currentStep.audioSource.Stop();
+            currentStep.audioSource.clip = currentStep.audioClip;
+            currentStep.audioSource.Play();
         }
 
-        if (currentStep.PanelImage != null)
+        if (currentStep.panelImage != null)
         {
-            StartCoroutine(FadeObject(currentStep.PanelImage));
+            StartCoroutine(FadeObject(currentStep.panelImage));
         }
     }
 
-    private void CompleteTextInstantly()
+    private void CompleteText()
     {
         if (typingCoroutine != null) StopCoroutine(typingCoroutine);
-        steps[currentStepIndex].TextUI.text = currentFullText;
+        steps[currentStepIndex].textUI.text = currentFullText;
         isWriting = false;
     }
 

@@ -35,6 +35,12 @@ public class PlayerFootStepSounds : MonoBehaviour
 
     void Update()
     {
+        if (UserInterfaceManager.Instance != null && UserInterfaceManager.Instance.IsAnyPanelOpen())
+        {
+            stepTimer = stepCooldown;
+            return;
+        }
+
         Vector3 horizontalVelocity = new (controller.velocity.x, 0f, controller.velocity.z);
 
         if (movement.Flying || horizontalVelocity.sqrMagnitude < 0.1f)
@@ -61,7 +67,7 @@ public class PlayerFootStepSounds : MonoBehaviour
 
             if (Physics.Raycast(rayOrigin, Vector3.down, out RaycastHit hit, rayDistance))
             {
-                if (hit.collider.gameObject != this.gameObject)
+                if (hit.collider.gameObject != gameObject)
                 {
                     detectedTag = hit.collider.tag;
                 }

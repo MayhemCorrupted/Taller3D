@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class SequenceManagerV2 : MonoBehaviour
 {
@@ -10,7 +11,6 @@ public class SequenceManagerV2 : MonoBehaviour
 
     private int currentPanelIndex = 0;
     private bool isTransitioning = false;
-    private ComicPanel oldPanel;
 
     private void Start()
     {
@@ -36,13 +36,13 @@ public class SequenceManagerV2 : MonoBehaviour
     private void ChangeNextPanel()
     {
         isTransitioning = true;
-        oldPanel = panels[currentPanelIndex];
+        ComicPanel panelToDisable = panels[currentPanelIndex];
         currentPanelIndex++;
 
         if (currentPanelIndex < panels.Count)
         {
             panels[currentPanelIndex].ActivatePanel();
-            Invoke("OffOldPanel", cameraTime);
+            StartCoroutine(DisablePanelAfterDelay(panelToDisable, cameraTime));
         }
         else
         {
@@ -50,11 +50,13 @@ public class SequenceManagerV2 : MonoBehaviour
         }
     }
 
-    private void OffOldPanel()
+    private IEnumerator DisablePanelAfterDelay(ComicPanel panel, float delay)
     {
-        if (oldPanel != null)
+        yield return new WaitForSeconds(delay);
+
+        if (panel != null)
         {
-            oldPanel.DeactivatePanel();
+            panel.DeactivatePanel();
         }
 
         isTransitioning = false;
@@ -62,6 +64,6 @@ public class SequenceManagerV2 : MonoBehaviour
 
     public void FinishComic()
     {
-            SceneManager.LoadScene(nextSceneName);
+        SceneManager.LoadScene(nextSceneName);
     }
 }
