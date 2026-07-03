@@ -33,6 +33,15 @@ public class EnvironmentFeedback : MonoBehaviour
         StartCoroutine(ShakeRoutine());
     }
 
+    public void StopShake()
+    {
+        if (!isShaking) return;
+        StopAllCoroutines();
+        shakeTarget.localPosition = originLocalPos;
+        isShaking = false;
+        OnShakeEnd?.Invoke();
+    }
+
     IEnumerator ShakeRoutine()
     {
         isShaking = true;
