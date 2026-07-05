@@ -16,6 +16,10 @@ public enum DialogueType { UI, World_3D }
     public TMP_Text textMeshComponent;
     [Tooltip("Opcional. Si es 0, heredará la duración de la línea anterior.")]
     public float lineTypingDuration;
+    [Tooltip("Tiempo por carácter (velocidad de tipeo).")]
+    public float timePerCharacter;
+    [Tooltip("Duración del desvanecimiento (fade out).")]
+    public float fadeDuration;
     [Header("Events")]
     public UnityEvent onLineStart;
 }

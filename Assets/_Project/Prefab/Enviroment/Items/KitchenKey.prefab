@@ -9,10 +9,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4545700986262636078}
-  - component: {fileID: 1738970425114976087}
   - component: {fileID: 1069189062934842882}
   - component: {fileID: 2767312885287139388}
-  - component: {fileID: 7442867337343003370}
   m_Layer: 0
   m_Name: KitchenKey
   m_TagString: Untagged
@@ -36,22 +34,6 @@ Transform:
   - {fileID: 6996414005062349375}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1738970425114976087
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8926419196658962880}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90db61f420c406b4b97b536f12fb03ac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InteractiveObjectLight
-  targetRenderer: {fileID: 0}
-  glowColor: {r: 1, g: 1, b: 1, a: 1}
-  blinkSpeed: 3
-  glowStrength: 1.5
 --- !u!114 &1069189062934842882
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -126,7 +108,7 @@ AudioSource:
     m_Curve:
     - serializedVersion: 3
       time: 0
-      value: 0
+      value: 1
       inSlope: 0
       outSlope: 0
       tangentMode: 0
@@ -166,55 +148,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!23 &7442867337343003370
-MeshRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8926419196658962880}
-  m_Enabled: 1
-  m_CastShadows: 1
-  m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
-  m_StaticShadowCaster: 0
-  m_MotionVectors: 1
-  m_LightProbeUsage: 1
-  m_ReflectionProbeUsage: 1
-  m_RayTracingMode: 2
-  m_RayTraceProcedural: 0
-  m_RayTracingAccelStructBuildFlagsOverride: 0
-  m_RayTracingAccelStructBuildFlags: 1
-  m_SmallMeshCulling: 1
-  m_ForceMeshLod: -1
-  m_MeshLodSelectionBias: 0
-  m_RenderingLayerMask: 1
-  m_RendererPriority: 0
-  m_Materials:
-  - {fileID: 0}
-  m_StaticBatchInfo:
-    firstSubMesh: 0
-    subMeshCount: 0
-  m_StaticBatchRoot: {fileID: 0}
-  m_ProbeAnchor: {fileID: 0}
-  m_LightProbeVolumeOverride: {fileID: 0}
-  m_ScaleInLightmap: 1
-  m_ReceiveGI: 1
-  m_PreserveUVs: 0
-  m_IgnoreNormalsForChartDetection: 0
-  m_ImportantGI: 0
-  m_StitchLightmapSeams: 1
-  m_SelectedEditorRenderState: 3
-  m_MinimumChartSize: 4
-  m_AutoUVMaxDistance: 0.5
-  m_AutoUVMaxAngle: 89
-  m_LightmapParameters: {fileID: 0}
-  m_GlobalIlluminationMeshLod: 0
-  m_SortingLayerID: 0
-  m_SortingLayer: 0
-  m_SortingOrder: 0
-  m_MaskInteraction: 0
-  m_AdditionalVertexStreams: {fileID: 0}
 --- !u!1 &9197623145209643692
 GameObject:
   m_ObjectHideFlags: 0
@@ -227,7 +160,8 @@ GameObject:
   - component: {fileID: 4870840653057251930}
   - component: {fileID: 5340175381168820858}
   - component: {fileID: 1975399740063088640}
-  - component: {fileID: 2393903687747645537}
+  - component: {fileID: 6396464127959530822}
+  - component: {fileID: 241261595605047342}
   m_Layer: 3
   m_Name: KeyModel
   m_TagString: Untagged
@@ -279,23 +213,23 @@ MonoBehaviour:
           m_StringArgument: GrabKey
           m_BoolArgument: 0
         m_CallState: 2
-      - m_Target: {fileID: 7344129718908532138, guid: 41e50039a8098b14a8436459a2dd8bcf, type: 3}
+      - m_Target: {fileID: 0}
         m_TargetAssemblyTypeName: StateProgressionManager, Assembly-CSharp
-        m_MethodName: AddStatePoint
-        m_Mode: 1
+        m_MethodName: OverrideHintText
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 2
           m_FloatArgument: 0
-          m_StringArgument: GrabKey
+          m_StringArgument: '[ONCE] Use the key and leave the room'
           m_BoolArgument: 0
         m_CallState: 2
   OnUnpickable:
     m_PersistentCalls:
       m_Calls: []
-  itemPrompt: '[E] recoger {0}'
-  unpickablePrompt: cannot grab {0}
+  itemPrompt: '[{key}] grab {item}'
+  unpickablePrompt: cannot grab {item}
 --- !u!33 &5340175381168820858
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -353,8 +287,8 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &2393903687747645537
-MeshCollider:
+--- !u!65 &6396464127959530822
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -371,7 +305,22 @@ MeshCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 5
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 3369316746193770658, guid: a84e7bbd8dff93e4f8d1c88b41c1529f, type: 3}
+  serializedVersion: 3
+  m_Size: {x: 0.029042182, y: 0.06790737, z: 0.0036355057}
+  m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &241261595605047342
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9197623145209643692}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90db61f420c406b4b97b536f12fb03ac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractiveObjectLight
+  targetRenderer: {fileID: 0}
+  glowColor: {r: 1, g: 1, b: 1, a: 1}
+  blinkSpeed: 3
+  glowStrength: 1.5

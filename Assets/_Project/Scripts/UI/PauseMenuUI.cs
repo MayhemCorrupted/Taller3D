@@ -18,6 +18,7 @@ public class PauseMenuUI : MonoBehaviour
 
     [Header("Settings Buttons")]
     [SerializeField] Button backFromSettingsButton;
+    public bool CanPause { get; set; } = true;
 
     void Start()
     {
@@ -40,6 +41,7 @@ public class PauseMenuUI : MonoBehaviour
     {
         if (InputManager.Instance == null) return;
         if (!Input.GetKeyDown(menuKey)) return;
+        if (!CanPause) return;
 
         UserInterfaceManager.Instance.TogglePanel(UserInterfaceManager.PanelType.Pause);
 

@@ -14,6 +14,12 @@ public class DialogueManager : MonoBehaviour
     Coroutine lookCoroutine;
     Coroutine fallbackCoroutine;
 
+    [Header("Default Values")]
+    [Tooltip("Velocidad de tipeo por defecto en segundos por carácter.")]
+    [SerializeField] float defaultTimePerCharacter = 0.015f;
+    [Tooltip("Tiempo de fade out por defecto en segundos.")]
+    [SerializeField] float defaultFadeDuration = 0.4f;
+
     [Header("UI Fallback Settings (For 3D)")]
     [Tooltip("El panel que aparecerá cuando el texto 3D salga de la pantalla.")]
     [SerializeField] CanvasGroup fallbackCanvasGroup;
@@ -31,6 +37,7 @@ public class DialogueManager : MonoBehaviour
     bool isLookInterrupted = false;
     Transform currentLookTarget = null;
     DialogueType currentLineType;
+    TMP_Text currentActiveMainText = null;
     void Awake()
     {
         if (Instance == null) Instance = this;
@@ -40,7 +47,7 @@ public class DialogueManager : MonoBehaviour
     }
     public bool StartDialogue(DialogueEntry data)
     {
-        if (IsDialogueActive) return false;
+        if (IsDialogueActive) StopCurrentDialogue();
 
         IsDialogueActive = true;
         isLookInterrupted = false;
@@ -55,11 +62,23 @@ public class DialogueManager : MonoBehaviour
         fallbackCoroutine = StartCoroutine(Track3DTextVisibility());
         return true; 
     }
+    public void StopCurrentDialogue()
+    {
+        CancelInvoke();
+
+        if (typeCoroutine != null) StopCoroutine(typeCoroutine);
+        if (lookCoroutine != null) StopCoroutine(lookCoroutine);
+        if (fallbackCoroutine != null) StopCoroutine(fallbackCoroutine);
+
+        if (currentActiveMainText != null) PrepareTextComponent(currentActiveMainText, "");
+        if (fallbackUIText != null) PrepareTextComponent(fallbackUIText, "");
+        if (fallbackCanvasGroup != null) fallbackCanvasGroup.alpha = 0f;
+
+        currentLookTarget = null;
+        IsDialogueActive = false;
+    }
     IEnumerator TypingTextSequence(DialogueEntry data)
     {
-        float timePerCharacter = 0.03f;
-        float fadeDuration = 0.4f;
-
         TMP_Text activeMainText = null;
         float currentDuration = 3f;
 
@@ -79,20 +98,20 @@ public class DialogueManager : MonoBehaviour
                     if (panTiltComponent != null) lookCoroutine = StartCoroutine(LookAtTarget(currentLookTarget));
                 }
             }
-            else
+            else if (currentLookTarget == null && currentLineType == DialogueType.World_3D)
             {
-                if (currentLineType == DialogueType.World_3D)
-                {
-                    Debug.LogWarning("[DialogueManager] tienes una línea World_3D sin targetToLookAt. El panel UI Fallback no sabrá dónde anclarse.");
-                    currentLookTarget = null;
-                }
+                Debug.LogWarning("[DialogueManager] Línea puesto como World_3D no cuenta con un targetToLookAt, ojito con eso.");
             }
 
             if (lineData.textMeshComponent != null) activeMainText = lineData.textMeshComponent;
+            currentActiveMainText = activeMainText;
 
             isUsingFallbackUI = (currentLineType == DialogueType.World_3D) || (currentLineType == DialogueType.UI && activeMainText == null);
 
             if (lineData.lineTypingDuration > 0f) currentDuration = lineData.lineTypingDuration;
+
+            float timePerCharacter = lineData.timePerCharacter > 0f ? lineData.timePerCharacter : defaultTimePerCharacter; ;
+            float fadeDuration = lineData.fadeDuration > 0f ? lineData.fadeDuration : defaultFadeDuration; ;
 
             string currentText = lineData.textLine;
 
@@ -205,7 +224,7 @@ public class DialogueManager : MonoBehaviour
     }
     IEnumerator LookAtTarget(Transform target)
     {
-        float angleTolerance = 0.5f;
+        float angleTolerance = 0.7f;
         float mouseMoveTimer = 0f;
 
         float panVelocity = 0f;

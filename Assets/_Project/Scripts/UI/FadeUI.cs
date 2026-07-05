@@ -1,7 +1,6 @@
 using UnityEngine;
 using UnityEngine.Events;
 using System.Collections;
-using UnityEngine.Rendering;
 [System.Serializable]
 public struct FadeEvents
 {

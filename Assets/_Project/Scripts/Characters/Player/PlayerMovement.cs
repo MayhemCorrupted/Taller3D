@@ -31,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
     public Vector3 Velocity => playerCtrl.velocity;
     public bool IsGrounded => playerCtrl.isGrounded;
     public bool Flying => flying;
-    public bool CanFly { set => canFly = value; }
+    public bool CanFly { get => canFly; set => canFly = value; }
 
     void Awake()
     {

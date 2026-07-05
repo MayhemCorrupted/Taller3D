@@ -28,7 +28,7 @@ public class SequencePathPuzzle : MonoBehaviour, IInteractable
     bool isLockedOut = false;
     bool isSolved = false;
     public string PuzzlePrompt => interactPrompt;
-   void Start()
+    void Start()
     {
         if (uiPanel != null) uiPanel.SetActive(false);
         if (exitButton != null) exitButton.onClick.AddListener(() => UserInterfaceManager.Instance.ClosePanel(UserInterfaceManager.PanelType.Sequence));
@@ -50,7 +50,7 @@ public class SequencePathPuzzle : MonoBehaviour, IInteractable
         ResetLights();
     }
 
-    private void InitializeProceduralGrid()
+    void InitializeProceduralGrid()
     {
         Random.InitState(ProceduralSeedGenerator.Instance.OfficeSeed + gameObject.name.GetHashCode());
 
@@ -88,7 +88,7 @@ public class SequencePathPuzzle : MonoBehaviour, IInteractable
         }
     }
 
-    private void AssignButtonListeners()
+    void AssignButtonListeners()
     {
         for (int i = 0; i < numpadButtons.Length; i++)
         {
@@ -108,31 +108,31 @@ public class SequencePathPuzzle : MonoBehaviour, IInteractable
         UserInterfaceManager.Instance.TogglePanel(UserInterfaceManager.PanelType.Sequence);
     }
 
-    private void OnButtonPressed(int buttonIndex)
+    void OnButtonPressed(int buttonIndex)
     {
         if (isLockedOut || isSolved) return;
 
-        int pressedValue = proceduralButtonValues[buttonIndex];
+        int pressedIconIndex = proceduralButtonValues[buttonIndex];
 
-        if (currentSequenceStep == 0 || pressedValue == expectedNextValue)
+        if (currentSequenceStep == 0 || pressedIconIndex == expectedNextValue)
         {
-            ProcessCorrectPress(buttonIndex, pressedValue);
+            ProcessCorrectPress(buttonIndex, pressedIconIndex);
         }
         else
         {
-            ProcessError();
+            ProcessError(pressedIconIndex);
         }
     }
-    private void ProcessCorrectPress(int buttonIndex, int pressedValue)
+    void ProcessCorrectPress(int buttonIndex, int pressedIconIndex)
     {
         numpadButtons[buttonIndex].interactable = false;
 
-        if (currentSequenceStep < sequenceLights.Length && sequenceLights[currentSequenceStep] != null)
+        if (pressedIconIndex < sequenceLights.Length && sequenceLights[pressedIconIndex] != null)
         {
-            sequenceLights[currentSequenceStep].color = lightCorrectColor;
+            sequenceLights[pressedIconIndex].color = lightCorrectColor;
         }
 
-        expectedNextValue = (pressedValue % numpadButtons.Length) + 1;
+        expectedNextValue = (pressedIconIndex + 1) % sequenceIcons.Length;
         currentSequenceStep++;
 
         if (currentSequenceStep >= numpadButtons.Length)
@@ -141,18 +141,18 @@ public class SequencePathPuzzle : MonoBehaviour, IInteractable
         }
     }
 
-    private void ProcessError()
+    void ProcessError(int wrongIconIndex)
     {
-        StartCoroutine(ErrorResetRoutine());
+        StartCoroutine(ErrorResetRoutine(wrongIconIndex));
     }
 
-    IEnumerator ErrorResetRoutine()
+    IEnumerator ErrorResetRoutine(int wrongIconIndex)
     {
         isLockedOut = true;
 
-        if (currentSequenceStep < sequenceLights.Length && sequenceLights[currentSequenceStep] != null)
+        if (wrongIconIndex < sequenceLights.Length && sequenceLights[wrongIconIndex] != null)
         {
-            sequenceLights[currentSequenceStep].color = lightErrorColor;
+            sequenceLights[wrongIconIndex].color = lightErrorColor;
         }
 
         float waitForSeconds = 0.5f;
@@ -171,7 +171,7 @@ public class SequencePathPuzzle : MonoBehaviour, IInteractable
         isLockedOut = false;
     }
 
-    private void ResetLights()
+    void ResetLights()
     {
         foreach (Image light in sequenceLights)
         {
@@ -179,12 +179,12 @@ public class SequencePathPuzzle : MonoBehaviour, IInteractable
         }
     }
 
-    private void CompletePuzzle()
+    void CompletePuzzle()
     {
         isSolved = true;
         interactPrompt = string.Empty;
         Debug.Log("[Puzzle Caja Fuerte] Secuencia completada con éxito.");
         OnSolved?.Invoke();
-     UserInterfaceManager.Instance.ClosePanel(UserInterfaceManager.PanelType.Sequence);
+        UserInterfaceManager.Instance.ClosePanel(UserInterfaceManager.PanelType.Sequence);
     }
 }

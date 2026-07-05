@@ -1,52 +1,35 @@
 using UnityEngine;
 using UnityEngine.Events;
 
+[RequireComponent(typeof(BoxCollider))]
 public class BoxTrigger : MonoBehaviour
 {
-    Transform playerTransform;
+    BoxCollider colliderBox;
     [Header("Settings")]
-    [SerializeField] Vector3 activeBoxSize = new();
     [SerializeField] bool disableTriggerAfterUse = true;
     [SerializeField] bool singleTriggerOnlyViaEvent = true;
     public UnityEvent OnTriggered;
-    bool triggered = false;
     bool hasBeenExecuted = false;
     void Awake()
     {
-        playerTransform = GameObject.FindGameObjectWithTag("Player").transform;
-    }
-    void Update()
-    {
-        if (triggered || playerTransform == null) return;
-
-        if (IsPlayerInsideBox()) DetectTrigger();
-    }
-    bool IsPlayerInsideBox()
-    {
-        Vector3 difference = playerTransform.position - transform.position;
-
-        Vector3 extents = activeBoxSize / 2f;
-
-        bool insideX = Mathf.Abs(difference.x) <= extents.x;
-        bool insideY = Mathf.Abs(difference.y) <= extents.y;
-        bool insideZ = Mathf.Abs(difference.z) <= extents.z;
-
-        return insideX && insideY && insideZ;
+        colliderBox = GetComponent<BoxCollider>();
+        colliderBox.isTrigger = true;
     }
     void DetectTrigger()
     {
         if (singleTriggerOnlyViaEvent && hasBeenExecuted) return; 
 
         hasBeenExecuted = true;
-        triggered = true;
 
         OnTriggered?.Invoke();
 
         if (disableTriggerAfterUse) this.enabled = false;
     }
-    void OnDrawGizmosSelected()
+    void OnTriggerEnter(Collider other)
     {
-        Gizmos.color = Color.green;
-        Gizmos.DrawWireCube(transform.position, activeBoxSize);
+        if (other.CompareTag("Player"))
+        {
+            DetectTrigger();
+        }
     }
 }
