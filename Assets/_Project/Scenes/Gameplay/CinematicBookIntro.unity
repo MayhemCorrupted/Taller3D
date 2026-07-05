@@ -369,7 +369,7 @@ MonoBehaviour:
     DefaultMode: 2
   DefaultBlend:
     Style: 1
-    Time: 2
+    Time: 1.2
     CustomCurve:
       serializedVersion: 2
       m_Curve: []
@@ -431,24 +431,16 @@ MonoBehaviour:
   fadeSpeed: 2
   textSpeed: 0.03
   globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
-  globalColor: {r: 1, g: 1, b: 1, a: 1}
+  globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
   steps:
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 1219009537}
     textUI: {fileID: 1156220703}
     dialogueText: 
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 1219009537}
-    textUI: {fileID: 1156220703}
-    dialogueText: 
-    audioSource: {fileID: 1639179776}
-    audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 0}
     textUI: {fileID: 1156220703}
     dialogueText: But still... nothing.
     audioSource: {fileID: 1639179776}
@@ -683,24 +675,16 @@ MonoBehaviour:
   fadeSpeed: 2
   textSpeed: 0.03
   globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
-  globalColor: {r: 1, g: 1, b: 1, a: 1}
+  globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
   steps:
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 1629216518}
     textUI: {fileID: 1679395770}
     dialogueText: 
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 1629216518}
-    textUI: {fileID: 1679395770}
-    dialogueText: 
-    audioSource: {fileID: 1639179776}
-    audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 0}
     textUI: {fileID: 1679395770}
     dialogueText: Beneath the stairs.
     audioSource: {fileID: 1639179776}
@@ -760,30 +744,21 @@ MonoBehaviour:
   fadeSpeed: 2
   textSpeed: 0.03
   globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
-  globalColor: {r: 1, g: 1, b: 1, a: 1}
+  globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
   steps:
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 425095659}
     textUI: {fileID: 2063553344}
     dialogueText: 
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 425095659}
-    textUI: {fileID: 2063553344}
-    dialogueText: 
-    audioSource: {fileID: 1639179776}
-    audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 0}
     textUI: {fileID: 2063553344}
     dialogueText: The less familiar everyone became.
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 209072865}
+  - panelImage: {fileID: 209072865}
     textUI: {fileID: 2063553344}
     dialogueText: 
     audioSource: {fileID: 1639179776}
@@ -842,30 +817,21 @@ MonoBehaviour:
   fadeSpeed: 2
   textSpeed: 0.03
   globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
-  globalColor: {r: 1, g: 1, b: 1, a: 1}
+  globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
   steps:
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 2011477129}
     textUI: {fileID: 907155025}
     dialogueText: 
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 2011477129}
-    textUI: {fileID: 907155025}
-    dialogueText: 
-    audioSource: {fileID: 1639179776}
-    audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 0}
     textUI: {fileID: 907155025}
     dialogueText: So he went looking for it.
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 0}
     textUI: {fileID: 907155025}
     dialogueText: He searched between the books.
     audioSource: {fileID: 1639179776}
@@ -1012,24 +978,16 @@ MonoBehaviour:
   fadeSpeed: 2
   textSpeed: 0.03
   globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
-  globalColor: {r: 1, g: 1, b: 1, a: 1}
+  globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
   steps:
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 741843462}
     textUI: {fileID: 1698136535}
     dialogueText: 
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 741843462}
-    textUI: {fileID: 1698136535}
-    dialogueText: 
-    audioSource: {fileID: 1639179776}
-    audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 0}
     textUI: {fileID: 1698136535}
     dialogueText: But her words brought him no comfort.
     audioSource: {fileID: 1639179776}
@@ -1251,7 +1209,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 2
   m_TargetDisplay: 0
 --- !u!224 &177087019
 RectTransform:
@@ -1419,30 +1377,21 @@ MonoBehaviour:
   fadeSpeed: 2
   textSpeed: 0.03
   globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
-  globalColor: {r: 1, g: 1, b: 1, a: 1}
+  globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
   steps:
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 1994828943}
     textUI: {fileID: 1501506786}
     dialogueText: 
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 1994828943}
-    textUI: {fileID: 1501506786}
-    dialogueText: 
-    audioSource: {fileID: 1639179776}
-    audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 0}
     textUI: {fileID: 1501506786}
     dialogueText: And from within the walls...
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 927639631}
+  - panelImage: {fileID: 927639631}
     textUI: {fileID: 1027231868}
     dialogueText: 
     audioSource: {fileID: 1639179776}
@@ -2290,7 +2239,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 3
   m_TargetDisplay: 0
 --- !u!224 &315410851
 RectTransform:
@@ -2306,6 +2255,7 @@ RectTransform:
   m_Children:
   - {fileID: 1474768612}
   - {fileID: 2038366021}
+  - {fileID: 1180115248}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -2367,24 +2317,16 @@ MonoBehaviour:
   fadeSpeed: 2
   textSpeed: 0.03
   globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
-  globalColor: {r: 1, g: 1, b: 1, a: 1}
+  globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
   steps:
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 2010522312}
     textUI: {fileID: 1741173460}
     dialogueText: 
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 2010522312}
-    textUI: {fileID: 1741173460}
-    dialogueText: 
-    audioSource: {fileID: 1639179776}
-    audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 0}
     textUI: {fileID: 1741173460}
     dialogueText: As the days drifted by...
     audioSource: {fileID: 1639179776}
@@ -2709,30 +2651,21 @@ MonoBehaviour:
   fadeSpeed: 2
   textSpeed: 0.03
   globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
-  globalColor: {r: 1, g: 1, b: 1, a: 1}
+  globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
   steps:
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 1889380547}
     textUI: {fileID: 210880750}
     dialogueText: 
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 1889380547}
-    textUI: {fileID: 210880750}
-    dialogueText: 
-    audioSource: {fileID: 1639179776}
-    audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 1117141974}
+  - panelImage: {fileID: 1117141974}
     textUI: {fileID: 210880750}
     dialogueText: He looked beneath his bed.
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 0}
     textUI: {fileID: 1908143520}
     dialogueText: But it wasn't there.
     audioSource: {fileID: 1639179776}
@@ -2791,24 +2724,16 @@ MonoBehaviour:
   fadeSpeed: 2
   textSpeed: 0.03
   globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
-  globalColor: {r: 1, g: 1, b: 1, a: 1}
+  globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
   steps:
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 1180908866}
     textUI: {fileID: 1033690196}
     dialogueText: 
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 1180908866}
-    textUI: {fileID: 1033690196}
-    dialogueText: 
-    audioSource: {fileID: 1639179776}
-    audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 0}
     textUI: {fileID: 1033690196}
     dialogueText: He became afraid once more.
     audioSource: {fileID: 1639179776}
@@ -3718,24 +3643,16 @@ MonoBehaviour:
   fadeSpeed: 2
   textSpeed: 0.03
   globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
-  globalColor: {r: 1, g: 1, b: 1, a: 1}
+  globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
   steps:
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 65671562}
     textUI: {fileID: 1858111294}
     dialogueText: 
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 65671562}
-    textUI: {fileID: 1858111294}
-    dialogueText: 
-    audioSource: {fileID: 1639179776}
-    audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 0}
     textUI: {fileID: 1858111294}
     dialogueText: He couldn't even breathe.
     audioSource: {fileID: 1639179776}
@@ -3774,7 +3691,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.000045776367, y: 0}
+  m_AnchoredPosition: {x: 0.000061035156, y: 0}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &593695785
@@ -4020,36 +3937,26 @@ MonoBehaviour:
   fadeSpeed: 2
   textSpeed: 0.03
   globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
-  globalColor: {r: 1, g: 1, b: 1, a: 1}
+  globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
   steps:
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 335025339}
     textUI: {fileID: 1497111884}
     dialogueText: 
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 335025339}
-    textUI: {fileID: 1497111884}
-    dialogueText: 
-    audioSource: {fileID: 1639179776}
-    audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 0}
     textUI: {fileID: 1497111884}
     dialogueText: When there was nothing else he could do...
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 1581109917}
+  - panelImage: {fileID: 1581109917}
     textUI: {fileID: 1497111884}
     dialogueText: 
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 0}
     textUI: {fileID: 1497111884}
     dialogueText: He decided to ask for help.
     audioSource: {fileID: 1639179776}
@@ -4873,30 +4780,21 @@ MonoBehaviour:
   fadeSpeed: 2
   textSpeed: 0.03
   globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
-  globalColor: {r: 1, g: 1, b: 1, a: 1}
+  globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
   steps:
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 696638868}
     textUI: {fileID: 1926854556}
     dialogueText: 
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 696638868}
-    textUI: {fileID: 1926854556}
-    dialogueText: 
-    audioSource: {fileID: 1639179776}
-    audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 0}
     textUI: {fileID: 1926854556}
     dialogueText: Inside wardrobes.
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 575405521}
+  - panelImage: {fileID: 575405521}
     textUI: {fileID: 1909857789}
     dialogueText: 
     audioSource: {fileID: 1639179776}
@@ -5044,30 +4942,21 @@ MonoBehaviour:
   fadeSpeed: 2
   textSpeed: 0.03
   globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
-  globalColor: {r: 1, g: 1, b: 1, a: 1}
+  globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
   steps:
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 1023095318}
     textUI: {fileID: 963350226}
     dialogueText: 
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 1023095318}
-    textUI: {fileID: 963350226}
-    dialogueText: 
-    audioSource: {fileID: 1639179776}
-    audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 0}
     textUI: {fileID: 963350226}
     dialogueText: He searched inside every drawer.
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 1263379492}
+  - panelImage: {fileID: 1263379492}
     textUI: {fileID: 963350226}
     dialogueText: 
     audioSource: {fileID: 1639179776}
@@ -5210,18 +5099,11 @@ MonoBehaviour:
   fadeSpeed: 2
   textSpeed: 0.03
   globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
-  globalColor: {r: 1, g: 1, b: 1, a: 1}
+  globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
   steps:
-  - stepName: 1
-    panelImage: {fileID: 646173118}
-    textUI: {fileID: 2100202086}
-    dialogueText: 
-    audioSource: {fileID: 1639179776}
-    audioClip: {fileID: 0}
-  - stepName: 2
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 646173118}
     textUI: {fileID: 2100202086}
     dialogueText: Once upon a time, there was a little boy who had a name.
     audioSource: {fileID: 1639179776}
@@ -5669,36 +5551,26 @@ MonoBehaviour:
   fadeSpeed: 2
   textSpeed: 0.03
   globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
-  globalColor: {r: 1, g: 1, b: 1, a: 1}
+  globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
   steps:
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 1459159761}
     textUI: {fileID: 1019764037}
     dialogueText: 
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 1459159761}
-    textUI: {fileID: 1019764037}
-    dialogueText: 
-    audioSource: {fileID: 1639179776}
-    audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 0}
     textUI: {fileID: 1019764037}
     dialogueText: As more days slipped away...
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 426726969}
+  - panelImage: {fileID: 426726969}
     textUI: {fileID: 1019764037}
     dialogueText: 
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 0}
     textUI: {fileID: 1019764037}
     dialogueText: He forgot the colors of the world.
     audioSource: {fileID: 1639179776}
@@ -5894,30 +5766,21 @@ MonoBehaviour:
   fadeSpeed: 2
   textSpeed: 0.03
   globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
-  globalColor: {r: 1, g: 1, b: 1, a: 1}
+  globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
   steps:
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 20303164}
     textUI: {fileID: 1998799728}
     dialogueText: 
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 20303164}
-    textUI: {fileID: 1998799728}
-    dialogueText: 
-    audioSource: {fileID: 1639179776}
-    audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 0}
     textUI: {fileID: 1998799728}
     dialogueText: He started noticing little things.
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 0}
     textUI: {fileID: 1998799728}
     dialogueText: Things no one else seemed to notice.
     audioSource: {fileID: 1639179776}
@@ -6201,30 +6064,21 @@ MonoBehaviour:
   fadeSpeed: 2
   textSpeed: 0.03
   globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
-  globalColor: {r: 1, g: 1, b: 1, a: 1}
+  globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
   steps:
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 284318337}
     textUI: {fileID: 1767007072}
     dialogueText: 
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 284318337}
-    textUI: {fileID: 1767007072}
-    dialogueText: 
-    audioSource: {fileID: 1639179776}
-    audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 0}
     textUI: {fileID: 1767007072}
     dialogueText: Tiny things he couldn't explain.
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 0}
     textUI: {fileID: 1767007072}
     dialogueText: His thoughts began to unravel, one by one.
     audioSource: {fileID: 1639179776}
@@ -6421,24 +6275,16 @@ MonoBehaviour:
   fadeSpeed: 2
   textSpeed: 0.03
   globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
-  globalColor: {r: 1, g: 1, b: 1, a: 1}
+  globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
   steps:
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 1986253867}
     textUI: {fileID: 744145473}
     dialogueText: 
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 1986253867}
-    textUI: {fileID: 744145473}
-    dialogueText: 
-    audioSource: {fileID: 1639179776}
-    audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 61270208}
+  - panelImage: {fileID: 61270208}
     textUI: {fileID: 744145473}
     dialogueText: Voices that sounded just a little too soft.
     audioSource: {fileID: 1639179776}
@@ -7562,6 +7408,81 @@ MonoBehaviour:
   m_hasFontAssetChanged: 0
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!1 &1180115247
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1180115248}
+  - component: {fileID: 1180115250}
+  - component: {fileID: 1180115249}
+  m_Layer: 5
+  m_Name: Image
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1180115248
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1180115247}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 315410851}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1180115249
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1180115247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 0, g: 0, b: 0, a: 0}
+  m_RaycastTarget: 0
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 0}
+  m_Type: 0
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1180115250
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1180115247}
+  m_CullTransparentMesh: 1
 --- !u!1 &1180908864
 GameObject:
   m_ObjectHideFlags: 0
@@ -7705,36 +7626,26 @@ MonoBehaviour:
   fadeSpeed: 2
   textSpeed: 0.03
   globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
-  globalColor: {r: 1, g: 1, b: 1, a: 1}
+  globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
   steps:
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 1411989527}
     textUI: {fileID: 696849900}
     dialogueText: 
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 1411989527}
-    textUI: {fileID: 696849900}
-    dialogueText: 
-    audioSource: {fileID: 1639179776}
-    audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 0}
     textUI: {fileID: 696849900}
     dialogueText: And when morning came...
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 2094903589}
+  - panelImage: {fileID: 2094903589}
     textUI: {fileID: 696849900}
     dialogueText: 
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 0}
     textUI: {fileID: 696849900}
     dialogueText: It was gone.
     audioSource: {fileID: 1639179776}
@@ -7794,42 +7705,31 @@ MonoBehaviour:
   fadeSpeed: 2
   textSpeed: 0.03
   globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
-  globalColor: {r: 1, g: 1, b: 1, a: 1}
+  globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
   steps:
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 378476446}
     textUI: {fileID: 1466280473}
     dialogueText: 
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 378476446}
-    textUI: {fileID: 1466280473}
-    dialogueText: 
-    audioSource: {fileID: 1639179776}
-    audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 0}
     textUI: {fileID: 1466280473}
     dialogueText: Before long, the others grew worried.
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 0}
     textUI: {fileID: 1466280473}
     dialogueText: '"Is something wrong with him?"'
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 334067561}
+  - panelImage: {fileID: 334067561}
     textUI: {fileID: 1466280473}
     dialogueText: 
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 0}
     textUI: {fileID: 1466280473}
     dialogueText: '"He''s only tired... He''ll be better tomorrow."'
     audioSource: {fileID: 1639179776}
@@ -7888,30 +7788,21 @@ MonoBehaviour:
   fadeSpeed: 2
   textSpeed: 0.03
   globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
-  globalColor: {r: 1, g: 1, b: 1, a: 1}
+  globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
   steps:
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 96781440}
     textUI: {fileID: 1425409973}
     dialogueText: 
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 96781440}
-    textUI: {fileID: 1425409973}
-    dialogueText: 
-    audioSource: {fileID: 1639179776}
-    audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 0}
     textUI: {fileID: 1425409973}
     dialogueText: She smiled gently and said
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 0}
     textUI: {fileID: 1425409973}
     dialogueText: '"Everything will be alright. By tomorrow, you''ll remember again."'
     audioSource: {fileID: 1639179776}
@@ -8059,30 +7950,21 @@ MonoBehaviour:
   fadeSpeed: 2
   textSpeed: 0.03
   globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
-  globalColor: {r: 1, g: 1, b: 1, a: 1}
+  globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
   steps:
-  - stepName: 0
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 2086663028}
     textUI: {fileID: 1900890135}
     dialogueText: 
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 1
-    panelImage: {fileID: 2086663028}
-    textUI: {fileID: 1900890135}
-    dialogueText: 
-    audioSource: {fileID: 1639179776}
-    audioClip: {fileID: 0}
-  - stepName: 2
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 0}
     textUI: {fileID: 1900890135}
     dialogueText: One night, before going to bed, he left it on the table.
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 3
-    panelImage: {fileID: 1035108705}
+  - panelImage: {fileID: 1035108705}
     textUI: {fileID: 1900890135}
     dialogueText: 
     audioSource: {fileID: 1639179776}
@@ -8591,30 +8473,21 @@ MonoBehaviour:
   fadeSpeed: 2
   textSpeed: 0.03
   globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
-  globalColor: {r: 1, g: 1, b: 1, a: 1}
+  globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
   steps:
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 601695287}
     textUI: {fileID: 989987180}
     dialogueText: 
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 601695287}
-    textUI: {fileID: 989987180}
-    dialogueText: 
-    audioSource: {fileID: 1639179776}
-    audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 0}
     textUI: {fileID: 989987180}
     dialogueText: One by one...
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 0}
     textUI: {fileID: 989987180}
     dialogueText: Hoping that somewhere among them... He would find his own.
     audioSource: {fileID: 1639179776}
@@ -8756,6 +8629,108 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1363393954}
   m_CullTransparentMesh: 1
+--- !u!1 &1402740653
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1402740657}
+  - component: {fileID: 1402740656}
+  - component: {fileID: 1402740655}
+  - component: {fileID: 1402740654}
+  m_Layer: 5
+  m_Name: CanvasBG
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1402740654
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1402740653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dc42784cf147c0c48a680349fa168899, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.GraphicRaycaster
+  m_IgnoreReversedGraphics: 1
+  m_BlockingObjects: 0
+  m_BlockingMask:
+    serializedVersion: 2
+    m_Bits: 4294967295
+--- !u!114 &1402740655
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1402740653}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.CanvasScaler
+  m_UiScaleMode: 0
+  m_ReferencePixelsPerUnit: 100
+  m_ScaleFactor: 1
+  m_ReferenceResolution: {x: 800, y: 600}
+  m_ScreenMatchMode: 0
+  m_MatchWidthOrHeight: 0
+  m_PhysicalUnit: 3
+  m_FallbackScreenDPI: 96
+  m_DefaultSpriteDPI: 96
+  m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
+--- !u!223 &1402740656
+Canvas:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1402740653}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_RenderMode: 1
+  m_Camera: {fileID: 55333314}
+  m_PlaneDistance: 100
+  m_PixelPerfect: 1
+  m_ReceivesEvents: 1
+  m_OverrideSorting: 0
+  m_OverridePixelPerfect: 0
+  m_SortingBucketNormalizedSize: 0
+  m_VertexColorAlwaysGammaSpace: 1
+  m_AdditionalShaderChannelsFlag: 0
+  m_UpdateRectTransformForStandalone: 0
+  m_SortingLayerID: 0
+  m_SortingOrder: 1
+  m_TargetDisplay: 0
+--- !u!224 &1402740657
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1402740653}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0, y: 0, z: 0}
+  m_ConstrainProportionsScale: 0
+  m_Children:
+  - {fileID: 1574639837}
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0, y: 0}
 --- !u!1 &1411989523
 GameObject:
   m_ObjectHideFlags: 0
@@ -9382,7 +9357,7 @@ GameObject:
   - component: {fileID: 1474768614}
   - component: {fileID: 1474768613}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Next
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9405,7 +9380,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -62.649902, y: 48.25}
+  m_AnchoredPosition: {x: -62, y: 55}
   m_SizeDelta: {x: 180.91, y: 62.1}
   m_Pivot: {x: 1, y: 0}
 --- !u!114 &1474768613
@@ -9831,36 +9806,26 @@ MonoBehaviour:
   fadeSpeed: 2
   textSpeed: 0.03
   globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
-  globalColor: {r: 1, g: 1, b: 1, a: 1}
+  globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
   steps:
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 902111200}
     textUI: {fileID: 1253110589}
     dialogueText: 
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 902111200}
-    textUI: {fileID: 1253110589}
-    dialogueText: 
-    audioSource: {fileID: 1639179776}
-    audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 0}
     textUI: {fileID: 1253110589}
     dialogueText: And while he watched them...
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 1833901921}
+  - panelImage: {fileID: 1833901921}
     textUI: {fileID: 1253110589}
     dialogueText: 
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 0}
     textUI: {fileID: 1253110589}
     dialogueText: She was watching him.
     audioSource: {fileID: 1639179776}
@@ -9920,36 +9885,26 @@ MonoBehaviour:
   fadeSpeed: 2
   textSpeed: 0.03
   globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
-  globalColor: {r: 1, g: 1, b: 1, a: 1}
+  globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
   steps:
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 2136552576}
     textUI: {fileID: 1325671574}
     dialogueText: 
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 2136552576}
-    textUI: {fileID: 1325671574}
-    dialogueText: 
-    audioSource: {fileID: 1639179776}
-    audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 0}
     textUI: {fileID: 1325671574}
     dialogueText: He tried to explain what was happening.
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 966552869}
+  - panelImage: {fileID: 966552869}
     textUI: {fileID: 1325671574}
     dialogueText: 
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 0}
     textUI: {fileID: 1325671574}
     dialogueText: But only one person truly listened.
     audioSource: {fileID: 1639179776}
@@ -10198,6 +10153,81 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1573420707}
   m_CullTransparentMesh: 1
+--- !u!1 &1574639834
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1574639837}
+  - component: {fileID: 1574639836}
+  - component: {fileID: 1574639835}
+  m_Layer: 5
+  m_Name: Texture Background
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &1574639835
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1574639834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 21300000, guid: d212a0328687af84db1b2bb9ef82237f, type: 3}
+  m_Type: 0
+  m_PreserveAspect: 1
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &1574639836
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1574639834}
+  m_CullTransparentMesh: 1
+--- !u!224 &1574639837
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1574639834}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -164.43982}
+  m_LocalScale: {x: 1.1190598, y: 1.1190598, z: 1.1190598}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1402740657}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1581109915
 GameObject:
   m_ObjectHideFlags: 0
@@ -10341,30 +10371,21 @@ MonoBehaviour:
   fadeSpeed: 2
   textSpeed: 0.03
   globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
-  globalColor: {r: 1, g: 1, b: 1, a: 1}
+  globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
   steps:
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 437177353}
     textUI: {fileID: 468035668}
     dialogueText: 
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 437177353}
+  - panelImage: {fileID: 656834480}
     textUI: {fileID: 468035668}
     dialogueText: 
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 656834480}
-    textUI: {fileID: 468035668}
-    dialogueText: 
-    audioSource: {fileID: 1639179776}
-    audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 0}
     textUI: {fileID: 468035668}
     dialogueText: He couldn't sleep.
     audioSource: {fileID: 1639179776}
@@ -10523,7 +10544,10 @@ MonoBehaviour:
   - {fileID: 1774122406}
   - {fileID: 1340263570}
   nextSceneName: WalkthroughScene
-  cameraTime: 2
+  cameraTime: 1.2
+  imageFade: {fileID: 1180115249}
+  delay: 2
+  duration: 4
 --- !u!4 &1639179775
 Transform:
   m_ObjectHideFlags: 0
@@ -11176,24 +11200,16 @@ MonoBehaviour:
   fadeSpeed: 2
   textSpeed: 0.03
   globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
-  globalColor: {r: 1, g: 1, b: 1, a: 1}
+  globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
   steps:
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 177900511}
     textUI: {fileID: 153167273}
     dialogueText: 
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 177900511}
-    textUI: {fileID: 153167273}
-    dialogueText: 
-    audioSource: {fileID: 1639179776}
-    audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 0}
     textUI: {fileID: 153167273}
     dialogueText: He began to forget voices.
     audioSource: {fileID: 1639179776}
@@ -11389,24 +11405,16 @@ MonoBehaviour:
   fadeSpeed: 2
   textSpeed: 0.03
   globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
-  globalColor: {r: 1, g: 1, b: 1, a: 1}
+  globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
   steps:
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 1573420709}
     textUI: {fileID: 2080300525}
     dialogueText: 
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 1573420709}
-    textUI: {fileID: 2080300525}
-    dialogueText: 
-    audioSource: {fileID: 1639179776}
-    audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 0}
     textUI: {fileID: 2080300525}
     dialogueText: Smiles that were just a little too small.
     audioSource: {fileID: 1639179776}
@@ -11466,36 +11474,26 @@ MonoBehaviour:
   fadeSpeed: 2
   textSpeed: 0.03
   globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
-  globalColor: {r: 1, g: 1, b: 1, a: 1}
+  globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
   steps:
-  - stepName: 
-    panelImage: {fileID: 0}
-    textUI: {fileID: 218012838}
-    dialogueText: 
-    audioSource: {fileID: 1639179776}
-    audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 0}
     textUI: {fileID: 218012838}
     dialogueText: So he reached for the only thing he had left.
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 784910204}
+  - panelImage: {fileID: 784910204}
     textUI: {fileID: 218012838}
     dialogueText: 
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 0}
     textUI: {fileID: 218012838}
     dialogueText: The names of others.
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 1812475407}
+  - panelImage: {fileID: 1812475407}
     textUI: {fileID: 218012838}
     dialogueText: 
     audioSource: {fileID: 1639179776}
@@ -12804,42 +12802,31 @@ MonoBehaviour:
   fadeSpeed: 2
   textSpeed: 0.03
   globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
-  globalColor: {r: 1, g: 1, b: 1, a: 1}
+  globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
   steps:
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 549380639}
     textUI: {fileID: 447870000}
     dialogueText: 
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 549380639}
-    textUI: {fileID: 447870000}
-    dialogueText: 
-    audioSource: {fileID: 1639179776}
-    audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 0}
     textUI: {fileID: 447870000}
     dialogueText: Then he realized... He could no longer remember anyone's face.
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 271008650}
+  - panelImage: {fileID: 271008650}
     textUI: {fileID: 447870000}
     dialogueText: 
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 0}
     textUI: {fileID: 447870000}
     dialogueText: He was frightened.
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 0}
     textUI: {fileID: 447870000}
     dialogueText: 'If he forgot everyone... Maybe they would disappear. '
     audioSource: {fileID: 1639179776}
@@ -13213,36 +13200,26 @@ MonoBehaviour:
   fadeSpeed: 2
   textSpeed: 0.03
   globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
-  globalColor: {r: 1, g: 1, b: 1, a: 1}
+  globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
   steps:
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 1881463973}
     textUI: {fileID: 202829267}
     dialogueText: 
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 1881463973}
-    textUI: {fileID: 202829267}
-    dialogueText: 
-    audioSource: {fileID: 1639179776}
-    audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 0}
     textUI: {fileID: 202829267}
     dialogueText: So he began to watch.
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 234679640}
+  - panelImage: {fileID: 234679640}
     textUI: {fileID: 202829267}
     dialogueText: 
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 0}
     textUI: {fileID: 968375590}
     dialogueText: Behind doors.
     audioSource: {fileID: 1639179776}
@@ -13477,30 +13454,21 @@ MonoBehaviour:
   fadeSpeed: 2
   textSpeed: 0.03
   globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
-  globalColor: {r: 1, g: 1, b: 1, a: 1}
+  globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
   steps:
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 1315838005}
     textUI: {fileID: 1363393956}
     dialogueText: 
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 1315838005}
-    textUI: {fileID: 1363393956}
-    dialogueText: 
-    audioSource: {fileID: 1639179776}
-    audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 0}
     textUI: {fileID: 1363393956}
     dialogueText: His fear grew larger and larger.
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 0}
     textUI: {fileID: 1363393956}
     dialogueText: He couldn't think of anything else.
     audioSource: {fileID: 1639179776}
@@ -13518,7 +13486,7 @@ GameObject:
   - component: {fileID: 2038366023}
   - component: {fileID: 2038366022}
   m_Layer: 5
-  m_Name: Button (1)
+  m_Name: Skip
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -13539,11 +13507,11 @@ RectTransform:
   - {fileID: 593695784}
   m_Father: {fileID: 315410851}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 0}
-  m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: -1663.45, y: 48.25}
-  m_SizeDelta: {x: 180.91, y: 62.1}
-  m_Pivot: {x: 1, y: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 62, y: 55}
+  m_SizeDelta: {x: 180.91003, y: 62.1}
+  m_Pivot: {x: 0, y: 0}
 --- !u!114 &2038366022
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13665,15 +13633,15 @@ RectTransform:
   m_GameObject: {fileID: 2046222347}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.1503, y: 1.1503, z: 1.1503}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 177087019}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1920, y: 1080}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2046222349
 MonoBehaviour:
@@ -13905,30 +13873,21 @@ MonoBehaviour:
   fadeSpeed: 2
   textSpeed: 0.03
   globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
-  globalColor: {r: 1, g: 1, b: 1, a: 1}
+  globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
   steps:
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 1568246893}
     textUI: {fileID: 556998655}
     dialogueText: 
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 1568246893}
-    textUI: {fileID: 556998655}
-    dialogueText: 
-    audioSource: {fileID: 1639179776}
-    audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 0}
     textUI: {fileID: 556998655}
     dialogueText: The longer he watched...
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 
-    panelImage: {fileID: 1114869042}
+  - panelImage: {fileID: 1114869042}
     textUI: {fileID: 556998655}
     dialogueText: 
     audioSource: {fileID: 1639179776}
@@ -14437,24 +14396,16 @@ MonoBehaviour:
   fadeSpeed: 2
   textSpeed: 0.03
   globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
-  globalColor: {r: 1, g: 1, b: 1, a: 1}
+  globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
   steps:
-  - stepName: 0
-    panelImage: {fileID: 0}
+  - panelImage: {fileID: 1462825037}
     textUI: {fileID: 1869589801}
     dialogueText: 
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
-  - stepName: 1
-    panelImage: {fileID: 1462825037}
-    textUI: {fileID: 1869589801}
-    dialogueText: 
-    audioSource: {fileID: 1639179776}
-    audioClip: {fileID: 0}
-  - stepName: 2
-    panelImage: {fileID: 1462825037}
+  - panelImage: {fileID: 1462825037}
     textUI: {fileID: 1869589801}
     dialogueText: He carried it with him wherever he went.
     audioSource: {fileID: 1639179776}
@@ -14553,6 +14504,7 @@ SceneRoots:
   m_Roots:
   - {fileID: 55333317}
   - {fileID: 1639179775}
+  - {fileID: 1402740657}
   - {fileID: 177087019}
   - {fileID: 1021785128}
   - {fileID: 1039124592}

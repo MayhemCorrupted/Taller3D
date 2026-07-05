@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using UnityEngine.UI;
+
 
 public class SequenceManagerV2 : MonoBehaviour
 {
@@ -9,11 +11,25 @@ public class SequenceManagerV2 : MonoBehaviour
     [SerializeField] private string nextSceneName;
     [SerializeField] private float cameraTime = 2f;
 
+    [SerializeField] private Image imageFade;
+    [SerializeField] private float delay = 1f;
+    [SerializeField] private float duration = 1f;
+
     private int currentPanelIndex = 0;
     private bool isTransitioning = false;
 
     private void Start()
     {
+        if (imageFade != null)
+        {
+            imageFade.gameObject.SetActive(true);
+            Color c = imageFade.color;
+            c.a = 1f;
+            imageFade.color = c;
+
+            StartCoroutine(FadeInitial());
+        }
+
         for (int i = 0; i < panels.Count; i++)
         {
             if (panels[i] != null)
@@ -23,6 +39,26 @@ public class SequenceManagerV2 : MonoBehaviour
             }
         }
     }
+    private IEnumerator FadeInitial()
+    {
+        isTransitioning = true;
+
+        yield return new WaitForSeconds(1f);
+
+        float timev = 0f;
+        Color colorC = imageFade.color;
+
+        while (timev < duration)
+        {
+            timev += Time.deltaTime;
+            colorC.a = Mathf.SmoothStep(1f, 0f, timev / duration);
+            imageFade.color = colorC;
+            yield return null;
+        }
+
+        isTransitioning = false;
+    }
+
 
     public void AdvanceSequence()
     {
@@ -64,6 +100,30 @@ public class SequenceManagerV2 : MonoBehaviour
 
     public void FinishComic()
     {
-        SceneManager.LoadScene(nextSceneName);
+        isTransitioning = true;
+        StartCoroutine(FadeAndChangeScene());
+    }
+
+    private IEnumerator FadeAndChangeScene()
+    {
+        {
+            yield return new WaitForSeconds(delay);
+
+            if (imageFade != null)
+            {
+                float timev = 0f;
+                Color colorC = imageFade.color;
+
+                while (timev < duration)
+                {
+                    timev += Time.deltaTime;
+                    colorC.a = Mathf.SmoothStep(0f, 1f, timev / duration);
+                    imageFade.color = colorC;
+                    yield return null;
+                }
+            }
+
+            SceneManager.LoadScene(nextSceneName);
+        }
     }
 }
