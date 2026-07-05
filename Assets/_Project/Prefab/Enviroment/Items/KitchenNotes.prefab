@@ -68,7 +68,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 1833810152192036645, guid: cab8fc0e2c143bd4bb79b78001cd3411, type: 3}
+  - {fileID: 2100000, guid: a1fbe76c0b26beb4b833eefeb4a2e539, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -135,3 +135,4 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   itemPrompt: '[E] Grab {0}'
+  unpickablePrompt: cannot grab {0}
