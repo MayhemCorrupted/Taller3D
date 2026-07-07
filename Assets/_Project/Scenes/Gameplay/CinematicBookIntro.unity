@@ -430,7 +430,7 @@ MonoBehaviour:
   virtualCamera: {fileID: 1021785127}
   fadeSpeed: 2
   textSpeed: 0.03
-  globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
+  globalFont: {fileID: 11400000, guid: 0b9caa11d596f9440a9a200e8cd8de26, type: 2}
   globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
@@ -442,7 +442,7 @@ MonoBehaviour:
     audioClip: {fileID: 0}
   - panelImage: {fileID: 0}
     textUI: {fileID: 1156220703}
-    dialogueText: But still... nothing.
+    dialogueText: Pero no logro encontrar nada.
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
 --- !u!1 &61270206
@@ -674,7 +674,7 @@ MonoBehaviour:
   virtualCamera: {fileID: 1021785127}
   fadeSpeed: 2
   textSpeed: 0.03
-  globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
+  globalFont: {fileID: 11400000, guid: 0b9caa11d596f9440a9a200e8cd8de26, type: 2}
   globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
@@ -686,7 +686,7 @@ MonoBehaviour:
     audioClip: {fileID: 0}
   - panelImage: {fileID: 0}
     textUI: {fileID: 1679395770}
-    dialogueText: Beneath the stairs.
+    dialogueText: "Detr\xE1s de las escaleras."
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
 --- !u!1 &74491634
@@ -743,7 +743,7 @@ MonoBehaviour:
   virtualCamera: {fileID: 1039124591}
   fadeSpeed: 2
   textSpeed: 0.03
-  globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
+  globalFont: {fileID: 11400000, guid: 0b9caa11d596f9440a9a200e8cd8de26, type: 2}
   globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
@@ -755,7 +755,7 @@ MonoBehaviour:
     audioClip: {fileID: 0}
   - panelImage: {fileID: 0}
     textUI: {fileID: 2063553344}
-    dialogueText: The less familiar everyone became.
+    dialogueText: "Menos los reconoc\xEDa..."
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
   - panelImage: {fileID: 209072865}
@@ -816,7 +816,7 @@ MonoBehaviour:
   virtualCamera: {fileID: 1699570231}
   fadeSpeed: 2
   textSpeed: 0.03
-  globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
+  globalFont: {fileID: 11400000, guid: 0b9caa11d596f9440a9a200e8cd8de26, type: 2}
   globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
@@ -828,12 +828,12 @@ MonoBehaviour:
     audioClip: {fileID: 0}
   - panelImage: {fileID: 0}
     textUI: {fileID: 907155025}
-    dialogueText: So he went looking for it.
+    dialogueText: "As\xED que el decidi\xF3 ir a buscarlo."
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
   - panelImage: {fileID: 0}
     textUI: {fileID: 907155025}
-    dialogueText: He searched between the books.
+    dialogueText: Entre los libros.
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
 --- !u!1 &96781438
@@ -977,7 +977,7 @@ MonoBehaviour:
   virtualCamera: {fileID: 1021785127}
   fadeSpeed: 2
   textSpeed: 0.03
-  globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
+  globalFont: {fileID: 11400000, guid: 0b9caa11d596f9440a9a200e8cd8de26, type: 2}
   globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
@@ -989,7 +989,7 @@ MonoBehaviour:
     audioClip: {fileID: 0}
   - panelImage: {fileID: 0}
     textUI: {fileID: 1698136535}
-    dialogueText: But her words brought him no comfort.
+    dialogueText: Pero eso no lo dejo tranquilo.
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
 --- !u!1 &153167271
@@ -1376,7 +1376,7 @@ MonoBehaviour:
   virtualCamera: {fileID: 1699570231}
   fadeSpeed: 2
   textSpeed: 0.03
-  globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
+  globalFont: {fileID: 11400000, guid: 0b9caa11d596f9440a9a200e8cd8de26, type: 2}
   globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
@@ -1388,7 +1388,7 @@ MonoBehaviour:
     audioClip: {fileID: 0}
   - panelImage: {fileID: 0}
     textUI: {fileID: 1501506786}
-    dialogueText: And from within the walls...
+    dialogueText: "Desde detr\xE1s de las paredes\u2026"
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
   - panelImage: {fileID: 927639631}
@@ -2316,7 +2316,7 @@ MonoBehaviour:
   virtualCamera: {fileID: 1699570231}
   fadeSpeed: 2
   textSpeed: 0.03
-  globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
+  globalFont: {fileID: 11400000, guid: 0b9caa11d596f9440a9a200e8cd8de26, type: 2}
   globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
@@ -2328,7 +2328,7 @@ MonoBehaviour:
     audioClip: {fileID: 0}
   - panelImage: {fileID: 0}
     textUI: {fileID: 1741173460}
-    dialogueText: As the days drifted by...
+    dialogueText: "Y mientras pasaban los d\xEDas\u2026"
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
 --- !u!1 &334067559
@@ -2650,7 +2650,7 @@ MonoBehaviour:
   virtualCamera: {fileID: 885138308}
   fadeSpeed: 2
   textSpeed: 0.03
-  globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
+  globalFont: {fileID: 11400000, guid: 0b9caa11d596f9440a9a200e8cd8de26, type: 2}
   globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
@@ -2662,12 +2662,12 @@ MonoBehaviour:
     audioClip: {fileID: 0}
   - panelImage: {fileID: 1117141974}
     textUI: {fileID: 210880750}
-    dialogueText: He looked beneath his bed.
+    dialogueText: Lo busco bajo su cama.
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
   - panelImage: {fileID: 0}
     textUI: {fileID: 1908143520}
-    dialogueText: But it wasn't there.
+    dialogueText: "Pero no estaba ah\xED."
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
 --- !u!1 &407246658
@@ -2723,7 +2723,7 @@ MonoBehaviour:
   virtualCamera: {fileID: 1699570231}
   fadeSpeed: 2
   textSpeed: 0.03
-  globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
+  globalFont: {fileID: 11400000, guid: 0b9caa11d596f9440a9a200e8cd8de26, type: 2}
   globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
@@ -2735,7 +2735,7 @@ MonoBehaviour:
     audioClip: {fileID: 0}
   - panelImage: {fileID: 0}
     textUI: {fileID: 1033690196}
-    dialogueText: He became afraid once more.
+    dialogueText: "El volvi\xF3 a tener miedo."
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
 --- !u!1 &425095657
@@ -3642,7 +3642,7 @@ MonoBehaviour:
   virtualCamera: {fileID: 885138308}
   fadeSpeed: 2
   textSpeed: 0.03
-  globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
+  globalFont: {fileID: 11400000, guid: 0b9caa11d596f9440a9a200e8cd8de26, type: 2}
   globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
@@ -3654,7 +3654,7 @@ MonoBehaviour:
     audioClip: {fileID: 0}
   - panelImage: {fileID: 0}
     textUI: {fileID: 1858111294}
-    dialogueText: He couldn't even breathe.
+    dialogueText: "No pod\xEDa respirar."
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
 --- !u!1 &593695783
@@ -3714,17 +3714,17 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Skip
+  m_text: Saltar
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0b9caa11d596f9440a9a200e8cd8de26, type: 2}
+  m_sharedMaterial: {fileID: -4555417189786501300, guid: 0b9caa11d596f9440a9a200e8cd8de26, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -3741,13 +3741,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 26.85
+  m_fontSize: 21.55
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -3936,7 +3936,7 @@ MonoBehaviour:
   virtualCamera: {fileID: 1699570231}
   fadeSpeed: 2
   textSpeed: 0.03
-  globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
+  globalFont: {fileID: 11400000, guid: 0b9caa11d596f9440a9a200e8cd8de26, type: 2}
   globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
@@ -3948,7 +3948,7 @@ MonoBehaviour:
     audioClip: {fileID: 0}
   - panelImage: {fileID: 0}
     textUI: {fileID: 1497111884}
-    dialogueText: When there was nothing else he could do...
+    dialogueText: "Al no poder hacer nada m\xE1s."
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
   - panelImage: {fileID: 1581109917}
@@ -3958,7 +3958,7 @@ MonoBehaviour:
     audioClip: {fileID: 0}
   - panelImage: {fileID: 0}
     textUI: {fileID: 1497111884}
-    dialogueText: He decided to ask for help.
+    dialogueText: "Decidi\xF3 buscar ayuda."
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
 --- !u!1 &646173116
@@ -4194,17 +4194,17 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Next
+  m_text: Siguiente
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 0b9caa11d596f9440a9a200e8cd8de26, type: 2}
+  m_sharedMaterial: {fileID: -4555417189786501300, guid: 0b9caa11d596f9440a9a200e8cd8de26, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4281479730
-  m_fontColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+    rgba: 4278190080
+  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -4221,13 +4221,13 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 26.85
+  m_fontSize: 21.55
   m_fontSizeBase: 24
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 18
   m_fontSizeMax: 72
-  m_fontStyle: 0
+  m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
@@ -4779,7 +4779,7 @@ MonoBehaviour:
   virtualCamera: {fileID: 1792365071}
   fadeSpeed: 2
   textSpeed: 0.03
-  globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
+  globalFont: {fileID: 11400000, guid: 0b9caa11d596f9440a9a200e8cd8de26, type: 2}
   globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
@@ -4791,7 +4791,7 @@ MonoBehaviour:
     audioClip: {fileID: 0}
   - panelImage: {fileID: 0}
     textUI: {fileID: 1926854556}
-    dialogueText: Inside wardrobes.
+    dialogueText: Miraba desde los armarios.
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
   - panelImage: {fileID: 575405521}
@@ -4941,7 +4941,7 @@ MonoBehaviour:
   virtualCamera: {fileID: 1792365071}
   fadeSpeed: 2
   textSpeed: 0.03
-  globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
+  globalFont: {fileID: 11400000, guid: 0b9caa11d596f9440a9a200e8cd8de26, type: 2}
   globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
@@ -4953,7 +4953,7 @@ MonoBehaviour:
     audioClip: {fileID: 0}
   - panelImage: {fileID: 0}
     textUI: {fileID: 963350226}
-    dialogueText: He searched inside every drawer.
+    dialogueText: "Revis\xF3 todos los cajones."
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
   - panelImage: {fileID: 1263379492}
@@ -5098,14 +5098,14 @@ MonoBehaviour:
   virtualCamera: {fileID: 1021785127}
   fadeSpeed: 2
   textSpeed: 0.03
-  globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
+  globalFont: {fileID: 11400000, guid: 0b9caa11d596f9440a9a200e8cd8de26, type: 2}
   globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
   steps:
   - panelImage: {fileID: 646173118}
     textUI: {fileID: 2100202086}
-    dialogueText: Once upon a time, there was a little boy who had a name.
+    dialogueText: "\xC9rase una vez un ni\xF1o peque\xF1o que ten\xEDa un nombre."
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
 --- !u!1 &902111198
@@ -5550,7 +5550,7 @@ MonoBehaviour:
   virtualCamera: {fileID: 1792365071}
   fadeSpeed: 2
   textSpeed: 0.03
-  globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
+  globalFont: {fileID: 11400000, guid: 0b9caa11d596f9440a9a200e8cd8de26, type: 2}
   globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
@@ -5562,7 +5562,7 @@ MonoBehaviour:
     audioClip: {fileID: 0}
   - panelImage: {fileID: 0}
     textUI: {fileID: 1019764037}
-    dialogueText: As more days slipped away...
+    dialogueText: "Conforme pasaban m\xE1s d\xEDas..."
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
   - panelImage: {fileID: 426726969}
@@ -5572,7 +5572,7 @@ MonoBehaviour:
     audioClip: {fileID: 0}
   - panelImage: {fileID: 0}
     textUI: {fileID: 1019764037}
-    dialogueText: He forgot the colors of the world.
+    dialogueText: "Olvid\xF3 colores."
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
 --- !u!1 &963350224
@@ -5765,7 +5765,7 @@ MonoBehaviour:
   virtualCamera: {fileID: 1021785127}
   fadeSpeed: 2
   textSpeed: 0.03
-  globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
+  globalFont: {fileID: 11400000, guid: 0b9caa11d596f9440a9a200e8cd8de26, type: 2}
   globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
@@ -5777,12 +5777,12 @@ MonoBehaviour:
     audioClip: {fileID: 0}
   - panelImage: {fileID: 0}
     textUI: {fileID: 1998799728}
-    dialogueText: He started noticing little things.
+    dialogueText: "El noto peque\xF1as cosas"
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
   - panelImage: {fileID: 0}
     textUI: {fileID: 1998799728}
-    dialogueText: Things no one else seemed to notice.
+    dialogueText: "Cosas que nadie m\xE1s parec\xEDa notar."
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
 --- !u!1 &966552867
@@ -6063,7 +6063,7 @@ MonoBehaviour:
   virtualCamera: {fileID: 1792365071}
   fadeSpeed: 2
   textSpeed: 0.03
-  globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
+  globalFont: {fileID: 11400000, guid: 0b9caa11d596f9440a9a200e8cd8de26, type: 2}
   globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
@@ -6075,12 +6075,12 @@ MonoBehaviour:
     audioClip: {fileID: 0}
   - panelImage: {fileID: 0}
     textUI: {fileID: 1767007072}
-    dialogueText: Tiny things he couldn't explain.
+    dialogueText: "Peque\xF1as cosas que no entend\xEDa por qu\xE9."
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
   - panelImage: {fileID: 0}
     textUI: {fileID: 1767007072}
-    dialogueText: His thoughts began to unravel, one by one.
+    dialogueText: "Algo en su interior comenz\xF3 a romperse."
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
 --- !u!1 &989987178
@@ -6274,7 +6274,7 @@ MonoBehaviour:
   virtualCamera: {fileID: 885138308}
   fadeSpeed: 2
   textSpeed: 0.03
-  globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
+  globalFont: {fileID: 11400000, guid: 0b9caa11d596f9440a9a200e8cd8de26, type: 2}
   globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
@@ -6286,7 +6286,7 @@ MonoBehaviour:
     audioClip: {fileID: 0}
   - panelImage: {fileID: 61270208}
     textUI: {fileID: 744145473}
-    dialogueText: Voices that sounded just a little too soft.
+    dialogueText: Una voz demasiado suave.
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
 --- !u!1 &1019764034
@@ -7625,7 +7625,7 @@ MonoBehaviour:
   virtualCamera: {fileID: 1021785127}
   fadeSpeed: 2
   textSpeed: 0.03
-  globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
+  globalFont: {fileID: 11400000, guid: 0b9caa11d596f9440a9a200e8cd8de26, type: 2}
   globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
@@ -7637,7 +7637,7 @@ MonoBehaviour:
     audioClip: {fileID: 0}
   - panelImage: {fileID: 0}
     textUI: {fileID: 696849900}
-    dialogueText: And when morning came...
+    dialogueText: "Y a la ma\xF1ana siguiente..."
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
   - panelImage: {fileID: 2094903589}
@@ -7647,7 +7647,7 @@ MonoBehaviour:
     audioClip: {fileID: 0}
   - panelImage: {fileID: 0}
     textUI: {fileID: 696849900}
-    dialogueText: It was gone.
+    dialogueText: Ya no estaba.
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
 --- !u!1 &1188183420
@@ -7704,7 +7704,7 @@ MonoBehaviour:
   virtualCamera: {fileID: 1792365071}
   fadeSpeed: 2
   textSpeed: 0.03
-  globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
+  globalFont: {fileID: 11400000, guid: 0b9caa11d596f9440a9a200e8cd8de26, type: 2}
   globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
@@ -7716,12 +7716,12 @@ MonoBehaviour:
     audioClip: {fileID: 0}
   - panelImage: {fileID: 0}
     textUI: {fileID: 1466280473}
-    dialogueText: Before long, the others grew worried.
+    dialogueText: "Al poco tiempo, los dem\xE1s empezaron a preocuparse."
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
   - panelImage: {fileID: 0}
     textUI: {fileID: 1466280473}
-    dialogueText: '"Is something wrong with him?"'
+    dialogueText: "\"\xBFLe ocurre algo?\"."
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
   - panelImage: {fileID: 334067561}
@@ -7731,7 +7731,7 @@ MonoBehaviour:
     audioClip: {fileID: 0}
   - panelImage: {fileID: 0}
     textUI: {fileID: 1466280473}
-    dialogueText: '"He''s only tired... He''ll be better tomorrow."'
+    dialogueText: "\"El... solo est\xE1 cansado, ma\xF1ana estar\xE1 mejor.\""
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
 --- !u!1 &1207440362
@@ -7787,7 +7787,7 @@ MonoBehaviour:
   virtualCamera: {fileID: 1792365071}
   fadeSpeed: 2
   textSpeed: 0.03
-  globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
+  globalFont: {fileID: 11400000, guid: 0b9caa11d596f9440a9a200e8cd8de26, type: 2}
   globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
@@ -7799,12 +7799,13 @@ MonoBehaviour:
     audioClip: {fileID: 0}
   - panelImage: {fileID: 0}
     textUI: {fileID: 1425409973}
-    dialogueText: She smiled gently and said
+    dialogueText: "Ella sonri\xF3 suavemente y dijo"
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
   - panelImage: {fileID: 0}
     textUI: {fileID: 1425409973}
-    dialogueText: '"Everything will be alright. By tomorrow, you''ll remember again."'
+    dialogueText: "\"Todo estar\xE1 bien. Para ma\xF1ana, ya te acordar\xE1s de todo
+      otra vez\"."
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
 --- !u!1 &1219009535
@@ -7949,7 +7950,7 @@ MonoBehaviour:
   virtualCamera: {fileID: 885138308}
   fadeSpeed: 2
   textSpeed: 0.03
-  globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
+  globalFont: {fileID: 11400000, guid: 0b9caa11d596f9440a9a200e8cd8de26, type: 2}
   globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
@@ -7961,7 +7962,7 @@ MonoBehaviour:
     audioClip: {fileID: 0}
   - panelImage: {fileID: 0}
     textUI: {fileID: 1900890135}
-    dialogueText: One night, before going to bed, he left it on the table.
+    dialogueText: "Una noche lo dej\xF3 sobre la mesa antes de dormir."
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
   - panelImage: {fileID: 1035108705}
@@ -8472,7 +8473,7 @@ MonoBehaviour:
   virtualCamera: {fileID: 1699570231}
   fadeSpeed: 2
   textSpeed: 0.03
-  globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
+  globalFont: {fileID: 11400000, guid: 0b9caa11d596f9440a9a200e8cd8de26, type: 2}
   globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
@@ -8484,12 +8485,12 @@ MonoBehaviour:
     audioClip: {fileID: 0}
   - panelImage: {fileID: 0}
     textUI: {fileID: 989987180}
-    dialogueText: One by one...
+    dialogueText: Uno por uno...
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
   - panelImage: {fileID: 0}
     textUI: {fileID: 989987180}
-    dialogueText: Hoping that somewhere among them... He would find his own.
+    dialogueText: "Si los ten\xEDa todos... tal vez el suyo aparecer\xEDa."
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
 --- !u!1 &1363393954
@@ -9452,15 +9453,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8679245, g: 0.8679245, b: 0.8679245, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 2040405528, guid: d7993f3ad9e5ded4f89f97ce2aea9aa6, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -9805,7 +9806,7 @@ MonoBehaviour:
   virtualCamera: {fileID: 885138308}
   fadeSpeed: 2
   textSpeed: 0.03
-  globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
+  globalFont: {fileID: 11400000, guid: 0b9caa11d596f9440a9a200e8cd8de26, type: 2}
   globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
@@ -9817,7 +9818,7 @@ MonoBehaviour:
     audioClip: {fileID: 0}
   - panelImage: {fileID: 0}
     textUI: {fileID: 1253110589}
-    dialogueText: And while he watched them...
+    dialogueText: "Y mientras \xE9l los vigilaba\u2026"
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
   - panelImage: {fileID: 1833901921}
@@ -9827,7 +9828,7 @@ MonoBehaviour:
     audioClip: {fileID: 0}
   - panelImage: {fileID: 0}
     textUI: {fileID: 1253110589}
-    dialogueText: She was watching him.
+    dialogueText: "Ella lo vigilaba a \xE9l."
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
 --- !u!1 &1545464031
@@ -9884,7 +9885,7 @@ MonoBehaviour:
   virtualCamera: {fileID: 885138308}
   fadeSpeed: 2
   textSpeed: 0.03
-  globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
+  globalFont: {fileID: 11400000, guid: 0b9caa11d596f9440a9a200e8cd8de26, type: 2}
   globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
@@ -9896,7 +9897,7 @@ MonoBehaviour:
     audioClip: {fileID: 0}
   - panelImage: {fileID: 0}
     textUI: {fileID: 1325671574}
-    dialogueText: He tried to explain what was happening.
+    dialogueText: "El intent\xF3 explicar lo que estaba pasando."
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
   - panelImage: {fileID: 966552869}
@@ -9906,7 +9907,7 @@ MonoBehaviour:
     audioClip: {fileID: 0}
   - panelImage: {fileID: 0}
     textUI: {fileID: 1325671574}
-    dialogueText: But only one person truly listened.
+    dialogueText: "Pero solo una persona le prest\xF3 atenci\xF3n."
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
 --- !u!1 &1551387817
@@ -10370,7 +10371,7 @@ MonoBehaviour:
   virtualCamera: {fileID: 1699570231}
   fadeSpeed: 2
   textSpeed: 0.03
-  globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
+  globalFont: {fileID: 11400000, guid: 0b9caa11d596f9440a9a200e8cd8de26, type: 2}
   globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
@@ -10387,7 +10388,7 @@ MonoBehaviour:
     audioClip: {fileID: 0}
   - panelImage: {fileID: 0}
     textUI: {fileID: 468035668}
-    dialogueText: He couldn't sleep.
+    dialogueText: "No pod\xEDa dormir."
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
 --- !u!1 &1629216516
@@ -11199,7 +11200,7 @@ MonoBehaviour:
   virtualCamera: {fileID: 885138308}
   fadeSpeed: 2
   textSpeed: 0.03
-  globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
+  globalFont: {fileID: 11400000, guid: 0b9caa11d596f9440a9a200e8cd8de26, type: 2}
   globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
@@ -11211,7 +11212,7 @@ MonoBehaviour:
     audioClip: {fileID: 0}
   - panelImage: {fileID: 0}
     textUI: {fileID: 153167273}
-    dialogueText: He began to forget voices.
+    dialogueText: "Olvid\xF3 voces."
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
 --- !u!1 &1767007070
@@ -11404,7 +11405,7 @@ MonoBehaviour:
   virtualCamera: {fileID: 1699570231}
   fadeSpeed: 2
   textSpeed: 0.03
-  globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
+  globalFont: {fileID: 11400000, guid: 0b9caa11d596f9440a9a200e8cd8de26, type: 2}
   globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
@@ -11416,7 +11417,7 @@ MonoBehaviour:
     audioClip: {fileID: 0}
   - panelImage: {fileID: 0}
     textUI: {fileID: 2080300525}
-    dialogueText: Smiles that were just a little too small.
+    dialogueText: "Una sonrisa demasiado peque\xF1a."
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
 --- !u!1 &1774122404
@@ -11473,14 +11474,14 @@ MonoBehaviour:
   virtualCamera: {fileID: 1021785127}
   fadeSpeed: 2
   textSpeed: 0.03
-  globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
+  globalFont: {fileID: 11400000, guid: 0b9caa11d596f9440a9a200e8cd8de26, type: 2}
   globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
   steps:
   - panelImage: {fileID: 0}
     textUI: {fileID: 218012838}
-    dialogueText: So he reached for the only thing he had left.
+    dialogueText: "Entonces decidi\xF3 que\u2026"
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
   - panelImage: {fileID: 784910204}
@@ -11490,7 +11491,7 @@ MonoBehaviour:
     audioClip: {fileID: 0}
   - panelImage: {fileID: 0}
     textUI: {fileID: 218012838}
-    dialogueText: The names of others.
+    dialogueText: "Tomaria los nombres de los dem\xE1s."
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
   - panelImage: {fileID: 1812475407}
@@ -12801,7 +12802,7 @@ MonoBehaviour:
   virtualCamera: {fileID: 1021785127}
   fadeSpeed: 2
   textSpeed: 0.03
-  globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
+  globalFont: {fileID: 11400000, guid: 0b9caa11d596f9440a9a200e8cd8de26, type: 2}
   globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
@@ -12813,7 +12814,7 @@ MonoBehaviour:
     audioClip: {fileID: 0}
   - panelImage: {fileID: 0}
     textUI: {fileID: 447870000}
-    dialogueText: Then he realized... He could no longer remember anyone's face.
+    dialogueText: "Se dio cuenta de que... no pod\xEDa recordar el rostro de nadie."
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
   - panelImage: {fileID: 271008650}
@@ -12823,12 +12824,12 @@ MonoBehaviour:
     audioClip: {fileID: 0}
   - panelImage: {fileID: 0}
     textUI: {fileID: 447870000}
-    dialogueText: He was frightened.
+    dialogueText: Tuvo miedo.
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
   - panelImage: {fileID: 0}
     textUI: {fileID: 447870000}
-    dialogueText: 'If he forgot everyone... Maybe they would disappear. '
+    dialogueText: "Si olvidaba a todos... podr\xEDan desaparecer."
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
 --- !u!1 &1986253865
@@ -13199,7 +13200,7 @@ MonoBehaviour:
   virtualCamera: {fileID: 885138308}
   fadeSpeed: 2
   textSpeed: 0.03
-  globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
+  globalFont: {fileID: 11400000, guid: 0b9caa11d596f9440a9a200e8cd8de26, type: 2}
   globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
@@ -13211,7 +13212,7 @@ MonoBehaviour:
     audioClip: {fileID: 0}
   - panelImage: {fileID: 0}
     textUI: {fileID: 202829267}
-    dialogueText: So he began to watch.
+    dialogueText: "As\xED que comenz\xF3 a observar."
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
   - panelImage: {fileID: 234679640}
@@ -13221,7 +13222,7 @@ MonoBehaviour:
     audioClip: {fileID: 0}
   - panelImage: {fileID: 0}
     textUI: {fileID: 968375590}
-    dialogueText: Behind doors.
+    dialogueText: "Detr\xE1s de las puertas."
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
 --- !u!1 &2010522310
@@ -13453,7 +13454,7 @@ MonoBehaviour:
   virtualCamera: {fileID: 1021785127}
   fadeSpeed: 2
   textSpeed: 0.03
-  globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
+  globalFont: {fileID: 11400000, guid: 0b9caa11d596f9440a9a200e8cd8de26, type: 2}
   globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
@@ -13465,12 +13466,12 @@ MonoBehaviour:
     audioClip: {fileID: 0}
   - panelImage: {fileID: 0}
     textUI: {fileID: 1363393956}
-    dialogueText: His fear grew larger and larger.
+    dialogueText: "El miedo se hizo m\xE1s grande."
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
   - panelImage: {fileID: 0}
     textUI: {fileID: 1363393956}
-    dialogueText: He couldn't think of anything else.
+    dialogueText: "No pod\xEDa pensar en nada m\xE1s."
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
 --- !u!1 &2038366020
@@ -13581,15 +13582,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: UnityEngine.UI::UnityEngine.UI.Image
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0.8666667, g: 0.8666667, b: 0.8666667, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 1992310447, guid: d7993f3ad9e5ded4f89f97ce2aea9aa6, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -13872,7 +13873,7 @@ MonoBehaviour:
   virtualCamera: {fileID: 1792365071}
   fadeSpeed: 2
   textSpeed: 0.03
-  globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
+  globalFont: {fileID: 11400000, guid: 0b9caa11d596f9440a9a200e8cd8de26, type: 2}
   globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
@@ -13884,7 +13885,7 @@ MonoBehaviour:
     audioClip: {fileID: 0}
   - panelImage: {fileID: 0}
     textUI: {fileID: 556998655}
-    dialogueText: The longer he watched...
+    dialogueText: "Y mientras m\xE1s los observaba\u2026"
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
   - panelImage: {fileID: 1114869042}
@@ -14395,7 +14396,7 @@ MonoBehaviour:
   virtualCamera: {fileID: 1699570231}
   fadeSpeed: 2
   textSpeed: 0.03
-  globalFont: {fileID: 11400000, guid: 8c4d0e8e36fef35408d29a50004ee922, type: 2}
+  globalFont: {fileID: 11400000, guid: 0b9caa11d596f9440a9a200e8cd8de26, type: 2}
   globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
   globalFontSize: 26
   globalAlignment: 514
@@ -14407,7 +14408,7 @@ MonoBehaviour:
     audioClip: {fileID: 0}
   - panelImage: {fileID: 1462825037}
     textUI: {fileID: 1869589801}
-    dialogueText: He carried it with him wherever he went.
+    dialogueText: Lo llevaba consigo a todos lados.
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
 --- !u!1 &2136552574
