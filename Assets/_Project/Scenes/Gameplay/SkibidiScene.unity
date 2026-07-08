@@ -52400,7 +52400,7 @@ MonoBehaviour:
     onPassingPage:
       m_PersistentCalls:
         m_Calls:
-        - m_Target: {fileID: 7344129718908532138, guid: 41e50039a8098b14a8436459a2dd8bcf, type: 3}
+        - m_Target: {fileID: 1550039657}
           m_TargetAssemblyTypeName: StateProgressionManager, Assembly-CSharp
           m_MethodName: OverrideHintText
           m_Mode: 5
@@ -206816,7 +206816,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
       propertyPath: fadeSettings.Array.data[1].OnDurationFade.m_PersistentCalls.m_Calls.Array.size
-      value: 3
+      value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
       propertyPath: fadeSettings.Array.data[0].OnDurationEnded.m_PersistentCalls.m_Calls.Array.size
@@ -206895,6 +206895,10 @@ PrefabInstance:
       value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
+      propertyPath: fadeSettings.Array.data[1].OnDurationFade.m_PersistentCalls.m_Calls.Array.data[3].m_Mode
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
       propertyPath: events.Array.data[0].OnSequenceStart.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
       value: ShotDialogue
       objectReference: {fileID: 0}
@@ -206938,6 +206942,10 @@ PrefabInstance:
       propertyPath: fadeSettings.Array.data[1].OnDurationFade.m_PersistentCalls.m_Calls.Array.data[2].m_Target
       value: 
       objectReference: {fileID: 31258987}
+    - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
+      propertyPath: fadeSettings.Array.data[1].OnDurationFade.m_PersistentCalls.m_Calls.Array.data[3].m_Target
+      value: 
+      objectReference: {fileID: 1447823729}
     - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
       propertyPath: events.Array.data[0].OnSequenceComplete.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -206991,6 +206999,10 @@ PrefabInstance:
       value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
+      propertyPath: fadeSettings.Array.data[1].OnDurationFade.m_PersistentCalls.m_Calls.Array.data[3].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
       propertyPath: fadeSettings.Array.data[0].OnDurationEnded.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
       objectReference: {fileID: 0}
@@ -207015,9 +207027,13 @@ PrefabInstance:
       value: SetActive
       objectReference: {fileID: 0}
     - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
+      propertyPath: fadeSettings.Array.data[1].OnDurationFade.m_PersistentCalls.m_Calls.Array.data[3].m_MethodName
+      value: SetActive
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
       propertyPath: fadeSettings.Array.data[1].OnSequenceComplete.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 7344129718908532138, guid: 41e50039a8098b14a8436459a2dd8bcf, type: 3}
+      objectReference: {fileID: 1550039657}
     - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
       propertyPath: fadeSettings.Array.data[1].OnSequenceStart.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -207107,6 +207123,10 @@ PrefabInstance:
       value: UnityEngine.GameObject, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
+      propertyPath: fadeSettings.Array.data[1].OnDurationFade.m_PersistentCalls.m_Calls.Array.data[3].m_TargetAssemblyTypeName
+      value: UnityEngine.GameObject, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
       propertyPath: fadeSettings.Array.data[0].OnDurationEnded.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
       value: DialogueReader, Assembly-CSharp
       objectReference: {fileID: 0}
@@ -207184,6 +207204,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
       propertyPath: fadeSettings.Array.data[1].OnDurationFade.m_PersistentCalls.m_Calls.Array.data[2].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
+      propertyPath: fadeSettings.Array.data[1].OnDurationFade.m_PersistentCalls.m_Calls.Array.data[3].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
       objectReference: {fileID: 0}
     - target: {fileID: 3513162927419205129, guid: dce459080a024a84697f88cd988b8cd1, type: 3}
@@ -221728,9 +221752,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Inspect
-
-'
+  m_text: Inspeccionar
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
