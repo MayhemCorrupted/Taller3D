@@ -267342,6 +267342,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 11400000, guid: 0b9caa11d596f9440a9a200e8cd8de26, type: 2}
     - target: {fileID: 8306773728022681015, guid: 4e59567ac40e8164586a6fd5e8e238ee, type: 3}
+      propertyPath: m_fontSizeMin
+      value: 25.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 8306773728022681015, guid: 4e59567ac40e8164586a6fd5e8e238ee, type: 3}
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: -4555417189786501300, guid: 0b9caa11d596f9440a9a200e8cd8de26, type: 2}

@@ -21,20 +21,21 @@ MonoBehaviour:
   NoteDescription: "Te dejo estas palabras, porque s\xE9 que el tiempo suele borrar
     los recuerdos, pero no puede tocar lo que construimos juntos. Si alguna vez te
     sientes un poco perdida en el camino, solo mira atr\xE1s a nuestros cuatro pasos
-    m\xE1s grandes.\n\n\xC9ramos solo unos ni\xF1os de <color=#FF0000>doce a\xF1os
-    cuando te vi por primera vez. Te sentaste justo a mi <color=#FF0000>izquierda
+    m\xE1s grandes.\n\n\xC9ramos solo unos ni\xF1os de <color=#FF0000>doce a\xF1os</color>
+    cuando te vi por primera vez. Te sentaste justo a mi <color=#FF0000>izquierda</color>
     en el sal\xF3n de clases y, sinceramente, desde ese preciso segundo, cambiaste
-    mi vida entera.\nLuego, cuando cumplimos <color=#FF0000>veinticuatro y compr\xE9
-    aquel primer auto destartalado m\xEDo, t\xFA estabas all\xED en el <color=#FF0000>asiento
-    del copiloto, ri\xE9ndote a carcajadas mientras conduc\xEDamos hacia la costa.\nLa
-    vida nos lanz\xF3 cosas pesadas, y para cuando cumpl\xED los <color=#FF0000>cuarenta
-    y cinco, estaba trabajando hasta el cansancio para darnos un hogar. Pasaba d\xEDas
-    enteros dibujando planos con mi mano <color=#FF0000>derecha, pero t\xFA eras
-    el anillo de bodas en mi <color=#FF0000>otra mano, sosteni\xE9ndome sin decir
-    una sola palabra.\nAhora, solo espero que lleguemos a los <color=#FF0000>cincuenta
-    inviernos juntos. Mi cuerpo empieza a sentirse pesado, pero cuando eso pase,
-    solo b\xFAscame junto al viejo sill\xF3n. Ap\xF3yate en mi lado <color=#FF0000>derecho,
-    descansa tu cabeza y qu\xE9date all\xED conmigo hasta nuestro \xFAltimo d\xEDa"
+    mi vida entera.\n\nLuego, cuando cumplimos <color=#FF0000>veinticuatro</color>
+    y compr\xE9 aquel primer auto destartalado m\xEDo, t\xFA estabas all\xED en el
+    <color=#FF0000>asiento del copiloto</color>, ri\xE9ndote a carcajadas mientras
+    conduc\xEDamos hacia la costa.\n\nLa vida nos lanz\xF3 cosas pesadas, y para
+    cuando cumpl\xED los <color=#FF0000>cuarenta y cinco</color>, estaba trabajando
+    hasta el cansancio para darnos un hogar. Pasaba d\xEDas enteros dibujando planos
+    con mi mano derecha, pero t\xFA eras el anillo de bodas en mi <color=#FF0000>otra
+    mano</color>, sosteni\xE9ndome sin decir una sola palabra.\n\nAhora, solo espero
+    que lleguemos a los <color=#FF0000>cincuenta inviernos juntos</color>. Mi cuerpo
+    empieza a sentirse pesado, pero cuando eso pase, solo b\xFAscame junto al viejo
+    sill\xF3n. Ap\xF3yate en mi <color=#FF0000>mano derecha</color>, descansa tu
+    cabeza y qu\xE9date all\xED conmigo hasta nuestro \xFAltimo d\xEDa."
   image: {fileID: 21300000, guid: 26293085d09301c47882b6b0c15120b8, type: 3}
   isPuzzleNote: 1
   generatedCode: 
