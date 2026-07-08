@@ -12,8 +12,14 @@ EditorBuildSettings:
     path: Assets/_Project/Scenes/Gameplay/CinematicBookIntro.unity
     guid: 84d9955969d30f74a84ccad6304ffd6c
   - enabled: 1
+    path: Assets/_Project/Scenes/Gameplay/CinematicIntro.unity
+    guid: b7c20edd97a096c4e9b0f106b28834b5
+  - enabled: 1
     path: Assets/_Project/Scenes/Gameplay/WalkthroughScene.unity
     guid: ad6cb992bc0c79643a6f70f7b9e16140
+  - enabled: 1
+    path: Assets/_Project/Scenes/Gameplay/SkibidiScene.unity
+    guid: cc21ed764cd5d2447bcfd74031f9f086
   - enabled: 1
     path: Assets/_Project/Scenes/Gameplay/CinematicBookEnd.unity
     guid: 22c6e821ca9e30a4abad0307838acf93

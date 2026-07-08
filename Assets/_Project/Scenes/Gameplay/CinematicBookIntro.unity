@@ -10544,7 +10544,7 @@ MonoBehaviour:
   - {fileID: 579514673}
   - {fileID: 1774122406}
   - {fileID: 1340263570}
-  nextSceneName: WalkthroughScene
+  nextSceneName: CinematicIntro
   cameraTime: 1.2
   imageFade: {fileID: 1180115249}
   delay: 2
