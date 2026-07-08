@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Project/Scenes/Gameplay/CinematicBookEnd.unity
     guid: 22c6e821ca9e30a4abad0307838acf93
+  - enabled: 1
+    path: Assets/_Project/Scenes/Gameplay/Ending.unity
+    guid: 695ca8383b2a41643bccdedd17c8c7ab
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
   m_UseUCBPForAssetBundles: 0
