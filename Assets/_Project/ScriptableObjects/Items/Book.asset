@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::NoteData
   id: 6
   itemName: Book
-  description: The book my mom read for me... she wrote it
+  description: "El libro que mi mam\xE1 me le\xEDa... lo escribi\xF3 ella misma."
   sprite: {fileID: 21300000, guid: f5a5f941395db8644b2a7823766570d0, type: 3}
   itemType: 0
   itemModelPrefab: {fileID: 919132149155446097, guid: 4227ec5f3ef533d4f8385ed62751b31d, type: 3}

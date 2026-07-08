@@ -18,8 +18,8 @@ MonoBehaviour:
   sprite: {fileID: 0}
   itemType: 1
   itemModelPrefab: {fileID: 0}
-  NoteDescription: I leave your book on the bookshelf of the library, take it when
-    you want to read it.
+  NoteDescription: "Dejo el cuento en el estante de la biblioteca, t\xF3malo cuando
+    quieras leerlo."
   image: {fileID: 0}
   isPuzzleNote: 0
   generatedCode: 
