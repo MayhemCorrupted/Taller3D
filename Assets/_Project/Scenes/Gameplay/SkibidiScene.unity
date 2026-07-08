@@ -80158,8 +80158,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 860, y: 515}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 828.7997, y: 515}
+  m_SizeDelta: {x: 262.4, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &667609372
 MonoBehaviour:
@@ -80181,7 +80181,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: (!) Nueva pista
+  m_text: (Tab) Nueva pista
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 0b9caa11d596f9440a9a200e8cd8de26, type: 2}
   m_sharedMaterial: {fileID: -4555417189786501300, guid: 0b9caa11d596f9440a9a200e8cd8de26, type: 2}
@@ -271897,6 +271897,10 @@ PrefabInstance:
       propertyPath: stateTextMesh
       value: 
       objectReference: {fileID: 1635122645}
+    - target: {fileID: 7344129718908532138, guid: 41e50039a8098b14a8436459a2dd8bcf, type: 3}
+      propertyPath: fadeHoldDuration
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7344129718908532138, guid: 41e50039a8098b14a8436459a2dd8bcf, type: 3}
       propertyPath: stateSequence.Array.size
       value: 4
