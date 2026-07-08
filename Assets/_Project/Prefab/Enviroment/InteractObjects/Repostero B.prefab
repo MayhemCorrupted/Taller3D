@@ -223,8 +223,8 @@ MonoBehaviour:
         m_CallState: 2
   openMode: 0
   animationSpeed: 1
-  openTextPrompt: '[{key}] Abrir cajon'
-  closeTextPrompt: '[{key}] Cerrar cajon'
+  openTextPrompt: "[{key}] Abrir caj\xF3n"
+  closeTextPrompt: "[{key}] Cerrar caj\xF3n"
   slideAxis: {x: 0, y: 0, z: 1}
   slideDistance: 40
   rotationAxis: {x: 0, y: 1, z: 0}

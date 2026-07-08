@@ -10,12 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 3e7535a60aa6a9a4297dc71c3bb0981c, type: 3}
-  m_Name: FuseItem
+  m_Name: BookKid
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
-  id: 3
-  itemName: fusible
-  description: "Recuerdo cuando mi pap\xE1 llevaba uno al s\xF3tano cuando hubo un
-    apag\xF3n"
-  sprite: {fileID: 21300000, guid: 4ae6a76e8e3267c4180ca727e2fa7763, type: 3}
+  id: 6
+  itemName: libro infantil
+  description: "El libro que mi mam\xE1 me le\xEDa... lo escribi\xF3 ella misma."
+  sprite: {fileID: 21300000, guid: 2a1d32c2ccc53ee49baf2416efd9732d, type: 3}
   itemType: 0
-  itemModelPrefab: {fileID: 128023844997736086, guid: 06d4654e91d4cf048bafd406553b6e86, type: 3}
+  itemModelPrefab: {fileID: 3006035923206927775, guid: d8f1fa156b27c4543bb9970921c4b4f5, type: 3}

@@ -18,7 +18,9 @@ public class StateProgressionManager : MonoBehaviour
     [Header("UI Reference")]
     [Tooltip("Arrastra aquí tu componente de texto de la jerarquía de Canvas.")]
     [SerializeField] TextMeshProUGUI stateTextMesh;
+    [SerializeField] TextMeshProUGUI indicatorTextMesh;
     [SerializeField] CanvasGroup indicatorCG;
+    [SerializeField] string indicatorText = "({key}) Nueva pista";
     [SerializeField] float fadeSpeed = 0.5f;
     [SerializeField] float fadeDuration = 1.0f;
     [SerializeField] float fadeHoldDuration = 1.0f;
@@ -44,7 +46,7 @@ public class StateProgressionManager : MonoBehaviour
             }
         }
     }
-    void Start()
+     void Start()
     {
         EvaluateState();
     }
@@ -84,12 +86,22 @@ public class StateProgressionManager : MonoBehaviour
     }
     void EvaluateState()
     {
+        SetPrompt();
         if (quickLookup.TryGetValue(currentState, out StateProgressionStep currentStep))
         {
             if (indicatorCG != null) StartCoroutine(FadeIndicator());
             if (stateTextMesh != null) stateTextMesh.text = currentStep.stateDisplayText;
             else Debug.LogWarning("[StateManager] El texto cambió, pero el TextMeshProUGUI no esta en el inspector.");
             currentStep.onStateTriggered?.Invoke();
+        }
+    }
+    void SetPrompt()
+    {
+        if (InputManager.Instance != null && indicatorText.Contains("{key}"))
+        {
+            string currentKey = InputManager.Instance.InventoryKey.ToString();
+            string displayText = indicatorText.Replace("{key}", currentKey);
+            indicatorTextMesh.text = displayText;
         }
     }
     IEnumerator FadeIndicator()

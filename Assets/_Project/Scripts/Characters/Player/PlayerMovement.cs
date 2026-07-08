@@ -22,9 +22,8 @@ public class PlayerMovement : MonoBehaviour
     Vector2 moveInput;
     float verticalVelocity;
 
-    Vector3 flyCurrentVelocity = Vector3.zero;
-
     public Vector3 Velocity => playerCtrl.velocity;
+    public float WalkSpeed { get => walkSpeed; set => walkSpeed = value; }
     public bool IsGrounded => playerCtrl.isGrounded;
     public bool Flying => flying;
     public bool CanFly { get => canFly; set => canFly = value; }
@@ -73,7 +72,6 @@ public class PlayerMovement : MonoBehaviour
         {
             moveInput = Vector2.zero;
             verticalVelocity = 0;
-            flyCurrentVelocity = Vector3.zero;
         }
     }
 
