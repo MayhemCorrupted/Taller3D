@@ -10,6 +10,8 @@ public class SafeDialPuzzle : MonoBehaviour, IInteractable
     [SerializeField] Button exitButton;
     [SerializeField] SafeDialUI dialController;
     [Header("Combination Settings")]
+    [Tooltip("Si está activo, la secuencia obligatoriamente exige girar a la derecha primero. Si se desactiva, empezará a la izquierda.")]
+    [SerializeField] bool startRightFirst = true;
     [SerializeField] private int[] currentCombination = new int[3];
     [Header("Dial State (Read Only)")]
     [SerializeField] int currentNumber = 0;
@@ -95,9 +97,10 @@ public class SafeDialPuzzle : MonoBehaviour, IInteractable
     }
     int GetExpectedDirectionForCurrentStep()
     {
-        if (playerInputSequence.Count == 0) return rightDirection;
-        if (playerInputSequence.Count == 1) return leftDirection;
-        return rightDirection;
+        int primaryDirection = startRightFirst ? rightDirection : leftDirection;
+        int secondaryDirection = startRightFirst ? leftDirection : rightDirection;
+
+        return (playerInputSequence.Count % 2 == 0) ? primaryDirection : secondaryDirection;
     }
     void UnlockSafe()
     {

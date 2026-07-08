@@ -222,14 +222,14 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 2
           m_FloatArgument: 0
-          m_StringArgument: '[ONCE] Use the key and leave the room'
+          m_StringArgument: '[ONCE] Usa la llave y sal de la cocina'
           m_BoolArgument: 0
         m_CallState: 2
   OnUnpickable:
     m_PersistentCalls:
       m_Calls: []
-  itemPrompt: '[{key}] grab {item}'
-  unpickablePrompt: cannot grab {item}
+  itemPrompt: '[{key}] Agarrar {item}'
+  unpickablePrompt: No se puede agarrar {item}
 --- !u!33 &5340175381168820858
 MeshFilter:
   m_ObjectHideFlags: 0

@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+
 public class SequencePathPuzzle : MonoBehaviour, IInteractable
 {
     [Header("UI Panel & Interaction")]
@@ -28,7 +29,9 @@ public class SequencePathPuzzle : MonoBehaviour, IInteractable
     int currentSequenceStep = 0;
     bool isLockedOut = false;
     bool isSolved = false;
+
     public string PuzzlePrompt => interactPrompt;
+
     void Start()
     {
         if (uiPanel != null) uiPanel.SetActive(false);
@@ -36,14 +39,8 @@ public class SequencePathPuzzle : MonoBehaviour, IInteractable
 
         UserInterfaceManager.Instance.RegisterPanel(
             UserInterfaceManager.PanelType.Sequence,
-            () =>
-            {
-                if (uiPanel != null) uiPanel.SetActive(true);
-            },
-            () =>
-            {
-                if (uiPanel != null) uiPanel.SetActive(false);
-            }
+            () => { if (uiPanel != null) uiPanel.SetActive(true); },
+            () => { if (uiPanel != null) uiPanel.SetActive(false); }
         );
 
         InitializeProceduralGrid();
@@ -71,18 +68,15 @@ public class SequencePathPuzzle : MonoBehaviour, IInteractable
 
         for (int i = 0; i < totalButtons; i++)
         {
-            if (numpadButtons[i] != null)
+            if (numpadButtons[i] != null && numpadButtons[i].transform.childCount > 0)
             {
-                if (numpadButtons[i].transform.childCount > 0)
+                if (numpadButtons[i].transform.GetChild(0).TryGetComponent<Image>(out var iconImage))
                 {
-                    if (numpadButtons[i].transform.GetChild(0).TryGetComponent<Image>(out var iconImage))
+                    int spriteIndex = proceduralButtonValues[i] - 1;
+
+                    if (spriteIndex >= 0 && spriteIndex < sequenceIcons.Length)
                     {
-                        int spriteIndex = proceduralButtonValues[i] - 1; 
-                        
-                        if (spriteIndex >= 0 && spriteIndex < sequenceIcons.Length)
-                        {
-                            iconImage.sprite = sequenceIcons[spriteIndex];
-                        }
+                        iconImage.sprite = sequenceIcons[spriteIndex];
                     }
                 }
             }
@@ -123,21 +117,25 @@ public class SequencePathPuzzle : MonoBehaviour, IInteractable
         }
         else
         {
-            ProcessError();
+            ProcessError(pressedIconIndex);
         }
     }
+
     void ProcessCorrectPress(int buttonIndex, int pressedIconIndex)
     {
         numpadButtons[buttonIndex].interactable = false;
 
-        int targetLightIndex = (lightIndexOffset + currentSequenceStep) % sequenceLights.Length;
+        int targetLightIndex = (lightIndexOffset + (pressedIconIndex - 1)) % sequenceLights.Length;
 
         if (targetLightIndex >= 0 && targetLightIndex < sequenceLights.Length && sequenceLights[targetLightIndex] != null)
         {
             sequenceLights[targetLightIndex].color = lightCorrectColor;
         }
 
-        expectedNextValue = (pressedIconIndex + 1) % sequenceIcons.Length;
+        int currentArrayPos = pressedIconIndex - 1;
+        int nextArrayPos = (currentArrayPos + 1) % sequenceIcons.Length;
+        expectedNextValue = nextArrayPos + 1;
+
         currentSequenceStep++;
 
         if (currentSequenceStep >= numpadButtons.Length)
@@ -146,16 +144,16 @@ public class SequencePathPuzzle : MonoBehaviour, IInteractable
         }
     }
 
-    void ProcessError()
+    void ProcessError(int pressedIconIndex)
     {
-        StartCoroutine(ErrorResetRoutine());
+        StartCoroutine(ErrorResetRoutine(pressedIconIndex));
     }
 
-    IEnumerator ErrorResetRoutine()
+    IEnumerator ErrorResetRoutine(int pressedIconIndex)
     {
         isLockedOut = true;
 
-        int targetLightIndex = (lightIndexOffset + currentSequenceStep) % sequenceLights.Length;
+        int targetLightIndex = (lightIndexOffset + (pressedIconIndex - 1)) % sequenceLights.Length;
 
         if (targetLightIndex >= 0 && targetLightIndex < sequenceLights.Length && sequenceLights[targetLightIndex] != null)
         {
@@ -167,7 +165,7 @@ public class SequencePathPuzzle : MonoBehaviour, IInteractable
 
         currentSequenceStep = 0;
         expectedNextValue = 0;
-        
+
         ResetLights();
 
         foreach (Button btn in numpadButtons)
