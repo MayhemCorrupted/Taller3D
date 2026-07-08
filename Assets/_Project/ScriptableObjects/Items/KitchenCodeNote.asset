@@ -21,6 +21,6 @@ MonoBehaviour:
   NoteDescription: "Hola, mis cielos, solo un recordatorio r\xE1pido de que el c\xF3digo
     de la puerta de la cocina es {code}. Por favor, que no se les olvide, y aseg\xFArense
     de dejar la puerta cerrada cuando terminen. \xA1\xA1Los amo!! <3"
-  image: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
+  image: {fileID: 231774463, guid: 109114744c178b347942e5dbcdc7c03a, type: 3}
   isPuzzleNote: 1
   generatedCode: 3457

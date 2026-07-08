@@ -20,6 +20,6 @@ MonoBehaviour:
   itemModelPrefab: {fileID: 0}
   NoteDescription: "Dej\xE9 el cuento en el estante de la biblioteca, t\xF3malo cuando
     quieras leerlo."
-  image: {fileID: 0}
+  image: {fileID: -837607682, guid: f56f7524f5c7905478c09fa497272564, type: 3}
   isPuzzleNote: 0
   generatedCode: 
