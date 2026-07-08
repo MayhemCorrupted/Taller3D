@@ -46,7 +46,7 @@ public class PlayerMovement : MonoBehaviour
 
     void InputHandle()
     {
-        if (Input.GetKeyDown(InputManager.Instance.FlyKey))
+        if (Input.GetKeyDown(InputManager.Instance.FlyKey) && canFly)
         {
             flying = !flying;
             if (flying && playerCtrl.isGrounded) verticalVelocity = flyImpulse;

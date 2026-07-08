@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 8206481393372822774}
   - component: {fileID: 2297587899398987088}
   - component: {fileID: 2043452746932073283}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: tapa
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -27,7 +27,7 @@ Transform:
   m_GameObject: {fileID: 805280802960605544}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.131, y: 0.16499996, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -100,7 +100,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 575129967938208400}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: LibroModel
   m_TagString: Untagged
   m_Icon: {fileID: -5397416234189338067, guid: 0000000000000000d000000000000000, type: 0}
@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 3165127572815466583}
   - component: {fileID: 7008312236667476212}
   - component: {fileID: 3486321977881161325}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: hojas
   m_TagString: Untagged
   m_Icon: {fileID: 0}

@@ -17,9 +17,17 @@ public class SequenceManagerV2 : MonoBehaviour
 
     private int currentPanelIndex = 0;
     private bool isTransitioning = false;
-
+    void Awake()
+    {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+        Time.timeScale = 1f;
+    }
     private void Start()
     {
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible = true;
+
         if (imageFade != null)
         {
             imageFade.gameObject.SetActive(true);
