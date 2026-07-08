@@ -114,7 +114,9 @@ public class InventoryUI : MonoBehaviour
 
         if (slotIndex == equipedSlotIndex) EquipmentManager.Instance.Unequip();
         else EquipmentManager.Instance.EquipItem(item);
+
         RechargeUI();
+        UserInterfaceManager.Instance.ClosePanel(UserInterfaceManager.PanelType.Inventory); 
     }
     void RechargeUI()
     {

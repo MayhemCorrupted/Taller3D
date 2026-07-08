@@ -23,6 +23,7 @@ public class SequencePathPuzzle : MonoBehaviour, IInteractable
     [SerializeField] UnityEvent OnSolved;
 
     int[] proceduralButtonValues;
+    int lightIndexOffset;
     int expectedNextValue = 0;
     int currentSequenceStep = 0;
     bool isLockedOut = false;
@@ -86,6 +87,8 @@ public class SequencePathPuzzle : MonoBehaviour, IInteractable
                 }
             }
         }
+
+        lightIndexOffset = Random.Range(0, sequenceLights.Length);
     }
 
     void AssignButtonListeners()
@@ -120,16 +123,18 @@ public class SequencePathPuzzle : MonoBehaviour, IInteractable
         }
         else
         {
-            ProcessError(pressedIconIndex);
+            ProcessError();
         }
     }
     void ProcessCorrectPress(int buttonIndex, int pressedIconIndex)
     {
         numpadButtons[buttonIndex].interactable = false;
 
-        if (pressedIconIndex < sequenceLights.Length && sequenceLights[pressedIconIndex] != null)
+        int targetLightIndex = (lightIndexOffset + currentSequenceStep) % sequenceLights.Length;
+
+        if (targetLightIndex >= 0 && targetLightIndex < sequenceLights.Length && sequenceLights[targetLightIndex] != null)
         {
-            sequenceLights[pressedIconIndex].color = lightCorrectColor;
+            sequenceLights[targetLightIndex].color = lightCorrectColor;
         }
 
         expectedNextValue = (pressedIconIndex + 1) % sequenceIcons.Length;
@@ -141,18 +146,20 @@ public class SequencePathPuzzle : MonoBehaviour, IInteractable
         }
     }
 
-    void ProcessError(int wrongIconIndex)
+    void ProcessError()
     {
-        StartCoroutine(ErrorResetRoutine(wrongIconIndex));
+        StartCoroutine(ErrorResetRoutine());
     }
 
-    IEnumerator ErrorResetRoutine(int wrongIconIndex)
+    IEnumerator ErrorResetRoutine()
     {
         isLockedOut = true;
 
-        if (wrongIconIndex < sequenceLights.Length && sequenceLights[wrongIconIndex] != null)
+        int targetLightIndex = (lightIndexOffset + currentSequenceStep) % sequenceLights.Length;
+
+        if (targetLightIndex >= 0 && targetLightIndex < sequenceLights.Length && sequenceLights[targetLightIndex] != null)
         {
-            sequenceLights[wrongIconIndex].color = lightErrorColor;
+            sequenceLights[targetLightIndex].color = lightErrorColor;
         }
 
         float waitForSeconds = 0.5f;

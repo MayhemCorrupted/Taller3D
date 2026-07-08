@@ -127,7 +127,7 @@ public class PlayerCamera : MonoBehaviour
     }
     void ApplyPostProcessing()
     {
-        if (GhostVolume == null || playerMovement.CanFly) return;
+        if (GhostVolume == null || !playerMovement.CanFly) return;
         float targetWeight = (currentState == MovementState.Flying) ? 1f : 0f;
         GhostVolume.weight = Mathf.Lerp(GhostVolume.weight, targetWeight, Time.deltaTime * volumeTransition);
     }

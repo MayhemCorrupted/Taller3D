@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: ParentRoomNote
   m_EditorClassIdentifier: Assembly-CSharp::NoteData
   id: 7
-  itemName: Mother's note
+  itemName: "nota de mam\xE1"
   description: 
   sprite: {fileID: 0}
   itemType: 1
   itemModelPrefab: {fileID: 0}
-  NoteDescription: "Dejo el cuento en el estante de la biblioteca, t\xF3malo cuando
+  NoteDescription: "Dej\xE9 el cuento en el estante de la biblioteca, t\xF3malo cuando
     quieras leerlo."
   image: {fileID: 0}
   isPuzzleNote: 0

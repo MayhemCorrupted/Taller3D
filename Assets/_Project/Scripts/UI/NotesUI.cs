@@ -195,6 +195,7 @@ public class NotesUI : MonoBehaviour
     public void CloseNoteFS()
     {
         UserInterfaceManager.Instance.ClosePanel(UserInterfaceManager.PanelType.Notes);
+        UserInterfaceManager.Instance.TryOpenPanel(UserInterfaceManager.PanelType.Inventory);
     }
     void NextNote()
     {

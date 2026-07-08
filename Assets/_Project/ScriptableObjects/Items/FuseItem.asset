@@ -13,9 +13,9 @@ MonoBehaviour:
   m_Name: FuseItem
   m_EditorClassIdentifier: Assembly-CSharp::ItemData
   id: 3
-  itemName: Fuse
-  description: I remember when my dad bring one of this to the basement when we had
-    a blackout
+  itemName: fusible
+  description: "Recuerdo cuando mi pap\xE1 llevaba uno al s\xF3tano cuando hubo un
+    apag\xF3n"
   sprite: {fileID: 21300000, guid: 00e348bbf48f926449acb90362aa808c, type: 3}
   itemType: 0
   itemModelPrefab: {fileID: 128023844997736086, guid: 06d4654e91d4cf048bafd406553b6e86, type: 3}

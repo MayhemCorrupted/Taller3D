@@ -70,7 +70,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: 03689a19cfde29a4f8df573fb5898d50, type: 3}
+  - {fileID: 2100000, guid: a7836e1b72867ca419fa5dbf48b2caef, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -161,6 +161,8 @@ MonoBehaviour:
         m_CallState: 2
   openMode: 0
   animationSpeed: 1
+  openTextPrompt: '[{key}] Open'
+  closeTextPrompt: '[{key}] Close'
   slideAxis: {x: 0, y: 0, z: 1}
   slideDistance: 40
   rotationAxis: {x: 0, y: 1, z: 0}
@@ -400,7 +402,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1024829319652609967}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -1.178, y: 0, z: 0}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_ConstrainProportionsScale: 0
@@ -577,7 +579,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: 03689a19cfde29a4f8df573fb5898d50, type: 3}
+  - {fileID: 2100000, guid: a7836e1b72867ca419fa5dbf48b2caef, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -668,6 +670,8 @@ MonoBehaviour:
         m_CallState: 2
   openMode: 0
   animationSpeed: 1
+  openTextPrompt: '[{key}] Open'
+  closeTextPrompt: '[{key}] Close'
   slideAxis: {x: 0, y: 0, z: 1}
   slideDistance: 40
   rotationAxis: {x: 0, y: 1, z: 0}
@@ -930,7 +934,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: 03689a19cfde29a4f8df573fb5898d50, type: 3}
+  - {fileID: 2100000, guid: a7836e1b72867ca419fa5dbf48b2caef, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1021,6 +1025,8 @@ MonoBehaviour:
         m_CallState: 2
   openMode: 0
   animationSpeed: 1
+  openTextPrompt: '[{key}] Open'
+  closeTextPrompt: '[{key}] Close'
   slideAxis: {x: 0, y: 0, z: 1}
   slideDistance: 40
   rotationAxis: {x: 0, y: 1, z: 0}
@@ -1210,7 +1216,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: 03689a19cfde29a4f8df573fb5898d50, type: 3}
+  - {fileID: 2100000, guid: a7836e1b72867ca419fa5dbf48b2caef, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1388,7 +1394,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: 03689a19cfde29a4f8df573fb5898d50, type: 3}
+  - {fileID: 2100000, guid: a7836e1b72867ca419fa5dbf48b2caef, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -1455,6 +1461,8 @@ MonoBehaviour:
       m_Calls: []
   openMode: 0
   animationSpeed: 1
+  openTextPrompt: '[{key}] Open'
+  closeTextPrompt: '[{key}] Close'
   slideAxis: {x: 0, y: 0, z: 1}
   slideDistance: 40
   rotationAxis: {x: 0, y: 1, z: 0}

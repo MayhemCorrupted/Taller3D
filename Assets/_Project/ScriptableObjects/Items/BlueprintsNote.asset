@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: BlueprintsNote
   m_EditorClassIdentifier: Assembly-CSharp::NoteData
   id: 1
-  itemName: House blueprints
+  itemName: planos
   description: 
   sprite: {fileID: 0}
   itemType: 1

@@ -130,7 +130,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: 4668c484d7cccda4a94e47c490e699ea, type: 3}
+  - {fileID: 2100000, guid: 24adf8d5aad8da54e9bec9543217c9e5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -175,6 +175,8 @@ MonoBehaviour:
       m_Calls: []
   openMode: 1
   animationSpeed: 1
+  openTextPrompt: '[{key}] Open'
+  closeTextPrompt: '[{key}] Close'
   slideAxis: {x: 0, y: 0, z: 1}
   slideDistance: 0.4
   rotationAxis: {x: 0, y: 1, z: 0}
@@ -370,7 +372,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: 4668c484d7cccda4a94e47c490e699ea, type: 3}
+  - {fileID: 2100000, guid: 24adf8d5aad8da54e9bec9543217c9e5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -415,6 +417,8 @@ MonoBehaviour:
       m_Calls: []
   openMode: 1
   animationSpeed: 1
+  openTextPrompt: '[{key}] Open'
+  closeTextPrompt: '[{key}] Close'
   slideAxis: {x: 0, y: 0, z: 1}
   slideDistance: 0.4
   rotationAxis: {x: 0, y: -1, z: 0}
@@ -539,7 +543,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 5561349426305759274, guid: 4668c484d7cccda4a94e47c490e699ea, type: 3}
+  - {fileID: 2100000, guid: 24adf8d5aad8da54e9bec9543217c9e5, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -657,7 +661,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8709253264384676786}
   m_Layer: 0
-  m_Name: Bisagra (1)
+  m_Name: BisagraIzquierda
   m_TagString: Untagged
   m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0
@@ -703,7 +707,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6190831567936824839}
   serializedVersion: 2
-  m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0.598, y: 0, z: 0}
   m_LocalScale: {x: 0.01, y: 0.01, z: 0.01}
   m_ConstrainProportionsScale: 0
@@ -756,7 +760,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3819384263990608476}
   m_Layer: 0
-  m_Name: Bisagra
+  m_Name: BisagraDerecha
   m_TagString: Untagged
   m_Icon: {fileID: -5442936267250999957, guid: 0000000000000000d000000000000000, type: 0}
   m_NavMeshLayer: 0

@@ -12,7 +12,9 @@ public class SettingsMenuUI : MonoBehaviour
 
     [Tooltip("Este es tu panel principal (el Display / Opciones base)")]
     [SerializeField] GameObject mainDisplayPanel;
-
+    [SerializeField] string mainBannerText = "Configuraciones";
+    [SerializeField] string soundBannerText = "Sonido";
+    [SerializeField] string controlBannerText = "Controles";
     [Tooltip("Coloca aquí TODOS los botones de 'Regresar' o 'Atrás' que existan en tus paneles")]
     [SerializeField] Button[] returnButtons;
 
@@ -46,8 +48,8 @@ public class SettingsMenuUI : MonoBehaviour
 
         if (bannerTMP != null)
         {
-            bannerTMP.text = currentState == SettingsState.Main ? "Settings" :
-                             currentState == SettingsState.Sound ? "Sound" : "Controls";
+            bannerTMP.text = currentState == SettingsState.Main ? mainBannerText :
+                             currentState == SettingsState.Sound ? soundBannerText : controlBannerText;
         }
 
         if (mainDisplayPanel != null) mainDisplayPanel.SetActive(false);

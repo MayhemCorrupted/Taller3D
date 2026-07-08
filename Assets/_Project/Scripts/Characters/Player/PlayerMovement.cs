@@ -16,10 +16,6 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField] float flySpeed = 10;
     [SerializeField] float flyImpulse = 15;
 
-    [Header("Fly Momentum")]
-    [SerializeField] float flyAcceleration = 6f;
-    [SerializeField] float flyDeceleration = 2f;
-
     bool flying;
     bool canFly = true;
     bool canMove = true;
@@ -91,17 +87,11 @@ public class PlayerMovement : MonoBehaviour
 
     void FlyingMovement()
     {
-        Vector3 targetDirection = cameraTransform.forward * moveInput.y
-                                + cameraTransform.right * moveInput.x;
-        Vector3 targetVelocity = targetDirection.normalized * flySpeed;
-
-        float lerpRate = (moveInput.sqrMagnitude > 0.01f) ? flyAcceleration : flyDeceleration;
-
-        flyCurrentVelocity = Vector3.Lerp(flyCurrentVelocity, targetVelocity, Time.deltaTime * lerpRate);
-
+        Vector3 direction = cameraTransform.forward * moveInput.y + cameraTransform.right * moveInput.x;
+                  
         verticalVelocity = Mathf.Lerp(verticalVelocity, 0f, Time.deltaTime * 5f);
 
-        playerCtrl.Move((flyCurrentVelocity + Vector3.up * verticalVelocity) * Time.deltaTime);
+        playerCtrl.Move((direction.normalized * flySpeed + Vector3.up * verticalVelocity) * Time.deltaTime);
 
         if (playerCtrl.isGrounded) flying = false;
     }
