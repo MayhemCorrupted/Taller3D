@@ -269622,7 +269622,7 @@ MonoBehaviour:
   OnUnpickable:
     m_PersistentCalls:
       m_Calls: []
-  itemPrompt: (E)
+  itemPrompt: '[{key}] Agarrar {item}'
   unpickablePrompt: cannot grab {0}
 --- !u!64 &4414341509935691250
 MeshCollider:
