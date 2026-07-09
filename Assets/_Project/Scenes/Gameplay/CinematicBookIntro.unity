@@ -10548,7 +10548,7 @@ MonoBehaviour:
   cameraTime: 1.2
   imageFade: {fileID: 1180115249}
   delay: 2
-  duration: 4
+  duration: 2
 --- !u!4 &1639179775
 Transform:
   m_ObjectHideFlags: 0

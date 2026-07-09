@@ -957,6 +957,7 @@ GameObject:
   m_Component:
   - component: {fileID: 579514672}
   - component: {fileID: 579514673}
+  - component: {fileID: 579514674}
   m_Layer: 5
   m_Name: Vignet 2
   m_TagString: Untagged
@@ -1026,6 +1027,18 @@ MonoBehaviour:
     dialogueText: "Pero lo encontr\xF3 en otro lugar."
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
+--- !u!225 &579514674
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 579514671}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &593695783
 GameObject:
   m_ObjectHideFlags: 0
@@ -1548,6 +1561,7 @@ GameObject:
   m_Component:
   - component: {fileID: 933266767}
   - component: {fileID: 933266768}
+  - component: {fileID: 933266769}
   m_Layer: 5
   m_Name: Vignet 4
   m_TagString: Untagged
@@ -1622,6 +1636,18 @@ MonoBehaviour:
     dialogueText: Nunca fueron el suyo.
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
+--- !u!225 &933266769
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 933266766}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1021785126
 GameObject:
   m_ObjectHideFlags: 0
@@ -2206,6 +2232,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1483982587}
   - component: {fileID: 1483982588}
+  - component: {fileID: 1483982589}
   m_Layer: 5
   m_Name: Vignet 3
   m_TagString: Untagged
@@ -2248,7 +2275,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::ComicPanel
   virtualCamera: {fileID: 885138308}
-  fadeSpeed: 2
+  fadeSpeed: 1.3
   textSpeed: 0.03
   globalFont: {fileID: 11400000, guid: 0b9caa11d596f9440a9a200e8cd8de26, type: 2}
   globalColor: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
@@ -2275,6 +2302,18 @@ MonoBehaviour:
     dialogueText: "Siempre estuvo all\xED."
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
+--- !u!225 &1483982589
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1483982586}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1551387817
 GameObject:
   m_ObjectHideFlags: 0
@@ -2454,10 +2493,10 @@ MonoBehaviour:
   - {fileID: 1483982588}
   - {fileID: 933266768}
   nextSceneName: Credits
-  cameraTime: 1.2
+  cameraTime: 2
   imageFade: {fileID: 1180115249}
   delay: 2
-  duration: 4
+  duration: 2
 --- !u!4 &1639179775
 Transform:
   m_ObjectHideFlags: 0
@@ -2792,6 +2831,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1774122405}
   - component: {fileID: 1774122406}
+  - component: {fileID: 1774122407}
   m_Layer: 5
   m_Name: Vignet 1
   m_TagString: Untagged
@@ -2861,6 +2901,18 @@ MonoBehaviour:
     dialogueText: "Pero \xE9l lo tom\xF3 de todos maneras."
     audioSource: {fileID: 1639179776}
     audioClip: {fileID: 0}
+--- !u!225 &1774122407
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1774122404}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!1 &1792365070
 GameObject:
   m_ObjectHideFlags: 0

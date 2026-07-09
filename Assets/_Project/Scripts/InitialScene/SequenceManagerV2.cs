@@ -10,7 +10,6 @@ public class SequenceManagerV2 : MonoBehaviour
     [SerializeField] private List<ComicPanel> panels;
     [SerializeField] private string nextSceneName;
     [SerializeField] private float cameraTime = 2f;
-
     [SerializeField] private Image imageFade;
     [SerializeField] private float delay = 1f;
     [SerializeField] private float duration = 1f;
@@ -51,7 +50,7 @@ public class SequenceManagerV2 : MonoBehaviour
     {
         isTransitioning = true;
 
-        yield return new WaitForSeconds(1f);
+        yield return new WaitForSeconds(delay);
 
         float timev = 0f;
         Color colorC = imageFade.color;
@@ -59,11 +58,14 @@ public class SequenceManagerV2 : MonoBehaviour
         while (timev < duration)
         {
             timev += Time.deltaTime;
-            colorC.a = Mathf.SmoothStep(1f, 0f, timev / duration);
+            float t = timev / duration;
+            colorC.a = Mathf.Lerp(1f, 0f, t);
+
             imageFade.color = colorC;
             yield return null;
         }
-
+        colorC.a = 0f;
+        imageFade.color = colorC;
         isTransitioning = false;
     }
 
@@ -86,7 +88,7 @@ public class SequenceManagerV2 : MonoBehaviour
         if (currentPanelIndex < panels.Count)
         {
             panels[currentPanelIndex].ActivatePanel();
-            StartCoroutine(DisablePanelAfterDelay(panelToDisable, cameraTime));
+            StartCoroutine(DisablePanel(panelToDisable, cameraTime));
         }
         else
         {
@@ -94,7 +96,7 @@ public class SequenceManagerV2 : MonoBehaviour
         }
     }
 
-    private IEnumerator DisablePanelAfterDelay(ComicPanel panel, float delay)
+    private IEnumerator DisablePanel(ComicPanel panel, float delay)
     {
         yield return new WaitForSeconds(delay);
 
@@ -115,8 +117,6 @@ public class SequenceManagerV2 : MonoBehaviour
     private IEnumerator FadeAndChangeScene()
     {
         {
-            yield return new WaitForSeconds(delay);
-
             if (imageFade != null)
             {
                 float timev = 0f;
@@ -125,7 +125,8 @@ public class SequenceManagerV2 : MonoBehaviour
                 while (timev < duration)
                 {
                     timev += Time.deltaTime;
-                    colorC.a = Mathf.SmoothStep(0f, 1f, timev / duration);
+                    float t = timev / duration;
+                    colorC.a = Mathf.Lerp(0f, 1f, t);
                     imageFade.color = colorC;
                     yield return null;
                 }
