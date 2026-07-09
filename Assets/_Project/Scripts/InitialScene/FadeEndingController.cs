@@ -5,40 +5,37 @@ using UnityEngine.Playables;
 
 public class FadeEndingController : MonoBehaviour
 {
-    [Header("Componentes")]
     [SerializeField] CanvasGroup fadeGroup;
-    [SerializeField] PlayableDirector timelineDirector;
-
-    [Header("Configuración")]
-    [SerializeField] float fadeDuration = 1f;
-    [SerializeField] string nextSceneName;
+    [SerializeField] PlayableDirector timeline;
+    [SerializeField] float fadeD = 1f;
+    [SerializeField] string sceneName;
 
     void Start()
     {
         StartCoroutine(Fade(1, 0));
 
-        if (timelineDirector != null)
+        if (timeline != null)
         {
-            StartCoroutine(WaitUntilTimelineEnds());
+            StartCoroutine(TimelineEnd());
         }
     }
 
-    IEnumerator WaitUntilTimelineEnds()
+    IEnumerator TimelineEnd()
     {
-        yield return new WaitUntil(() => timelineDirector.state == PlayState.Playing);
-        float totalDuration = (float)timelineDirector.duration;
-        yield return new WaitForSeconds(totalDuration - fadeDuration);
+        yield return new WaitUntil(() => timeline.state == PlayState.Playing);
+        float totalDuration = (float)timeline.duration;
+        yield return new WaitForSeconds(totalDuration - fadeD);
         yield return StartCoroutine(Fade(0, 1));
-        SceneManager.LoadScene(nextSceneName);
+        SceneManager.LoadScene(sceneName);
     }
 
-    IEnumerator Fade(float from, float to)
+    IEnumerator Fade(float fr, float to)
     {
-        float t = 0;
-        while (t < fadeDuration)
+        float tim = 0;
+        while (tim < fadeD)
         {
-            t += Time.deltaTime;
-            fadeGroup.alpha = Mathf.Lerp(from, to, t / fadeDuration);
+            tim += Time.deltaTime;
+            fadeGroup.alpha = Mathf.Lerp(fr, to, tim / fadeD);
             yield return null;
         }
         fadeGroup.alpha = to;

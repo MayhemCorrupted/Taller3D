@@ -9822,11 +9822,6 @@ MonoBehaviour:
   m_SelectedFaces: 
   m_SelectedEdges: []
   m_SelectedVertices: 
---- !u!320 &283212111 stripped
-PlayableDirector:
-  m_CorrespondingSourceObject: {fileID: 5660445202456500112, guid: f8d6acc46dde21f4199bbe9cf69c2b1d, type: 3}
-  m_PrefabInstance: {fileID: 401182190626760594}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &286632884
 GameObject:
   m_ObjectHideFlags: 0
@@ -23479,9 +23474,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FadeEndingController
   fadeGroup: {fileID: 228659369}
-  timelineDirector: {fileID: 283212111}
-  fadeDuration: 2
-  nextSceneName: CinematicBookEnd
+  timeline: {fileID: 0}
+  fadeD: 1
+  sceneName: 
 --- !u!1 &534073354
 GameObject:
   m_ObjectHideFlags: 0
