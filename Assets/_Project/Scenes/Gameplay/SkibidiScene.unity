@@ -127369,20 +127369,12 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 2142927681}
     - target: {fileID: 2273948700547457713, guid: bdca37cd1a9bc5d419012aadebdb9156, type: 3}
-      propertyPath: cameraSmoothTime
-      value: 0.5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2273948700547457713, guid: bdca37cd1a9bc5d419012aadebdb9156, type: 3}
       propertyPath: fallbackCanvasGroup
       value: 
       objectReference: {fileID: 1993478372}
     - target: {fileID: 2273948700547457713, guid: bdca37cd1a9bc5d419012aadebdb9156, type: 3}
       propertyPath: mouseInterruptDuration
-      value: 0.05
-      objectReference: {fileID: 0}
-    - target: {fileID: 2273948700547457713, guid: bdca37cd1a9bc5d419012aadebdb9156, type: 3}
-      propertyPath: mouseSensitivityThreshold
-      value: 0.0001
+      value: 0.01
       objectReference: {fileID: 0}
     - target: {fileID: 3198671966106536585, guid: bdca37cd1a9bc5d419012aadebdb9156, type: 3}
       propertyPath: m_Name

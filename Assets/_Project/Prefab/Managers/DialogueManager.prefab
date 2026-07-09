@@ -44,6 +44,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 36facfb1cf9dc0c48b0925bc6c7a71e1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::DialogueManager
+  mainCamera: {fileID: 0}
   playerCamera: {fileID: 0}
-  mouseInterruptDuration: 0.3
-  mouseSensitivityThreshold: 0.001
+  defaultTimePerCharacter: 0.015
+  defaultFadeDuration: 0.4
+  fallbackCanvasGroup: {fileID: 0}
+  fallbackUIText: {fileID: 0}
+  fallbackFadeSpeed: 5
+  cameraSmoothTime: 0.5
+  mouseInterruptDuration: 0.05
+  mouseSensitivityThreshold: 0.0001
