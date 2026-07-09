@@ -12,7 +12,7 @@ public class InteractiveObjectLight : MonoBehaviour
 
     private Material[] materials;
 
-    void Start()
+    void Awake()
     {
         if (targetRenderer == null)
         {
@@ -44,7 +44,6 @@ public class InteractiveObjectLight : MonoBehaviour
             }
         }
     }
-
     void OnDisable()
     {
         foreach (Material material in materials)
