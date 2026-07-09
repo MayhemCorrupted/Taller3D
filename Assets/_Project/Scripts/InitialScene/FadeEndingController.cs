@@ -5,9 +5,9 @@ using UnityEngine.Playables;
 
 public class FadeEndingController : MonoBehaviour
 {
-    [SerializeField] CanvasGroup fadeGroup;
+    [SerializeField] CanvasGroup fade;
     [SerializeField] PlayableDirector timeline;
-    [SerializeField] float fadeD = 1f;
+    [SerializeField] float duration = 1f;
     [SerializeField] string sceneName;
 
     void Start()
@@ -24,7 +24,7 @@ public class FadeEndingController : MonoBehaviour
     {
         yield return new WaitUntil(() => timeline.state == PlayState.Playing);
         float totalDuration = (float)timeline.duration;
-        yield return new WaitForSeconds(totalDuration - fadeD);
+        yield return new WaitForSeconds(totalDuration - duration);
         yield return StartCoroutine(Fade(0, 1));
         SceneManager.LoadScene(sceneName);
     }
@@ -32,12 +32,12 @@ public class FadeEndingController : MonoBehaviour
     IEnumerator Fade(float fr, float to)
     {
         float tim = 0;
-        while (tim < fadeD)
+        while (tim < duration)
         {
             tim += Time.deltaTime;
-            fadeGroup.alpha = Mathf.Lerp(fr, to, tim / fadeD);
+            fade.alpha = Mathf.Lerp(fr, to, tim / duration);
             yield return null;
         }
-        fadeGroup.alpha = to;
+        fade.alpha = to;
     }
 }

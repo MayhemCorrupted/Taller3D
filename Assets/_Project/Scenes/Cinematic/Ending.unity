@@ -23473,10 +23473,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8189a55472892d845b6a319159750828, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FadeEndingController
-  fadeGroup: {fileID: 228659369}
-  timeline: {fileID: 0}
-  fadeD: 1
-  sceneName: 
+  fade: {fileID: 228659369}
+  timeline: {fileID: 401182190626760595}
+  duration: 1
+  sceneName: Credits
 --- !u!1 &534073354
 GameObject:
   m_ObjectHideFlags: 0
@@ -112029,6 +112029,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f8d6acc46dde21f4199bbe9cf69c2b1d, type: 3}
+--- !u!320 &401182190626760595 stripped
+PlayableDirector:
+  m_CorrespondingSourceObject: {fileID: 5660445202456500112, guid: f8d6acc46dde21f4199bbe9cf69c2b1d, type: 3}
+  m_PrefabInstance: {fileID: 401182190626760594}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &403609859239242878
 Transform:
   m_ObjectHideFlags: 0

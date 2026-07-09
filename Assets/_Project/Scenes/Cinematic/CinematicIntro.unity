@@ -22914,10 +22914,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8189a55472892d845b6a319159750828, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::FadeEndingController
-  fadeGroup: {fileID: 228659369}
-  timelineDirector: {fileID: 591283400}
-  fadeDuration: 2
-  nextSceneName: SkibidiScene
+  fade: {fileID: 228659369}
+  timeline: {fileID: 591283400}
+  duration: 1
+  sceneName: WalkthroughScene
 --- !u!1 &534073354
 GameObject:
   m_ObjectHideFlags: 0
@@ -66017,7 +66017,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1289211621}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &1289211624
 Camera:
   m_ObjectHideFlags: 0
@@ -67038,7 +67038,7 @@ AudioListener:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1305519957}
-  m_Enabled: 1
+  m_Enabled: 0
 --- !u!20 &1305519960
 Camera:
   m_ObjectHideFlags: 0
