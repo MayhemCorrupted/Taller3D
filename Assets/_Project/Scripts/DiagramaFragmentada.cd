@@ -1,0 +1,762 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="InputManager">
+    <Position X="9" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAAAAAAAAAAAAAAAAACIIAAAAQYACAAAAQAEA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Characters\Player\InputManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerCamera">
+    <Position X="0.5" Y="1.5" Width="2" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Struct Name="PlayerCamera.BobbingProfile">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\_Project\Scripts\Characters\Player\PlayerCamera.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+      <Enum Name="PlayerCamera.MovementState">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\_Project\Scripts\Characters\Player\PlayerCamera.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>EAQAgAIQCCBAABABIAACABgEAAAAgIAAIAAIAABACEE=</HashCode>
+      <FileName>Assets\_Project\Scripts\Characters\Player\PlayerCamera.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerFootStepSounds">
+    <Position X="4.75" Y="1.5" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Struct Name="PlayerFootStepSounds.SurfaceSettings">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\_Project\Scripts\Characters\Player\PlayerFootStepSounds.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAQAAAAAAAAEAAEAAAgAAAIIEAIAAAgAAIAAAAAAAEA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Characters\Player\PlayerFootStepSounds.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerInteractor">
+    <Position X="6.75" Y="1.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>CASEAGAAAAAOAAACAAAAABAAYAAACAAAAAAAAAgACIA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Characters\Player\PlayerInteractor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PlayerMovement">
+    <Position X="2.75" Y="1.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAQBGCgAAAAgBQAAAIQIAgABCIAACQAEAAAACASFAEA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Characters\Player\PlayerMovement.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DraggablePuzzle" BaseTypeListCollapsed="true">
+    <Position X="20.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>EMQABIQAACEAQAAgIQAAAQCAIoIAggAAIEAAACABAAA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Core\Puzzle\DraggablePuzzle\DraggablePuzzle.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FuseDraggable" BaseTypeListCollapsed="true">
+    <Position X="22.5" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>IAgkAAAAgCAAAAIgIABAMAAAAAAAACCAgAAAAAAAAMA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Core\Puzzle\DraggablePuzzle\Fusedraggable.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="FuseSlot" BaseTypeListCollapsed="true">
+    <Position X="26.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAAAAAAAAAAAAAIAAAAAAQAAAAAAA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Core\Puzzle\DraggablePuzzle\Fuseslot.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SafeDialPuzzle" BaseTypeListCollapsed="true">
+    <Position X="17.75" Y="1.5" Width="2.75" />
+    <TypeIdentifier>
+      <HashCode>EIQAgIQAACAAAAAwIJEgAQAAIAAAAiBABAAAAAAIRAg=</HashCode>
+      <FileName>Assets\_Project\Scripts\Core\Puzzle\SafeDialPuzzle\SafeDialPuzzle.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SafeDialUI" BaseTypeListCollapsed="true">
+    <Position X="24.25" Y="1.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>QACCSAgBAACIAAAQAABAAAgAAAgIAAAAAAAgAAAAAEA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Core\Puzzle\SafeDialPuzzle\SafeDialUI.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SwitchPuzzle" BaseTypeListCollapsed="true">
+    <Position X="13.25" Y="1.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>EMAABIQEACMgAAAgBBEAAJAAIoAAijAAIEAACEABAEA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Core\Puzzle\SwitchesPuzzle\SwitchPuzzle.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="BaseSwitchLogic">
+    <Position X="18" Y="12.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Core\Puzzle\SwitchesPuzzle\SwitchPuzzleLogic.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Variant1Logic">
+    <Position X="19.25" Y="14.5" Width="1.5" />
+    <InheritanceLine Type="BaseSwitchLogic" FixedFromPoint="true" FixedToPoint="true">
+      <Path>
+        <Point X="19.5" Y="13.313" />
+        <Point X="19.938" Y="13.313" />
+        <Point X="19.938" Y="14.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Core\Puzzle\SwitchesPuzzle\SwitchPuzzleLogic.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Variant2Logic">
+    <Position X="17" Y="14.5" Width="1.5" />
+    <InheritanceLine Type="BaseSwitchLogic" FixedFromPoint="true">
+      <Path>
+        <Point X="18" Y="13.312" />
+        <Point X="17.5" Y="13.312" />
+        <Point X="17.5" Y="14.5" />
+      </Path>
+    </InheritanceLine>
+    <TypeIdentifier>
+      <HashCode>AAAAAEAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAABAA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Core\Puzzle\SwitchesPuzzle\SwitchPuzzleLogic.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PanelCodePuzzle" BaseTypeListCollapsed="true">
+    <Position X="11" Y="1.5" Width="2" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="PanelCodePuzzle.PuzzleSaveData">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\_Project\Scripts\Core\Puzzle\PanelCodePuzzle.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>MAYBBAAhCCCgBBigoKAQCAABIAAcggIBEASDBCAMAEk=</HashCode>
+      <FileName>Assets\_Project\Scripts\Core\Puzzle\PanelCodePuzzle.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SequencePathPuzzle" BaseTypeListCollapsed="true">
+    <Position X="15.5" Y="1.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>EAQjAsAAAiECAAIAIIAgAAAAIAAQEhIAAEAAAACoAAg=</HashCode>
+      <FileName>Assets\_Project\Scripts\Core\Puzzle\SequencePathPuzzle.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="DoorController" BaseTypeListCollapsed="true">
+    <Position X="0.5" Y="18" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>IAgACkQACACAAkwAAEAAEAAAIQQEAhGIBAINACQQAEA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Core\DoorController.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="EnvironmentFeedback">
+    <Position X="4.75" Y="18" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAACEAAAQAAAQBAAAAAAAAgAAAQCBAIAAAAgAAAAEEI=</HashCode>
+      <FileName>Assets\_Project\Scripts\Core\Environmentfeedback.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="EquipmentManager">
+    <Position X="8.5" Y="18" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>BAAAQAAAAQAAAAAAAAAAAAAAAAAAAgAAQAAAAIAAAFA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Core\EquipmentManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KeyDoor">
+    <Position X="6.75" Y="18" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAgAAAAACAAAAAAAAAABAgEAAQIAAgAAEA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Core\KeyDoor.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="StateProgressionManager">
+    <Position X="2.5" Y="18" Width="2" />
+    <TypeIdentifier>
+      <HashCode>KAAgSAJIACAAAAAAJQAAAAgAAIAAAAAAAIAIAFAAAEA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Core\StateProgressionManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SecuenceManager">
+    <Position X="10.75" Y="18" Width="2" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Struct Name="SecuenceManager.DialogueStep">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\_Project\Scripts\InitialScene\old\SecuenceManager.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+      <Struct Name="SecuenceManager.PanelData">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\_Project\Scripts\InitialScene\old\SecuenceManager.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>CAAAAABBEShAAAgACGAAIAABAIAAGCAACKAACAEAAgA=</HashCode>
+      <FileName>Assets\_Project\Scripts\InitialScene\old\SecuenceManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ComicPanel">
+    <Position X="13" Y="18" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="ComicPanel.StepData">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\_Project\Scripts\InitialScene\ComicPanel.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>DAAAAAAIEUgAAAAAAFAAAAABAAAASKAACCAAiAgAAAA=</HashCode>
+      <FileName>Assets\_Project\Scripts\InitialScene\ComicPanel.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FadeEndingController">
+    <Position X="21.25" Y="18" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAIAACACIAAAgAAABAAAAAQAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Project\Scripts\InitialScene\FadeEndingController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SequenceManagerV2">
+    <Position X="16.75" Y="18" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AACAAAICASAAIAAABAAEIAgAAIAAAAAAAIAAAQAAEEA=</HashCode>
+      <FileName>Assets\_Project\Scripts\InitialScene\SequenceManagerV2.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CreditsManager">
+    <Position X="19" Y="18" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAgAEIAAAAAAgAAAAAABAAACAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Menu\CreditsManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MenuManager">
+    <Position X="14.75" Y="18" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAQAAABAACKAAAAACAAAADAAAGEAEIAAAQAEBAAAAgA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Menu\MenuManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProceduralBasementSection">
+    <Position X="30.5" Y="18" Width="2.25" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Struct Name="ProceduralBasementSection.FusePuzzleVariant">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\_Project\Scripts\Procedural\ProceduralBasementSection.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAIAAAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Procedural\ProceduralBasementSection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProceduralKitchenSection">
+    <Position X="23.5" Y="18" Width="2.25" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Struct Name="ProceduralKitchenSection.SpawnLocation">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\_Project\Scripts\Procedural\ProceduralKitchenSection.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+      <Struct Name="ProceduralKitchenSection.PuzzleVariant">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\_Project\Scripts\Procedural\ProceduralKitchenSection.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAACAAAAAACAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Procedural\ProceduralKitchenSection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProceduralLibrarySection">
+    <Position X="26" Y="18" Width="2" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Struct Name="ProceduralLibrarySection.LibraryPuzzleVariant">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\_Project\Scripts\Procedural\ProceduralLibrarySection.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAEAAAAACAAAAAQAAAAAgAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Procedural\ProceduralLibrarySection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProceduralOfficeSection">
+    <Position X="28.25" Y="18" Width="2" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Struct Name="ProceduralOfficeSection.OfficePuzzleVariant">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\_Project\Scripts\Procedural\ProceduralOfficeSection.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAACAAAAAAgAAAAAAAAAAAAAAAAAAAgAAAAAA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Procedural\ProceduralOfficeSection.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ProceduralSeedGenerator">
+    <Position X="33" Y="18" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAARAAAAAAAAAAAASAAACAAAAQAAMAgAAAEA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Procedural\ProceduralSeedGenerator.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AudioLibrary">
+    <Position X="6.75" Y="30" Width="2" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="AudioLibrary.AudioType">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\_Project\Scripts\Systems\Audio\AudioLibrary.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+      <Struct Name="AudioLibrary.AudioTrack">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\_Project\Scripts\Systems\Audio\AudioLibrary.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>CAEBAAGAACAAAABACAAAAAAAAAAAEAAAAAAAAAAAAkA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Systems\Audio\AudioLibrary.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="AudioManager">
+    <Position X="17.75" Y="30" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAABAEAIAAIAAACAAAAABAQAQIAAAAQABEA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Systems\Audio\AudioManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CameraPriorityManager">
+    <Position X="20.25" Y="30" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>BAAAABAAAAAQEAAIAAAAAACACAAAEAAAQCAAAAAAAEA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Systems\Camera\CameraPriorityManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CameraTrigger">
+    <Position X="15.5" Y="30" Width="2" />
+    <TypeIdentifier>
+      <HashCode>CAQAAAAEAAICIgAAAAAAAJAAAAAAAAAAAACQAAQAAEA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Systems\Camera\CameraTrigger.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CinematicController">
+    <Position X="4.5" Y="30" Width="2" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Class Name="CinematicController.CinematicEntry">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\_Project\Scripts\Systems\CinematicController\CinematicController.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Class>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAEQAAAAQAAgADAAwAAAAEQAERACCAAEA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Systems\CinematicController\CinematicController.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CinematicTrigger">
+    <Position X="13.5" Y="30" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="CinematicTrigger.TriggerMode">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\_Project\Scripts\Systems\CinematicController\CinematicTrigger.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>QAIAAAAAACAABADAAAAAAAAAAAAAAAAAQAABAAAAAAA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Systems\CinematicController\CinematicTrigger.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CaosDialogueManager">
+    <Position X="0.5" Y="30" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Struct Name="CaosDialogueManager.DialoguesChaos">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\_Project\Scripts\Systems\Dialogue\Extras\CaosDialogueManager.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+      <Struct Name="CaosDialogueManager.SpawnPoint">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\_Project\Scripts\Systems\Dialogue\Extras\CaosDialogueManager.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Struct>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AgAAAAQAAQBACIBAQAAAAACAAAAAAAACQABDAAAAAEE=</HashCode>
+      <FileName>Assets\_Project\Scripts\Systems\Dialogue\Extras\CaosDialogueManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DialogueManager">
+    <Position X="9" Y="30" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AAACAAAQGIAAAgAAARAQCAAAEFQCFAAAYEBAQCAAyUA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Systems\Dialogue\DialogueManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="DialogueReader">
+    <Position X="30.75" Y="30" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAEAAAAAAAAAAAAAAIAAAIAAAAAAAAAQAAQ=</HashCode>
+      <FileName>Assets\_Project\Scripts\Systems\Dialogue\DialogueReader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Dialogues">
+    <Position X="29" Y="30" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAIAAAAAEAAAAAAAAAAAAAAQAAEAAAAAEA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Systems\Dialogue\Dialogues.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InteractiveObjectLight">
+    <Position X="27" Y="30" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AEQAAAAAAAABAAAAAAAAEAACAAAAAAAIAAAAAABAAEA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Systems\Inventory\InteractiveObjectLight.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InventoryManager">
+    <Position X="11.5" Y="30" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AABgAAEAAACBAEAAAAAAAAAAgEggBAAMQAAAAAAAAEA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Systems\Inventory\InventoryManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Item" BaseTypeListCollapsed="true">
+    <Position X="22.75" Y="30" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAACACQAAAAAEEAAABBAAAAAIAAAAgACgAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Systems\Inventory\Item.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="NotesManager">
+    <Position X="24.75" Y="30" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAQAAAACIAAAAAAEEAAAQAAAAAAIEEA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Systems\Inventory\NotesManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="UserInterfaceManager">
+    <Position X="2.5" Y="30" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="UserInterfaceManager.PanelType">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\_Project\Scripts\Systems\UI\UserInterfaceManager.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AACABAAEAAAEBAAAAAAAAAICAAAEAQABQACEhAAAIEA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Systems\UI\UserInterfaceManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="CameraSettingsUI">
+    <Position X="40.5" Y="1.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>IAAAiAAAASAQAAAgAIAAACAEAAAAAAAABAAACAAAAEA=</HashCode>
+      <FileName>Assets\_Project\Scripts\UI\Settings\CameraSettingsUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="KeybindMapping">
+    <Position X="52.75" Y="1.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>ABAAIAAAAAAAAAAAAAAEAAgAAAAAAAAAAAAgAAAAAAA=</HashCode>
+      <FileName>Assets\_Project\Scripts\UI\Settings\ControlsSectionUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ControlsSectionUI">
+    <Position X="42.5" Y="1.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAgCAAAECAAGAAAQIAAAAAAAAAQAAAAAAAAAAAAAQA=</HashCode>
+      <FileName>Assets\_Project\Scripts\UI\Settings\ControlsSectionUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SettingsDataManager">
+    <Position X="50.75" Y="1.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>ABABAAAAAABAAAQAAAAAAABgAAEAAAAAIAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Project\Scripts\UI\Settings\SettingsDataManager.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SettingsMenuUI">
+    <Position X="36" Y="1.5" Width="2" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="SettingsMenuUI.SettingsState">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\_Project\Scripts\UI\Settings\SettingsMenuUI.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAEAQhAAAIAAABIAAAAAAAAAAAAAiAACMAEA=</HashCode>
+      <FileName>Assets\_Project\Scripts\UI\Settings\SettingsMenuUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="SoundSectionUI">
+    <Position X="48.75" Y="1.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAACAAACCAAEAAAAAAAAAAAAAAAAAAAgAAAAAAAAQQ=</HashCode>
+      <FileName>Assets\_Project\Scripts\UI\Settings\SoundSectionUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="FadeUI">
+    <Position X="46.5" Y="1.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>ICAAAAkAAAAAAAAAAAAAAAAAAAAAAAAAAAAAoAAAAUA=</HashCode>
+      <FileName>Assets\_Project\Scripts\UI\FadeUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="InventoryUI">
+    <Position X="31.5" Y="1.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>EAQBAAgAACCEAgAAAAIgAAAAAAgQDAAAIIJIAUIAREQ=</HashCode>
+      <FileName>Assets\_Project\Scripts\UI\InventoryUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="MainMenuUI">
+    <Position X="44.5" Y="1.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAEgAAIAAAAAAAKAAACAIAAAAAAAAAAEA=</HashCode>
+      <FileName>Assets\_Project\Scripts\UI\MainMenuUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NoteInspectEvent">
+    <Position X="54.5" Y="1.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAIAAAACAAAAAAAAAAAIAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Project\Scripts\UI\NotesUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NotesUI">
+    <Position X="29" Y="1.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>AABhEgAhAiAAAAAABAwAEhAEAAQAQAAASAKAIAAkCFg=</HashCode>
+      <FileName>Assets\_Project\Scripts\UI\NotesUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="PauseMenuUI">
+    <Position X="38.25" Y="1.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>IAQBCAAAACECAAAAAAEAEIAEAYACAAACABAAEAAAIAA=</HashCode>
+      <FileName>Assets\_Project\Scripts\UI\PauseMenuUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ReadBookUI">
+    <Position X="33.75" Y="1.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>IAQAAABAYCAACABABCgAQAAEAgABAAAwUAQAgAQDAAA=</HashCode>
+      <FileName>Assets\_Project\Scripts\UI\ReadBookUI.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="BoxTrigger">
+    <Position X="41.75" Y="18" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAggABAAAAAAAAAAAQAAAAAAAAAQAAAAAAgAEQ=</HashCode>
+      <FileName>Assets\_Project\Scripts\Utils\BoxTrigger.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ItemData">
+    <Position X="35.75" Y="18" Width="1.5" />
+    <Compartments>
+      <Compartment Name="Nested Types" Collapsed="false" />
+    </Compartments>
+    <NestedTypes>
+      <Enum Name="ItemData.ItemType">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\_Project\Scripts\Utils\ItemData.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAAAAAABAAAAAAAIAAAAAAAABAAAAAIAAACAAAAAgA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Utils\ItemData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="NoteData">
+    <Position X="35.75" Y="22" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAABAAgAAAAAAAAAAMAAAAAAAAAAIAAAAAAA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Utils\NoteData.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="OpenObjects" BaseTypeListCollapsed="true">
+    <Position X="39.75" Y="18" Width="1.75" />
+    <NestedTypes>
+      <Enum Name="OpenObjects.OpenMode" Collapsed="true">
+        <TypeIdentifier>
+          <NewMemberFileName>Assets\_Project\Scripts\Utils\OpenObjects.cs</NewMemberFileName>
+        </TypeIdentifier>
+      </Enum>
+    </NestedTypes>
+    <TypeIdentifier>
+      <HashCode>AAAECEEQIAAAEAAAEAAIAAAAIAAAAgAAQIABYDAACEA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Utils\OpenObjects.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="SceneLoader">
+    <Position X="37.5" Y="18" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAEAIAQAAAAAAAAAAAABAAAAAA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Utils\SceneLoader.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="ShowFPS">
+    <Position X="46" Y="18" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAQBAAAAACAAAAAAAAAAAAAQAAAAAAAIAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Utils\ShowFPS.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="TriggerInteract" BaseTypeListCollapsed="true">
+    <Position X="44" Y="18" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAgAAAAAABAQAAAAAAIAgQAgAAAEAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Utils\TriggerInteract.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Struct Name="SlotRequirement">
+    <Position X="12.75" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Core\Puzzle\DraggablePuzzle\DraggablePuzzle.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="PuzzleVariant">
+    <Position X="11" Y="14.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAEAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Core\Puzzle\SwitchesPuzzle\SwitchPuzzleLogic.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="StateProgressionStep">
+    <Position X="0.5" Y="26.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>IAAAAAAEAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Core\StateProgressionManager.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DialogueLineData">
+    <Position X="0.5" Y="39.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAQQAAIAgCAAgACAAAAAAAgAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Systems\Dialogue\Dialogues.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="DialogueEntry">
+    <Position X="2.5" Y="39.25" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAEAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Systems\Dialogue\Dialogues.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="FadeEvents">
+    <Position X="30.75" Y="9.75" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAACQAAAwAAAAQAAAAAAAABAAACAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Project\Scripts\UI\FadeUI.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Struct Name="BookPage">
+    <Position X="29" Y="9.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AQAgAAAEAAAAAAAAAAAAAAEAAAAAAAABAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Project\Scripts\UI\ReadBookUI.cs</FileName>
+    </TypeIdentifier>
+  </Struct>
+  <Interface Name="IInteractable">
+    <Position X="0.5" Y="11.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAAAIAAAAgAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Characters\Player\PlayerInteractor.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="ISwitchVariantLogic">
+    <Position X="14.75" Y="14.5" Width="1.75" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Core\Puzzle\SwitchesPuzzle\SwitchPuzzleLogic.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="DialogueType">
+    <Position X="4.75" Y="39.25" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEAA=</HashCode>
+      <FileName>Assets\_Project\Scripts\Systems\Dialogue\Dialogues.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>
