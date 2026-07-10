@@ -14,30 +14,27 @@ public class FadeEndingController : MonoBehaviour
     {
         StartCoroutine(Fade(1, 0));
 
-        if (timeline != null)
-        {
-            StartCoroutine(TimelineEnd());
-        }
+        timeline.stopped += TimelineEnd;
     }
-
-    IEnumerator TimelineEnd()
+    private void TimelineEnd (PlayableDirector director)
     {
-        yield return new WaitUntil(() => timeline.state == PlayState.Playing);
-        float totalDuration = (float)timeline.duration;
-        yield return new WaitForSeconds(totalDuration - duration);
+        StartCoroutine(ChangeScene());
+    }
+    IEnumerator ChangeScene()
+    {
         yield return StartCoroutine(Fade(0, 1));
         SceneManager.LoadScene(sceneName);
     }
-
-    IEnumerator Fade(float fr, float to)
+    
+    IEnumerator Fade(float b, float f)
     {
         float tim = 0;
         while (tim < duration)
         {
             tim += Time.deltaTime;
-            fade.alpha = Mathf.Lerp(fr, to, tim / duration);
+            fade.alpha = Mathf.Lerp(b, f, tim / duration);
             yield return null;
         }
-        fade.alpha = to;
+        fade.alpha = f;
     }
 }
